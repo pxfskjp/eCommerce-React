@@ -3,7 +3,13 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection:'postgres://localhost/usemytools_dev_db',
+    connection: {
+      host: 'locashost',
+      user: 'camerontools',
+      password: 'toolshed',
+      database: 'usemytoolsdev',
+      charset: 'utf8'
+    },
     migrations: {
       directory: './db/migrations'
     },
