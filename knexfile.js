@@ -4,8 +4,8 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'locashost',
-      user: 'camerontools',
+      host: 'localhost',
+      user: 'camerontools',     
       password: 'toolshed',
       database: 'usemytoolsdev',
       charset: 'utf8'
