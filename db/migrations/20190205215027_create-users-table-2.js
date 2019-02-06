@@ -6,9 +6,9 @@ exports.up = function(knex, Promise) {
             table.string('username').unique().notNullable();
             table.string('password').notNullable();
             table.string('email').unique().notNullable();
-            tbl.string('firstname').notNullable();
-            tbl.string('lastname').notNullable();
-            tbl.string('street_address');
+            table.string('firstname').notNullable();
+            table.string('lastname').notNullable();
+            table.string('street_address');
         })
     ])
 };
