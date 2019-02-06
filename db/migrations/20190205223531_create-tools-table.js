@@ -28,3 +28,5 @@ exports.down = function(knex, Promise) {
         knex.schema.dropTableIfEsists('tools')
     ])
 };
+
+// **** After this migration I'm attempting to use Postico
