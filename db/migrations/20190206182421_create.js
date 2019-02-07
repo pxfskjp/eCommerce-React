@@ -11,12 +11,14 @@ exports.up = function(knex, Promise) {
                 .references('id')
                 .inTable('images');
         
-            table.primary(['tool_id', 'img_id']);   // primary key is a combination of tool_id and image_id
+            table.primary(['tool_id', 'image_id']);   // primary key is a combination of tool_id and image_id
         })
     ])
     
 };
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists('tool_images');
+    return Promise.all([
+        knex.schema.dropTableIfExists('tool_images')
+    ])
 };
