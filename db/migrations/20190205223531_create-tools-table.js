@@ -29,4 +29,3 @@ exports.down = function(knex, Promise) {
     ])
 };
 
-// **** After this migration I'm attempting to use Postico
