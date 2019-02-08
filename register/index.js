@@ -1,18 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
-// *** TO DO ***
-// DONE create an auth folder with auth middleware/helper functions 
-// DONE generate an auth token in this file
-// DONE import/require db confit (db.js) filepath
-
 
 const { generateToken } = require('../middleware/authenticate.js');
 const db = require('../db/db.js');
 
-const server = express.Router();
+const router = express.Router();
 
-server.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
     let { username, password, email, image_id, firstname, lastname } = req.body;
 
     // Error checking for missing required fields
@@ -73,8 +68,7 @@ server.post('/', async (req, res) => {
         });
     }
     
-      catch (err) {
-    
+    catch (err) {
         const existingUsername = await db.select()
             .from('users')
             .where({ username })
@@ -83,7 +77,6 @@ server.post('/', async (req, res) => {
             .from('users')
             .where({ email })
             .first();
-    
         if (existingUsername || existingEmail) {
             res.status(400)
                 .json({
@@ -92,57 +85,56 @@ server.post('/', async (req, res) => {
                     duplicateEmail: withEmail !== undefined
                 });
         }
-    
         else {
           res.status(500).json({message: 'Internal server error'});
         }
-      }
-});
-    
-server.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    if (!username) {
-        res.status(400).json({message: 'You must provide a username.'});
-        return;
-    }
-    
-    if (!password) {
-        res.status(400).json({message: 'You must provide a password.'});
-        return;
-    }
-    
-    try {
-        const user = await db.select('user.username', 'user.password', 'user.id', 'user.firstname', 'user.lastname', 'image.url as image_url')
-            .from('users as user')
-            .join('images as image', 'user.image_id', '=', 'image.id')
-            .where('u.username', username)
-            .first();
-    
-        if (user) {
-          const password_match = await bcrypt.compare(password, user.password);
-    
-          if (password_match) {
-            const token = await generateToken(user);
-    
-            res.status(200).json({
-              user_id: user.id,
-              username: user.username,
-              image_url: user.image_url,
-              firstname: user.firstname,
-              lastname: user.lastname,
-              token
-            });
-          }
-        }
-    
-        res.status(401).json({message: 'Username and/or password was invalid.'});
-    }
-    
-    catch (err) {
-        res.status(500);
     }
 });
+    
+// router.post('/login', async (req, res) => {
+//     const { username, password } = req.body;
+//     if (!username) {
+//         res.status(400).json({message: 'You must provide a username.'});
+//         return;
+//     }
+    
+//     if (!password) {
+//         res.status(400).json({message: 'You must provide a password.'});
+//         return;
+//     }
+    
+//     try {
+//         const user = await db.select('user.username', 'user.password', 'user.id', 'user.firstname', 'user.lastname', 'image.url as image_url')
+//             .from('users as user')
+//             .join('images as image', 'user.image_id', '=', 'image.id')
+//             .where('u.username', username)
+//             .first();
+    
+//         if (user) {
+//           const password_match = await bcrypt.compare(password, user.password);
+    
+//           if (password_match) {
+//             const token = await generateToken(user);
+    
+//             res.status(200).json({
+//               user_id: user.id,
+//               username: user.username,
+//               image_url: user.image_url,
+//               firstname: user.firstname,
+//               lastname: user.lastname,
+//               token
+//             });
+//           }
+//         }
+    
+//         res.status(401).json({message: 'Username and/or password was invalid.'});
+//     }
+    
+//     catch (err) {
+//         res.status(500);
+//     }
+// });
 
-module.exports = server;
+module.exports = router;
 
 

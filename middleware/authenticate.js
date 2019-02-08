@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const jwtKey = process.env.JWT_SECRET || 'millertime';
 
-const createToken = user => {      // take in a user (username, password, etc) as argument
+const createToken = user => {      // take in a user ie { username, password } as argument
 
     const payload = {              
       subject: user.id,            // get the id of the user trying to register
@@ -14,9 +14,7 @@ const createToken = user => {      // take in a user (username, password, etc) a
     }
   
     return new Promise((res, rej) => {
-
       jwt.sign(payload, jwtKey, options, (err, token) => {
-
         if (err)
           rej(err);
         else
@@ -30,7 +28,6 @@ const authenticate = (req, res, next) => {
     const token = req.get('Authorization');
   
     if (token) {
-  
       jwt.verify(token, jwtKey, (err, decoded) => {
   
         if (err) {
@@ -44,7 +41,7 @@ const authenticate = (req, res, next) => {
   
     else {
       res.status(401).json({
-        message: 'You are not authorized! Please log in.'
+        message: 'Not authorized'
       });
     }
 }
