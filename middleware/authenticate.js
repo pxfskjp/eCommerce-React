@@ -51,7 +51,7 @@ const authenticate = (req, res, next) => {
   
 module.exports = {
   
-    generateToken,
+    createToken,
     authenticate
   
 }
