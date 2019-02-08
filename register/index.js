@@ -12,7 +12,7 @@ const db = require('../db/db.js');
 
 const server = express.Router();
 
-server.post('/register', async (req, res) => {
+server.post('/', async (req, res) => {
     let { username, password, email, image_id, firstname, lastname } = req.body;
 
     // Error checking for missing required fields
