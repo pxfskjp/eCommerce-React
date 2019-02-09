@@ -28,26 +28,15 @@ router.post('/', async (req, res) => {
             .from('users as user')
             .where('user.username', username)
             .first()
-            .then(data => {
-                console.log(data);  // log whatever data comes back
-                res.status(200).json(user_creds);
-            })
-            .catch(err => {
-                console.log("user_creds not found in db");
-                res.status(500).json(err);
-            });
+            
+        if (user_creds) {
+            password = bcrypt.hash(password, 1);
+            // const password_match = await bcrypt.compare(password, user.password);
     
-        if (user.creds) {
-            const password_match = await bcrypt.compare(password, user.password);
-    
-            if (password_match) {
-                const token = await generateToken(user_creds);
+            if (password == user.password) {
+                const token = generateToken(user_creds);
                 res.status(200).json({
-                    // user_id: user.id,
                     username: user.username,
-                    // image_url: user.image_url,
-                    // firstname: user.firstname,
-                    // lastname: user.lastname,
                     token
                 });
             }

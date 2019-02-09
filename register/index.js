@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
-
 const { generateToken } = require('../middleware/authenticate.js');
 const db = require('../db/db.js');
 
@@ -9,7 +8,6 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     let { username, password, email, image_id, firstname, lastname } = req.body;
-
     // Error checking for missing required fields
     if (!username) {
         res.status(400).json({message: 'no username provided'});
@@ -36,34 +34,46 @@ router.post('/', async (req, res) => {
     }
     
     try {
-        password = await bcrypt.hash(password, 1);
+        password = await bcrypt.hash(password, 1);  // bcrypt hash the password
     
         await db
-            .insert({ username, password, email, image_id, firstname, lastname })
-            .into('users')
-            .then(user => {
-                console.log(user);
-                res.status(200).json(user);
+            .insert({ username, password, email, image_id, firstname, lastname })  // insert new user info, password is now bcrypt hashed
+            .into('users');
+            // .then(data => {
+            //     console.log(data);
+            //     res.status(200).json(data);
+            // })
+            // .catch(err => {
+            //     console.log("Error inserting user into db");
+            //     res.status(500).json(err)
+            // });
+
+        // const user = await db.select('user.username', 'user.id', 'user.firstname', 'user.lastname', 'image.url as image_url')
+        //     .from('users as user')
+        //     .join('images as image', 'user.image_id', '=', 'image.id')   // link the user's image_id to the matching id in images table
+        //     .where('user.username', username)
+        //     .first();
+        // console.log(user);
+        const user_creds = await db.select('user.username', 'user.password')
+            .from('users as user')
+            .where('user.username', username)
+            .first()
+            .then(data => {
+                console.log(data);  // log whatever data comes back
+                res.status(200).json(user_creds);
             })
             .catch(err => {
-                console.log("error inserting user into db");
-                res.status(500).json(err)
-            });
-
-        const user = await db.select('user.username', 'user.id', 'user.firstname', 'user.lastname', 'image.url as image_url')
-            .from('users as user')
-            .join('images as image', 'user.image_id', '=', 'image.id')   // link the user's image_id to the matching id in images table
-            .where('user.username', username)
-            .first();
-        console.log(user);
-        const token = await generateToken(user);
-        console.log(token);
+                console.log("user_creds not found in db");
+                res.status(500).json(err);
+            }); 
+        const token = await generateToken(user_creds);
+        // console.log(token);
         res.status(201).json({
           username: user.username,
-          user_id: user.id,
-          image_url: user.image_url,
-          firstname: user.firstname,
-          lastname: user.lastname,
+        //   user_id: user.id,
+        //   image_url: user.image_url,
+        //   firstname: user.firstname,
+        //   lastname: user.lastname,
           token
         });
     }
@@ -81,8 +91,8 @@ router.post('/', async (req, res) => {
             res.status(400)
                 .json({
                     message: 'Duplicate name or email.', 
-                    duplicateUser: withName !== undefined, 
-                    duplicateEmail: withEmail !== undefined
+                    duplicateUser: existingUsername !== undefined, 
+                    duplicateEmail: existingEmail !== undefined
                 });
         }
         else {
