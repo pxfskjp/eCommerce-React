@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
 
     db.insert(newUser)
         .then(response => {
-            console.log(response);
+            console.log('response from db insert newUser: ', response);
             res.status(200).json(response);
         })
         .catch(error => {  // catch error from insert new rep request
