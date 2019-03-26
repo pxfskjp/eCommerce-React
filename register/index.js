@@ -36,6 +36,7 @@ router.post('/', async (req, res) => {
         // strategy: insert the new user info and check for these errors afterward
     
     password = bcrypt.hashSync(password, 1);  // bcrypt (synchronous) hash the password
+
     db
         .insert({ username, password, email, image_id, firstname, lastname })
         .into('users')
@@ -68,6 +69,8 @@ router.post('/', async (req, res) => {
         });
     
 });
+
+module.exports = router;
 
 //     try {
 //         password = await bcrypt.hash(password, 1);  // bcrypt hash the password
@@ -137,7 +140,7 @@ router.post('/', async (req, res) => {
 //     }
 // });
 
-module.exports = router;
+
 
 // router.post('/login', async (req, res) => {
 //     const { username, password } = req.body;

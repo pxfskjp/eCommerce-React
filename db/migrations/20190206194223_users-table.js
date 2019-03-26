@@ -2,10 +2,8 @@ exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTable('users', table => {
             table.increments('id').primary();
-            table.string('username')
-                .unique()
+            table.string('uid')    // Firebase uid
                 .notNullable();
-            table.string('password').notNullable();
             table.string('email')
                 .unique()
                 .notNullable();
