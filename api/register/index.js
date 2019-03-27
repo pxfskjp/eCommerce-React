@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../db/helpers/register');
+const db = require('../../db/helpers/users');
 
 router.post('/', (req, res) => {
     let { firstName, lastName, email, uid } = req.body;
@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
         uid: uid
     };
 
-    db.insert(newUser)
+    db.createUser(newUser)
         .then(response => {
             console.log('response from db insert newUser: ', response);
             res.status(200).json(response);
