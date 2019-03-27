@@ -7,9 +7,9 @@ exports.up = function(knex, Promise) {
                 .notNullable()                          // every tool has an owner
                 .references('id')                      // reference's owner's uid
                 .inTable('users');
-            table.integer('renter_id')                  // id of the tool's current renter; a tool might be rented or it might be available
-                .references('id')                      // references the renter's uid
-                .inTable('users');
+            table.integer('renter_id');                  // id of the tool's current renter; a tool might be rented or it might be available
+                // .references('id')                      // references the renter's uid
+                // .inTable('users');
             table.string('brand');
             table.string('name').notNullable();
             table.string('description').notNullable();
@@ -23,7 +23,6 @@ exports.up = function(knex, Promise) {
             table.double('current_lat');
             table.double('current_lon');
             table.boolean('available')
-                .notNullable()
                 .defaultTo(false);
             table.double('rating');
             table.double('owner_rating');
