@@ -26,9 +26,9 @@ server.get('/',(req, res) => {
 });
 
 // Verify requests using Firebase auth:
-server.use(async (req,res) => {
+server.use(async(req,res) => {
     const idToken = req.headers.authorization;  
-
+    console.log('idToken at server: ', idToken);
     try {
         await admin.auth().verifyIdToken(idToken)       // verify the idToken of the incoming req
           .then(decodedToken => {                       // get the decoded token back from Firebase
@@ -37,7 +37,7 @@ server.use(async (req,res) => {
           });
       }
       catch(error) {
-        res.status(401).json({error:"You are not authorized"});
+        res.status(401).json({message: error.message});
       }
 })
 

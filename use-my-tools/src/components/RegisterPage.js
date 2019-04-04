@@ -43,7 +43,7 @@ class RegisterFormBase extends Component {
         
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
-                        console.log("idToken after createUser: ", idToken);
+                        // console.log("idToken after createUser: ", idToken);
                         const registerData = { email, firstname, lastname, image_id };
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
