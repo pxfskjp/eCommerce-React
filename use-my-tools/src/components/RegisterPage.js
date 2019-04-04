@@ -25,12 +25,15 @@ class RegisterFormBase extends Component {
             email: "",
             password: "",
             password1: "",
+            firstName: "",
+            lastName: "",
             error: null
         };
     }
 
     onSubmit = event => {
-        const {email, password } = this.state;
+        const {email, password, firstName, lastName } = this.state;
+        const image_id = 1; 
     
         this.props.firebase
           .createUser(email, password)
@@ -43,7 +46,7 @@ class RegisterFormBase extends Component {
                     const data = { email: email };
                     axios.defaults.headers.common['Authorization'] = idToken;   // Set the Authorization header to idToken for all axios calls (across all components)
 
-                    
+                    axios.post('/api/users/register', )
                     this.props.history.push({         // send the user to a form to sign up and directly join their company
                         pathname: "/accountpage",
                         state: {
@@ -67,9 +70,10 @@ class RegisterFormBase extends Component {
     };
 
     render() {
-        const { email, password, password1, error } = this.state;
+        const { email, password, password1, firstName, lastName, error } = this.state;
 
-        const invalidCondition = password !== password1 || password1 === '' || email === '';
+        const invalidCondition = firstName === '' || lastName === '' || password !== password1 || password1 === '' || email === '';
+
         return (
             <div className="register">
                 <MuiThemeProvider>
@@ -115,6 +119,18 @@ class RegisterFormBase extends Component {
                                 type="password"
                                 required={true}
                                 value={this.state.password1}
+                                onChange={this.onChange}
+                            />
+                            <br/>
+
+                            <TextField
+                                style = {{width: '65%'}}
+                                hintText="First Name"
+                                floatingLabelText="First Name"
+                                name="firstName"
+                                type="text"
+                                required={true}
+                                value={this.state.firstName}
                                 onChange={this.onChange}
                             />
                             <br/>
