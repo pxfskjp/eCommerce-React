@@ -10,8 +10,15 @@ class RegisterPage extends Component {
             error: null
         };
     }
-    
+
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
     render() {
+        const { email, password, password1, error } = this.state;
+
+        const invalidCondition = password !== password1 || password1 === '' || email === '';
         return (
             <div className="register">
                 <MuiThemeProvider>
@@ -72,7 +79,7 @@ class RegisterPage extends Component {
                                     label="SignUp"
                                     primary={true}
                                     type="submit"
-                                    disabled={condition}
+                                    disabled={invalidCondition}
                                 />
 
                                 <p>By signing up, you agree to the Terms and Conditions and Privacy Policy.</p>
