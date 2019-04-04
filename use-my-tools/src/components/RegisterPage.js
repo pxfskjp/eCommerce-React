@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withFirebase } from "./Firebase";
+import { FirebaseContext } from './Firebase';
 import { Link, withRouter, Route} from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -8,7 +10,15 @@ import axios from 'axios';
 
 import "./css/RegisterPage.css";
 
-class RegisterPage extends Component {
+const RegisterPage = () => (
+    <div>
+      <FirebaseContext.Consumer>
+        {firebase => <RegisterForm firebase={firebase} />}
+      </FirebaseContext.Consumer>
+    </div>
+  );
+
+class RegisterFormBase extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,4 +106,8 @@ class RegisterPage extends Component {
     }
 }
 
+const RegisterForm = withRouter(withFirebase(RegisterFormBase));
+
 export default RegisterPage;
+
+export {RegisterForm};
