@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 
 import AccountPage from './components/AccountPage';
+import RegisterPage from './components/RegisterPage';
 
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
       // </div>
       <Router>
         <Route path="/account" component={AccountPage} />
+        <Route path="/register" component={RegisterPage} />
       </Router>
 
     );
