@@ -44,13 +44,16 @@ class RegisterFormBase extends Component {
                 .then(idToken => {
                     console.log("idToken after createUser: ", idToken);
                     const data = { email: email };
-                    axios.defaults.headers.common['Authorization'] = idToken;   // Set the Authorization header to idToken for all axios calls (across all components)
+                    axios.defaults.headers.common['Authorization'] = idToken;   
 
-                    axios.post('/api/users/register', )
-                    this.props.history.push({         // send the user to a form to sign up and directly join their company
+                    axios.post('/api/users/register', registerData)
+                        .then(response => {
+                            console.log("response from POST to /register: ", response);
+                        })
+                    this.props.history.push({         
                         pathname: "/accountpage",
                         state: {
-                            uid: authUser.user.uid,        // authUser returned from Firebase
+                            uid: authUser.user.uid,        
                         }
                     });    
                 })  
@@ -89,6 +92,30 @@ class RegisterFormBase extends Component {
                         <form onSubmit={this.onSubmit}>
                             <TextField
                                 style = {{width: '65%'}}
+                                hintText="First Name"
+                                floatingLabelText="First name"
+                                name="firstName"
+                                type="text"
+                                required={true}
+                                value={this.state.firstName}
+                                onChange={this.onChange}
+                            />
+                            <br/>
+
+                             <TextField
+                                style = {{width: '65%'}}
+                                hintText="Last Name"
+                                floatingLabelText="Surname"
+                                name="lastName"
+                                type="text"
+                                required={true}
+                                value={this.state.lastName}
+                                onChange={this.onChange}
+                            />
+                            <br/>
+
+                            <TextField
+                                style = {{width: '65%'}}
                                 hintText="Enter your Email"
                                 floatingLabelText="Email"
                                 name="email"
@@ -119,18 +146,6 @@ class RegisterFormBase extends Component {
                                 type="password"
                                 required={true}
                                 value={this.state.password1}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                            <TextField
-                                style = {{width: '65%'}}
-                                hintText="First Name"
-                                floatingLabelText="First Name"
-                                name="firstName"
-                                type="text"
-                                required={true}
-                                value={this.state.firstName}
                                 onChange={this.onChange}
                             />
                             <br/>
