@@ -3,10 +3,16 @@ const cors = require('cors');
 const helmet = require('helmet');
 // const knex = require('./db/db.js');
 
-const userRoutes = require('./api/users');    // All CRUD endpoints for users
       
-
 const server = express();
+
+if (process.env.ENVIRONMENT == 'development') { 
+    require('dotenv').config(); 
+}
+
+const admin = require('firebase-admin');
+
+const userRoutes = require('./api/users');    // All CRUD endpoints for users
 
 server.use(express.json());
 server.use(cors());
