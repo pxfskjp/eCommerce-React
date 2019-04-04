@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import ".../css/RegisterPage.css";
+import { Link, withRouter, Route} from "react-router-dom"
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
+
+import "./css/RegisterPage.css";
 
 class RegisterPage extends Component {
     constructor(props) {
