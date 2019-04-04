@@ -61,7 +61,6 @@ class RegisterFormBase extends Component {
                             .catch(error => {
                                 console.log(error.message);
                             })
-                            
                     })  
                     .catch(error => {                 // if Firebase getIdToken throws an error
                         this.setState({ error:error });
