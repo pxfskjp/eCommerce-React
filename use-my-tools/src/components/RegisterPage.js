@@ -63,11 +63,25 @@ class RegisterFormBase extends Component {
                             })
                     })  
                     .catch(error => {                 // if Firebase getIdToken throws an error
-                        this.setState({ error:error });
+                        this.setState({ 
+                            email: "",
+                            password: "",
+                            password1: "",
+                            firstname: "",
+                            lastname: "",
+                            error:error 
+                        });
                     })
             })
             .catch(error => {                    // if Firebase createUser throws an error
-                this.setState({ error:error });
+                this.setState({ 
+                    email: "",
+                    password: "",
+                    password1: "",
+                    firstname: "",
+                    lastname: "",
+                    error:error 
+                });
             });
     
         event.preventDefault();
