@@ -27,13 +27,14 @@ class RegisterFormBase extends Component {
             password1: "",
             firstname: "",
             lastname: "",
+            image_id: 1,
             error: null
         };
     }
 
     onSubmit = event => {
-        const {email, password, firstname, lastname } = this.state;
-        const image_id = 1; 
+        const {email, password, firstname, lastname, image_id } = this.state;
+        // const image_id = 1; 
     
         this.props.firebase
           .createUser(email, password)
@@ -44,6 +45,7 @@ class RegisterFormBase extends Component {
                 .then(idToken => {
                     console.log("idToken after createUser: ", idToken);
                     const registerData = { email, firstname, lastname, image_id };
+                    
                     axios.defaults.headers.common['Authorization'] = idToken;   
 
                     axios.post('/api/users/register', registerData)
@@ -73,9 +75,9 @@ class RegisterFormBase extends Component {
     };
 
     render() {
-        const { email, password, password1, firstName, lastName, error } = this.state;
+        const { email, password, password1, firstname, lastname, error } = this.state;
 
-        const invalidCondition = firstName === '' || lastName === '' || password !== password1 || password1 === '' || email === '';
+        const invalidCondition = firstname === '' || lastname === '' || password !== password1 || password1 === '' || email === '';
 
         return (
             <div className="register">
