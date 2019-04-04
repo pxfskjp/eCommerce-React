@@ -33,7 +33,7 @@ server.use(async(req,res) => {
         await admin.auth().verifyIdToken(idToken)       // verify the idToken of the incoming req
           .then(decodedToken => {                       // get the decoded token back from Firebase
             req.body.uid = decodedToken.uid;            // add the uid from the decoded token to req.body
-            return req.next();                          // return and move to the next (.then) part of the original req
+            return req.next();                          // return and move to the next part of the original req
           });
       }
       catch(error) {
