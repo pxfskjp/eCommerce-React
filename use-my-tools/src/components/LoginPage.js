@@ -24,10 +24,6 @@ class RegisterFormBase extends Component {
         this.state = {
             email: "",
             password: "",
-            password1: "",
-            firstname: "",
-            lastname: "",
-            image_id: 1,
             error: null
         };
     }
