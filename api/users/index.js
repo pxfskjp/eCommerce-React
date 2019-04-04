@@ -3,8 +3,7 @@ const router = express.Router();
 const db = require('../../db/helpers/users');
 
 router.post('/register', (req, res) => {
-    let { firstname, lastname, email, uid } = req.body;
-    let image_id = 1;   // use default profile image until image upload is built
+    let { firstname, lastname, email, image_id, uid } = req.body;
     
     let newUser = {
         firstname: firstname,
