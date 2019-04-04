@@ -6,6 +6,7 @@ import './App.css';
 
 import AccountPage from './components/AccountPage';
 import RegisterPage from './components/RegisterPage';
+import LoginPage from './components/LoginPage';
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
       <Router>
         <Route path="/accountpage" component={AccountPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/login" component={LoginPage} />
       </Router>
 
     );
