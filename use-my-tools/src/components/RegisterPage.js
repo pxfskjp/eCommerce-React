@@ -45,19 +45,19 @@ class RegisterFormBase extends Component {
                 .then(idToken => {
                     console.log("idToken after createUser: ", idToken);
                     const registerData = { email, firstname, lastname, image_id };
-                    
+
                     axios.defaults.headers.common['Authorization'] = idToken;   
 
                     axios.post('/api/users/register', registerData)
                         .then(response => {
                             console.log("response from POST to /register: ", response);
+                            this.props.history.push({         
+                                pathname: "/accountpage",
+                                state: {
+                                    uid: authUser.user.uid,        
+                                }
+                            });    
                         })
-                    this.props.history.push({         
-                        pathname: "/accountpage",
-                        state: {
-                            uid: authUser.user.uid,        
-                        }
-                    });    
                 })  
                 .catch(error => {                 // if Firebase getIdToken throws an error
                     this.setState({ error:error });

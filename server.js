@@ -17,7 +17,7 @@ const admin = require('firebase-admin');
 const userRoutes = require('./api/users');    // All CRUD endpoints for users
 
 server.use(express.json());
-app.use(morgan('dev'));
+server.use(morgan('dev'));
 server.use(cors());
 server.use(helmet());
 
