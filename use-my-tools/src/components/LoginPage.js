@@ -74,9 +74,9 @@ class LoginFormBase extends Component {
     };
 
     render() {
-        const { email, password, password1, firstname, lastname, error } = this.state;
+        const { email, password, error } = this.state;
 
-        const invalidCondition = firstname === '' || lastname === '' || password !== password1 || password1 === '' || email === '';
+        const invalidCondition = password === '' || email === '';
 
         return (
             <div className="login">
