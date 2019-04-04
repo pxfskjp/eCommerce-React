@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { withFirebase } from "./components/Firebase";
 
 import './App.css';
 
@@ -21,4 +22,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withFirebase(App);

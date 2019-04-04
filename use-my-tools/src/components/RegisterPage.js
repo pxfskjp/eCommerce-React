@@ -35,37 +35,41 @@ class RegisterFormBase extends Component {
     onSubmit = event => {
         const {email, password, firstname, lastname, image_id } = this.state;
         // const image_id = 1; 
+        console.log('RegisterPage state on submit: ', this.state);
     
-        this.props.firebase
-          .createUser(email, password)
-          .then(authUser => {
-            console.log('authUser: ', authUser);
-    
-            this.props.firebase.auth.currentUser.getIdToken()
-                .then(idToken => {
-                    console.log("idToken after createUser: ", idToken);
-                    const registerData = { email, firstname, lastname, image_id };
+        this.props.firebase.createUser(email, password)
+            .then(authUser => {
+                console.log('authUser: ', authUser);
+        
+                this.props.firebase.auth.currentUser.getIdToken()
+                    .then(idToken => {
+                        console.log("idToken after createUser: ", idToken);
+                        const registerData = { email, firstname, lastname, image_id };
 
-                    axios.defaults.headers.common['Authorization'] = idToken;   
+                        axios.defaults.headers.common['Authorization'] = idToken;   
 
-                    axios.post('/api/users/register', registerData)
-                        .then(response => {
-                            console.log("response from POST to /register: ", response);
-                            this.props.history.push({         
-                                pathname: "/accountpage",
-                                state: {
-                                    uid: authUser.user.uid,        
-                                }
-                            });    
-                        })
-                })  
-                .catch(error => {                 // if Firebase getIdToken throws an error
-                    this.setState({ error:error });
-                })
-        })
-        .catch(error => {                    // if Firebase createUser throws an error
-            this.setState({ error:error });
-        });
+                        axios.post('/api/users/register', registerData)
+                            .then(registerResponse => {
+                                console.log('response from POST to /register', registerResponse);
+                                // this.props.history.push({         // send the user to a form to sign up and directly join their company
+                                //     pathname: "/accountpage",
+                                //     // state: {
+                                //     //   uid: authUser.user.uid,        // authUser returned from Firebase
+                                //     // }
+                                //   });
+                            })
+                            .catch(error => {
+                                console.log(error.message);
+                            })
+                            
+                    })  
+                    .catch(error => {                 // if Firebase getIdToken throws an error
+                        this.setState({ error:error });
+                    })
+            })
+            .catch(error => {                    // if Firebase createUser throws an error
+                this.setState({ error:error });
+            });
     
         event.preventDefault();
     }
