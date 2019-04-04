@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 
-import "./css/RegisterPage.css";
+import "./css/LoginPage.css";
 
 const LoginPage = () => (
     <div>

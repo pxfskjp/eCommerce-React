@@ -1,0 +1,83 @@
+.login {
+    background-color: #EAEAEA;
+    height: 100vh;
+}
+
+.login .login-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    height: 70px;
+    background-color: #323439;
+}
+
+.login .login-top-bar img {
+    height: 70px;
+    width: 70px;
+    margin-left: 45%;
+}
+
+.login .login-top-bar .top-bar-links {
+    display: flex;
+    width: 325px;
+    justify-content: space-around;
+}
+
+.login-top-bar .top-bar-links a {
+    color: white;
+}
+
+.login-top-bar .top-bar-links a:last-of-type {
+    color: #64dd17;
+}
+
+.login .header {
+    font-size: 2em;
+    margin-bottom: 3%;
+    margin-top: 5%;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px lightgray solid;
+    width: 380px;
+    margin: auto;
+    background-color: white;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.login form .login-button {
+    margin-top: 5%;
+}
+
+.login form p {
+    color: gray;
+    font-size: .8em;
+    padding: 5% 25% 5% 25%;
+}
+.login form a {
+    color: #4C7AF1;
+    font-size: .9em;
+    padding-bottom: 5%;
+}
+
+@media (max-width: 800px) {
+  .login {
+    height: 100%;
+  }
+  .login form {
+      margin-bottom: 15%;
+      padding-bottom: 5%;
+  }
+  .login .login-top-bar img {
+      margin-left: 15%;
+  }
+  .login .header {
+      margin-top: 15%;
+  }
+}
