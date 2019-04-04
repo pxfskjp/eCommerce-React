@@ -29,6 +29,39 @@ class RegisterFormBase extends Component {
         };
     }
 
+    onSubmit = event => {
+        const {email, password } = this.state;
+    
+        this.props.firebase
+          .createUser(email, password)
+          .then(authUser => {
+            console.log('authUser: ', authUser);
+    
+            this.props.firebase.auth.currentUser.getIdToken()
+                .then(idToken => {
+                    console.log("idToken after createUser: ", idToken);
+                    const data = { email: email };
+                    axios.defaults.headers.common['Authorization'] = idToken;   // Set the Authorization header to idToken for all axios calls (across all components)
+
+                    
+                    this.props.history.push({         // send the user to a form to sign up and directly join their company
+                        pathname: "/accountpage",
+                        state: {
+                            uid: authUser.user.uid,        // authUser returned from Firebase
+                        }
+                    });    
+                })  
+                .catch(error => {                 // if Firebase getIdToken throws an error
+                    this.setState({ error:error });
+                })
+        })
+        .catch(error => {                    // if Firebase createUser throws an error
+            this.setState({ error:error });
+        });
+    
+        event.preventDefault();
+    }
+
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
