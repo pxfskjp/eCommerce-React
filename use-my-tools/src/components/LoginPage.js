@@ -10,15 +10,15 @@ import axios from 'axios';
 
 import "./css/RegisterPage.css";
 
-const RegisterPage = () => (
+const LoginPage = () => (
     <div>
       <FirebaseContext.Consumer>
-        {firebase => <RegisterForm firebase={firebase} />}
+        {firebase => <LoginForm firebase={firebase} />}
       </FirebaseContext.Consumer>
     </div>
   );
 
-class RegisterFormBase extends Component {
+class LoginFormBase extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -134,8 +134,8 @@ class RegisterFormBase extends Component {
     }
 }
 
-const RegisterForm = withRouter(withFirebase(RegisterFormBase));
+const LoginForm = withRouter(withFirebase(LoginFormBase));
 
-export default RegisterPage;
+export default LoginPage;
 
-export {RegisterForm};
+export {LoginForm};
