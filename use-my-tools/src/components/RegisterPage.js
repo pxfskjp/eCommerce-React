@@ -25,14 +25,14 @@ class RegisterFormBase extends Component {
             email: "",
             password: "",
             password1: "",
-            firstName: "",
-            lastName: "",
+            firstname: "",
+            lastname: "",
             error: null
         };
     }
 
     onSubmit = event => {
-        const {email, password, firstName, lastName } = this.state;
+        const {email, password, firstname, lastname } = this.state;
         const image_id = 1; 
     
         this.props.firebase
@@ -43,7 +43,7 @@ class RegisterFormBase extends Component {
             this.props.firebase.auth.currentUser.getIdToken()
                 .then(idToken => {
                     console.log("idToken after createUser: ", idToken);
-                    const data = { email: email };
+                    const registerData = { email, firstname, lastname, image_id };
                     axios.defaults.headers.common['Authorization'] = idToken;   
 
                     axios.post('/api/users/register', registerData)
@@ -94,10 +94,10 @@ class RegisterFormBase extends Component {
                                 style = {{width: '65%'}}
                                 hintText="First Name"
                                 floatingLabelText="First name"
-                                name="firstName"
+                                name="firstname"
                                 type="text"
                                 required={true}
-                                value={this.state.firstName}
+                                value={this.state.firstname}
                                 onChange={this.onChange}
                             />
                             <br/>
@@ -106,10 +106,10 @@ class RegisterFormBase extends Component {
                                 style = {{width: '65%'}}
                                 hintText="Last Name"
                                 floatingLabelText="Surname"
-                                name="lastName"
+                                name="lastname"
                                 type="text"
                                 required={true}
-                                value={this.state.lastName}
+                                value={this.state.lastname}
                                 onChange={this.onChange}
                             />
                             <br/>
