@@ -28,7 +28,6 @@ server.get('/',(req, res) => {
 // Verify requests using Firebase auth:
 server.use(async(req,res) => {
     const idToken = req.headers.authorization;  
-    console.log('idToken at server: ', idToken);
     try {
         await admin.auth().verifyIdToken(idToken)       // verify the idToken of the incoming req
           .then(decodedToken => {                       // get the decoded token back from Firebase

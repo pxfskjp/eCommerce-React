@@ -51,12 +51,12 @@ class RegisterFormBase extends Component {
                         axios.post('/api/users/register', registerData)
                             .then(registerResponse => {
                                 console.log('response from POST to /register', registerResponse);
-                                // this.props.history.push({         // send the user to a form to sign up and directly join their company
-                                //     pathname: "/accountpage",
-                                //     // state: {
-                                //     //   uid: authUser.user.uid,        // authUser returned from Firebase
-                                //     // }
-                                //   });
+                                this.props.history.push({         // send the user to a form to sign up and directly join their company
+                                    pathname: "/accountpage",
+                                    state: {
+                                      uid: authUser.user.uid,        // authUser returned from Firebase
+                                    }
+                                  });
                             })
                             .catch(error => {
                                 console.log(error.message);

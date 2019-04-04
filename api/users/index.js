@@ -45,8 +45,7 @@ router.post('/register', (req, res) => {
         image_id: image_id,
         uid: uid
     };
-    console.log('newUser to be created: ', newUser);
-
+    
     db.createUser(newUser)
         .then(response => {
             console.log('response from db insert newUser: ', response);
