@@ -29,41 +29,40 @@ class LoginFormBase extends Component {
     }
 
     onSubmit = event => {
-        const {email, password, firstname, lastname, image_id } = this.state;
-        // const image_id = 1; 
-        console.log('RegisterPage state on submit: ', this.state);
+        const {email, password } = this.state;
+        console.log('LoginPage state on submit: ', this.state);
     
-        this.props.firebase.createUser(email, password)
+        this.props.firebase.logIn(email, password)
             .then(authUser => {
                 console.log('authUser: ', authUser);
         
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
                         // console.log("idToken after createUser: ", idToken);
-                        const registerData = { email, firstname, lastname, image_id };
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
 
-                        axios.post('/api/users/register', registerData)
-                            .then(registerResponse => {
-                                console.log('response from POST to /register', registerResponse);
-                                this.props.history.push({         // send the user to a form to sign up and directly join their company
-                                    pathname: "/accountpage",
-                                    state: {
-                                      uid: authUser.user.uid,        // authUser returned from Firebase
-                                    }
-                                  });
-                            })
-                            .catch(error => {
-                                console.log(error.message);
-                            })
+                        this.props.history.push({        
+                            pathname: "/accountpage",
+                            state: {
+                              uid: authUser.user.uid,        // authUser returned from Firebase
+                            }
+                        });
                     })  
                     .catch(error => {                 // if Firebase getIdToken throws an error
-                        this.setState({ error:error });
+                        this.setState({ 
+                            email: "",
+                            password: "",
+                            error:error 
+                        });
                     })
             })
-            .catch(error => {                    // if Firebase createUser throws an error
-                this.setState({ error:error });
+            .catch(error => {                    // if Firebase logIn throws an error
+                this.setState({ 
+                    email: "",
+                    password: "",
+                    error:error 
+                });
             });
     
         event.preventDefault();
