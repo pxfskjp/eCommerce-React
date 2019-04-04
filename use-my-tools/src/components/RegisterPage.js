@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 
 class RegisterPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: "",
+            password1: "",
+            error: null
+        };
+    }
+    
     render() {
         return (
             <div className="register">
