@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
+import { Provider } from './AppContext';
 import axios from 'axios';
 
 import './App.css';
@@ -21,6 +22,9 @@ const App = () => (
 );
 
 class AppComponentBase extends Component {
+  state = {
+    idToken: null
+  }
 
   componentDidMount() {
     this.props.firebase.auth.onAuthStateChanged(authUser => {
@@ -28,7 +32,10 @@ class AppComponentBase extends Component {
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             console.log('idToken in App.js Firebase auth listener: ', idToken);
-            axios.defaults.headers.common['Authorization'] = idToken;
+            // axios.defaults.headers.common['Authorization'] = idToken;
+            this.setState({
+              idToken
+            })
           })
           .catch(error => {
             console.log(error.message);
@@ -39,14 +46,17 @@ class AppComponentBase extends Component {
 
   render() {
     return (
-      // <div className="App">
-      // </div>
-      <Router>
-        <Route exact path={"/"} component={LandingPage} />
-        <Route path="/accountpage" component={AccountPage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/login" component={LoginPage} />
-      </Router>
+      <div className="App">
+        <Provider value={this.state}>
+          <Router>
+            <Route exact path={"/"} component={LandingPage} />
+            <Route path="/accountpage" component={AccountPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Route path="/login" component={LoginPage} />
+          </Router>
+        </Provider>
+      </div>
+      
 
     );
   }
