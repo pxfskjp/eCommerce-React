@@ -25,5 +25,10 @@ router.post('/register', (req, res) => {
         })
 })
 
+router.get('/userinfo', (req, res) => {
+    let uid = req.body.uid;
+
+    
+})
 
 module.exports = router;
