@@ -5,7 +5,7 @@
 
 .login .login-top-bar {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin: auto;
     height: 70px;

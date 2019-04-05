@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom"
 
-import './css/LandingPage.css';
+import "./css/LandingPage.css";
 
 class LandingPage extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     render() {
         return (

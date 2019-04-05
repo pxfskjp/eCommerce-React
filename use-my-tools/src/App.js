@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
+import { FirebaseContext } from './components/Firebase';
 
 import './App.css';
 
@@ -10,7 +11,20 @@ import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 
 
-class App extends Component {
+const App = () => (
+  <div>
+    <FirebaseContext.Consumer>
+      {firebase => <AppComponent firebase={firebase} />}
+    </FirebaseContext.Consumer>
+  </div>
+);
+
+class AppComponentBase extends Component {
+
+  // componentDidMount() {
+
+  // }
+
   render() {
     return (
       // <div className="App">
@@ -26,4 +40,8 @@ class App extends Component {
   }
 }
 
-export default withFirebase(App);
+const AppComponent = withFirebase(AppComponentBase);
+
+export default App;
+
+export {AppComponent};
