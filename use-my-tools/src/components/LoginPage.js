@@ -117,7 +117,7 @@ class LoginFormBase extends Component {
 
                             <RaisedButton
                                 className="login-button"
-                                label="SignIn"
+                                label="Sign In"
                                 primary={true}
                                 type="submit"
                                 disabled={invalidCondition}

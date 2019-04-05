@@ -171,7 +171,7 @@ class RegisterFormBase extends Component {
 
                             <RaisedButton
                                 className="register-button"
-                                label="SignUp"
+                                label="Sign Up"
                                 primary={true}
                                 type="submit"
                                 disabled={invalidCondition}
