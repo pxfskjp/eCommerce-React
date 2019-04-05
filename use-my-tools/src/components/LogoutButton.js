@@ -25,12 +25,12 @@ class LogoutButtonBase extends Component {
 
     logOut = event => {
         this.props.firebase.logOut();
-        event.preventDefault();
+        
     }
 
     render() {
         return (
-            <Link to="/home">
+            <Link to="/">
                 <div type="button" onClick={this.logOut}>
                     Sign Out
                 </div>
