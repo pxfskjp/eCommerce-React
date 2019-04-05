@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const firebase = require("firebase/app");
 const db = require('../../db/helpers/users');
 
 router.post('/register', (req, res) => {
-    let { firstname, lastname, email, uid } = req.body;
-    let image_id = 1;   // use default profile image until image upload is built
+    let { firstname, lastname, email, image_id, uid } = req.body;
     
     let newUser = {
         firstname: firstname,
@@ -24,5 +24,6 @@ router.post('/register', (req, res) => {
             res.status(500).json({message: error.message});
         })
 })
+
 
 module.exports = router;
