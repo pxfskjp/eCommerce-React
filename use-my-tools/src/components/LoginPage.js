@@ -82,7 +82,7 @@ class LoginFormBase extends Component {
                 <MuiThemeProvider>
                     <div>
                         <div className="login-top-bar">
-                            <Link to="/">
+                            <Link to="/" className="nav-link">
                                 Home
                             </Link>
                         </div>

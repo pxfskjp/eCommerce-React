@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withFirebase } from "./Firebase";
 import { FirebaseContext } from './Firebase';
-import { Link, withRouter, Route} from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -101,7 +101,7 @@ class RegisterFormBase extends Component {
                 <MuiThemeProvider>
                     <div>
                         <div className="register-top-bar">
-                            <Link to="/">
+                            <Link to="/" className="nav-link">
                                 Home
                             </Link>
                         </div>
