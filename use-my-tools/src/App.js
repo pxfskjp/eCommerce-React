@@ -22,10 +22,13 @@ const App = () => (
 );
 
 class AppComponentBase extends Component {
-  state = {
-    idToken: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      idToken: null
+    }
   }
-
+  
   componentDidMount() {
     this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
@@ -40,20 +43,30 @@ class AppComponentBase extends Component {
           .catch(error => {
             console.log(error.message);
           })
+      } else {
+        this.props.history.push({         
+          pathname: "/"
+      });
       }
     });
   }
 
   render() {
+    const idToken = this.state.idToken;
     return (
       <div className="App">
         <Provider value={this.state}>
-          <Router>
-            <Route exact path={"/"} component={LandingPage} />
-            <Route path="/accountpage" component={AccountPage} />
-            <Route path="/register" component={RegisterPage} />
-            <Route path="/login" component={LoginPage} />
-          </Router>
+          {idToken ? (
+            <Router>
+              <Route exact path={"/"} component={LandingPage} />
+            </Router>
+          ) : (
+            <Router>
+              <Route exact path={"/"} component={LandingPage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/login" component={LoginPage} />
+            </Router>   
+          )}
         </Provider>
       </div>
       

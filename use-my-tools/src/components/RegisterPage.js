@@ -56,7 +56,7 @@ class RegisterFormBase extends Component {
                                     state: {
                                       uid: authUser.user.uid,        // authUser returned from Firebase
                                     }
-                                  });
+                                });
                             })
                             .catch(error => {
                                 console.log(error.message);
