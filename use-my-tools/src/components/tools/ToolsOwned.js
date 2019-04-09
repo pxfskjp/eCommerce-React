@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom"
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../LogoutButton';
 import axios from 'axios';
 
 
