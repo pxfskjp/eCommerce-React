@@ -3,9 +3,9 @@ exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTable('tools', table => {
             table.increments('id').primary();           // id of the tool
-            table.integer('owner_id')                   // id of the tool's owner
+            table.integer('owner_uid')                   // id of the tool's owner
                 .notNullable()                          // every tool has an owner
-                .references('id')                      // reference's owner's uid
+                .references('uid')                      // reference's owner's uid
                 .inTable('users');
             table.integer('renter_id');                  // id of the tool's current renter; a tool might be rented or it might be available
                 // .references('id')                      // references the renter's uid

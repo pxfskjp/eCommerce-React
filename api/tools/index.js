@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../db/helpers/tools');
+const toolsDb = require('../../db/helpers/tools');
+const usersDb = require('../../db/helpers/users');
 
 router.post('/newTool', (req, res) => {
+    
+
     let { brand, name, description, price, available, uid } = req.body;
     let image_id = 1;   // use default profile image until image upload is built
     
@@ -26,7 +29,7 @@ router.post('/newTool', (req, res) => {
             // owner_rating
     };
 
-    db.createTool(newTool)
+    toolsDb.createTool(newTool)
         .then(response => {
             console.log('response from db insert newUser: ', response);
             res.status(200).json(response);
