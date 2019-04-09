@@ -61,9 +61,9 @@ class AppComponentBase extends Component {
           {idToken ? (
             <Router>
               <NavigationBar />
-              <Route exact path={"/"} component={LandingPage} />
+              {/* <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
+              <Route path="/login" component={LoginPage} /> */}
               <Route path={"/accountpage"} component={AccountPage} />
               <Route path={"/yourtools"} component={ToolsOwned} />
             </Router>
