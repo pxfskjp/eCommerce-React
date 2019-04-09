@@ -24,4 +24,4 @@ class NavigationBar extends Component {
     }
 }
 
-export default withRouter(AccountPage);
+export default withRouter(NavigationBar);
