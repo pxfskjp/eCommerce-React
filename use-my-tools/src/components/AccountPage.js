@@ -31,7 +31,6 @@ class AccountPage extends Component {
     render() {
         return (
             <div className="account-page-container">
-                <NavigationBar />
                 <h1>Welcome to your account</h1>
             </div>
         );

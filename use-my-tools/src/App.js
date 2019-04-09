@@ -8,9 +8,11 @@ import axios from 'axios';
 import './App.css';
 
 import LandingPage from './components/LandingPage';
-import AccountPage from './components/AccountPage';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
+import NavigationBar from './components/NavigationBar';
+import AccountPage from './components/AccountPage';
+import ToolsOwned from './components/ToolsOwned';
 
 
 const App = () => (
@@ -58,10 +60,12 @@ class AppComponentBase extends Component {
         <Provider value={this.state}>
           {idToken ? (
             <Router>
+              <NavigationBar />
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} />
               <Route path={"/accountpage"} component={AccountPage} />
+              <Route path={"/yourtools"} component={ToolsOwned} />
             </Router>
           ) : (
             <Router>

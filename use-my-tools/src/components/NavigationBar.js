@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom"
 import LogoutButton from './LogoutButton';
-import axios from 'axios';
+
+import "./css/AccountPage.css";
+
 
 
 class NavigationBar extends Component {
@@ -16,6 +18,12 @@ class NavigationBar extends Component {
         return (
             
             <header className="nav-container">
+                <Link to="/accountpage">
+                    Account
+                </Link>
+                <Link to="/yourtools">
+                    Your Tools
+                </Link>
                 <LogoutButton />
             </header>
 
