@@ -25,5 +25,16 @@ router.post('/register', (req, res) => {
         })
 })
 
+router.get('/userinfo', (req, res) => {
+    let uid = req.body.uid;
+
+    db.getUserInfo(uid)
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
 
 module.exports = router;

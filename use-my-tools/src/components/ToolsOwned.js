@@ -4,7 +4,7 @@ import LogoutButton from './LogoutButton';
 import axios from 'axios';
 
 
-class AccountPage extends Component {
+class ToolsOwned extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class AccountPage extends Component {
             .then(user => {
                 this.setState({
                     user: user
-                }, () => console.log('AccountPage state after GET user info: ', this.state.user)) ;
+                }, () => console.log('ToolsOwned state after GET user info: ', this.state.user)) ;
             })
             .catch(error => {
                 console.log(error.message);
@@ -30,10 +30,10 @@ class AccountPage extends Component {
                 <header className="nav-container">
                     <LogoutButton />
                 </header>
-                <h1>Welcome to your account</h1>
+                <h1>Manage your tools</h1>
             </div>
         );
     }
 }
 
-export default withRouter(AccountPage);
+export default withRouter(ToolsOwned);
