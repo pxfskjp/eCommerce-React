@@ -23,7 +23,8 @@ router.post('/newtool', (req, res) => {
         // rating
         // owner_rating
 
-    let { brand, name, description, price, owner_uid } = req.body;
+    let { brand, name, description, price } = req.body;
+    let owner_uid = req.body.uid;
     let available = true;
     
     let newTool = {
@@ -37,7 +38,7 @@ router.post('/newtool', (req, res) => {
 
     toolsDb.createTool(newTool)
         .then(response => {
-            console.log('response from db insert newUser: ', response);
+            console.log('response from db insert newTool: ', response);
             res.status(200).json(response);
         })
         .catch(error => {  // catch error from insert new rep request

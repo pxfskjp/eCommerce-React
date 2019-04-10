@@ -15,7 +15,7 @@ class AddTool extends Component {
             name: '',
             brand: '',
             description: '',
-            price: null,
+            price: '',
         };
     }
 
@@ -45,7 +45,7 @@ class AddTool extends Component {
                     name: '',
                     brand: '',
                     description: '',
-                    price: null,
+                    price: '',
                 })
             })
             .catch(error => {
