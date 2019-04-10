@@ -33,30 +33,6 @@ router.post('/newtool', multiparty, (req, res) => {
         // available, defaults to false
         // rating
         // owner_rating
-    
-    cloudinary.v2.uploader.upload(req.files.image.path, async function(error, result) {
-        if (error) {
-            res.status(500).json({message: 'Image upload failed.'});
-        }
-        else {
-            try {
-                // await imagesDb.addImage({ url: result.url});
-                // const image = await db.select().from('images').where('url', result.url).first();
-        
-                const imageId = await imagesDb.addImage({ url: result.url});
-
-                console.log(image.id);
-        
-                await db.insert({img_id: image.id, tool_id}).into('tool_images');
-        
-                res.status(201).json({ id: image.id });
-            }
-            catch (error) {
-                console.log(error);
-                res.status(500).json({message: error.message});
-            }
-        }
-    });
 
     let { brand, name, description, price } = req.body;
     let owner_uid = req.body.uid;
@@ -74,7 +50,32 @@ router.post('/newtool', multiparty, (req, res) => {
     toolsDb.createTool(newTool)
         .then(response => {
             console.log('response from db insert newTool: ', response);
-            res.status(200).json(response);
+
+            const tool_id = response.data;
+            cloudinary.v2.uploader.upload(req.files.image.path, async function(error, result) {
+                if (error) {
+                    res.status(500).json({message: 'Image upload failed.'});
+                }
+                else {
+                    try {
+                        // await imagesDb.addImage({ url: result.url});
+                        // const image = await db.select().from('images').where('url', result.url).first();
+                
+                        const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url into the images table and get back the id of the new image in the images table
+        
+                        console.log('id of image added to images table: ', imageId);
+                
+                        await imagesDb.addToolImage({ image_id: imageId, tool_id });
+                
+                        res.status(200).json(response);
+                    }
+                    catch (error) {
+                        console.log(error);
+                        res.status(500).json({message: error.message});
+                    }
+                }
+            });
+            // res.status(200).json(response);
         })
         .catch(error => {  // catch error from insert new rep request
             console.log(error.message);
