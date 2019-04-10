@@ -7,6 +7,6 @@ module.exports = {
 function addImage(image) {
     return db('images')
         .insert(image)
-        .returning('id')
-        .then(ids => ids[0]);
+        .returning('url')
+        .then(urls => urls[0]);
 }

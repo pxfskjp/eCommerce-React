@@ -40,7 +40,7 @@ router.post('/newtool', multiparty, (req, res) => {
         }
         else {
             try {
-                await db.insert({ url: result.url}).into('images');
+                await imagesDb.addImage({ url: result.url});
         
                 const image = await db.select().from('images').where('url', result.url).first();
         
