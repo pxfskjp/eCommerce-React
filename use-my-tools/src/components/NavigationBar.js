@@ -25,6 +25,9 @@ class NavigationBar extends Component {
                     <Link to="/yourtools" className="nav-link">
                         Your Tools
                     </Link>
+                    <Link to="/addtool" className="nav-link">
+                        Add a tool
+                    </Link>
                     <LogoutButton className="nav-link" />
                 </navigation>
             </header>
