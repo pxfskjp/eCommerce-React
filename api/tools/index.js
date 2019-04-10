@@ -3,7 +3,7 @@ const router = express.Router();
 const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
 
-router.post('/newTool', (req, res) => {
+router.post('/newtool', (req, res) => {
     // from user input:
 
         // brand

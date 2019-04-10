@@ -19,9 +19,43 @@ class AddTool extends Component {
         };
     }
 
-    componentDidMount() {
-       // console.log('AddTool props.idToken: ', this.props.idToken);
+    // componentDidMount() {
+    //     // console.log('AddTool props.idToken: ', this.props.idToken);
+        
+    // }
+
+    onSubmit = event => {
+        // axios.defaults.headers.common['Authorization'] = this.props.idToken;
+        let headers = {
+            'Authorization': this.props.idToken
+        }
+        
+        let newTool = {
+            brand: this.state.brand,
+            name: this.state.name,
+            description: this.state.description,
+            price: this.state.price
+        }
+
+        axios.post('/api/tools/newtool', newTool, {headers: headers})
+            .then(response => {
+                console.log('/newtool POST response: ', response);
+                this.setState({
+                    error: null,
+                    name: '',
+                    brand: '',
+                    description: '',
+                    price: null,
+                })
+            })
+            .catch(error => {
+                this.setState({error: error});
+            });
+        
+        event.preventDefault();
     }
+
+
 
     render() {
         const error = this.state.error;
