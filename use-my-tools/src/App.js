@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
-import { Provider } from './AppContext';
+import { Provider, Consumer } from './AppContext';
 import axios from 'axios';
 
 import './App.css';
@@ -68,7 +68,8 @@ class AppComponentBase extends Component {
               <Route path="/login" component={LoginPage} /> */}
               <Route path={"/accountpage"} component={AccountPage} />
               <Route path={"/yourtools"} component={ToolsOwned} />
-              <Route path={"/addtool"} component={AddTool} />
+              {/* <Route path={"/addtool"} component={AddTool} /> */}
+              <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} />
 
             </Router>
           ) : (

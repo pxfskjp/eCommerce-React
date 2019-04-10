@@ -23,7 +23,8 @@ router.post('/newTool', (req, res) => {
         // rating
         // owner_rating
 
-    let { brand, name, description, price, owner_uid, available } = req.body;
+    let { brand, name, description, price, owner_uid } = req.body;
+    let available = true;
     let image_id = 1;   // use default profile image until image upload is built
     
     let newTool = {
