@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
-import { Provider } from './AppContext';
+import { Provider, Consumer } from './AppContext';
 import axios from 'axios';
 
 import './App.css';
 
 import LandingPage from './components/LandingPage';
-import AccountPage from './components/AccountPage';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
+import NavigationBar from './components/NavigationBar';
+import AccountPage from './components/AccountPage';
+import ToolsOwned from './components/tools/ToolsOwned';
+import AddTool from './components/tools/AddTool';
+
 
 
 const App = () => (
@@ -58,10 +62,15 @@ class AppComponentBase extends Component {
         <Provider value={this.state}>
           {idToken ? (
             <Router>
-              <Route exact path={"/"} component={LandingPage} />
+              <NavigationBar />
+              {/* <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
+              <Route path="/login" component={LoginPage} /> */}
               <Route path={"/accountpage"} component={AccountPage} />
+              <Route path={"/yourtools"} component={ToolsOwned} />
+              {/* <Route path={"/addtool"} component={AddTool} /> */}
+              <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} />
+
             </Router>
           ) : (
             <Router>

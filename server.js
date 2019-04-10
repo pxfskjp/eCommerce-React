@@ -53,6 +53,7 @@ server.get('/',(req, res) => {
 
 // Import API route/endpoint files:
 const userRoutes = require('./api/users');    // All CRUD endpoints for users
+const toolsRoutes = require('./api/tools');   // All CRUD endpoints for tools
 
 // Verify requests using Firebase-admin auth:
 server.use(async(req,res) => {
@@ -71,6 +72,6 @@ server.use(async(req,res) => {
 
 
 server.use('/api/users', userRoutes);
-// server.use('/api/login', loginRoutes);
+server.use('/api/tools', toolsRoutes);
 
 module.exports = server;

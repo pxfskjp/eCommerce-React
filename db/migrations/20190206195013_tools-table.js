@@ -3,9 +3,8 @@ exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.createTable('tools', table => {
             table.increments('id').primary();           // id of the tool
-            table.integer('owner_id')                   // id of the tool's owner
-                .notNullable()                          // every tool has an owner
-                .references('id')                      // reference's owner's uid
+            table.string('owner_uid')                   // id of the tool's owner
+                .references('uid')                      // reference's owner's uid
                 .inTable('users');
             table.integer('renter_id');                  // id of the tool's current renter; a tool might be rented or it might be available
                 // .references('id')                      // references the renter's uid
@@ -29,7 +28,7 @@ exports.up = function(knex, Promise) {
         })
     ])
 };
-// about to run create tools table migration
+
 exports.down = function(knex, Promise) {
     return Promise.all([
         knex.schema.dropTableIfEsists('tools')

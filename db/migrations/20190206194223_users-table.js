@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('users', table => {
             table.increments('id').primary();
             table.string('uid')    // Firebase uid
+                .unique()
                 .notNullable();
             table.string('email')
                 .unique()

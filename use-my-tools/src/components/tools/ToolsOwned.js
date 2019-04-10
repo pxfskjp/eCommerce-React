@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom"
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../LogoutButton';
 import axios from 'axios';
 
 
@@ -27,9 +27,6 @@ class ToolsOwned extends Component {
     render() {
         return (
             <div className="account-page-container">
-                <header className="nav-container">
-                    <LogoutButton />
-                </header>
                 <h1>Manage your tools</h1>
             </div>
         );
