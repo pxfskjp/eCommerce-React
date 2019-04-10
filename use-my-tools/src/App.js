@@ -39,7 +39,7 @@ class AppComponentBase extends Component {
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             console.log('idToken in App.js Firebase auth listener: ', idToken);
-            // axios.defaults.headers.common['Authorization'] = idToken;
+            axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
               idToken
             })
@@ -59,7 +59,7 @@ class AppComponentBase extends Component {
     const idToken = this.state.idToken;
     return (
       <div className="App">
-        <Provider value={this.state}>
+        <div>
           {idToken ? (
             <Router>
               <NavigationBar />
@@ -68,8 +68,8 @@ class AppComponentBase extends Component {
               <Route path="/login" component={LoginPage} /> */}
               <Route path={"/accountpage"} component={AccountPage} />
               <Route path={"/yourtools"} component={ToolsOwned} />
-              {/* <Route path={"/addtool"} component={AddTool} /> */}
-              <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} />
+              <Route path={"/addtool"} component={AddTool} />
+              {/* <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} /> */}
 
             </Router>
           ) : (
@@ -79,7 +79,7 @@ class AppComponentBase extends Component {
               <Route path="/login" component={LoginPage} />
             </Router>   
           )}
-        </Provider>
+        </div>
       </div>
       
 
