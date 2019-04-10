@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const cloudinary = require('cloudinary');
+const multiparty = require("connect-multiparty")();
+
 const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
+
+cloudinary.config({ 
+    cloud_name:"use-my-tools-csr",
+    api_key:"654865738498236",
+    api_secret:"l6t5As3rK6IZBecdjCadgjYDizs"
+  });
 
 router.post('/newtool', (req, res) => {
     // from user input:
