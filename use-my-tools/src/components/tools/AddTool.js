@@ -55,7 +55,9 @@ class AddTool extends Component {
         event.preventDefault();
     }
 
-
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
     render() {
         const error = this.state.error;
