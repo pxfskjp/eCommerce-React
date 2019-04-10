@@ -4,29 +4,36 @@ const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
 
 router.post('/newTool', (req, res) => {
-    
+    // from user input:
 
-    let { brand, name, description, price, available, uid } = req.body;
+        // brand
+        // name, not Null
+        // description, not Null
+        // price, not Null, defaults to 0
+
+    // from db:
+        // owner_uid, not Null
+        // home_street_address
+        // current_street_address
+        // home_lat
+        // home_lon
+        // current_lat
+        // current_lon
+        // available, defaults to false
+        // rating
+        // owner_rating
+
+    let { brand, name, description, price, owner_uid, available } = req.body;
     let image_id = 1;   // use default profile image until image upload is built
     
     let newTool = {
-        // from user input:
-            // owner_id, not Null
-            // brand
-            // name, not Null
-            // description, not Null
-            // price, not Null, defaults to 0
-
-        // from db:
-            // home_street_address
-            // current_street_address
-            // home_lat
-            // home_lon
-            // current_lat
-            // current_lon
-            // available, defaults to false
-            // rating
-            // owner_rating
+        brand: brand,
+        name: name,
+        description: description,
+        price: price,
+        owner_uid: owner_uid,
+        available: available,
+        image_id: image_id
     };
 
     toolsDb.createTool(newTool)
