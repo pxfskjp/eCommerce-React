@@ -25,7 +25,6 @@ router.post('/newtool', (req, res) => {
 
     let { brand, name, description, price, owner_uid } = req.body;
     let available = true;
-    let image_id = 1;   // use default profile image until image upload is built
     
     let newTool = {
         brand: brand,
@@ -34,7 +33,6 @@ router.post('/newtool', (req, res) => {
         price: price,
         owner_uid: owner_uid,
         available: available,
-        image_id: image_id
     };
 
     toolsDb.createTool(newTool)
