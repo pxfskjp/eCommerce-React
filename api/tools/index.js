@@ -5,6 +5,8 @@ const multiparty = require("connect-multiparty")();
 
 const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
+const imagesDb = require('../../db/helpers/images');
+
 
 cloudinary.config({ 
     cloud_name:"use-my-tools-csr",
@@ -12,7 +14,7 @@ cloudinary.config({
     api_secret:"l6t5As3rK6IZBecdjCadgjYDizs"
   });
 
-router.post('/newtool', (req, res) => {
+router.post('/newtool', multiparty, (req, res) => {
     // from user input:
 
         // brand
@@ -31,6 +33,29 @@ router.post('/newtool', (req, res) => {
         // available, defaults to false
         // rating
         // owner_rating
+    
+    cloudinary.v2.uploader.upload(req.files.image.path, async function(error, result) {
+        if (error) {
+            res.status(500).json({message: 'Image upload failed.'});
+        }
+        else {
+            try {
+                await db.insert({ url: result.url}).into('images');
+        
+                const image = await db.select().from('images').where('url', result.url).first();
+        
+                console.log(image.id);
+        
+                await db.insert({img_id: image.id, tool_id}).into('tool_images');
+        
+                res.status(201).json({ id: image.id });
+            }
+            catch (error) {
+                console.log(error);
+                res.status(500).json({message: error.message});
+            }
+        }
+    });
 
     let { brand, name, description, price } = req.body;
     let owner_uid = req.body.uid;
