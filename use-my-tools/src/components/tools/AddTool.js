@@ -74,7 +74,7 @@ class AddTool extends Component {
                 <h1>Add a new tool</h1>
                 <MuiThemeProvider>
                     <div>
-                        <p className="header">Ender details for the tool you want to post</p>
+                        <p className="header">Enter details for the tool you want to post</p>
 
                         <form onSubmit={this.onSubmit}>
                             <TextField
