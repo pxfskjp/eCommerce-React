@@ -78,12 +78,12 @@ router.post('/newtool', multipart, (req, res) => {
         available: available
     };
 
-    toolsDb.createTool(newTool)
+    toolsDb.createTool(newTool)     // insert new tool into tools table
         .then(response => {
             console.log('response from db insert newTool: ', response);
-            const tool_id = 1;
+            const tool_id = 1;     // response is the id (PK) of the new tool in tools table
             cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
-                console.log('/newtool req.files.image_file.path: ', req.files.image_file.path);
+                console.log('/newtool req.files.image_file: ', req.files.image_file);
                 if (error) {
                     res.status(500).json({message: 'Image upload failed.'});
                 }
@@ -108,7 +108,7 @@ router.post('/newtool', multipart, (req, res) => {
             });
             
             
-            res.status(200).json(response);
+            // res.status(200).json(response);
         })
         .catch(error => {  // catch error from insert new rep request
             console.log(error.message);
