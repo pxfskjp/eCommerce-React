@@ -63,7 +63,7 @@ cloudinary.config({
 
 router.post('/newtool', multipart, (req, res) => {
     console.log('/newtool req.body: ', req.body);
-    console.log('/newtool req.files.path: ', req.files.path);
+    // console.log('/newtool req.files.image_file.path: ', req.files.image_file.path);
 
     let { brand, name, description, price } = req.body;
     let owner_uid = req.body.uid;
@@ -81,8 +81,9 @@ router.post('/newtool', multipart, (req, res) => {
     toolsDb.createTool(newTool)
         .then(response => {
             console.log('response from db insert newTool: ', response);
-            const tool_id = response.data;
+            const tool_id = 1;
             cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
+                console.log('/newtool req.files.image_file.path: ', req.files.image_file.path);
                 if (error) {
                     res.status(500).json({message: 'Image upload failed.'});
                 }

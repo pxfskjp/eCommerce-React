@@ -36,7 +36,7 @@ class AddTool extends Component {
         newToolData.append('name', this.state.name);
         newToolData.append('description', this.state.description);
         newToolData.append('price', this.state.price);
-        newToolData.append('file', this.state.selectedFile);
+        newToolData.append('image_file', this.state.selectedFile);
 
         axios.post('/api/tools/newtool', newToolData)
             .then(response => {
