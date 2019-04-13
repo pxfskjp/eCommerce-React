@@ -18,7 +18,7 @@ class NavigationBar extends Component {
         return (
             
             <header className="nav-container">
-                <navigation className="nav-link-container">
+                <div className="nav-link-container">
                     <Link to="/accountpage" className="nav-link">
                         Account
                     </Link>
@@ -29,7 +29,7 @@ class NavigationBar extends Component {
                         Add a tool
                     </Link>
                     <LogoutButton className="nav-link" />
-                </navigation>
+                </div>
             </header>
 
 
