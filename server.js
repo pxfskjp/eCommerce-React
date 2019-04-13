@@ -63,9 +63,7 @@ server.use(multipart, async(req,res) => {
     try {
         await admin.auth().verifyIdToken(idToken)       // verify the idToken of the incoming req
           .then(decodedToken => {                       // get the decoded token back from Firebase
-            if (req.headers['content-type'] === 'multipart/form-data') {
-                re
-            }
+            
             req.body.uid = decodedToken.uid;            // add the uid from the decoded token to req.body
             return req.next();                          // return and move to the next part of the original req
           });
