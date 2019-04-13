@@ -63,8 +63,8 @@ cloudinary.config({
 
 router.post('/newtool', multipart, (req, res) => {
     console.log('/newtool req.body: ', req.body);
-    console.log('/newtool req.file: ', req.file);
-    
+    console.log('/newtool req.files.path: ', req.files.path);
+
     let { brand, name, description, price } = req.body;
     let owner_uid = req.body.uid;
     let available = true;
