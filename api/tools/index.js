@@ -81,7 +81,9 @@ router.post('/newtool', multipart, (req, res) => {
     toolsDb.createTool(newTool)     // insert new tool into tools table
         .then(response => {
             console.log('response from db insert newTool: ', response);
+
             const tool_id = response;     // response is the id (PK) of the new tool in tools table
+            
             cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
                 console.log('/newtool req.files.image_file: ', req.files.image_file);
                 if (error) {

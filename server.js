@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const multipart = require("connect-multiparty")();
 
 // Import .env config vars for dev Environment
 if (process.env.ENVIRONMENT === 'development') { 
@@ -56,11 +57,15 @@ const userRoutes = require('./api/users');    // All CRUD endpoints for users
 const toolsRoutes = require('./api/tools');   // All CRUD endpoints for tools
 
 // Verify requests using Firebase-admin auth:
-server.use(async(req,res) => {
+server.use(multipart, async(req,res) => {
+    console.log('server auth hit with req.body: ', req.body);
     const idToken = req.headers.authorization;  
     try {
         await admin.auth().verifyIdToken(idToken)       // verify the idToken of the incoming req
           .then(decodedToken => {                       // get the decoded token back from Firebase
+            if (req.headers['content-type'] === 'multipart/form-data') {
+                re
+            }
             req.body.uid = decodedToken.uid;            // add the uid from the decoded token to req.body
             return req.next();                          // return and move to the next part of the original req
           });
