@@ -29,19 +29,16 @@ class AddTool extends Component {
     // }
 
     onSubmit = event => {
-        // axios.defaults.headers.common['Authorization'] = this.props.idToken;
-        // let headers = {
-        //     'Authorization': this.props.idToken
-        // }
-        
-        let newTool = {
-            brand: this.state.brand,
-            name: this.state.name,
-            description: this.state.description,
-            price: this.state.price
-        }
+        console.log('AddTool state on Submit: ', this.state);
 
-        axios.post('/api/tools/newtool', newTool)
+        let newToolData = new FormData() 
+        newToolData.append('brand', this.state.brand);
+        newToolData.append('name', this.state.name);
+        newToolData.append('description', this.state.description);
+        newToolData.append('price', this.state.price);
+        newToolData.append('file', this.state.selectedFile);
+
+        axios.post('/api/tools/newtool', newToolData)
             .then(response => {
                 console.log('/newtool POST response: ', response);
                 this.setState({
@@ -50,6 +47,7 @@ class AddTool extends Component {
                     brand: '',
                     description: '',
                     price: '',
+                    selectedFile: null
                 })
             })
             .catch(error => {
@@ -63,10 +61,10 @@ class AddTool extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    handleFileChange = (event) => {
+    handleFileChange = event => {
         this.setState({
           selectedFile: event.target.files[0]
-        }, () => console.log('AddTool state after file change: ', this.state));
+        });
     };
 
     render() {
@@ -172,3 +170,36 @@ class AddTool extends Component {
 }
 
 export default withRouter(AddTool);
+
+// onSubmit = event => {
+//     // axios.defaults.headers.common['Authorization'] = this.props.idToken;
+//     // let headers = {
+//     //     'Authorization': this.props.idToken
+//     // }
+    
+//     let newTool = {
+//         brand: this.state.brand,
+//         name: this.state.name,
+//         description: this.state.description,
+//         price: this.state.price,
+//         image_file: this.state.selectedFile
+//     }
+
+//     axios.post('/api/tools/newtool', newTool)
+//         .then(response => {
+//             console.log('/newtool POST response: ', response);
+//             this.setState({
+//                 error: null,
+//                 name: '',
+//                 brand: '',
+//                 description: '',
+//                 price: '',
+//                 selectedFile: null
+//             })
+//         })
+//         .catch(error => {
+//             this.setState({error: error});
+//         });
+    
+//     event.preventDefault();
+// };
