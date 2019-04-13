@@ -89,8 +89,6 @@ router.post('/newtool', multipart, (req, res) => {
                 }
                 else {
                     try {
-                        // await imagesDb.addImage({ url: result.url});
-                        // const image = await db.select().from('images').where('url', result.url).first();
                 
                         const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url into the images table and get back the id of the new image in the images table
 
