@@ -83,7 +83,7 @@ router.post('/newtool', multipart, (req, res) => {
             console.log('response from db insert newTool: ', response);
 
             const tool_id = response;     // response is the id (PK) of the new tool in tools table
-            
+
             cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
                 console.log('/newtool req.files.image_file: ', req.files.image_file);
                 if (error) {
@@ -116,31 +116,16 @@ router.post('/newtool', multipart, (req, res) => {
         })
 })
 
-// router.post('/newtoolimage', multipart, (req, res) => {
-//     const tool_id = response.data;
-//     cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
-//         if (error) {
-//             res.status(500).json({message: 'Image upload failed.'});
-//         }
-//         else {
-//             try {
-//                 // await imagesDb.addImage({ url: result.url});
-//                 // const image = await db.select().from('images').where('url', result.url).first();
-        
-//                 const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url into the images table and get back the id of the new image in the images table
+router.get('/mytools', (req, res) => {
+    let uid = req.body.uid;
 
-//                 console.log('id of image added to images table: ', imageId);
-        
-//                 await imagesDb.addToolImage({ image_id: imageId, tool_id });
-        
-//                 res.status(200).json(response);
-//             }
-//             catch (error) {
-//                 console.log(error);
-//                 res.status(500).json({message: error.message});
-//             }
-//         }
-//     });
-// })
+    toolsDb.getMyTools(uid)
+        .then(response => {  // db responds with array of all the user's tools
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
 
 module.exports = router;
