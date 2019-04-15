@@ -13,6 +13,10 @@ function createTool(newTool) {
 }
 
 function getMyTools(uid) {
-    return db('tools')
-        .where('owner_uid', uid);
+    return db
+        .select('*')
+        .from('tools')
+        .innerJoin('tool_images', 'tools.id', 'tool_images.tool_id')
+        .innerJoin('images', 'tool_images.image_id' ,'images.id')
+        .where('tools.owner_uid', uid);
 }
