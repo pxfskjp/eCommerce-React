@@ -5,6 +5,7 @@ module.exports = {
     addToolImage
 }
 
+// add image url to images table:
 function addImage(image) {
     return db('images')
         .insert(image)
@@ -12,6 +13,7 @@ function addImage(image) {
         .then(ids => ids[0]);
 }
 
+// add tool_id and image_id pair to tool-images table
 function addToolImage(image) {
     return db('tool_images')
         .insert(image)

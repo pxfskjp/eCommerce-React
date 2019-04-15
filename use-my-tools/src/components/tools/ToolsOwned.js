@@ -8,16 +8,16 @@ class ToolsOwned extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: null
+            tools: null
         };
     }
 
     componentDidMount() {
-        axios.get('/api/users/userinfo')
-            .then(user => {
+        axios.get('/api/tools/mytools')
+            .then(tools => {
                 this.setState({
-                    user: user
-                }, () => console.log('ToolsOwned state after GET user info: ', this.state.user)) ;
+                    tools: tools
+                }, () => console.log('ToolsOwned state.tools after GET tools: ', this.state.tools)) ;
             })
             .catch(error => {
                 console.log(error.message);
