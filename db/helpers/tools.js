@@ -1,7 +1,8 @@
 const db = require('../db.js');
 
 module.exports = {
-    createTool
+    createTool,
+    getMyTools
 }
 
 function createTool(newTool) {
@@ -9,4 +10,9 @@ function createTool(newTool) {
         .insert(newTool)
         .returning('id')
         .then(ids => ids[0]);
+}
+
+function getMyTools(uid) {
+    return db('tools')
+        .where('owner_uid', uid);
 }
