@@ -7,7 +7,7 @@ class ToolsOwned extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tools: null
+            tools: []
         };
     }
 
@@ -28,15 +28,15 @@ class ToolsOwned extends Component {
         return (
             <div className="mytools-page-container">
                 <h1>Manage your tools</h1>
-                {/* <div className="tools-list-container">
+                <div className="tools-list-container">
                     {this.state.tools.map((tool, index) => {
                         return (
-                            <div className="tool-item">
+                            <div className="tool-item" key={index}>
                                 <p>{tool.name}</p>
                             </div>
                         );
                     })}
-                </div> */}
+                </div>
             </div>
 
         );
