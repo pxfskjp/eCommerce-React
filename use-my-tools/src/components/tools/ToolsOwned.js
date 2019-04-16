@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom"
-import LogoutButton from '../LogoutButton';
+import { withRouter } from "react-router-dom"
 import axios from 'axios';
 
 
@@ -16,7 +15,7 @@ class ToolsOwned extends Component {
         axios.get('/api/tools/mytools')
             .then(tools => {
                 this.setState({
-                    tools: tools
+                    tools: tools.data
                 }, () => console.log('ToolsOwned state.tools after GET tools: ', this.state.tools)) ;
             })
             .catch(error => {
@@ -25,10 +24,21 @@ class ToolsOwned extends Component {
     }
 
     render() {
+        
         return (
-            <div className="account-page-container">
+            <div className="mytools-page-container">
                 <h1>Manage your tools</h1>
+                {/* <div className="tools-list-container">
+                    {this.state.tools.map((tool, index) => {
+                        return (
+                            <div className="tool-item">
+                                <p>{tool.name}</p>
+                            </div>
+                        );
+                    })}
+                </div> */}
             </div>
+
         );
     }
 }
