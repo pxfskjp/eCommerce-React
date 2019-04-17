@@ -25,7 +25,7 @@ function addToolImage(image) {
 function getToolImages(id) {
     return db
         .select('i.url')
-        .from('tool_images')
-        .join('images', 'tool_images.image_id', 'images.id')
+        .from('tool_images as ti')
+        .join('images as i', 'ti.image_id', 'i.id')
         .where({tool_id: id});
 }
