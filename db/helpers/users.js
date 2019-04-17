@@ -18,6 +18,7 @@ function getUserInfo(uid) {
             'users.firstname',
             'users.lastname',
             'users.email',
+            'users.home_street_address',
             'users.image_id',
             'images.url as image_url'
         ])
