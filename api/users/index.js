@@ -37,4 +37,25 @@ router.get('/userinfo', (req, res) => {
         })
 })
 
+router.put('/updateuserdetails', (req, res) => {
+	const uid = req.body.uid;
+	const user = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        home_street_address: req.body.home_street_address
+	};
+	
+	console.log('user object in /updateuserdetails endpoint', user);
+
+    db.updateUserDetails(uid, user)  
+        .then(response_data => {
+            res.status(200).json(user);     // send the updated user info back to display on accout page
+        })
+        .catch(error => {
+            res.status(500).json({ error: "Failed to update account information" });
+            console.log(error.message);
+        })
+})
+
 module.exports = router;

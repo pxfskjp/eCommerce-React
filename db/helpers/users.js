@@ -2,7 +2,8 @@ const db = require('../db.js');
 
 module.exports = {
     createUser,
-    getUserInfo
+    getUserInfo,
+    updateUserDetails
 }
 
 function createUser(newUser) {
@@ -30,4 +31,10 @@ function getUserInfo(uid) {
             .then(users => {
                 return users[0];
             });
+}
+
+function updateUserDetails(uid, user) {
+    return db('users')
+            .where('uid', uid)
+            .update(user);
 }
