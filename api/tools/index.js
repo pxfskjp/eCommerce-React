@@ -134,7 +134,9 @@ router.get('/mytools', (req, res) => {
                     //     res.status(500).json(error.message);
                     // })
             });
+
             console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            
             Promise.all(toolsWithImages)
                 .then(completed => {
                     tools.data = completed;
