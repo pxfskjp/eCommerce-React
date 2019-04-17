@@ -12,7 +12,7 @@ import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 import NavigationBar from './components/NavigationBar';
 import AccountPage from './components/AccountPage';
-import ToolsOwned from './components/tools/ToolsOwned';
+import MyTools from './components/tools/MyTools';
 import AddTool from './components/tools/AddTool';
 
 
@@ -67,7 +67,7 @@ class AppComponentBase extends Component {
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} /> */}
               <Route path={"/accountpage"} component={AccountPage} />
-              <Route path={"/yourtools"} component={ToolsOwned} />
+              <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
               {/* <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} /> */}
 

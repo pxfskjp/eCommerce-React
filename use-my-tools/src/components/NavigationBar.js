@@ -23,7 +23,7 @@ class NavigationBar extends Component {
                         Account
                     </Link>
                     <Link to="/yourtools" className="nav-link">
-                        Your Tools
+                        My Tools
                     </Link>
                     <Link to="/addtool" className="nav-link">
                         Add a tool

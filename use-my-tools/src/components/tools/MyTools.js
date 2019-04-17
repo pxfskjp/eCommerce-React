@@ -26,7 +26,7 @@ const styles = theme => ({
 
 })
 
-class ToolsOwned extends Component {
+class MyTools extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,7 +64,7 @@ class ToolsOwned extends Component {
                                         <ImageCarousel toolImages={tool.images} />
                                         <CardContent className={classes.cardContent}>
                                             <Typography gutterBottom variant="h5" component="h2">
-                                                {tool.name}
+                                                {tool.brand}{' '}{tool.name}
                                             </Typography>
                                             <Typography>
                                                 {tool.description}
@@ -84,4 +84,4 @@ class ToolsOwned extends Component {
     }
 }
 
-export default withRouter(withStyles(styles)(ToolsOwned));
+export default withRouter(withStyles(styles)(MyTools));
