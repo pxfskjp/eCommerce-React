@@ -13,8 +13,20 @@ function createUser(newUser) {
 }
 
 function getUserInfo(uid) {
-    return db('users').where('uid', uid)
-        .then(users => {
-            return users[0];
-        });
+    const query = db
+        .select([
+            'users.firstname',
+            'users.lastname',
+            'users.email',
+            'users.image_id',
+            'images.url as image_url'
+        ])
+        .from('users')
+        .innerJoin('images', 'users.image_id', 'images.id')
+        .where('users.uid', uid);
+
+        return query
+            .then(users => {
+                return users[0];
+            });
 }

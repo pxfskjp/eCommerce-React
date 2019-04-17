@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom"
-import NavigationBar from './NavigationBar';
-import LogoutButton from './LogoutButton';
+
 import axios from 'axios';
 
 import "./css/AccountPage.css";
-
-
 
 class AccountPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: null
+            user: null,
+            firstName: '',
+            lastName: '',
+            email: '',
+            image_url: '',
+            selectedFile: null,
+            error: null,
         };
     }
 
@@ -20,8 +23,8 @@ class AccountPage extends Component {
         axios.get('/api/users/userinfo')
             .then(user => {
                 this.setState({
-                    user: user
-                }, () => console.log('AccountPage state after GET user info: ', this.state.user)) ;
+                    user: user.data
+                }, () => console.log('AccountPage state.user after GET user info: ', this.state.user)) ;
             })
             .catch(error => {
                 console.log(error.message);
