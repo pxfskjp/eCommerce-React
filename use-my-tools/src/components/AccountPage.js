@@ -64,12 +64,29 @@ class AccountPage extends Component {
 
     updateUserDetails = event => {
         console.log('AccountPage state on updateUserDetails: ', this.state);
+
         const user = {
             firstname: this.state.firstName,
             lastname: this.state.lastname,
             email: this.state.email,
             home_street_address: this.state.homeStreetAddress,
         }
+
+        axios.put('/api/users/updateuserdetails', user)
+            .then(user => {
+                console.log("Response from /updateuserdetails", user.data);
+                this.setState({
+                    firstName: user.data.firstname,
+                    lastName: user.data.lastname,
+                    email: user.data.email,
+                    homeStreetAddress: user.data.home_street_address,
+                    imageUrl: user.data.image_url,
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+            })
+
     }
 
     render() {
@@ -117,7 +134,7 @@ class AccountPage extends Component {
                             id="outlined-home-street-address"
                             label="Street Address"
                             className={classes.textField}
-                            value={this.state.home_street_address}
+                            value={this.state.homeStreetAddress}
                             onChange={this.handleChange("homeStreetAddress")}
                             margin="normal"
                             variant="outlined"
