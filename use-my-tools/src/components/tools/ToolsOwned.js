@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import ImageCarousel from './ImageCarousel';
 
 import axios from 'axios';
 
@@ -60,6 +61,7 @@ class ToolsOwned extends Component {
                             return (
                                 <Grid item key={index}>
                                     <Card className={classes.card}>
+                                        <ImageCarousel toolImages={tool.images} />
                                         <CardContent className={classes.cardContent}>
                                             <Typography gutterBottom variant="h5" component="h2">
                                                 {tool.name}
