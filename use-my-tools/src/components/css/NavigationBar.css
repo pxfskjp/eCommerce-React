@@ -8,7 +8,8 @@
 }
 
 .nav-link-container {
-    width: 30%;
+    width: 40%;
+    min-width: 400px;
     display: flex;
     justify-content: space-between;
     margin: 0px 30px 0px 30px;
