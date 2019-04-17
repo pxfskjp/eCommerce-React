@@ -120,10 +120,10 @@ router.get('/mytools', (req, res) => {
     let uid = req.body.uid;
 
     toolsDb.getMyTools(uid)
-        .then(response => {                  // db responds with array of all the user's tools
-            console.log('response from db getMyTools query: ', response);
+        .then(tools => {                  // db responds with array of all the user's tools
+            console.log('response from db getMyTools query: ', tools);
 
-            const toolsWithImages = response.map(tool => {
+            const toolsWithImages = tools.map(tool => {
                 const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
                 return imagesQuery 
                     .then(images => {
@@ -136,8 +136,9 @@ router.get('/mytools', (req, res) => {
             });
             console.log('toolsWithImages for /mytools response: ', toolsWithImages);
             Promise.all(toolsWithImages)
-                .then(() => {
-                    res.status(200).json(toolsWithImages);  // Send back tools with images appended as response
+                .then(completed => {
+                    tools.data = completed;
+                    res.status(200).json(tools);  // Send back tools with images appended as response
                 })
         })
         .catch(error => {
