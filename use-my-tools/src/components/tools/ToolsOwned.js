@@ -64,7 +64,7 @@ class ToolsOwned extends Component {
                                         <ImageCarousel toolImages={tool.images} />
                                         <CardContent className={classes.cardContent}>
                                             <Typography gutterBottom variant="h5" component="h2">
-                                                {tool.name}
+                                                {tool.brand}{' '}{tool.name}
                                             </Typography>
                                             <Typography>
                                                 {tool.description}
