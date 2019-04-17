@@ -120,8 +120,20 @@ router.get('/mytools', (req, res) => {
     let uid = req.body.uid;
 
     toolsDb.getMyTools(uid)
-        .then(response => {  // db responds with array of all the user's tools
-            res.status(200).json(response);
+        .then(response => {                  // db responds with array of all the user's tools
+            console.log('response from db getMyTools query: ', response);
+
+            const toolsWithImages = response.map(tool => {
+                const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
+                imagesQuery 
+                    .then(images => {
+                        tool.images = images;  // append images array to tool object
+                    })
+                    .catch(error => {
+                        res.status(500).json(error.message);
+                    })
+            });
+            res.status(200).json(toolsWithImages);  // Send back tools with images appended as response
         })
         .catch(error => {
             res.status(500).json(error.message);

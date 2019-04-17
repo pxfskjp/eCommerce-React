@@ -1,7 +1,29 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom"
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+
 import axios from 'axios';
 
+const styles = theme => ({
+    card: {
+        height: "100%",
+        display: "flex",
+        flexDirection: "column"
+    },
+    cardContent: {
+        flexGrow: 1,
+        maxHeight: 100,
+        minHeight: 100,
+        overflow: "hidden"
+    },
+
+})
 
 class ToolsOwned extends Component {
     constructor(props) {
@@ -24,18 +46,35 @@ class ToolsOwned extends Component {
     }
 
     render() {
-        
+        const { classes } = this.props;
+
         return (
             <div className="mytools-page-container">
                 <h1>Manage your tools</h1>
+
                 <div className="tools-list-container">
-                    {this.state.tools.map((tool, index) => {
-                        return (
-                            <div className="tool-item" key={index}>
-                                <p>{tool.name}</p>
-                            </div>
-                        );
-                    })}
+
+                    <Grid container spacing={40}>
+
+                        {this.state.tools.map((tool, index) => {
+                            return (
+                                <Grid item key={index}>
+                                    <Card className={classes.card}>
+                                        <CardContent className={classes.cardContent}>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                {tool.name}
+                                            </Typography>
+                                            <Typography>
+                                                {tool.description}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            );
+                        })}
+
+                    </Grid>
+
                 </div>
             </div>
 
@@ -43,4 +82,4 @@ class ToolsOwned extends Component {
     }
 }
 
-export default withRouter(ToolsOwned);
+export default withRouter(withStyles(styles)(ToolsOwned));
