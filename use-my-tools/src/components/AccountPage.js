@@ -62,6 +62,16 @@ class AccountPage extends Component {
         });
     };
 
+    updateUserDetails = event => {
+        console.log('AccountPage state on updateUserDetails: ', this.state);
+        const user = {
+            firstname: this.state.firstName,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            home_street_address: this.state.homeStreetAddress,
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -108,7 +118,7 @@ class AccountPage extends Component {
                             label="Street Address"
                             className={classes.textField}
                             value={this.state.home_street_address}
-                            onChange={this.handleChange("home_street-address")}
+                            onChange={this.handleChange("homeStreetAddress")}
                             margin="normal"
                             variant="outlined"
                         />
