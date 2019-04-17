@@ -125,7 +125,7 @@ router.get('/mytools', (req, res) => {
 
             const toolsWithImages = response.map(tool => {
                 const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
-                imagesQuery 
+                return imagesQuery 
                     .then(images => {
                         console.log('response from db getToolImages query: ', images);
                         tool.images = images;  // append images array to tool object
@@ -134,8 +134,11 @@ router.get('/mytools', (req, res) => {
                     //     res.status(500).json(error.message);
                     // })
             });
-
-            res.status(200).json(toolsWithImages);  // Send back tools with images appended as response
+            console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            Promise.all(toolsWithImages)
+                .then(() => {
+                    res.status(200).json(toolsWithImages);  // Send back tools with images appended as response
+                })
         })
         .catch(error => {
             res.status(500).json(error.message);
