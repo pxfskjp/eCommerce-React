@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const firebase = require("firebase/app");
+const cloudinary = require('cloudinary');
+const multipart = require("connect-multiparty")();
+
 const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
 
@@ -62,6 +64,30 @@ router.put('/updateuserdetails', (req, res) => {
             res.status(500).json({ error: "Failed to update account information" });
             console.log(error.message);
         })
+})
+
+router.put('/updateimage', multipart, (req, res) => {
+    cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
+        console.log('/updateimage req.files.image_file: ', req.files.image_file);
+        if (error) {
+            res.status(500).json({message: 'Image upload failed.'});
+        }
+        else {
+            try {
+                const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url from cloudinary into the images table and get back the id of the new image in the images table
+
+                console.log('id of image added to images table: ', imageId);
+        
+                await imagesDb.addToolImage({ image_id: imageId, tool_id });
+        
+                res.status(200).json(response);
+            }
+            catch (error) {
+                console.log(error);
+                res.status(500).json({message: error.message});
+            }
+        }
+    });
 })
 
 module.exports = router;

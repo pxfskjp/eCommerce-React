@@ -15,7 +15,7 @@ cloudinary.config({
   });
 
 router.post('/newtool', multipart, (req, res) => {
-    console.log('/newtool req.body: ', req.body);
+    console.log('/newtool endpoint req.body: ', req.body);
     // console.log('/newtool req.files.image_file.path: ', req.files.image_file.path);
 
     let { brand, name, description, price } = req.body;

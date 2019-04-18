@@ -33,6 +33,7 @@ class AccountPage extends Component {
             lastName: '',
             email: '',
             homeStreetAddress: '',
+            imageId: null,
             imageUrl: '',
             selectedFile: null,
             error: null,
@@ -48,6 +49,7 @@ class AccountPage extends Component {
                     lastName: user.data.lastname,
                     email: user.data.email,
                     homeStreetAddress: user.data.home_street_address,
+                    imageID: user.data.image_id,
                     imageUrl: user.data.image_url,
                 }, () => console.log('AccountPage state after GET user info: ', this.state)) ;
             })
@@ -102,10 +104,8 @@ class AccountPage extends Component {
         console.log('inside imageUpload file is', this.state.selectedFile);
     
         let data = new FormData();
-            data.append('uid', this.state.uid);
-            data.append('file', this.state.selectedFile);
-    
-        const id = this.state.image_id;   //image_id to update an existing image to a new one
+            data.append('image_id', this.state.selectedFile);
+            data.append('image_file', this.state.selectedFile);
         
         // this.setState({loading:true});	  
         axios.put(`/api/users/updateimage`, data)
