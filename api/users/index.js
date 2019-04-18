@@ -15,9 +15,9 @@ router.post('/register', (req, res) => {
     //     uid: uid
     // };
 
-    const defaultImageUrl = 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg';
+    const defaultImage = { url: 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg' };
 
-    imagesDb.addImage(defaultImageUrl)  // create image using default URL and return image_id
+    imagesDb.addImage(defaultImage)  // create image using default URL and return image_id
         .then(image_id => {
             const newUser = {
                 firstname: firstname,
