@@ -1,16 +1,16 @@
 import React from 'react';
-import { withFirebase } from "../Firebase";
+import { withFirebase } from "./Firebase";
 import { Link, withRouter } from "react-router-dom"
-import { FirebaseContext } from '../Firebase';
-import * as ROUTES from '../../constants/routes';
+import { FirebaseContext } from './Firebase';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import Navigation from '../Navigation'
-import './UpdatePassword.css';
+
+import './css/UpdatePassword.css';
 
 const UpdatePasswordPage = () => (
     <div>
@@ -76,7 +76,7 @@ class UpdatePasswordFormBase extends React.Component {
         const condition = email === '' || oldPassword === '' || oldPassword === newPassword1 || newPassword1 === '' ||  newPassword1 !== newPassword2;
         return (
             <div>
-              <Navigation />
+
                 <MuiThemeProvider>
                     <div className="update-password">
                     <br/>
