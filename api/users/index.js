@@ -5,7 +5,7 @@ const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
 
 router.post('/register', (req, res) => {
-    let { firstname, lastname, email, image_id, uid } = req.body;
+    let { firstname, lastname, email, uid } = req.body;
     
     // let newUser = {
     //     firstname: firstname,
@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
                     console.log('response from db insert newUser: ', response);
                     res.status(200).json(response);
                 })
-                .catch(error => {  // catch error from insert new rep request
+                .catch(error => {  // catch error from create new user request
                     console.log(error.message);
                     res.status(500).json({message: error.message});
                 })
