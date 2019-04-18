@@ -49,7 +49,7 @@ class AccountPage extends Component {
                     lastName: user.data.lastname,
                     email: user.data.email,
                     homeStreetAddress: user.data.home_street_address,
-                    imageID: user.data.image_id,
+                    imageId: user.data.image_id,
                     imageUrl: user.data.image_url,
                 }, () => console.log('AccountPage state after GET user info: ', this.state)) ;
             })
@@ -104,7 +104,7 @@ class AccountPage extends Component {
         console.log('inside imageUpload file is', this.state.selectedFile);
     
         let data = new FormData();
-            data.append('image_id', this.state.image_id);
+            data.append('image_id', this.state.imageId);
             data.append('image_file', this.state.selectedFile);
         
         // this.setState({loading:true});	  
@@ -113,9 +113,9 @@ class AccountPage extends Component {
                       console.log('response after image update', response.data);
                       this.setState({image_url:response.data.url, loading:false});
           })
-          .catch(err => {
-                    console.log(err.message);
-                    this.setState({error:err});
+          .catch(error => {
+                    console.log(error.message);
+                    this.setState({ error:error });
           })
     
             //  event.preventDefault();
@@ -193,11 +193,11 @@ class AccountPage extends Component {
                             type="file"
                             onChange={this.fileChangedHandler}
                         />
-                        <label htmlFor="outlined-button-file">
+                        {/* <label htmlFor="outlined-button-file">
                             <Button type="submit" variant="outlined" component="span" color="primary" className={classes.button}>
                                 Upload
                             </Button>
-                        </label>
+                        </label> */}
                     </form>
                 </div>
                 {/* end right-container */}

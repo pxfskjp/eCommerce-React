@@ -33,6 +33,6 @@ function getToolImages(id) {
 
 function updateImage(id, url) {
     return db('images')
-        .where('id', id)
-        .update(url);
+        .where({ id: Number(id) })
+        .update({ url: url });
 }

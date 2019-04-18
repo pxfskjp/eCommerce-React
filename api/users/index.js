@@ -74,11 +74,9 @@ router.put('/updateimage', multipart, (req, res) => {
         }
         else {
             try {
-        
-                const newImage = await imagesDb.updateImage({ 
-                    id: req.body.image_id,
-                    url: result.url 
-                });
+                const id = req.body.image_id;
+                const url = result.url;
+                const newImage = await imagesDb.updateImage(id, url);
         
                 res.status(200).json(newImage);
             }
