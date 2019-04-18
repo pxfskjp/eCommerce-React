@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
             table.string('owner_uid')                   // id of the tool's owner
                 .references('uid')                      // reference's owner's uid
                 .inTable('users');
-            table.integer('renter_uid');                  // id of the tool's current renter; a tool might be rented or it might be available
+            table.string('renter_uid');                  // id of the tool's current renter; a tool might be rented or it might be available
                 // .references('id')                      // references the renter's uid
                 // .inTable('users');
             table.string('brand');
