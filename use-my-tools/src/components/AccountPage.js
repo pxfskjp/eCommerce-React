@@ -33,6 +33,7 @@ class AccountPage extends Component {
             lastName: '',
             email: '',
             homeStreetAddress: '',
+            imageId: null,
             imageUrl: '',
             selectedFile: null,
             error: null,
@@ -48,6 +49,7 @@ class AccountPage extends Component {
                     lastName: user.data.lastname,
                     email: user.data.email,
                     homeStreetAddress: user.data.home_street_address,
+                    imageId: user.data.image_id,
                     imageUrl: user.data.image_url,
                 }, () => console.log('AccountPage state after GET user info: ', this.state)) ;
             })
@@ -102,10 +104,8 @@ class AccountPage extends Component {
         console.log('inside imageUpload file is', this.state.selectedFile);
     
         let data = new FormData();
-            data.append('uid', this.state.uid);
-            data.append('file', this.state.selectedFile);
-    
-        const id = this.state.image_id;   //image_id to update an existing image to a new one
+            data.append('image_id', this.state.imageId);
+            data.append('image_file', this.state.selectedFile);
         
         // this.setState({loading:true});	  
         axios.put(`/api/users/updateimage`, data)
@@ -113,9 +113,9 @@ class AccountPage extends Component {
                       console.log('response after image update', response.data);
                       this.setState({image_url:response.data.url, loading:false});
           })
-          .catch(err => {
-                    console.log(err.message);
-                    this.setState({error:err});
+          .catch(error => {
+                    console.log(error.message);
+                    this.setState({ error:error });
           })
     
             //  event.preventDefault();
@@ -150,19 +150,6 @@ class AccountPage extends Component {
                         />
 
                         <TextField
-                            id="outlined-email"
-                            label="Email"
-                            className={classes.textField}
-                            value={this.state.email}
-                            onChange={this.handleChange("email")}
-                            margin="normal"
-                            variant="outlined"
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                        />
-
-                        <TextField
                             id="outlined-home-street-address"
                             label="Street Address"
                             className={classes.textField}
@@ -175,7 +162,24 @@ class AccountPage extends Component {
                         <Button variant="outlined" color="primary" className="save-button" type="submit" >
                             Save
                         </Button>
-                    </form>
+
+                        </form>
+                        
+                        <Link to="/updatepassword">Update Password</Link>
+                        
+                        {/* <TextField
+                            id="outlined-email"
+                            label="Email"
+                            className={classes.textField}
+                            value={this.state.email}
+                            onChange={this.handleChange("email")}
+                            margin="normal"
+                            variant="outlined"
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        /> */}
+                    
                 </div> 
                 {/* end left-container */}
 
@@ -193,11 +197,11 @@ class AccountPage extends Component {
                             type="file"
                             onChange={this.fileChangedHandler}
                         />
-                        <label htmlFor="outlined-button-file">
+                        {/* <label htmlFor="outlined-button-file">
                             <Button type="submit" variant="outlined" component="span" color="primary" className={classes.button}>
                                 Upload
                             </Button>
-                        </label>
+                        </label> */}
                     </form>
                 </div>
                 {/* end right-container */}

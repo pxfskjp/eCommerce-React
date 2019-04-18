@@ -14,6 +14,7 @@ import NavigationBar from './components/NavigationBar';
 import AccountPage from './components/AccountPage';
 import MyTools from './components/tools/MyTools';
 import AddTool from './components/tools/AddTool';
+import UpdatePassword from './components/UpdatePassword';
 
 
 
@@ -69,6 +70,7 @@ class AppComponentBase extends Component {
               <Route path={"/accountpage"} component={AccountPage} />
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
+              <Route path={"/updatepassword"} component={UpdatePassword} />
               {/* <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} /> */}
 
             </Router>
