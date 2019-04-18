@@ -6,14 +6,6 @@ const imagesDb = require('../../db/helpers/images');
 
 router.post('/register', (req, res) => {
     let { firstname, lastname, email, uid } = req.body;
-    
-    // let newUser = {
-    //     firstname: firstname,
-    //     lastname: lastname,
-    //     email: email,  
-    //     // image_id: image_id,
-    //     uid: uid
-    // };
 
     const defaultImage = { url: 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg' };
 
@@ -37,16 +29,6 @@ router.post('/register', (req, res) => {
                     res.status(500).json({message: error.message});
                 })
         })
-
-    // usersDb.createUser(newUser)
-    //     .then(response => {
-    //         console.log('response from db insert newUser: ', response);
-    //         res.status(200).json(response);
-    //     })
-    //     .catch(error => {  // catch error from insert new rep request
-    //         console.log(error.message);
-    //         res.status(500).json({message: error.message});
-    //     })
 })
 
 router.get('/userinfo', (req, res) => {
