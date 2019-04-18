@@ -1,34 +1,58 @@
 const express = require('express');
 const router = express.Router();
 const firebase = require("firebase/app");
-const db = require('../../db/helpers/users');
+const usersDb = require('../../db/helpers/users');
+const imagesDb = require('../../db/helpers/images');
 
 router.post('/register', (req, res) => {
     let { firstname, lastname, email, image_id, uid } = req.body;
     
-    let newUser = {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,  
-        // image_id: image_id,
-        uid: uid
-    };
+    // let newUser = {
+    //     firstname: firstname,
+    //     lastname: lastname,
+    //     email: email,  
+    //     // image_id: image_id,
+    //     uid: uid
+    // };
 
-    db.createUser(newUser)
-        .then(response => {
-            console.log('response from db insert newUser: ', response);
-            res.status(200).json(response);
+    const defaultImageUrl = 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg';
+
+    imagesDb.addImage(defaultImageUrl)  // create image using default URL and return image_id
+        .then(image_id => {
+            const newUser = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,  
+                image_id: image_id,
+                uid: uid
+            };
+
+            usersDb.createUser(newUser)
+                .then(response => {
+                    console.log('response from db insert newUser: ', response);
+                    res.status(200).json(response);
+                })
+                .catch(error => {  // catch error from insert new rep request
+                    console.log(error.message);
+                    res.status(500).json({message: error.message});
+                })
         })
-        .catch(error => {  // catch error from insert new rep request
-            console.log(error.message);
-            res.status(500).json({message: error.message});
-        })
+
+    // usersDb.createUser(newUser)
+    //     .then(response => {
+    //         console.log('response from db insert newUser: ', response);
+    //         res.status(200).json(response);
+    //     })
+    //     .catch(error => {  // catch error from insert new rep request
+    //         console.log(error.message);
+    //         res.status(500).json({message: error.message});
+    //     })
 })
 
 router.get('/userinfo', (req, res) => {
     let uid = req.body.uid;
 
-    db.getUserInfo(uid)
+    usersDb.getUserInfo(uid)
         .then(response => {
             res.status(200).json(response);
         })
@@ -48,7 +72,7 @@ router.put('/updateuserdetails', (req, res) => {
 	
 	console.log('user object in /updateuserdetails endpoint', user);
 
-    db.updateUserDetails(uid, user)  
+    usersDb.updateUserDetails(uid, user)  
         .then(response_data => {
             res.status(200).json(user);     // send the updated user info back to display on accout page
         })

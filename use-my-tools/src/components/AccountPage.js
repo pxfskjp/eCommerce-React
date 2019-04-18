@@ -89,37 +89,37 @@ class AccountPage extends Component {
 
     }
 
-    // fileChangedHandler = (event) => {
-    //     this.setState({
-    //       selectedFile: event.target.files[0]
-    //     }, () => {
-    //       this.imageUpload(event);
-    //     });
-    // };
+    fileChangedHandler = (event) => {
+        this.setState({
+          selectedFile: event.target.files[0]
+        }, () => {
+          this.imageUpload(event);
+        });
+    };
     
     
-    // imageUpload = event => {
-    //     console.log('inside imageUpload file is', this.state.selectedFile);
+    imageUpload = event => {
+        console.log('inside imageUpload file is', this.state.selectedFile);
     
-    //     let data = new FormData();
-    //         data.append('uid', this.state.uid);
-    //         data.append('file', this.state.selectedFile);
+        let data = new FormData();
+            data.append('uid', this.state.uid);
+            data.append('file', this.state.selectedFile);
     
-    //     const id = this.state.image_id;   //image_id to update an existing image to a new one
+        const id = this.state.image_id;   //image_id to update an existing image to a new one
         
-    //     // this.setState({loading:true});	  
-    //     axios.put(`/api/users/updateimage`, data)
-    //       .then(response => {
-    //                   console.log('response after image update', response.data);
-    //                   this.setState({image_url:response.data.url, loading:false});
-    //       })
-    //       .catch(err => {
-    //                 console.log(err.message);
-    //                 this.setState({error:err});
-    //       })
+        // this.setState({loading:true});	  
+        axios.put(`/api/users/updateimage`, data)
+          .then(response => {
+                      console.log('response after image update', response.data);
+                      this.setState({image_url:response.data.url, loading:false});
+          })
+          .catch(err => {
+                    console.log(err.message);
+                    this.setState({error:err});
+          })
     
-    //         //  event.preventDefault();
-    // };
+            //  event.preventDefault();
+    };
 
     render() {
         const { classes } = this.props;
