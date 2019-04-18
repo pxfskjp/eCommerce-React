@@ -27,13 +27,13 @@ class RegisterFormBase extends Component {
             password1: "",
             firstname: "",
             lastname: "",
-            image_id: 1,
+            // image_id: ,
             error: null
         };
     }
 
     onSubmit = event => {
-        const {email, password, firstname, lastname, image_id } = this.state;
+        const {email, password, firstname, lastname } = this.state;
         // const image_id = 1; 
         console.log('RegisterPage state on submit: ', this.state);
     
@@ -44,7 +44,7 @@ class RegisterFormBase extends Component {
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
                         // console.log("idToken after createUser: ", idToken);
-                        const registerData = { email, firstname, lastname, image_id };
+                        const registerData = { email, firstname, lastname };
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
 

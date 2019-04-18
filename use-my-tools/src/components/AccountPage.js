@@ -89,6 +89,38 @@ class AccountPage extends Component {
 
     }
 
+    fileChangedHandler = (event) => {
+        this.setState({
+          selectedFile: event.target.files[0]
+        }, () => {
+          this.imageUpload(event);
+        });
+    };
+    
+    
+    imageUpload = event => {
+        console.log('inside imageUpload file is', this.state.selectedFile);
+    
+        let data = new FormData();
+            data.append('uid', this.state.uid);
+            data.append('file', this.state.selectedFile);
+    
+        const id = this.state.image_id;   //image_id to update an existing image to a new one
+        
+        // this.setState({loading:true});	  
+        axios.put(`/api/users/updateimage`, data)
+          .then(response => {
+                      console.log('response after image update', response.data);
+                      this.setState({image_url:response.data.url, loading:false});
+          })
+          .catch(err => {
+                    console.log(err.message);
+                    this.setState({error:err});
+          })
+    
+            //  event.preventDefault();
+    };
+
     render() {
         const { classes } = this.props;
         return (
@@ -96,7 +128,7 @@ class AccountPage extends Component {
 
                 <div className="left-container">
                     <form onSubmit={this.updateUserDetails}>
-                        <h2>Edit Account Information</h2>
+                        <h2>Account Details</h2>
                         <TextField
                             id="outlined-first-name"
                             label="First Name"
@@ -145,6 +177,31 @@ class AccountPage extends Component {
                         </Button>
                     </form>
                 </div> 
+                {/* end left-container */}
+
+                <div className="right-container">
+                    <h2>Profile Image</h2>
+                    <img
+                        src={this.state.imageUrl}
+                        alt="profile picture"
+                    />
+                    <br/>
+                    <form className="image-upload" onSubmit={this.imageUpload}>
+                        <input
+                            accept="image/*"
+                            id="outlined-button-file"
+                            type="file"
+                            onChange={this.fileChangedHandler}
+                        />
+                        <label htmlFor="outlined-button-file">
+                            <Button type="submit" variant="outlined" component="span" color="primary" className={classes.button}>
+                                Upload
+                            </Button>
+                        </label>
+                    </form>
+                </div>
+                {/* end right-container */}
+
             </div>
         );
     }
