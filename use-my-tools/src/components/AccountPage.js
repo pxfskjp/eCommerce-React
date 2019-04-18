@@ -104,7 +104,7 @@ class AccountPage extends Component {
         console.log('inside imageUpload file is', this.state.selectedFile);
     
         let data = new FormData();
-            data.append('image_id', this.state.selectedFile);
+            data.append('image_id', this.state.image_id);
             data.append('image_file', this.state.selectedFile);
         
         // this.setState({loading:true});	  

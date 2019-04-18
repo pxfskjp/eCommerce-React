@@ -3,7 +3,8 @@ const db = require('../db.js');
 module.exports = {
     addImage,
     addToolImage,
-    getToolImages
+    getToolImages,
+    updateImage
 }
 
 // add image url to images table:
@@ -28,4 +29,10 @@ function getToolImages(id) {
         .from('tool_images as ti')
         .join('images as i', 'ti.image_id', 'i.id')
         .where({tool_id: id});
+}
+
+function updateImage(id, url) {
+    return db('images')
+        .where('id', id)
+        .update(url);
 }

@@ -74,13 +74,13 @@ router.put('/updateimage', multipart, (req, res) => {
         }
         else {
             try {
-                const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url from cloudinary into the images table and get back the id of the new image in the images table
-
-                console.log('id of image added to images table: ', imageId);
         
-                await imagesDb.addToolImage({ image_id: imageId, tool_id });
+                const newImage = await imagesDb.updateImage({ 
+                    id: req.body.image_id,
+                    url: result.url 
+                });
         
-                res.status(200).json(response);
+                res.status(200).json(newImage);
             }
             catch (error) {
                 console.log(error);
