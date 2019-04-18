@@ -150,19 +150,6 @@ class AccountPage extends Component {
                         />
 
                         <TextField
-                            id="outlined-email"
-                            label="Email"
-                            className={classes.textField}
-                            value={this.state.email}
-                            onChange={this.handleChange("email")}
-                            margin="normal"
-                            variant="outlined"
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                        />
-
-                        <TextField
                             id="outlined-home-street-address"
                             label="Street Address"
                             className={classes.textField}
@@ -175,7 +162,22 @@ class AccountPage extends Component {
                         <Button variant="outlined" color="primary" className="save-button" type="submit" >
                             Save
                         </Button>
-                    </form>
+                        
+                        </form>
+
+                        <TextField
+                            id="outlined-email"
+                            label="Email"
+                            className={classes.textField}
+                            value={this.state.email}
+                            onChange={this.handleChange("email")}
+                            margin="normal"
+                            variant="outlined"
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                        />
+                    
                 </div> 
                 {/* end left-container */}
 
