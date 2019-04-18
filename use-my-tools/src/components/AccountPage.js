@@ -162,10 +162,12 @@ class AccountPage extends Component {
                         <Button variant="outlined" color="primary" className="save-button" type="submit" >
                             Save
                         </Button>
-                        
-                        </form>
 
-                        <TextField
+                        </form>
+                        
+                        <Link to="/updatepassword">Update Password</Link>
+                        
+                        {/* <TextField
                             id="outlined-email"
                             label="Email"
                             className={classes.textField}
@@ -176,7 +178,7 @@ class AccountPage extends Component {
                             InputProps={{
                                 readOnly: true,
                             }}
-                        />
+                        /> */}
                     
                 </div> 
                 {/* end left-container */}
