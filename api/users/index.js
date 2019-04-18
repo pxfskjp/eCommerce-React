@@ -10,7 +10,7 @@ router.post('/register', (req, res) => {
         firstname: firstname,
         lastname: lastname,
         email: email,  
-        image_id: image_id,
+        // image_id: image_id,
         uid: uid
     };
 
