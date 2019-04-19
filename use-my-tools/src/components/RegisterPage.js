@@ -185,8 +185,11 @@ class RegisterFormBase extends Component {
                                 value={this.state.homeAddress}
                                 onChange={this.onChange}
                             /> */}
-
-                            <LocationSearchInput handleSelectLocation={this.handleSelectLocation} />
+                            <div className="location-input">
+                                <LocationSearchInput 
+                                    handleSelectLocation={this.handleSelectLocation} 
+                                />
+                            </div>
                             <br/>
 
                             <RaisedButton

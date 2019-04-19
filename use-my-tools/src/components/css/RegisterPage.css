@@ -76,6 +76,10 @@
     padding-bottom: 5%;
 }
 
+.location-input {
+    width: 65%;
+}
+
 @media (max-width: 800px) {
   .register {
     height: 100%;
