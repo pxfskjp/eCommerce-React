@@ -65,6 +65,8 @@ class LocationSearchInput extends React.Component {
   }
 }
 
+export default LocationSearchInput;
+
 // class PlaceAutocompleteForm extends React.Component {
 //     constructor(props) {
 //         super(props);
