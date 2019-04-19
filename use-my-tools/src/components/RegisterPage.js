@@ -173,7 +173,7 @@ class RegisterFormBase extends Component {
                                 style = {{width: '65%'}}
                                 hintText="Enter your home address so other users can find your tools"
                                 floatingLabelText="Home Address"
-                                name="homeAdress"
+                                name="homeAddress"
                                 type="text"
                                 required={true}
                                 value={this.state.homeAddress}
