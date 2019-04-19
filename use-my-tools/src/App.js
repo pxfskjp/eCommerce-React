@@ -71,10 +71,6 @@ class AppComponentBase extends Component {
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
-              <Route path={"/locationsearch"} component={LocationSearchInput} />
-              
-              {/* <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} /> */}
-
             </Router>
           ) : (
             <Router>

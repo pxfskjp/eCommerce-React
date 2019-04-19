@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import LocationSearchInput from './LocationSearchInput';
 
 import axios from 'axios';
 
@@ -91,6 +92,11 @@ class RegisterFormBase extends Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
+    handleSelectLocation = address => {
+        console.log('RegisterPage handleSelectLocation address: ', address);
+        this.setState({ homeAddress: address }, () => console.log('RegisterPage state.homeAddress:', this.state.homeAddress));
+    };
+
     render() {
         const { email, password, password1, firstname, lastname, error } = this.state;
 
@@ -169,7 +175,7 @@ class RegisterFormBase extends Component {
                             />
                             <br/>
 
-                            <TextField
+                            {/* <TextField
                                 style = {{width: '65%'}}
                                 hintText="Enter your home address so other users can find your tools"
                                 floatingLabelText="Home Address"
@@ -178,7 +184,9 @@ class RegisterFormBase extends Component {
                                 required={true}
                                 value={this.state.homeAddress}
                                 onChange={this.onChange}
-                            />
+                            /> */}
+
+                            <LocationSearchInput handleSelectLocation={this.handleSelectLocation} />
                             <br/>
 
                             <RaisedButton
