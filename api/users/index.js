@@ -6,6 +6,7 @@ const multipart = require("connect-multiparty")();
 const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
 
+// Register a new user:
 router.post('/register', (req, res) => {
     let { firstname, lastname, email, uid } = req.body;
 
@@ -33,6 +34,7 @@ router.post('/register', (req, res) => {
         })
 })
 
+// Get user details on a logged-in user:
 router.get('/userinfo', (req, res) => {
     let uid = req.body.uid;
 
@@ -45,6 +47,7 @@ router.get('/userinfo', (req, res) => {
         })
 })
 
+// Update details for a logged in user:
 router.put('/updateuserdetails', (req, res) => {
 	const uid = req.body.uid;
 	const user = {
@@ -66,6 +69,7 @@ router.put('/updateuserdetails', (req, res) => {
         })
 })
 
+// Update a user's profile image:
 router.put('/updateimage', multipart, (req, res) => {
     cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
         console.log('/updateimage req.files.image_file: ', req.files.image_file);
