@@ -1,0 +1,17 @@
+.location-search-input {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    /* height: 72px; */
+    border-bottom: .25px solid #E0E0E0;
+    margin-top: 35px;
+}
+
+.suggestion {
+    background-color: #f1f1f1;
+    color: gray;
+    font-size: 80%;
+    padding: 0.25em 0.7em;
+    text-align: left;
+}
