@@ -1,3 +1,11 @@
 .location-search-input {
     width: 100%;
 }
+
+.suggestion {
+    background-color: #f1f1f1;
+    color: gray;
+    font-size: 80%;
+    padding: 0.25em 0.7em;
+    text-align: left;
+}
