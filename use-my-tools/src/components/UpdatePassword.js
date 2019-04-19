@@ -1,14 +1,12 @@
 import React from 'react';
 import { withFirebase } from "./Firebase";
-import { Link, withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 import { FirebaseContext } from './Firebase';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
+
+// import axios from 'axios';
 
 import './css/UpdatePassword.css';
 
