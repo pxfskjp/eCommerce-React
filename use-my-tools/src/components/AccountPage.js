@@ -166,19 +166,6 @@ class AccountPage extends Component {
                         </form>
                         
                         <Link to="/updatepassword">Update Password</Link>
-                        
-                        {/* <TextField
-                            id="outlined-email"
-                            label="Email"
-                            className={classes.textField}
-                            value={this.state.email}
-                            onChange={this.handleChange("email")}
-                            margin="normal"
-                            variant="outlined"
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                        /> */}
                     
                 </div> 
                 {/* end left-container */}
@@ -197,11 +184,6 @@ class AccountPage extends Component {
                             type="file"
                             onChange={this.fileChangedHandler}
                         />
-                        {/* <label htmlFor="outlined-button-file">
-                            <Button type="submit" variant="outlined" component="span" color="primary" className={classes.button}>
-                                Upload
-                            </Button>
-                        </label> */}
                     </form>
                 </div>
                 {/* end right-container */}
