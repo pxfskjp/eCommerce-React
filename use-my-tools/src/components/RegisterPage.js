@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import LocationSearchInput from './LocationSearchInput';
 
 import axios from 'axios';
 
@@ -27,14 +28,14 @@ class RegisterFormBase extends Component {
             password1: "",
             firstname: "",
             lastname: "",
-            // image_id: ,
+            homeAddress: "",
             error: null
         };
     }
 
     onSubmit = event => {
-        const {email, password, firstname, lastname } = this.state;
-        // const image_id = 1; 
+        const {email, password, firstname, lastname, homeAddress } = this.state;
+ 
         console.log('RegisterPage state on submit: ', this.state);
     
         this.props.firebase.createUser(email, password)
@@ -44,7 +45,7 @@ class RegisterFormBase extends Component {
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
                         // console.log("idToken after createUser: ", idToken);
-                        const registerData = { email, firstname, lastname };
+                        const registerData = { email, firstname, lastname, homeAddress };
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
 
@@ -89,6 +90,11 @@ class RegisterFormBase extends Component {
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleSelectLocation = address => {
+        console.log('RegisterPage handleSelectLocation address: ', address);
+        this.setState({ homeAddress: address }, () => console.log('RegisterPage state.homeAddress:', this.state.homeAddress));
     };
 
     render() {
@@ -167,6 +173,20 @@ class RegisterFormBase extends Component {
                                 value={this.state.password1}
                                 onChange={this.onChange}
                             />
+                            <br/>
+
+                            {/* <TextField
+                                style = {{width: '65%'}}
+                                hintText="Enter your home address so other users can find your tools"
+                                floatingLabelText="Home Address"
+                                name="homeAddress"
+                                type="text"
+                                required={true}
+                                value={this.state.homeAddress}
+                                onChange={this.onChange}
+                            /> */}
+
+                            <LocationSearchInput handleSelectLocation={this.handleSelectLocation} />
                             <br/>
 
                             <RaisedButton

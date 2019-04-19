@@ -15,7 +15,7 @@ import AccountPage from './components/AccountPage';
 import MyTools from './components/tools/MyTools';
 import AddTool from './components/tools/AddTool';
 import UpdatePassword from './components/UpdatePassword';
-
+import LocationSearchInput from './components/LocationSearchInput';
 
 
 const App = () => (
@@ -71,8 +71,6 @@ class AppComponentBase extends Component {
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
-              {/* <Route path="/addtool" render={() => <AddTool idToken={idToken}/>} /> */}
-
             </Router>
           ) : (
             <Router>

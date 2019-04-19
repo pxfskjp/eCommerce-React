@@ -30,3 +30,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+.account-page-container .right-container img {
+    border-radius: 50%;
+}
