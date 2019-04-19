@@ -8,16 +8,17 @@ const imagesDb = require('../../db/helpers/images');
 
 // Register a new user:
 router.post('/register', (req, res) => {
-    let { firstname, lastname, email, uid } = req.body;
+    let { firstname, lastname, email, uid, homeAddress } = req.body;
 
     const defaultImage = { url: 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg' };
 
-    imagesDb.addImage(defaultImage)  // create image using default URL and return image_id
-        .then(image_id => {
+    imagesDb.addImage(defaultImage)  // create image using default URL (no cloudinary)
+        .then(image_id => {          // addImage returns id (PK) of new image
             const newUser = {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,  
+                home_street_address: homeAddress,
                 image_id: image_id,
                 uid: uid
             };
