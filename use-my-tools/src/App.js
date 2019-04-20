@@ -49,9 +49,14 @@ class AppComponentBase extends Component {
             console.log(error.message);
           })
       } else {
-        this.props.history.push({         
-          pathname: "/"
-      });
+        this.setState({
+          idToken: null
+        })
+        .then(() => {
+          this.props.history.push({         
+            pathname: "/"
+          });
+        })
       }
     });
   }
@@ -64,9 +69,9 @@ class AppComponentBase extends Component {
           {idToken ? (
             <Router>
               <NavigationBar />
-              {/* <Route exact path={"/"} component={LandingPage} />
+              <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} /> */}
+              <Route path="/login" component={LoginPage} />
               <Route path={"/accountpage"} component={AccountPage} />
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />

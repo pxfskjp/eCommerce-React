@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import LocationSearchInput from './LocationSearchInput';
 
 import axios from 'axios';
 
@@ -123,6 +124,7 @@ class AccountPage extends Component {
 
     render() {
         const { classes } = this.props;
+        const  addressReceived = this.state.homeStreetAddress;
         return (
             <div className="account-page-container">
 
@@ -149,7 +151,7 @@ class AccountPage extends Component {
                             variant="outlined"
                         />
 
-                        <TextField
+                        {/* <TextField
                             id="outlined-home-street-address"
                             label="Street Address"
                             className={classes.textField}
@@ -157,7 +159,18 @@ class AccountPage extends Component {
                             onChange={this.handleChange("homeStreetAddress")}
                             margin="normal"
                             variant="outlined"
-                        />
+                        /> */}
+                        <div className="location-input">
+                            {addressReceived ? (
+                                <LocationSearchInput 
+                                    handleSelectLocation={this.handleSelectLocation}
+                                    address={this.state.homeStreetAddress} 
+                                 />
+                            ) : (
+                                ''
+                            )}
+                            
+                        </div>
 
                         <Button variant="outlined" color="primary" className="save-button" type="submit" >
                             Save
