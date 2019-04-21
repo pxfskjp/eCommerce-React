@@ -81,7 +81,7 @@ const defaultProps = {
   initialVisibleMonth: null,
   numberOfMonths: 1,
   keepOpenOnDateSelect: false,
-  reopenPickerOnClearDates: false,
+  reopenPickerOnClearDates: true,
   isRTL: false,
 
   // navigation related props
@@ -96,7 +96,7 @@ const defaultProps = {
   minimumNights: 0,
   enableOutsideDays: false,
   isDayBlocked: () => false,
-  isOutsideRange: () => {},
+  isOutsideRange: day => (moment().diff(day) > 0),
   isDayHighlighted: () => false,
 
   // internationalization
