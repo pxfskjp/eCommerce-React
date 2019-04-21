@@ -10,7 +10,9 @@ import './css/LocationSearchInput.css';
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: '' };
+    this.state = { 
+      address: this.props.address
+    };
   }
 
   handleChange = address => {
@@ -43,7 +45,7 @@ class LocationSearchInput extends React.Component {
           <div>
             <input
               {...getInputProps({
-                placeholder: 'Search Places ...',
+                placeholder: 'Home street address',
                 className: 'location-search-input',
               })}
             />
