@@ -100,8 +100,8 @@ const defaultProps = {
   isDayHighlighted: () => false,
 
   // internationalization
-//   displayFormat: () => moment.localeData().longDateFormat("L"),
-//   monthFormat: "MMMM YYYY"
+  displayFormat: () => moment.localeData().longDateFormat("L"),
+  monthFormat: "MMMM YYYY"
 };
 
 class DateRangePickerWrapper extends Component {
