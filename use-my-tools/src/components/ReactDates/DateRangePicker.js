@@ -108,8 +108,8 @@ class DateRangePickerWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: new moment().add(-6, "day"),
-      endDate: new moment(),
+      startDate: new moment(),
+      endDate: new moment().add(1, "day"),
       focusedInput: null
     };
   }
