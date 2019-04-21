@@ -42,18 +42,18 @@ const defaultProps = {
   presets: [
     {
       text: "Week",
-      start: moment().add(-6, "day"),
-      end: moment()
+      start: moment(),
+      end: moment().add(6, "day")
     },
     {
       text: "Month",
-      start: moment().add(-29, "day"),
-      end: moment()
+      start: moment(),
+      end: moment().add(29, "day")
     },
     {
       text: "3 Months",
-      start: moment().add(-89, "day"),
-      end: moment()
+      start: moment(),
+      end: moment().add(89, "day")
     }
   ],
 
@@ -114,8 +114,10 @@ class DateRangePickerWrapper extends Component {
     };
   }
 
-  onDatesChange = ({ startDate, endDate }) =>
+  onDatesChange = ({ startDate, endDate }) => {
+    console.log('DateRangePicker startDate in onDatesChange: ', startDate);
     this.setState({ startDate, endDate });
+  };
 
   onFocusChange = focusedInput => this.setState({ focusedInput });
 
