@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import PropTypes from "prop-types";
 import momentPropTypes from "react-moment-proptypes";
-import "moment/locale/zh-cn";
+// import "moment/locale/zh-cn";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import omit from "lodash/omit";
@@ -100,8 +100,8 @@ const defaultProps = {
   isDayHighlighted: () => false,
 
   // internationalization
-  displayFormat: () => moment.localeData().longDateFormat("L"),
-  monthFormat: "YYYY[年]MMMM"
+//   displayFormat: () => moment.localeData().longDateFormat("L"),
+//   monthFormat: "MMMM YYYY"
 };
 
 class DateRangePickerWrapper extends Component {
