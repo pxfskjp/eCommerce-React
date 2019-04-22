@@ -22,6 +22,9 @@ class NavigationBar extends Component {
                     <Link to="/accountpage" className="nav-link">
                         Account
                     </Link>
+                    <Link to="/findtools" className="nav-link">
+                        Find Tools
+                    </Link>
                     <Link to="/yourtools" className="nav-link">
                         My Tools
                     </Link>
