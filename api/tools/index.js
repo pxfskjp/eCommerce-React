@@ -6,7 +6,7 @@ const multipart = require("connect-multiparty")();
 const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
-
+const datesDb = require('../../db/helpers/dates');
 
 cloudinary.config({ 
     cloud_name:"use-my-tools-csr",
@@ -133,12 +133,28 @@ router.get('/alltools', (req, res) => {
         })
 })
 
-// router.post('/reservedates', (req, res) => {
-//     const uid = req.body.uid;
+router.post('/reservedates', (req, res) => {
+    const uid = req.body.uid;
+    let tool_id = 1;
+    let { startDate, endDate } = req.body;
 
+    let reservationData = {
+        tool_id: tool_id,
+        res_type: "rental",
+        renter_uid: uid,
+        start_date: startDate,
+        end_date: endDate,
+    }
 
-// })
+    datesDb.reserveDates(reservationData)
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
 
+})
 
 module.exports = router;
 

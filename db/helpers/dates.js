@@ -1,10 +1,10 @@
 const db = require('../db.js');
 
 module.exports = {
-    reserveDateRange
+    reserveDates
 }
 
-function reserveDateRange(dateRange) {
+function reserveDates(dateRange) {
     return db('reserved_dates')
         .insert(dateRange)
         .returning('id')
