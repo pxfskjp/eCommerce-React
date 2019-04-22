@@ -3,7 +3,8 @@ const db = require('../db.js');
 module.exports = {
     createTool,
     getMyTools,
-    getAllTools
+    getAllTools,
+    getTool
 }
 
 function createTool(newTool) {
@@ -33,6 +34,13 @@ function getAllTools(uid) {
     return db
         .select('*')
         .from('tools');
+}
+
+function getTool(id) {
+    return db
+        .select('*')
+        .from('tools')
+        .where('id', id);
 }
 
 
