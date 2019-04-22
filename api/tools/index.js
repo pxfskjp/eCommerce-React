@@ -101,6 +101,45 @@ router.get('/mytools', (req, res) => {
         })
 })
 
+router.get('/alltools', (req, res) => {
+    // let uid = req.body.uid;
+
+    toolsDb.getAllTools()
+        .then(tools => {                  // db responds with array of all available tools
+            console.log('response from db getMyTools query: ', tools);
+
+            const toolsWithImages = tools.map(tool => {
+                const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
+                return imagesQuery 
+                    .then(images => {
+                        console.log('response from db getToolImages query: ', images);
+                        tool.images = images;  // append images array to tool object
+                    })
+                    // .catch(error => {
+                    //     res.status(500).json(error.message);
+                    // })
+            });
+
+            console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            
+            Promise.all(toolsWithImages)
+                .then(completed => {
+                    tools.data = completed;
+                    res.status(200).json(tools);  // Send back tools with images appended as response
+                })
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
+// router.post('/reservedates', (req, res) => {
+//     const uid = req.body.uid;
+
+
+// })
+
+
 module.exports = router;
 
 // router.post('/newtool', (req, res) => {
