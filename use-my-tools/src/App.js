@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
-import { Provider, Consumer } from './AppContext';
+// import { Provider, Consumer } from './AppContext';
 import axios from 'axios';
 
 import './App.css';
@@ -10,10 +10,15 @@ import './App.css';
 import LandingPage from './components/LandingPage';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
+
 import NavigationBar from './components/NavigationBar';
+
 import AccountPage from './components/AccountPage';
+
 import MyTools from './components/tools/MyTools';
 import AddTool from './components/tools/AddTool';
+import FindTools from './components/tools/FindTools';
+
 import UpdatePassword from './components/UpdatePassword';
 import DateRangePicker from './components/ReactDates/DateRangePicker';
 
@@ -76,6 +81,8 @@ class AppComponentBase extends Component {
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
+              <Route path={"/findtools"} component={FindTools} />
+
               <Route path={"/dates"} component={DateRangePicker} />
             </Router>
           ) : (
