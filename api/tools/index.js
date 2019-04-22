@@ -6,7 +6,7 @@ const multipart = require("connect-multiparty")();
 const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
-
+const datesDb = require('../../db/helpers/dates');
 
 cloudinary.config({ 
     cloud_name:"use-my-tools-csr",
@@ -99,6 +99,61 @@ router.get('/mytools', (req, res) => {
         .catch(error => {
             res.status(500).json(error.message);
         })
+})
+
+router.get('/alltools', (req, res) => {
+    // let uid = req.body.uid;
+
+    toolsDb.getAllTools()
+        .then(tools => {                  // db responds with array of all available tools
+            console.log('response from db getMyTools query: ', tools);
+
+            const toolsWithImages = tools.map(tool => {
+                const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
+                return imagesQuery 
+                    .then(images => {
+                        console.log('response from db getToolImages query: ', images);
+                        tool.images = images;  // append images array to tool object
+                    })
+                    // .catch(error => {
+                    //     res.status(500).json(error.message);
+                    // })
+            });
+
+            console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            
+            Promise.all(toolsWithImages)
+                .then(completed => {
+                    tools.data = completed;
+                    res.status(200).json(tools);  // Send back tools with images appended as response
+                })
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
+router.post('/reservedates', (req, res) => {
+    const uid = req.body.uid;
+    let tool_id = 1;
+    let { startDate, endDate } = req.body;
+
+    let reservationData = {
+        tool_id: tool_id,
+        res_type: "rental",
+        renter_uid: uid,
+        start_date: startDate,
+        end_date: endDate,
+    }
+
+    datesDb.reserveDates(reservationData)
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+
 })
 
 module.exports = router;
