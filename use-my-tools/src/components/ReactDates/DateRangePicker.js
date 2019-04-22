@@ -8,6 +8,7 @@ import "react-dates/lib/css/_datepicker.css";
 import omit from "lodash/omit";
 import { DateRangePicker } from "react-dates";
 import { withStyles, withStylesPropTypes, css } from "react-with-styles";
+import axios from 'axios';
 
 const propTypes = {
   ...withStylesPropTypes,
@@ -117,6 +118,14 @@ class DateRangePickerWrapper extends Component {
   onDatesChange = ({ startDate, endDate }) => {
     console.log('DateRangePicker startDate in onDatesChange: ', startDate);
     this.setState({ startDate, endDate });
+    let data = { startDate: startDate, endDate: endDate };
+    axios.post('/api/tools/reserveDates', data)
+        .then(response => {
+            console.log('Dates reservation created with response: ', response);
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
   };
 
   onFocusChange = focusedInput => this.setState({ focusedInput });
