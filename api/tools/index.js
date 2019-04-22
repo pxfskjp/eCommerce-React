@@ -133,6 +133,17 @@ router.get('/alltools', (req, res) => {
         })
 })
 
+router.get('/tool/:id', (req, res) => {
+    const id = req.params.id;
+    toolsDb.getTool(id)
+        .then(tool => {
+            res.status(200).json(tool);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        });
+})
+
 router.post('/reservedates', (req, res) => {
     const uid = req.body.uid;
     let tool_id = 1;
