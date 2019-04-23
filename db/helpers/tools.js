@@ -40,7 +40,8 @@ function getTool(id) {
     return db
         .select('*')
         .from('tools')
-        .where('id', id);
+        .where('id', id)
+        .first();
 }
 
 

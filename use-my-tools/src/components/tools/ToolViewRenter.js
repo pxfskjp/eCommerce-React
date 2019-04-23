@@ -44,6 +44,9 @@ class ToolViewRenter extends React.Component {
     getToolInfo = tool_id => {
         axios.get(`/api/tools/tool/renter/${tool_id}`)
             .then(tool => {
+                console.log('getToolInfo tool:', tool);
+                console.log('getToolInfo tool.data:', tool.data);
+
                 this.setState({
                     tool: tool.data
                 }, () => console.log("ToolView state.tool after getToolInfo:", this.state.tool));
