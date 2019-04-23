@@ -20,7 +20,7 @@ class ToolViewRenter extends React.Component {
             .then(tool => {
                 this.setState({
                     tool: tool.data
-                }, () => console.log('ToolsOwned state.tools after GET tools: ', this.state.tools)) ;
+                });
             })
             .catch(error => {
                 console.log(error.message);
