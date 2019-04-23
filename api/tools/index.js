@@ -144,6 +144,11 @@ router.get('/tool/renter/:id', (req, res) => {
         });
 })
 
+router.get('/tool/reserveddates/:id', (req, res) => {
+    const id = req.params.id;
+    
+})
+
 router.post('/reservedates', (req, res) => {
     const uid = req.body.uid;
 
