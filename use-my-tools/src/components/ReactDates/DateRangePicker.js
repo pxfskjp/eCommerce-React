@@ -118,7 +118,7 @@ class DateRangePickerWrapper extends Component {
   onDatesChange = ({ startDate, endDate }) => {
     this.props.onDatesChange({ startDate, endDate });
 
-    // console.log('DateRangePicker startDate in onDatesChange: ', startDate);
+    console.log('DateRangePicker startDate in onDatesChange: ', startDate);
     // this.setState({ startDate, endDate });
     // let data = { startDate: startDate, endDate: endDate };
     // axios.post('/api/tools/reserveDates', data)

@@ -45,7 +45,7 @@ class RequestDatesPopUp extends React.Component {
 
   onDatesChange = ({ startDate, endDate }) => {
 
-    this.setState({ startDate, endDate });
+    this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
     
   };
 
