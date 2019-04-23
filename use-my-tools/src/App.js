@@ -86,7 +86,7 @@ class AppComponentBase extends Component {
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
               <Route path={"/findtools"} component={FindTools} />
-              <Route path={"/tools/:id"} component={ToolViewRenter} />
+              <Route path={"/tool/:id"} component={ToolViewRenter} />
 
               <Route path={"/dates"} component={DateRangePicker} />
             </Router>
