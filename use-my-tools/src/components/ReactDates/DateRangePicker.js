@@ -96,7 +96,8 @@ const defaultProps = {
   renderDayContents: null,
   minimumNights: 0,
   enableOutsideDays: false,
-  isDayBlocked: day => this.props.blockedDays.includes(day),
+  // isDayBlocked: day => this.props.blockedDays.includes(day),
+  isDayBlocked: () => false,
   isOutsideRange: day => (moment().diff(day) > 0),
   isDayHighlighted: () => false,
 
@@ -126,7 +127,7 @@ class DateRangePickerWrapper extends Component {
   renderDatePresets = () => {
     const { presets, styles } = this.props;
     const { startDate, endDate } = this.state;
-    console.log(styles);
+    // console.log(styles);
 
     return (
       <div {...css(styles.PresetDateRangePicker_panel)}>

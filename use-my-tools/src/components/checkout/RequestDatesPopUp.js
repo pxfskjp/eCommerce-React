@@ -32,6 +32,7 @@ class RequestDatesPopUp extends React.Component {
     open: false,
     startDate: null,
     endDate: null,
+    blockedDates: [],
     error: null
   };
 
@@ -40,14 +41,14 @@ class RequestDatesPopUp extends React.Component {
 
     // *** TO DO: get reserved dates for tool and pass to DRP as props to block dates
 
-    // const tool_id = this.props.tool_id;
-    // axios.post('/api/tools/reservedates', reservationData)
-    //   .then(response => {
-        
-    //   })
-    //   .catch(error => {
-    //     this.setState({ error: error.message });
-    //   })
+    const toolId = this.props.toolId;
+    axios.get(`/api/tools/tool/reserveddates/${toolId}`)
+      .then(dates => {
+        this.setState({ blockedDates: dates.data }, () => console.log('PopUp state.blockedDates:', this.state.blockedDates));
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      })
   };
 
   handleClose = () => {
