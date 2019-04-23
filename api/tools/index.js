@@ -146,7 +146,13 @@ router.get('/tool/renter/:id', (req, res) => {
 
 router.get('/tool/reserveddates/:id', (req, res) => {
     const id = req.params.id;
-    
+    datesDb.getReservedDates(id)
+        .then(dates => {
+            res.status(200).json(dates);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
 })
 
 router.post('/reservedates', (req, res) => {

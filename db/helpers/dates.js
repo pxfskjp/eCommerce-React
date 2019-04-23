@@ -1,7 +1,8 @@
 const db = require('../db.js');
 
 module.exports = {
-    reserveDates
+    reserveDates,
+    getReservedDates
 }
 
 function reserveDates(dateRange) {
