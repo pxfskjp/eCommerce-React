@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import { get } from 'https';
 
-class AddRepForm extends React.Component {
+class RequestDatesPopUp extends React.Component {
   state = {
     open: false,
     error: null
@@ -62,10 +62,10 @@ class AddRepForm extends React.Component {
           >
             
               <div>
-                <DialogTitle id="form-dialog-title">Add a Team Member</DialogTitle>
+                <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    Enter the email address of a team member below to invite them to join. They will be sent an email with a link to sign up.
+                    Select the dates to request to rent this tool:
                   </DialogContentText>
                   
                 </DialogContent>
@@ -86,4 +86,4 @@ class AddRepForm extends React.Component {
   }
 }
 
-export default AddRepForm;
+export default RequestDatesPopUp;
