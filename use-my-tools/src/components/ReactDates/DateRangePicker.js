@@ -81,7 +81,7 @@ const defaultProps = {
   withFullScreenPortal: false,
   initialVisibleMonth: null,
   numberOfMonths: 1,
-  keepOpenOnDateSelect: false,
+  keepOpenOnDateSelect: true,
   reopenPickerOnClearDates: true,
   isRTL: false,
 
@@ -111,7 +111,7 @@ class DateRangePickerWrapper extends Component {
     this.state = {
       startDate: new moment(),
       endDate: new moment().add(1, "day"),
-      focusedInput: null
+      focusedInput: 'startDate'
     };
   }
 
@@ -119,7 +119,7 @@ class DateRangePickerWrapper extends Component {
     this.props.onDatesChange({ startDate, endDate });
 
     // console.log('DateRangePicker startDate in onDatesChange: ', startDate);
-    // this.setState({ startDate, endDate });
+    this.setState({ startDate, endDate });
     // let data = { startDate: startDate, endDate: endDate };
     // axios.post('/api/tools/reserveDates', data)
     //     .then(response => {

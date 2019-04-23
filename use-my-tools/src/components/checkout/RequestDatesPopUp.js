@@ -1,4 +1,5 @@
 import React from 'react';
+import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +12,20 @@ import DateRangePicker from '../ReactDates/DateRangePicker';
 
 import axios from 'axios';
 import { get } from 'https';
+
+const styles = {
+  dialogPaper: {
+      minHeight: '50vh',
+      maxHeight: '100vh',
+  },
+  dialogContent: {
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'space-around'
+    
+  }
+};
+
 
 class RequestDatesPopUp extends React.Component {
   state = {
@@ -74,6 +89,7 @@ class RequestDatesPopUp extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
 
     return (
         <div>
@@ -82,14 +98,15 @@ class RequestDatesPopUp extends React.Component {
           </Button>
           
           <Dialog
+            classes={{ paper: classes.dialogPaper }}
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
             
-              <div>
+              
                 <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
-                <DialogContent>
+                <DialogContent className={classes.dialogContent}>
                   <DialogContentText>
                     Select the dates to rent this tool:
                   </DialogContentText>
@@ -103,7 +120,7 @@ class RequestDatesPopUp extends React.Component {
                     Submit
                   </Button>
                 </DialogActions>
-              </div>
+             
             
           </Dialog>
           {this.state.error && <p>{this.state.error}</p>}
@@ -112,4 +129,4 @@ class RequestDatesPopUp extends React.Component {
   }
 }
 
-export default RequestDatesPopUp;
+export default withStyles(styles)(RequestDatesPopUp);
