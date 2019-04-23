@@ -1,5 +1,31 @@
 import React, { Component } from 'react';
+
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+// import Grid from "@material-ui/core/Grid";
+// import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import ImageCarousel from './ImageCarousel';
+
 import axios from 'axios';
+
+
+const styles = theme => ({
+    card: {
+        height: "100%",
+        display: "flex",
+        flexDirection: "column"
+    },
+    cardContent: {
+        flexGrow: 1,
+        maxHeight: 100,
+        minHeight: 100,
+        overflow: "hidden"
+    },
+
+})
 
 class ToolViewRenter extends React.Component {
     constructor(props) {
@@ -12,7 +38,7 @@ class ToolViewRenter extends React.Component {
     componentDidMount() {
         let tool_id = this.props.match.params.id;
         console.log(tool_id);
-        
+        this.getToolInfo(tool_id);
     }
 
     getToolInfo = tool_id => {
@@ -20,7 +46,7 @@ class ToolViewRenter extends React.Component {
             .then(tool => {
                 this.setState({
                     tool: tool.data
-                });
+                }, () => console.log("ToolView state.tool after getToolInfo:", this.state.tool));
             })
             .catch(error => {
                 console.log(error.message);
@@ -28,12 +54,28 @@ class ToolViewRenter extends React.Component {
     }
 
     render() {
+        const { tool } = this.state;
+        const { classes } = this.props;
+
         return (
             <div>
                 Tool View
+                {/* <Card className={classes.card}>
+
+                    <CardContent className={classes.cardContent}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {tool.brand}{' '}{tool.name}
+                        </Typography>
+                        <Typography>
+                            {tool.description}
+                        </Typography>
+                    </CardContent>
+
+                    
+                </Card> */}
             </div>
         )
     }
 }
 
-export default ToolViewRenter;
+export default withStyles(styles)(ToolViewRenter);
