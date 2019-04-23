@@ -9,9 +9,19 @@ class ToolViewRenter extends React.Component {
         };
     }
 
-    // componentDidMount() {
-    //     axios.get('/api/tools/')
-    // }
+    componentDidMount() {
+        let tool_id = this.props.match.params.id;
+        console.log(tool_id);
+        // axios.get('/api/tools/')
+    }
+
+    render() {
+        return (
+            <div>
+                Tool View
+            </div>
+        )
+    }
 }
 
 export default ToolViewRenter;

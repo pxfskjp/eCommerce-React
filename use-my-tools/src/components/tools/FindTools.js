@@ -46,6 +46,10 @@ class FindTools extends Component {
             })
     }
 
+    openToolView = event => {
+
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -73,7 +77,7 @@ class FindTools extends Component {
                                         <CardActions>
                                             <Button
                                                 component={Link}
-                                                to={`/tools/${tool.id}`}
+                                                to={`/tool/${tool.id}`}
                                                 size="small"
                                                 color="primary"
                                             >
