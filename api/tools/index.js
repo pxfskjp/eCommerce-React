@@ -133,7 +133,7 @@ router.get('/alltools', (req, res) => {
         })
 })
 
-router.get('/tool/:id', (req, res) => {
+router.get('/tool/renter/:id', (req, res) => {
     const id = req.params.id;
     toolsDb.getTool(id)
         .then(tool => {

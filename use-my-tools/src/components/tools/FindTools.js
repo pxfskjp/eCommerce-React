@@ -77,7 +77,7 @@ class FindTools extends Component {
                                         <CardActions>
                                             <Button
                                                 component={Link}
-                                                to={`/tool/${tool.id}`}
+                                                to={`/toolviewrenter/${tool.id}`}
                                                 size="small"
                                                 color="primary"
                                             >
