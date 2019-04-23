@@ -116,16 +116,18 @@ class DateRangePickerWrapper extends Component {
   }
 
   onDatesChange = ({ startDate, endDate }) => {
-    console.log('DateRangePicker startDate in onDatesChange: ', startDate);
-    this.setState({ startDate, endDate });
-    let data = { startDate: startDate, endDate: endDate };
-    axios.post('/api/tools/reserveDates', data)
-        .then(response => {
-            console.log('Dates reservation created with response: ', response);
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
+    this.props.onDatesChange({ startDate, endDate });
+
+    // console.log('DateRangePicker startDate in onDatesChange: ', startDate);
+    // this.setState({ startDate, endDate });
+    // let data = { startDate: startDate, endDate: endDate };
+    // axios.post('/api/tools/reserveDates', data)
+    //     .then(response => {
+    //         console.log('Dates reservation created with response: ', response);
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message);
+    //     })
   };
 
   onFocusChange = focusedInput => this.setState({ focusedInput });

@@ -88,7 +88,7 @@ class AppComponentBase extends Component {
               <Route path={"/findtools"} component={FindTools} />
               <Route path={"/toolviewrenter/:id"} component={ToolViewRenter} />
 
-              <Route path={"/dates"} component={DateRangePicker} />
+              {/* <Route path={"/dates"} component={DateRangePicker} /> */}
             </Router>
           ) : (
             <Router>

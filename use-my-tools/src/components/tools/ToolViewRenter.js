@@ -8,7 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // import ImageCarousel from './ImageCarousel';
-import DateRangePicker from '../ReactDates/DateRangePicker';
+import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
 
 import axios from 'axios';
 
@@ -76,7 +76,7 @@ class ToolViewRenter extends React.Component {
                     </CardContent>
 
                     <CardActions>
-                        <DateRangePicker />
+                        <RequestDatesPopUp />
                     </CardActions>
                     
                 </Card>
