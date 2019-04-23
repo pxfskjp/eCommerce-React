@@ -76,7 +76,7 @@ class ToolViewRenter extends React.Component {
                     </CardContent>
 
                     <CardActions>
-                        <RequestDatesPopUp />
+                        <RequestDatesPopUp toolId={tool.id} />
                     </CardActions>
                     
                 </Card>

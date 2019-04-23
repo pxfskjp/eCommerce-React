@@ -146,11 +146,11 @@ router.get('/tool/renter/:id', (req, res) => {
 
 router.post('/reservedates', (req, res) => {
     const uid = req.body.uid;
-    let tool_id = 1;
-    let { startDate, endDate } = req.body;
+
+    let { startDate, endDate, toolId } = req.body;
 
     let reservationData = {
-        tool_id: tool_id,
+        tool_id: toolId,
         res_type: "rental",
         renter_uid: uid,
         start_date: startDate,
