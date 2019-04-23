@@ -9,6 +9,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import DateRangePicker from '../ReactDates/DateRangePicker';
+import moment from "moment";
+
 
 import axios from 'axios';
 import { get } from 'https';
@@ -36,6 +38,18 @@ class RequestDatesPopUp extends React.Component {
     error: null
   };
 
+  getDatesInRange = dateRange => {
+    let datesArray = [];
+    const startDate = dateRange.start_date;
+    const endDate = dateRange.end_date;
+    let currentDate = startDate;
+    while (currentDate <= endDate) {
+      datesArray.push(new moment(currentDate).format('YYYY-MM-DD'));
+      currentDate = moment(currentDate).add(1, 'days');
+    }
+    return datesArray;
+  }
+
   handleClickOpen = () => {
     this.setState({ open: true });
 
@@ -44,6 +58,7 @@ class RequestDatesPopUp extends React.Component {
     const toolId = this.props.toolId;
     axios.get(`/api/tools/tool/reserveddates/${toolId}`)
       .then(dates => {
+
         this.setState({ blockedDates: dates.data }, () => console.log('PopUp state.blockedDates:', this.state.blockedDates));
       })
       .catch(error => {

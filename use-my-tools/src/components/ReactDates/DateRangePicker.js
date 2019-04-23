@@ -97,7 +97,7 @@ const defaultProps = {
   minimumNights: 0,
   enableOutsideDays: false,
   // isDayBlocked: day => this.props.blockedDays.includes(day),
-  isDayBlocked: () => false,
+  // isDayBlocked: () => false,
   isOutsideRange: day => (moment().diff(day) > 0),
   isDayHighlighted: () => false,
 
@@ -123,6 +123,10 @@ class DateRangePickerWrapper extends Component {
   };
 
   onFocusChange = focusedInput => this.setState({ focusedInput });
+
+  // isDayBlocked = day => {
+  //   const available
+  // }
 
   renderDatePresets = () => {
     const { presets, styles } = this.props;
