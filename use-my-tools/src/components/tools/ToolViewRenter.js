@@ -7,7 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 // import Grid from "@material-ui/core/Grid";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ImageCarousel from './ImageCarousel';
+// import ImageCarousel from './ImageCarousel';
+import DateRangePicker from '../ReactDates/DateRangePicker';
 
 import axios from 'axios';
 
@@ -31,7 +32,7 @@ class ToolViewRenter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tool: null
+            tool: {}
         };
     }
 
@@ -44,7 +45,7 @@ class ToolViewRenter extends React.Component {
     getToolInfo = tool_id => {
         axios.get(`/api/tools/tool/renter/${tool_id}`)
             .then(tool => {
-                console.log('getToolInfo tool:', tool);
+                // console.log('getToolInfo tool:', tool);
                 console.log('getToolInfo tool.data:', tool.data);
 
                 this.setState({
@@ -63,7 +64,7 @@ class ToolViewRenter extends React.Component {
         return (
             <div>
                 Tool View
-                {/* <Card className={classes.card}>
+                <Card className={classes.card}>
 
                     <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
@@ -74,8 +75,11 @@ class ToolViewRenter extends React.Component {
                         </Typography>
                     </CardContent>
 
+                    <CardActions>
+                        <DateRangePicker />
+                    </CardActions>
                     
-                </Card> */}
+                </Card>
             </div>
         )
     }
