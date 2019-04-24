@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -46,12 +46,16 @@ class FindTools extends Component {
             })
     }
 
+    openToolView = event => {
+
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
             <div className="mytools-page-container">
-                <h1>Manage your tools</h1>
+                <h1>Find tools to rent</h1>
 
                 <div className="tools-list-container">
 
@@ -70,6 +74,16 @@ class FindTools extends Component {
                                                 {tool.description}
                                             </Typography>
                                         </CardContent>
+                                        <CardActions>
+                                            <Button
+                                                component={Link}
+                                                to={`/toolviewrenter/${tool.id}`}
+                                                size="small"
+                                                color="primary"
+                                            >
+                                                View Tool Details
+                                            </Button>
+                                        </CardActions>
                                     </Card>
                                 </Grid>
                             );

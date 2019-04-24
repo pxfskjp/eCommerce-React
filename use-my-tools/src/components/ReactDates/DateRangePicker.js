@@ -14,6 +14,9 @@ const propTypes = {
   ...withStylesPropTypes,
 
   // example props for the demo
+  // blockedDays: PropTypes.arrayOf(
+  //   momentPropTypes.momentObj
+  // ),
   autoFocus: PropTypes.bool,
   autoFocusEndDate: PropTypes.bool,
   initialStartDate: momentPropTypes.momentObj,
@@ -81,7 +84,7 @@ const defaultProps = {
   withFullScreenPortal: false,
   initialVisibleMonth: null,
   numberOfMonths: 1,
-  keepOpenOnDateSelect: false,
+  keepOpenOnDateSelect: true,
   reopenPickerOnClearDates: true,
   isRTL: false,
 
@@ -96,7 +99,8 @@ const defaultProps = {
   renderDayContents: null,
   minimumNights: 0,
   enableOutsideDays: false,
-  isDayBlocked: () => false,
+  // isDayBlocked: day => this.props.blockedDays.includes(day),
+  // isDayBlocked: () => false,
   isOutsideRange: day => (moment().diff(day) > 0),
   isDayHighlighted: () => false,
 
@@ -105,35 +109,35 @@ const defaultProps = {
   monthFormat: "MMMM YYYY"
 };
 
+// ****** DRP Wrapper Component ******
+
 class DateRangePickerWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
       startDate: new moment(),
       endDate: new moment().add(1, "day"),
-      focusedInput: null
-    };
+      focusedInput: null,
+      blockedDays: []
+    }
   }
 
   onDatesChange = ({ startDate, endDate }) => {
-    console.log('DateRangePicker startDate in onDatesChange: ', startDate);
+    this.props.onDatesChange({ startDate, endDate });
+    // console.log('DateRangePicker startDate in onDatesChange: ', startDate);
     this.setState({ startDate, endDate });
-    let data = { startDate: startDate, endDate: endDate };
-    axios.post('/api/tools/reserveDates', data)
-        .then(response => {
-            console.log('Dates reservation created with response: ', response);
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
   };
 
   onFocusChange = focusedInput => this.setState({ focusedInput });
 
+  // isDayBlocked = day => {
+  //   this.props.blockedDays.includes(day);
+  // }
+
   renderDatePresets = () => {
     const { presets, styles } = this.props;
     const { startDate, endDate } = this.state;
-    console.log(styles);
+    // console.log(styles);
 
     return (
       <div {...css(styles.PresetDateRangePicker_panel)}>
@@ -173,12 +177,13 @@ class DateRangePickerWrapper extends Component {
       <React.Fragment>
         <DateRangePicker
           {...props}
-          renderCalendarInfo={this.renderDatePresets}
+          // renderCalendarInfo={this.renderDatePresets}
           startDate={startDate}
           endDate={endDate}
           onDatesChange={this.onDatesChange}
           focusedInput={focusedInput}
           onFocusChange={this.onFocusChange}
+          isDayBlocked={this.props.isDayBlocked}
         />
       </React.Fragment>
     );

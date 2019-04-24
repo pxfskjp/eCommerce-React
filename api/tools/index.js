@@ -133,13 +133,35 @@ router.get('/alltools', (req, res) => {
         })
 })
 
+router.get('/tool/renter/:id', (req, res) => {
+    const id = req.params.id;
+    toolsDb.getTool(id)
+        .then(tool => {
+            res.status(200).json(tool);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        });
+})
+
+router.get('/tool/reserveddates/:id', (req, res) => {
+    const id = req.params.id;
+    datesDb.getReservedDates(id)
+        .then(dates => {
+            res.status(200).json(dates);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 router.post('/reservedates', (req, res) => {
     const uid = req.body.uid;
-    let tool_id = 1;
-    let { startDate, endDate } = req.body;
+
+    let { startDate, endDate, toolId } = req.body;
 
     let reservationData = {
-        tool_id: tool_id,
+        tool_id: toolId,
         res_type: "rental",
         renter_uid: uid,
         start_date: startDate,

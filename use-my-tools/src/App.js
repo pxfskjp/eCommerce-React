@@ -18,9 +18,10 @@ import AccountPage from './components/AccountPage';
 import MyTools from './components/tools/MyTools';
 import AddTool from './components/tools/AddTool';
 import FindTools from './components/tools/FindTools';
+import ToolViewRenter from './components/tools/ToolViewRenter';
+
 
 import UpdatePassword from './components/UpdatePassword';
-import DateRangePicker from './components/ReactDates/DateRangePicker';
 
 
 const App = () => (
@@ -77,13 +78,16 @@ class AppComponentBase extends Component {
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} />
+
               <Route path={"/accountpage"} component={AccountPage} />
+
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
               <Route path={"/findtools"} component={FindTools} />
+              <Route path={"/toolviewrenter/:id"} component={ToolViewRenter} />
 
-              <Route path={"/dates"} component={DateRangePicker} />
+              {/* <Route path={"/dates"} component={DateRangePicker} /> */}
             </Router>
           ) : (
             <Router>

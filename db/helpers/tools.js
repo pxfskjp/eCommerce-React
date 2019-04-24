@@ -2,7 +2,9 @@ const db = require('../db.js');
 
 module.exports = {
     createTool,
-    getMyTools
+    getMyTools,
+    getAllTools,
+    getTool
 }
 
 function createTool(newTool) {
@@ -27,5 +29,21 @@ function getMyTools(uid) {
         .from('tools')
         .where('tools.owner_uid', uid);
 }
+
+function getAllTools(uid) {
+    return db
+        .select('*')
+        .from('tools');
+}
+
+function getTool(id) {
+    return db
+        .select('*')
+        .from('tools')
+        .where('id', id)
+        .first();
+}
+
+
 
 
