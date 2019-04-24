@@ -63,11 +63,15 @@ class RequestDatesPopUp extends React.Component {
       .then(dates => {
         const dateRanges = dates.data;
         let blockedDays = [];
+
         for (let i = 0; i < dateRanges.length; i++) {
-          // console.log(dateRanges[i]);
           // blockedDays.push(this.getDatesInRange(dateRanges[i]));
-          this.getDatesInRange(dateRanges[i]);
+          let datesArray = this.getDatesInRange(dateRanges[i]);
+          for (let d = 0; d < datesArray.length; d++) {
+            blockedDays.push(datesArray[d]);
+          }
         }
+
         console.log('blockedDays:', blockedDays);
         this.setState({ open: true });
         // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDates:', this.state.blockedDateRanges));
