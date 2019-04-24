@@ -14,6 +14,9 @@ const propTypes = {
   ...withStylesPropTypes,
 
   // example props for the demo
+  // blockedDays: PropTypes.arrayOf(
+  //   momentPropTypes.momentObj
+  // ),
   autoFocus: PropTypes.bool,
   autoFocusEndDate: PropTypes.bool,
   initialStartDate: momentPropTypes.momentObj,
@@ -124,9 +127,9 @@ class DateRangePickerWrapper extends Component {
 
   onFocusChange = focusedInput => this.setState({ focusedInput });
 
-  // isDayBlocked = day => {
-  //   const available
-  // }
+  isDayBlocked = day => {
+    this.props.blockedDays.includes(day);
+  }
 
   renderDatePresets = () => {
     const { presets, styles } = this.props;
@@ -171,12 +174,13 @@ class DateRangePickerWrapper extends Component {
       <React.Fragment>
         <DateRangePicker
           {...props}
-          renderCalendarInfo={this.renderDatePresets}
+          // renderCalendarInfo={this.renderDatePresets}
           startDate={startDate}
           endDate={endDate}
           onDatesChange={this.onDatesChange}
           focusedInput={focusedInput}
           onFocusChange={this.onFocusChange}
+          isDayBlocked={this.isDayBlocked}
         />
       </React.Fragment>
     );

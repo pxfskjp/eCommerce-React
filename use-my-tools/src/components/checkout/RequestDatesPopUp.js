@@ -76,7 +76,7 @@ class RequestDatesPopUp extends React.Component {
         this.setState({ 
           open: true,
           blockedDays: blockedDays 
-        }, () => console.log('PopUp state.blockedDays:', this.state.blockedDays));
+        });
         // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
       })
       .catch(error => {
@@ -137,25 +137,27 @@ class RequestDatesPopUp extends React.Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
+            <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
             
-              
-                <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
-                <DialogContent className={classes.dialogContent}>
-                  <DialogContentText>
-                    Select the dates to rent this tool:
-                  </DialogContentText>
-                  <DateRangePicker onDatesChange={this.onDatesChange} />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleClose} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={this.onSubmit} color="primary">
-                    Submit
-                  </Button>
-                </DialogActions>
+            <DialogContent className={classes.dialogContent}>
+
+              <DialogContentText>
+                Select the dates to rent this tool:
+              </DialogContentText>
+
+              <DateRangePicker blockedDays={this.state.blockedDays} onDatesChange={this.onDatesChange} />
+
+            </DialogContent>
+
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.onSubmit} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
              
-            
           </Dialog>
           {this.state.error && <p>{this.state.error}</p>}
         </div>
