@@ -34,32 +34,43 @@ class RequestDatesPopUp extends React.Component {
     open: false,
     startDate: null,
     endDate: null,
-    blockedDates: [],
+    blockedDateRanges: [],
+    blockedDays: [],
     error: null
   };
 
-  getDatesInRange = dateRange => {
+  getDatesInRange = ({ startDate, endDate }) => {
     let datesArray = [];
-    const startDate = dateRange.start_date;
-    const endDate = dateRange.end_date;
-    let currentDate = startDate;
-    while (currentDate <= endDate) {
-      datesArray.push(new moment(currentDate).format('YYYY-MM-DD'));
+    // const startDate = startDate;
+    // const endDate = endDate;
+    let currentDate = moment(startDate);
+    let stopDate = moment(endDate);
+    while (currentDate <= stopDate) {
+      datesArray.push(moment(currentDate).format('YYYY-MM-DD'));
       currentDate = moment(currentDate).add(1, 'days');
     }
+    console.log('datesArray: ', datesArray);
     return datesArray;
   }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    // this.setState({ open: true });
 
     // *** TO DO: get reserved dates for tool and pass to DRP as props to block dates
 
     const toolId = this.props.toolId;
     axios.get(`/api/tools/tool/reserveddates/${toolId}`)
       .then(dates => {
-
-        this.setState({ blockedDates: dates.data }, () => console.log('PopUp state.blockedDates:', this.state.blockedDates));
+        const dateRanges = dates.data;
+        let blockedDays = [];
+        for (let i = 0; i < dateRanges.length; i++) {
+          // console.log(dateRanges[i]);
+          // blockedDays.push(this.getDatesInRange(dateRanges[i]));
+          this.getDatesInRange(dateRanges[i]);
+        }
+        console.log('blockedDays:', blockedDays);
+        this.setState({ open: true });
+        // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDates:', this.state.blockedDateRanges));
       })
       .catch(error => {
         this.setState({ error: error.message });

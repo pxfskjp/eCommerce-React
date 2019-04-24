@@ -15,8 +15,8 @@ function reserveDates(dateRange) {
 function getReservedDates(tool_id) {
     return db('reserved_dates')
         .select([
-            'start_date',
-            'end_date'
+            'start_date as startDate',
+            'end_date as endDate'
         ])
         .where('tool_id', tool_id);
 }
