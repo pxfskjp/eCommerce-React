@@ -22,7 +22,6 @@ import ToolViewRenter from './components/tools/ToolViewRenter';
 
 
 import UpdatePassword from './components/UpdatePassword';
-import DateRangePicker from './components/ReactDates/DateRangePicker';
 
 
 const App = () => (

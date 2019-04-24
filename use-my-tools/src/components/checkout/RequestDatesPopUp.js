@@ -8,8 +8,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import DateRangePicker from '../ReactDates/DateRangePicker';
+import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
 import moment from "moment";
+import isSameDay from 'react-dates/lib/utils/isSameDay';
 
 
 import axios from 'axios';
@@ -28,7 +29,6 @@ const styles = {
   }
 };
 
-
 class RequestDatesPopUp extends React.Component {
   state = {
     open: false,
@@ -36,8 +36,24 @@ class RequestDatesPopUp extends React.Component {
     endDate: null,
     blockedDateRanges: [],
     blockedDays: [],
+    blockedDaysUpdated: false,
     error: null
   };
+
+  isDayBlocked = day => {
+    // console.log('PopUp state.blockedDays on first isDayBlocked call', this.state.blockedDays);
+    console.log('isDayBlocked moment(day):', moment(day).format('YYYY-MM-DD'));
+    // console.log(this.state.blockedDays.includes(moment(day)));
+    // return this.state.blockedDays.includes(moment(day));
+    console.log('PopUp isDayBlocked called.');
+    const blockedDays = this.state.blockedDays;
+    const day1 = moment(day).format('YYYY-MM-DD');
+
+   if (blockedDays.includes(day1)) {
+     return true;
+   }
+   return false;
+  }
 
   getDatesInRange = ({ startDate, endDate }) => {
     let datesArray = [];
@@ -47,6 +63,7 @@ class RequestDatesPopUp extends React.Component {
     let stopDate = moment(endDate);
     while (currentDate <= stopDate) {
       datesArray.push(moment(currentDate).format('YYYY-MM-DD'));
+      // datesArray.push(moment(currentDate));
       currentDate = moment(currentDate).add(1, 'days');
     }
     console.log('datesArray: ', datesArray);
@@ -54,9 +71,7 @@ class RequestDatesPopUp extends React.Component {
   }
 
   handleClickOpen = () => {
-    // this.setState({ open: true });
-
-    // *** TO DO: get reserved dates for tool and pass to DRP as props to block dates
+    this.setState({ open: true });
 
     const toolId = this.props.toolId;
     axios.get(`/api/tools/tool/reserveddates/${toolId}`)
@@ -75,7 +90,8 @@ class RequestDatesPopUp extends React.Component {
         console.log('blockedDays:', blockedDays);
         this.setState({ 
           open: true,
-          blockedDays: blockedDays 
+          blockedDays: blockedDays,
+          blockedDaysUpdated: true 
         });
         // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
       })
@@ -93,9 +109,7 @@ class RequestDatesPopUp extends React.Component {
   };
 
   onDatesChange = ({ startDate, endDate }) => {
-
     this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
-    
   };
 
 //   onChange = event => {
@@ -124,7 +138,7 @@ class RequestDatesPopUp extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    const blockedDaysUpdated = this.state.blockedDaysUpdated;
     return (
         <div>
           <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
@@ -138,14 +152,17 @@ class RequestDatesPopUp extends React.Component {
             aria-labelledby="form-dialog-title"
           >
             <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
-            
+
             <DialogContent className={classes.dialogContent}>
 
               <DialogContentText>
                 Select the dates to rent this tool:
               </DialogContentText>
-
-              <DateRangePicker blockedDays={this.state.blockedDays} onDatesChange={this.onDatesChange} />
+              {blockedDaysUpdated ? (
+                <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
+              ) : (
+                ''
+              )}
 
             </DialogContent>
 

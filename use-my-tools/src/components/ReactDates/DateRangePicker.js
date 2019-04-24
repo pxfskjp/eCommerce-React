@@ -109,14 +109,17 @@ const defaultProps = {
   monthFormat: "MMMM YYYY"
 };
 
+// ****** DRP Wrapper Component ******
+
 class DateRangePickerWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
       startDate: new moment(),
       endDate: new moment().add(1, "day"),
-      focusedInput: 'startDate',
-    };
+      focusedInput: null,
+      blockedDays: []
+    }
   }
 
   onDatesChange = ({ startDate, endDate }) => {
@@ -127,9 +130,9 @@ class DateRangePickerWrapper extends Component {
 
   onFocusChange = focusedInput => this.setState({ focusedInput });
 
-  isDayBlocked = day => {
-    this.props.blockedDays.includes(day);
-  }
+  // isDayBlocked = day => {
+  //   this.props.blockedDays.includes(day);
+  // }
 
   renderDatePresets = () => {
     const { presets, styles } = this.props;
@@ -180,7 +183,7 @@ class DateRangePickerWrapper extends Component {
           onDatesChange={this.onDatesChange}
           focusedInput={focusedInput}
           onFocusChange={this.onFocusChange}
-          isDayBlocked={this.isDayBlocked}
+          isDayBlocked={this.props.isDayBlocked}
         />
       </React.Fragment>
     );
