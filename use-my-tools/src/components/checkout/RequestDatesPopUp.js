@@ -25,7 +25,7 @@ const styles = {
     // display: 'flex',
     // flexDirection: 'column',
     // alignItems: 'space-around'
-    
+    overflowY: 'scroll'
   }
 };
 
@@ -158,6 +158,7 @@ class RequestDatesPopUp extends React.Component {
               <DialogContentText>
                 Select the dates to rent this tool:
               </DialogContentText>
+              
               {blockedDaysUpdated ? (
                 <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
               ) : (

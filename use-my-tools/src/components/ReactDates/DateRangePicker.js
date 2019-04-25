@@ -117,7 +117,7 @@ class DateRangePickerWrapper extends Component {
     this.state = {
       startDate: new moment(),
       endDate: new moment().add(1, "day"),
-      focusedInput: null,
+      focusedInput: 'startDate',
       blockedDays: []
     }
   }
