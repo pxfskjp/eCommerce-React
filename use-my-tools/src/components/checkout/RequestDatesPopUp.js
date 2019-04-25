@@ -18,14 +18,14 @@ import { get } from 'https';
 
 const styles = {
   dialogPaper: {
-      minHeight: '50vh',
+      minHeight: '520px',
       maxHeight: '100vh',
   },
   dialogContent: {
     // display: 'flex',
     // flexDirection: 'column',
     // alignItems: 'space-around'
-    
+
   }
 };
 
@@ -158,6 +158,7 @@ class RequestDatesPopUp extends React.Component {
               <DialogContentText>
                 Select the dates to rent this tool:
               </DialogContentText>
+              
               {blockedDaysUpdated ? (
                 <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
               ) : (

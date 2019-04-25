@@ -88,7 +88,7 @@ router.get('/mytools', (req, res) => {
                     // })
             });
 
-            console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            // console.log('toolsWithImages for /mytools response: ', toolsWithImages);
             
             Promise.all(toolsWithImages)
                 .then(completed => {
@@ -106,7 +106,7 @@ router.get('/alltools', (req, res) => {
 
     toolsDb.getAllTools()
         .then(tools => {                  // db responds with array of all available tools
-            console.log('response from db getMyTools query: ', tools);
+            console.log('response from db getAllTools query: ', tools);
 
             const toolsWithImages = tools.map(tool => {
                 const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
@@ -120,7 +120,7 @@ router.get('/alltools', (req, res) => {
                     // })
             });
 
-            console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            // console.log('toolsWithImages for /alltools response: ', toolsWithImages);
             
             Promise.all(toolsWithImages)
                 .then(completed => {
@@ -133,11 +133,20 @@ router.get('/alltools', (req, res) => {
         })
 })
 
-router.get('/tool/renter/:id', (req, res) => {
+router.get('/singletool/renter/:id', (req, res) => {
     const id = req.params.id;
     toolsDb.getTool(id)
         .then(tool => {
-            res.status(200).json(tool);
+             imagesDb.getToolImages(id) // get array of image URLs for each tool
+                .then(images => {
+                    console.log('response from db getToolImages query: ', images);
+                    tool.images = images;  // append images array to tool object
+                    console.log('tool with images for /tool/renter/:id response: ', tool );
+                    res.status(200).json(tool);  // Send back tool with images appended as response
+                })
+                .catch(error => {
+                    res.status(500).json(error.message);
+                });
         })
         .catch(error => {
             res.status(500).json(error.message);
@@ -145,6 +154,7 @@ router.get('/tool/renter/:id', (req, res) => {
 })
 
 router.get('/tool/reserveddates/:id', (req, res) => {
+    console.log(req.params.id);
     const id = req.params.id;
     datesDb.getReservedDates(id)
         .then(dates => {

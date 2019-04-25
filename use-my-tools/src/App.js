@@ -20,6 +20,8 @@ import AddTool from './components/tools/AddTool';
 import FindTools from './components/tools/FindTools';
 import ToolViewRenter from './components/tools/ToolViewRenter';
 
+import DateRangePickerWrapper from './components/ReactDates/DateRangePicker';
+
 
 import UpdatePassword from './components/UpdatePassword';
 
@@ -87,7 +89,7 @@ class AppComponentBase extends Component {
               <Route path={"/findtools"} component={FindTools} />
               <Route path={"/toolviewrenter/:id"} component={ToolViewRenter} />
 
-              {/* <Route path={"/dates"} component={DateRangePicker} /> */}
+              <Route path={"/dates"} component={DateRangePickerWrapper} />
             </Router>
           ) : (
             <Router>
