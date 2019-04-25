@@ -18,14 +18,14 @@ import { get } from 'https';
 
 const styles = {
   dialogPaper: {
-      minHeight: '50vh',
+      minHeight: '520px',
       maxHeight: '100vh',
   },
   dialogContent: {
     // display: 'flex',
     // flexDirection: 'column',
     // alignItems: 'space-around'
-    overflowY: 'scroll'
+
   }
 };
 
