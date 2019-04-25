@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 // import Grid from "@material-ui/core/Grid";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import ImageCarousel from './ImageCarousel';
+import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
 
 import axios from 'axios';
@@ -40,6 +40,7 @@ class ToolViewRenter extends React.Component {
         let tool_id = this.props.match.params.id;
         console.log(tool_id);
         this.getToolInfo(tool_id);
+        console.log(this.state.tool.images);
     }
 
     getToolInfo = tool_id => {
@@ -51,7 +52,11 @@ class ToolViewRenter extends React.Component {
 
                 this.setState({
                     tool: tool.data
-                }, () => console.log("ToolView state.tool after getToolInfo:", this.state.tool));
+                }, () => { 
+                    console.log("ToolView state.tool after getToolInfo:", this.state.tool);
+                    console.log(this.state.tool.images);
+
+                });
             })
             .catch(error => {
                 console.log(error.message);
@@ -66,7 +71,12 @@ class ToolViewRenter extends React.Component {
             <div>
                 Tool View
                 <Card className={classes.card}>
-
+                    {tool.images ? (
+                        <ImageCarousel toolImages={tool.images} />
+                    ) : (
+                        ''
+                    )}
+                    {/* <ImageCarousel toolImages={tool.images} /> */}
                     <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
                             {tool.brand}{' '}{tool.name}
