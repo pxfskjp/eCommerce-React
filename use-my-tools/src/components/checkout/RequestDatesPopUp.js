@@ -42,10 +42,10 @@ class RequestDatesPopUp extends React.Component {
 
   isDayBlocked = day => {
     // console.log('PopUp state.blockedDays on first isDayBlocked call', this.state.blockedDays);
-    console.log('isDayBlocked moment(day):', moment(day).format('YYYY-MM-DD'));
+    // console.log('isDayBlocked moment(day):', moment(day).format('YYYY-MM-DD'));
     // console.log(this.state.blockedDays.includes(moment(day)));
     // return this.state.blockedDays.includes(moment(day));
-    console.log('PopUp isDayBlocked called.');
+    // console.log('PopUp isDayBlocked called.');
     const blockedDays = this.state.blockedDays;
     const day1 = moment(day).format('YYYY-MM-DD');
 
@@ -66,7 +66,7 @@ class RequestDatesPopUp extends React.Component {
       // datesArray.push(moment(currentDate));
       currentDate = moment(currentDate).add(1, 'days');
     }
-    console.log('datesArray: ', datesArray);
+    // console.log('datesArray: ', datesArray);
     return datesArray;
   }
 
@@ -87,7 +87,7 @@ class RequestDatesPopUp extends React.Component {
           }
         }
 
-        console.log('blockedDays:', blockedDays);
+        // console.log('blockedDays:', blockedDays);
         this.setState({ 
           open: true,
           blockedDays: blockedDays,
