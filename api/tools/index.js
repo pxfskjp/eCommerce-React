@@ -69,6 +69,29 @@ router.post('/newtool', multipart, (req, res) => {
         })
 })
 
+router.post('/newimage', multipart, (req, res) => {
+    const tool_id = req.body.id;
+
+    cloudinary.v2.uploader.upload(req.files.image_file.path, async function(error, result) {
+        console.log('/newimage req.files.image_file: ', req.files.image_file);
+        if (error) {
+            res.status(500).json({message: 'Image upload failed.'});
+        }
+        else {
+            try {
+                const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url into the images table and get back the id of the new image in the images table
+                console.log('id of image added to images table: ', imageId);
+                await imagesDb.addToolImage({ image_id: imageId, tool_id });
+                res.status(200).json(response);
+            }
+            catch (error) {
+                console.log(error);
+                res.status(500).json({message: error.message});
+            }
+        }
+    });
+})
+
 router.get('/mytools', (req, res) => {
     let uid = req.body.uid;
 
@@ -187,6 +210,7 @@ router.post('/reservedates', (req, res) => {
         })
 
 })
+
 
 module.exports = router;
 

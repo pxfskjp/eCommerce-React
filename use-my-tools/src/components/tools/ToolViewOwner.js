@@ -28,7 +28,7 @@ const styles = theme => ({
 
 })
 
-class ToolViewRenter extends React.Component {
+class ToolViewOwner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,4 +96,4 @@ class ToolViewRenter extends React.Component {
     }
 }
 
-export default withStyles(styles)(ToolViewRenter);
+export default withStyles(styles)(ToolViewOwner);
