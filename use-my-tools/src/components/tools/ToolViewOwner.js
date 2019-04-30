@@ -21,9 +21,9 @@ const styles = theme => ({
     },
     cardContent: {
         flexGrow: 1,
-        maxHeight: 100,
-        minHeight: 100,
-        overflow: "hidden"
+        // maxHeight: 100,
+        minHeight: 200,
+        overflowY: "scroll"
     },
 
 })
@@ -45,16 +45,16 @@ class ToolViewOwner extends React.Component {
 
     getToolInfo = tool_id => {
         console.log('getToolInfo called');
-        axios.get(`/api/tools/singletool/renter/${tool_id}`)
+        axios.get(`/api/tools/owner/singletool/${tool_id}`)
             .then(tool => {
                 // console.log('getToolInfo tool:', tool);
-                console.log('getToolInfo tool.data:', tool.data);
+                // console.log('getToolInfo tool.data:', tool.data);
 
                 this.setState({
                     tool: tool.data
                 }, () => { 
                     console.log("ToolView state.tool after getToolInfo:", this.state.tool);
-                    console.log(this.state.tool.images);
+                    // console.log(this.state.tool.images);
 
                 });
             })
@@ -69,14 +69,14 @@ class ToolViewOwner extends React.Component {
 
         return (
             <div>
-                Tool View
+                My Tool View
                 <Card className={classes.card}>
                     {tool.images ? (
                         <ImageCarousel toolImages={tool.images} />
                     ) : (
                         ''
                     )}
-                    {/* <ImageCarousel toolImages={tool.images} /> */}
+
                     <CardContent className={classes.cardContent}>
                         <Typography gutterBottom variant="h5" component="h2">
                             {tool.brand}{' '}{tool.name}
@@ -84,6 +84,30 @@ class ToolViewOwner extends React.Component {
                         <Typography>
                             {tool.description}
                         </Typography>
+                        <Typography>
+                            Daily rental price: ${tool.price}
+                        </Typography>
+                        
+                        {tool.available === true ? (
+                            <Typography>
+                                This tool is available to be reserved and rented.
+                            </Typography>
+                        ) : (
+                            <Typography>
+                                This tool is not available to be reserved or rented.
+                            </Typography>
+                        )}
+
+                        {tool.rented === true ? (
+                            <Typography>
+                                This tool is currently rented.
+                            </Typography>
+                        ) : (
+                            <Typography>
+                                This tool is not currently rented.
+                            </Typography>
+                        )}
+
                     </CardContent>
 
                     <CardActions>

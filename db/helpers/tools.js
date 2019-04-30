@@ -4,7 +4,8 @@ module.exports = {
     createTool,
     getMyTools,
     getAllTools,
-    getTool
+    getTool,
+    getMyTool
 }
 
 function createTool(newTool) {
@@ -41,6 +42,27 @@ function getTool(id) {
         .select('*')
         .from('tools')
         .where('id', id)
+        .first();
+}
+
+function getMyTool(id) {
+    return db 
+        .select([
+            'tools.renter_uid as renterUid',
+            'tools.brand',
+            'tools.name',
+            'tools.description',
+            'tools.price',
+            'tools.available',
+            'tools.rented',
+            'tools.rating',
+            'users.firstname as renterFirstName',
+            'users.lastname as renterLastName',
+            'users.home_street_address as renterAddress'
+        ])
+        .from('tools')
+        .leftJoin('users', 'tools.renter_uid', 'users.uid')
+        .where('tools.id', id)
         .first();
 }
 
