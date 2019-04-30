@@ -45,7 +45,7 @@ class ToolViewOwner extends React.Component {
 
     getToolInfo = tool_id => {
         console.log('getToolInfo called');
-        axios.get(`/api/owner/singletool/${tool_id}`)
+        axios.get(`/api/tools/owner/singletool/${tool_id}`)
             .then(tool => {
                 // console.log('getToolInfo tool:', tool);
                 console.log('getToolInfo tool.data:', tool.data);
@@ -69,7 +69,7 @@ class ToolViewOwner extends React.Component {
 
         return (
             <div>
-                Tool View
+                My Tool View
                 <Card className={classes.card}>
                     {tool.images ? (
                         <ImageCarousel toolImages={tool.images} />

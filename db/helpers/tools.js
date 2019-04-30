@@ -61,8 +61,9 @@ function getMyTool(id) {
             'users.home_street_address as renterAddress'
         ])
         .from('tools')
-        .innerJoin('users', 'tools.renter_uid', 'users.uid')
-        .where('tools.id', id);
+        .leftJoin('users', 'tools.renter_uid', 'users.uid')
+        .where('tools.id', id)
+        .first();
 }
 
 
