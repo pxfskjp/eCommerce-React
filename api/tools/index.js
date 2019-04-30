@@ -156,7 +156,7 @@ router.get('/alltools', (req, res) => {
         })
 })
 
-router.get('/singletool/renter/:id', (req, res) => {
+router.get('/renter/singletool/:id', (req, res) => {
     const id = req.params.id;
     toolsDb.getTool(id)
         .then(tool => {
@@ -164,7 +164,27 @@ router.get('/singletool/renter/:id', (req, res) => {
                 .then(images => {
                     console.log('response from db getToolImages query: ', images);
                     tool.images = images;  // append images array to tool object
-                    console.log('tool with images for /tool/renter/:id response: ', tool );
+                    console.log('tool with images for /renter/singletool/:id response: ', tool );
+                    res.status(200).json(tool);  // Send back tool with images appended as response
+                })
+                .catch(error => {
+                    res.status(500).json(error.message);
+                });
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        });
+})
+
+router.get('/owner/singletool/:id', (req, res) => {
+    const id = req.params.id;
+    toolsDb.getMyTool(id)
+        .then(tool => {
+             imagesDb.getToolImages(id) // get array of image URLs for each tool
+                .then(images => {
+                    console.log('response from db getToolImages query: ', images);
+                    tool.images = images;  // append images array to tool object
+                    console.log('tool with images for /owner/singletool/:id response: ', tool );
                     res.status(200).json(tool);  // Send back tool with images appended as response
                 })
                 .catch(error => {

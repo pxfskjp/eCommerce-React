@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom"
+import { withRouter, Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -60,6 +60,7 @@ class MyTools extends Component {
                         {this.state.tools.map((tool, index) => {
                             return (
                                 <Grid item key={index}>
+
                                     <Card className={classes.card}>
                                         <ImageCarousel toolImages={tool.images} />
                                         <CardContent className={classes.cardContent}>
@@ -70,6 +71,17 @@ class MyTools extends Component {
                                                 {tool.description}
                                             </Typography>
                                         </CardContent>
+
+                                        <CardActions>
+                                            <Button
+                                                component={Link}
+                                                to={`/toolviewowner/${tool.id}`}
+                                                size="small"
+                                                color="primary"
+                                            >
+                                                View Tool Details
+                                            </Button>
+                                        </CardActions>
                                     </Card>
                                 </Grid>
                             );
