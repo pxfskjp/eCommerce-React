@@ -82,7 +82,7 @@ router.post('/newimage', multipart, (req, res) => {
                 const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url into the images table and get back the id of the new image in the images table
                 console.log('id of image added to images table: ', imageId);
                 await imagesDb.addToolImage({ image_id: imageId, tool_id });
-                res.status(200).json(response);
+                res.status(200).json(imageId);
             }
             catch (error) {
                 console.log(error);
