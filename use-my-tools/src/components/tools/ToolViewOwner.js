@@ -4,8 +4,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Paper from '@material-ui/core/Paper';
 // import Grid from "@material-ui/core/Grid";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
@@ -32,7 +33,8 @@ class ToolViewOwner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tool: {}
+            tool: {},
+            selectedFile: null,
         };
     }
 
@@ -63,6 +65,23 @@ class ToolViewOwner extends React.Component {
             })
     }
 
+    handleFileChange = event => {
+        // this.setState({
+        //   selectedFile: event.target.files[0]
+        // });
+        let tool_id = this.props.match.params.id;
+        const newImageData = new FormData();
+        newImageData.append('id', this.props.match.params.id);
+        newImageData.append('image_file', event.target.files[0]);
+        axios.post('/api/tools/newimage', newImageData)
+            .then(response => {
+                console.log('/newimage response: ', response);
+            })
+            .catch(error => {
+                console.log(error.messages);
+            })
+    };
+
     render() {
         const { tool } = this.state;
         const { classes } = this.props;
@@ -70,7 +89,8 @@ class ToolViewOwner extends React.Component {
         return (
             <div>
                 My Tool View
-                <Card className={classes.card}>
+                <Paper>
+                {/* <Card className={classes.card}> */}
                     {tool.images ? (
                         <ImageCarousel toolImages={tool.images} />
                     ) : (
@@ -111,10 +131,25 @@ class ToolViewOwner extends React.Component {
                     </CardContent>
 
                     <CardActions>
-                        <RequestDatesPopUp toolId={tool.id} />
+                        <input
+                            accept="image/*"
+                            className="image-input"
+                            id="contained-button-file"
+                            multiple
+                            type="file"
+                            name="image"
+                            onChange={this.handleFileChange}
+                        />
+                        {/* <label htmlFor="contained-button-file">
+                            <Button component="span" className="register-button">
+                                Upload Image
+                            </Button>
+                        </label> */}
+                        {/* <RequestDatesPopUp toolId={tool.id} /> */}
                     </CardActions>
                     
-                </Card>
+                {/* </Card> */}
+                </Paper>
             </div>
         )
     }
