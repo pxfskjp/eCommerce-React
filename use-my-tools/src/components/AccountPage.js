@@ -65,6 +65,12 @@ class AccountPage extends Component {
         });
     };
 
+    handleSelectLocation = address => {
+        this.setState({
+            homeStreetAddress: address
+        });
+    }
+
     updateUserDetails = event => {
         console.log('AccountPage state on updateUserDetails: ', this.state);
 
