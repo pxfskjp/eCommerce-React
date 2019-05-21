@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
                 .notNullable();
             table.string('first_name').notNullable();
             table.string('last_name').notNullable();
-            table.string('street_address');
+            table.string('full_address');
             table.string('street_number');
             table.string('street_name');
             table.string('city');
@@ -21,6 +21,7 @@ exports.up = function(knex, Promise) {
             table.string('zip_code_ext');
             table.double('lat');
             table.double('lng');
+            table.string('place_id');
             table.integer('image_id')
                 .notNullable()
                 .references('id')
