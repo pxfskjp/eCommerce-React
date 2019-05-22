@@ -8,19 +8,46 @@ const imagesDb = require('../../db/helpers/images');
 
 // Register a new user:
 router.post('/register', (req, res) => {
-    let { firstname, lastname, email, uid, homeAddress } = req.body;
+    let { firstName, lastName, email, uid, addressDetails } = req.body;
+
+    const full_address = addressDetails.formattedAddress;
+
+    // get address component LONG NAMES to store in DB:
+    const street_number = addressDetails.addressComponents.filter(component => component.types.includes("street_number"))[0].long_name;
+    const street_name = addressDetails.addressComponents.filter(component => component.types.includes("route"))[0].long_name;
+    const city = addressDetails.addressComponents.filter(component => component.types.includes("locality"))[0].long_name;
+    const county = addressDetails.addressComponents.filter(component => component.types.includes("administrative_area_level_2"))[0].long_name;
+    const state = addressDetails.addressComponents.filter(component => component.types.includes("administrative_area_level_1"))[0].long_name;
+    const country = addressDetails.addressComponents.filter(component => component.types.includes("country"))[0].long_name;
+    const zip_code = addressDetails.addressComponents.filter(component => component.types.includes("postal_code"))[0].long_name;
+    // const zip_code_ext = addressDetails.addressComponents.filter(component => component.types.includes("postal_code_suffix"))[0].long_name;
+    const lat = addressDetails.latLng.lat;
+    const lng = addressDetails.latLng.lng;
+    const place_id = addressDetails.placeId;
+
+
 
     const defaultImage = { url: 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg' };
 
-    imagesDb.addImage(defaultImage)  // create image using default URL (no cloudinary)
-        .then(image_id => {          // addImage returns id (PK) of new image
+    imagesDb.addImage(defaultImage)     // create image using default URL (no cloudinary)
+        .then(image_id => {             // addImage returns id (PK) of new image
             const newUser = {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,  
-                home_street_address: homeAddress,
-                image_id: image_id,
-                uid: uid
+                first_name: firstName,
+                last_name: lastName,
+                email,  
+                image_id,
+                uid,
+                full_address,
+                street_number,
+                street_name,
+                city,
+                county,
+                state,
+                country,
+                zip_code,
+                lat,
+                lng,
+                place_id,
             };
 
             usersDb.createUser(newUser)
