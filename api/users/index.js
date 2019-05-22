@@ -40,7 +40,7 @@ router.post('/register', (req, res) => {
                 full_address,
                 street_number,
                 street_name,
-                city,
+                city, 
                 county,
                 state,
                 country,

@@ -46,10 +46,10 @@ class AccountPage extends Component {
             .then(user => {
                 this.setState({
                     user: user.data,
-                    firstName: user.data.firstname,
-                    lastName: user.data.lastname,
+                    firstName: user.data.first_name,
+                    lastName: user.data.last_name,
                     email: user.data.email,
-                    homeStreetAddress: user.data.home_street_address,
+                    homeStreetAddress: user.data.full_address,
                     imageId: user.data.image_id,
                     imageUrl: user.data.image_url,
                 }, () => console.log('AccountPage state after GET user info: ', this.state)) ;

@@ -16,10 +16,10 @@ function createUser(newUser) {
 function getUserInfo(uid) {
     const query = db
         .select([
-            'users.firstname',
-            'users.lastname',
+            'users.first_name',
+            'users.last_name',
             'users.email',
-            'users.home_street_address',
+            'users.full_address',
             'users.image_id',
             'images.url as image_url'
         ])
