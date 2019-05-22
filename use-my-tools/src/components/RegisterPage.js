@@ -26,15 +26,15 @@ class RegisterFormBase extends Component {
             email: "",
             password: "",
             password1: "",
-            firstname: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             addressDetails: {},
             error: null
         };
     }
 
     onSubmit = event => {
-        const {email, password, firstname, lastname, addressDetails } = this.state;
+        const {email, password, firstName, lastName, addressDetails } = this.state;
  
         console.log('RegisterPage state on submit: ', this.state);
     
@@ -45,7 +45,7 @@ class RegisterFormBase extends Component {
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
                         // console.log("idToken after createUser: ", idToken);
-                        const registerData = { email, firstname, lastname, addressDetails };
+                        const registerData = { email, firstName, lastName, addressDetails };
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
 
@@ -68,8 +68,8 @@ class RegisterFormBase extends Component {
                             email: "",
                             password: "",
                             password1: "",
-                            firstname: "",
-                            lastname: "",
+                            firstName: "",
+                            lastName: "",
                             error:error 
                         });
                     })
@@ -79,8 +79,8 @@ class RegisterFormBase extends Component {
                     email: "",
                     password: "",
                     password1: "",
-                    firstname: "",
-                    lastname: "",
+                    firstName: "",
+                    lastName: "",
                     error:error 
                 });
             });
@@ -98,9 +98,9 @@ class RegisterFormBase extends Component {
     };
 
     render() {
-        const { email, password, password1, firstname, lastname, error } = this.state;
+        const { email, password, password1, firstName, lastName, error } = this.state;
 
-        const invalidCondition = firstname === '' || lastname === '' || password !== password1 || password1 === '' || email === '';
+        const invalidCondition = firstName === '' || lastName === '' || password !== password1 || password1 === '' || email === '';
 
         return (
             <div className="register">
@@ -119,10 +119,10 @@ class RegisterFormBase extends Component {
                                 style = {{width: '65%'}}
                                 hintText="First Name"
                                 floatingLabelText="First name"
-                                name="firstname"
+                                name="firstName"
                                 type="text"
                                 required={true}
-                                value={this.state.firstname}
+                                value={this.state.firstName}
                                 onChange={this.onChange}
                             />
                             <br/>
@@ -131,10 +131,10 @@ class RegisterFormBase extends Component {
                                 style = {{width: '65%'}}
                                 hintText="Last Name"
                                 floatingLabelText="Surname"
-                                name="lastname"
+                                name="lastName"
                                 type="text"
                                 required={true}
-                                value={this.state.lastname}
+                                value={this.state.lastnNme}
                                 onChange={this.onChange}
                             />
                             <br/>

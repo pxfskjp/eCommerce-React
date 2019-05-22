@@ -8,7 +8,7 @@ const imagesDb = require('../../db/helpers/images');
 
 // Register a new user:
 router.post('/register', (req, res) => {
-    let { firstname, lastname, email, uid, homeAddress } = req.body;
+    let { firstname, lastname, email, uid, addressDetails } = req.body;
 
     const defaultImage = { url: 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg' };
 
