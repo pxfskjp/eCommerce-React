@@ -33,7 +33,8 @@ class AccountPage extends Component {
             firstName: '',
             lastName: '',
             email: '',
-            homeStreetAddress: '',
+            fullAddress: '',
+            addressDetails: {},
             imageId: null,
             imageUrl: '',
             selectedFile: null,
@@ -49,7 +50,7 @@ class AccountPage extends Component {
                     firstName: user.data.first_name,
                     lastName: user.data.last_name,
                     email: user.data.email,
-                    homeStreetAddress: user.data.full_address,
+                    fullAddress: user.data.full_address,
                     imageId: user.data.image_id,
                     imageUrl: user.data.image_url,
                 }, () => console.log('AccountPage state after GET user info: ', this.state)) ;
@@ -65,30 +66,29 @@ class AccountPage extends Component {
         });
     };
 
-    handleSelectLocation = address => {
-        this.setState({
-            homeStreetAddress: address
-        });
-    }
+    handleSelectLocation = addressDetails => {
+        // console.log('AccountPage handleSelectLocation addressDetails: ', addressDetails);
+        this.setState({ addressDetails }, () => console.log('AccountPage state.addressDetails after handleSelectLocation:', this.state.addressDetails));
+    };
 
     updateUserDetails = event => {
         console.log('AccountPage state on updateUserDetails: ', this.state);
 
         const user = {
-            firstname: this.state.firstName,
-            lastname: this.state.lastname,
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
             email: this.state.email,
-            home_street_address: this.state.homeStreetAddress,
+            addressDetails: this.state.addressDetails,
         }
 
         axios.put('/api/users/updateuserdetails', user)
             .then(user => {
                 console.log("Response from /updateuserdetails", user.data);
                 this.setState({
-                    firstName: user.data.firstname,
-                    lastName: user.data.lastname,
+                    firstName: user.data.first_name,
+                    lastName: user.data.last_name,
                     email: user.data.email,
-                    homeStreetAddress: user.data.home_street_address,
+                    fullAddress: user.data.full_address,
                     imageUrl: user.data.image_url,
                 })
                 .catch(error => {
@@ -118,7 +118,7 @@ class AccountPage extends Component {
         axios.put(`/api/users/updateimage`, data)
           .then(response => {
                       console.log('response after image update', response.data);
-                      this.setState({image_url:response.data.url, loading:false});
+                      this.setState({image_url: response.data.url, loading: false});
           })
           .catch(error => {
                     console.log(error.message);
@@ -130,7 +130,7 @@ class AccountPage extends Component {
 
     render() {
         const { classes } = this.props;
-        const  addressReceived = this.state.homeStreetAddress;
+        const  addressReceived = this.state.fullAddress;
         return (
             <div className="account-page-container">
 
@@ -170,7 +170,7 @@ class AccountPage extends Component {
                             {addressReceived ? (
                                 <LocationSearchInput 
                                     handleSelectLocation={this.handleSelectLocation}
-                                    address={this.state.homeStreetAddress} 
+                                    address={this.state.fullAddress} 
                                  />
                             ) : (
                                 ''
