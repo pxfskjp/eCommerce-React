@@ -75,14 +75,40 @@ router.get('/userinfo', (req, res) => {
         })
 })
 
-// Update details for a logged in user:
+// Update profile details for a logged in user:
 router.put('/updateuserdetails', (req, res) => {
-	const uid = req.body.uid;
+
+    let { firstName, lastName, email, uid, addressDetails } = req.body;
+    //const uid = req.body.uid;
+
+    // get address component LONG NAMES to store in DB:
+    const street_number = addressDetails.addressComponents.filter(component => component.types.includes("street_number"))[0].long_name;
+    const street_name = addressDetails.addressComponents.filter(component => component.types.includes("route"))[0].long_name;
+    const city = addressDetails.addressComponents.filter(component => component.types.includes("locality"))[0].long_name;
+    const county = addressDetails.addressComponents.filter(component => component.types.includes("administrative_area_level_2"))[0].long_name;
+    const state = addressDetails.addressComponents.filter(component => component.types.includes("administrative_area_level_1"))[0].long_name;
+    const country = addressDetails.addressComponents.filter(component => component.types.includes("country"))[0].long_name;
+    const zip_code = addressDetails.addressComponents.filter(component => component.types.includes("postal_code"))[0].long_name;
+    // const zip_code_ext = addressDetails.addressComponents.filter(component => component.types.includes("postal_code_suffix"))[0].long_name;
+    const lat = addressDetails.latLng.lat;
+    const lng = addressDetails.latLng.lng;
+    const place_id = addressDetails.placeId;
+    
 	const user = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        home_street_address: req.body.home_street_address
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        full_address,
+        street_number,
+        street_name,
+        city, 
+        county,
+        state,
+        country,
+        zip_code,
+        lat,
+        lng,
+        place_id,
 	};
 	
 	console.log('user object in /updateuserdetails endpoint', user);
