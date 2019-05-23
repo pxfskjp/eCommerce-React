@@ -82,7 +82,7 @@ router.put('/updateuserdetails', (req, res) => {
 
     // check if addressDetails were updated and sent with request:
     if (addressDetails.addressComponents) {
-        // console.log('addressDetails provided');
+
         const full_address = addressDetails.formattedAddress;
         // get address component LONG NAMES to store in DB:
         const street_number = addressDetails.addressComponents.filter(component => component.types.includes("street_number"))[0].long_name;
@@ -114,16 +114,16 @@ router.put('/updateuserdetails', (req, res) => {
             place_id,
         };
     } else {
-        // console.log('addressDetails NOT provided');
+
         // Define user columns to be updated in DB, NOT including address components:
         user = {
             first_name,
             last_name
         };
-        console.log('user is:', user);
+
     };
 	
-	console.log('user object in /updateuserdetails endpoint', user);
+	// console.log('user object in /updateuserdetails endpoint', user);
 
     usersDb.updateUserDetails(uid, user)  
         .then(response_data => {
