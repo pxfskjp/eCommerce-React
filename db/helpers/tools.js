@@ -33,8 +33,24 @@ function getMyTools(uid) {
 
 function getAllTools(uid) {
     return db
-        .select('*')
-        .from('tools');
+        // .select('*')
+        // .from('tools');
+        .select([
+            'tools.id',
+            'tools.brand',
+            'tools.name',
+            'tools.description',
+            'tools.price',
+            'tools.available',
+            'tools.rented',
+            'tools.rating',
+            'users.first_name as ownerFirstName',
+            'users.full_address',
+            'users.city',
+            'users.state'
+        ])
+        .from('tools')
+        .leftJoin('users', 'tools.owner_uid', 'users.uid');
 }
 
 function getTool(id) {
