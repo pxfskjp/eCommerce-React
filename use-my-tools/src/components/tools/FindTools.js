@@ -73,6 +73,9 @@ class FindTools extends Component {
                                             <Typography>
                                                 {tool.description}
                                             </Typography>
+                                            <Typography>
+                                                {tool.city}{', '}{tool.state}
+                                            </Typography>
                                         </CardContent>
                                         <CardActions>
                                             <Button
