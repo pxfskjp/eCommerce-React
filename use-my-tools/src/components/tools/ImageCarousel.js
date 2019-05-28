@@ -19,12 +19,18 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 4,
     backgroundColor: theme.palette.background.default
   },
+  imgContainer: {
+    //border: "1px solid red",
+    width: "100%",
+    // height: 255,
+    //maxWidth: 225
+  },
   img: {
-    height: 255,
-    maxWidth: 400,
+    //border: "1px solid blue",
     overflow: "hidden",
     display: "block",
-    width: "100%"
+    width: "50%",
+    margin: "auto"
   }
 });
 
@@ -52,15 +58,17 @@ class ImageCarousel extends React.Component {
 
     return (
       <div className={classes.root}>
-        <img
-          className={classes.img}
-          src={
-            toolImages.length > 0
-              ? toolImages[activeStep].url
-              : "https://openclipart.org/image/2400px/svg_to_png/298157/CrossedTools.png"
-          }
-          alt="tool-image"
-        />
+        <div className={classes.imgContainer}>
+          <img
+            className={classes.img}
+            src={
+              toolImages.length > 0
+                ? toolImages[activeStep].url
+                : "https://openclipart.org/image/2400px/svg_to_png/298157/CrossedTools.png"
+            }
+            alt="tool-image"
+          />
+        </div>
         <MobileStepper
           steps={maxSteps}
           position="static"
