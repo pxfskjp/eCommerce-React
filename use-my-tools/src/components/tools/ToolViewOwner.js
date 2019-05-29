@@ -88,7 +88,7 @@ class ToolViewOwner extends React.Component {
 
         return (
             <div>
-                My Tool View
+
                 <Paper>
                 {/* <Card className={classes.card}> */}
                     {tool.images ? (

@@ -14,10 +14,9 @@ import axios from 'axios';
 
 
 const styles = theme => ({
-    card: {
+    pageContainer: {
         height: "100%",
         display: "flex",
-        flexDirection: "column"
     },
     cardContent: {
         flexGrow: 1,
@@ -55,7 +54,6 @@ class ToolViewRenter extends React.Component {
                 }, () => { 
                     console.log("ToolView state.tool after getToolInfo:", this.state.tool);
                     console.log(this.state.tool.images);
-
                 });
             })
             .catch(error => {
@@ -69,31 +67,62 @@ class ToolViewRenter extends React.Component {
 
         return (
             <div>
-                Tool View
-                <Card className={classes.card}>
-                    {tool.images ? (
-                        <ImageCarousel toolImages={tool.images} />
-                    ) : (
-                        ''
-                    )}
-                    {/* <ImageCarousel toolImages={tool.images} /> */}
-                    <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {tool.brand}{' '}{tool.name}
-                        </Typography>
-                        <Typography>
-                            {tool.description}
-                        </Typography>
-                    </CardContent>
+                {/* <Card className={classes.card}> */}
+                <div className={classes.pageContainer}>
+                    <div className={classes.leftContainer}>
+                        {tool.images ? (
+                            <ImageCarousel toolImages={tool.images} />
+                        ) : (
+                            ''
+                        )}
+                    </div>
 
-                    <CardActions>
-                        <RequestDatesPopUp toolId={tool.id} />
-                    </CardActions>
+                    <div className={classes.rightContainer}>
+                        <CardContent className={classes.cardContent}>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {tool.brand}{' '}{tool.name}
+                            </Typography>
+                            <Typography>
+                                {tool.description}
+                            </Typography>
+                        </CardContent>
                     
-                </Card>
+                        <CardActions>
+                            <RequestDatesPopUp toolId={tool.id} />
+                        </CardActions>
+                    </div>
+                </div>
+                {/* </Card> */}
             </div>
         )
     }
 }
 
 export default withStyles(styles)(ToolViewRenter);
+
+// <div>
+//                 <Card className={classes.card}>
+//                     <div className={classes.leftContainer}>
+//                         {tool.images ? (
+//                             <ImageCarousel toolImages={tool.images} />
+//                         ) : (
+//                             ''
+//                         )}
+//                     </div>
+
+//                     <div className={classes.rightContainer}>
+//                         <CardContent className={classes.cardContent}>
+//                             <Typography gutterBottom variant="h5" component="h2">
+//                                 {tool.brand}{' '}{tool.name}
+//                             </Typography>
+//                             <Typography>
+//                                 {tool.description}
+//                             </Typography>
+//                         </CardContent>
+                    
+//                         <CardActions>
+//                             <RequestDatesPopUp toolId={tool.id} />
+//                         </CardActions>
+//                     </div>
+//                 </Card>
+//             </div>
