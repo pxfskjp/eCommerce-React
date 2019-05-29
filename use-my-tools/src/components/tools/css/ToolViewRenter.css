@@ -1,0 +1,38 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    padding: 20px;
+    text-align: left;
+}
+
+.mainContainer {
+    margin: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.leftContainer {
+    border: 1px solid black;
+    width: 40%;
+    min-width: 270px;
+}
+
+.rightContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    border: 1px solid black;
+    width: 50%;
+}
+
+.cardContent {
+    text-align: left;
+    flex-grow: 1;
+    max-height: 100px;
+    min-height: 100px;
+    overflow: hidden;
+}
