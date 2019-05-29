@@ -4,7 +4,7 @@
 }
 
 .title {
-    padding: 20px;
+    padding: 10px;
     text-align: left;
 }
 
@@ -16,17 +16,17 @@
 }
 
 .leftContainer {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 40%;
     min-width: 270px;
 }
 
 .rightContainer {
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    border: 1px solid black;
     width: 50%;
 }
 
@@ -36,4 +36,11 @@
     max-height: 100px;
     min-height: 100px;
     overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .mainContainer {
+        flex-direction: column;
+        justify-content: space-around;
+    }
 }
