@@ -15,39 +15,39 @@ import axios from 'axios';
 import './css/ToolViewRenter.css';
 
 const styles = theme => ({
-    pageContainer: {
-        display: "flex",
-        flexDirection: "column"
-    },
-    title: {
-        padding: 20,
-        textAlign: "left"
-    },
-    mainContainer: {
-        margin: 10,
-        height: "100%",
-        display: "flex",
-        justifyContent: "space-around"
-    },
-    leftContainer: {
-        border: "1px solid black",
-        width: "40%",
-        minWidth: 270
-    },
-    rightContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "space-between",
-        border: "1px solid black",
-        width: "50%",
-    },
-    cardContent: {
-        textAlign: "left",
-        flexGrow: 1,
-        maxHeight: 100,
-        minHeight: 100,
-        overflow: "hidden"
-    },
+    // pageContainer: {
+    //     display: "flex",
+    //     flexDirection: "column"
+    // },
+    // title: {
+    //     padding: 20,
+    //     textAlign: "left"
+    // },
+    // mainContainer: {
+    //     margin: 10,
+    //     height: "100%",
+    //     display: "flex",
+    //     justifyContent: "space-around"
+    // },
+    // leftContainer: {
+    //     border: "1px solid black",
+    //     width: "40%",
+    //     minWidth: 270
+    // },
+    // rightContainer: {
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     alignItems: "space-between",
+    //     border: "1px solid black",
+    //     width: "50%",
+    // },
+    // cardContent: {
+    //     textAlign: "left",
+    //     flexGrow: 1,
+    //     maxHeight: 100,
+    //     minHeight: 100,
+    //     overflow: "hidden"
+    // },
 
 })
 
@@ -95,6 +95,9 @@ class ToolViewRenter extends React.Component {
                     <Typography gutterBottom variant="h5" component="h2">
                         {tool.brand}{' '}{tool.name}
                     </Typography>
+                    {/* <Typography>
+                        {tool.city}{', '}{tool.state}
+                    </Typography> */}
                 </div>
 
                 <div className="mainContainer">
@@ -107,7 +110,7 @@ class ToolViewRenter extends React.Component {
                     </div>
 
                     <div className="rightContainer">
-                        <div className="cardContent">
+                        <div className="toolInfo">
                             <Typography gutterBottom variant="h5" component="h2">
                                 Description
                             </Typography>
@@ -116,9 +119,9 @@ class ToolViewRenter extends React.Component {
                             </Typography>
                         </div>
                     
-                        <div>
-                            <RequestDatesPopUp toolId={tool.id} />
-                        </div>
+                        
+                        <RequestDatesPopUp toolId={tool.id} />
+
                     </div>
                 </div>
 
