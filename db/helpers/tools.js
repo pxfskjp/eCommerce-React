@@ -72,9 +72,9 @@ function getMyTool(id) {
             'tools.available',
             'tools.rented',
             'tools.rating',
-            'users.firstname as renterFirstName',
-            'users.lastname as renterLastName',
-            'users.home_street_address as renterAddress'
+            'users.first_name as renterFirstName',
+            'users.last_name as renterLastName',
+            'users.full_address as renterAddress'
         ])
         .from('tools')
         .leftJoin('users', 'tools.renter_uid', 'users.uid')
