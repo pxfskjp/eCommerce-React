@@ -95,9 +95,7 @@ class ToolViewRenter extends React.Component {
                     <Typography gutterBottom variant="h5" component="h2">
                         {tool.brand}{' '}{tool.name}
                     </Typography>
-                    {/* <Typography>
-                        {tool.city}{', '}{tool.state}
-                    </Typography> */}
+                    
                 </div>
 
                 <div className="mainContainer">
@@ -116,6 +114,10 @@ class ToolViewRenter extends React.Component {
                             </Typography>
                             <Typography>
                                 {tool.description}
+                            </Typography>
+                            <br/>
+                            <Typography>
+                                Location: {tool.ownerCity}{', '}{tool.ownerState}
                             </Typography>
                         </div>
                     

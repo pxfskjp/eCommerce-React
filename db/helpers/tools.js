@@ -55,9 +55,27 @@ function getAllTools(uid) {
 
 function getTool(id) {
     return db
-        .select('*')
+        // .select('*')
+        // .from('tools')
+        // .where('id', id)
+        // .first();
+        .select([
+            'tools.owner_uid as ownerUid',
+            'tools.brand',
+            'tools.name',
+            'tools.description',
+            'tools.price',
+            'tools.available',
+            'tools.rented',
+            'tools.rating',
+            'users.first_name as ownerFirstName',
+            'users.last_name as ownerLastName',
+            'users.city as ownerCity',
+            'users.state as ownerState'
+        ])
         .from('tools')
-        .where('id', id)
+        .leftJoin('users', 'tools.owner_uid', 'users.uid')
+        .where('tools.id', id)
         .first();
 }
 
