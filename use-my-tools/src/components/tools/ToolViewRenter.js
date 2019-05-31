@@ -119,6 +119,10 @@ class ToolViewRenter extends React.Component {
                             <Typography>
                                 Location: {tool.ownerCity}{', '}{tool.ownerState}
                             </Typography>
+                            <br/>
+                            <Typography>
+                                Daily rental price: ${tool.price}
+                            </Typography>
                         </div>
                     
                         
