@@ -38,7 +38,7 @@ class LoginFormBase extends Component {
         
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
-                        // console.log("idToken after createUser: ", idToken);
+                        console.log("idToken from firebase logIn: ", idToken);
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
 

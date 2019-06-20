@@ -17,6 +17,10 @@
     flex-direction: column;
 }
 
+.location-input {
+    margin-left: 9px;
+}
+
 .account-page-container .left-container button {
     margin-top: 5%;
     margin-left: 5%;
