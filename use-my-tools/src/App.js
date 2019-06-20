@@ -53,7 +53,7 @@ class AppComponentBase extends Component {
             axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
               idToken
-            })
+            }, () => console.log('idToken: ', idToken))
           })
           .catch(error => {
             console.log(error.message);
