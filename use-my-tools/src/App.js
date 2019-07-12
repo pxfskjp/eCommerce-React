@@ -83,14 +83,12 @@ class AppComponentBase extends Component {
               <Route path="/login" component={AccountPage} />
 
               <Route path={"/accountpage"} component={AccountPage} />
-
               <Route path={"/yourtools"} component={MyTools} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
               <Route path={"/findtools"} component={FindTools} />
               <Route path={"/toolviewrenter/:id"} component={ToolViewRenter} />
               <Route path={"/toolviewowner/:id"} component={ToolViewOwner} />
-
               <Route path={"/dates"} component={DateRangePickerWrapper} />
             </div>
           ) : (
@@ -98,6 +96,15 @@ class AppComponentBase extends Component {
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} />
+
+              <Route path={"/accountpage"} component={LandingPage} />
+              <Route path={"/yourtools"} component={LandingPage} />
+              <Route path={"/addtool"} component={LandingPage} />
+              <Route path={"/updatepassword"} component={LandingPage} />
+              <Route path={"/findtools"} component={LandingPage} />
+              <Route path={"/toolviewrenter/:id"} component={LandingPage} />
+              <Route path={"/toolviewowner/:id"} component={LandingPage} />
+              <Route path={"/dates"} component={LandingPage} />
             </div>
           )}
         </div>
