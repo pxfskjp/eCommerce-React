@@ -21,9 +21,7 @@ import FindTools from './components/tools/FindTools';
 import ToolViewRenter from './components/tools/ToolViewRenter';
 import ToolViewOwner from './components/tools/ToolViewOwner';
 
-
 import DateRangePickerWrapper from './components/ReactDates/DateRangePicker';
-
 
 import UpdatePassword from './components/UpdatePassword';
 
