@@ -38,6 +38,7 @@ class AccountPage extends Component {
             imageId: null,
             imageUrl: '',
             selectedFile: null,
+            loading: false,
             error: null,
         };
     }
@@ -114,23 +115,28 @@ class AccountPage extends Component {
             data.append('image_id', this.state.imageId);
             data.append('image_file', this.state.selectedFile);
         
-        // this.setState({loading:true});	  
+        this.setState({ loading: true });	  
         axios.put(`/api/users/updateimage`, data)
           .then(response => {
-                      console.log('response after image update', response.data);
-                      this.setState({image_url: response.data.url, loading: false});
+                    console.log('response after image update', response);
+                    this.setState({
+                        imageUrl: response.data, loading: false
+                    }, () => {
+                        console.log('state.imageUrl:', this.state.imageUrl)
+                    });
           })
           .catch(error => {
                     console.log(error.message);
                     this.setState({ error:error });
           })
     
-            //  event.preventDefault();
+        //  event.preventDefault();
     };
 
     render() {
         const { classes } = this.props;
         const  addressReceived = this.state.fullAddress;
+        const isLoading = this.state.loading;
         return (
             <div className="account-page-container">
 
@@ -182,19 +188,22 @@ class AccountPage extends Component {
                             Save
                         </Button>
 
-                        </form>
+                    </form>
                         
-                        <Link to="/updatepassword">Update Password</Link>
+                    <Link to="/updatepassword">Update Password</Link>
                     
                 </div> 
                 {/* end left-container */}
 
                 <div className="right-container">
                     <h2>Profile Image</h2>
-                    <img
-                        src={this.state.imageUrl}
-                        alt="profile picture"
-                    />
+                    
+                        <img
+                            src={this.state.imageUrl}
+                            alt="profile picture"
+                        />
+                        
+                    
                     <br/>
                     <form className="image-upload" onSubmit={this.imageUpload}>
                         <input

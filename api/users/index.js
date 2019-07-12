@@ -148,7 +148,7 @@ router.put('/updateimage', multipart, (req, res) => {
                 const url = result.url;
                 const newImage = await imagesDb.updateImage(id, url);
         
-                res.status(200).json(newImage);
+                res.status(200).json(url);
             }
             catch (error) {
                 console.log(error);
