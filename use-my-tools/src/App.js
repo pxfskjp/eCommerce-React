@@ -21,9 +21,7 @@ import FindTools from './components/tools/FindTools';
 import ToolViewRenter from './components/tools/ToolViewRenter';
 import ToolViewOwner from './components/tools/ToolViewOwner';
 
-
 import DateRangePickerWrapper from './components/ReactDates/DateRangePicker';
-
 
 import UpdatePassword from './components/UpdatePassword';
 
@@ -64,7 +62,7 @@ class AppComponentBase extends Component {
         })
         .then(() => {
           this.props.history.push({         
-            pathname: "/"
+            pathname: "/accountpage"
           });
         })
       }
@@ -74,14 +72,15 @@ class AppComponentBase extends Component {
   render() {
     const idToken = this.state.idToken;
     return (
+      <Router>
       <div className="App">
         <div>
           {idToken ? (
-            <Router>
+            <div>
               <NavigationBar />
-              <Route exact path={"/"} component={LandingPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
+              <Route exact path={"/"} component={AccountPage} />
+              <Route path="/register" component={AccountPage} />
+              <Route path="/login" component={AccountPage} />
 
               <Route path={"/accountpage"} component={AccountPage} />
 
@@ -93,17 +92,17 @@ class AppComponentBase extends Component {
               <Route path={"/toolviewowner/:id"} component={ToolViewOwner} />
 
               <Route path={"/dates"} component={DateRangePickerWrapper} />
-            </Router>
+            </div>
           ) : (
-            <Router>
+            <div>
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} />
-            </Router>   
+            </div>
           )}
         </div>
       </div>
-      
+      </Router>
 
     );
   }
