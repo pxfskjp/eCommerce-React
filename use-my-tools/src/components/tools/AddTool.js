@@ -79,24 +79,24 @@ class AddTool extends Component {
                         <form onSubmit={this.onSubmit}>
                             <TextField
                                 style = {{width: '65%'}}
-                                hintText="Tool Name"
-                                floatingLabelText="Tool name"
-                                name="name"
-                                type="text"
-                                required={true}
-                                value={this.state.name}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                             <TextField
-                                style = {{width: '65%'}}
                                 hintText="Tool Brand"
                                 floatingLabelText="Tool Brand"
                                 name="brand"
                                 type="text"
                                 required={true}
                                 value={this.state.brand}
+                                onChange={this.onChange}
+                            />
+                            <br/>
+
+                            <TextField
+                                style = {{width: '65%'}}
+                                hintText="Tool Name"
+                                floatingLabelText="Tool Name"
+                                name="name"
+                                type="text"
+                                required={true}
+                                value={this.state.name}
                                 onChange={this.onChange}
                             />
                             <br/>
