@@ -74,10 +74,11 @@ class AppComponentBase extends Component {
   render() {
     const idToken = this.state.idToken;
     return (
+      <Router>
       <div className="App">
         <div>
           {idToken ? (
-            <Router>
+            <div>
               <NavigationBar />
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
@@ -93,17 +94,17 @@ class AppComponentBase extends Component {
               <Route path={"/toolviewowner/:id"} component={ToolViewOwner} />
 
               <Route path={"/dates"} component={DateRangePickerWrapper} />
-            </Router>
+            </div>
           ) : (
-            <Router>
+            <div>
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} />
-            </Router>   
+            </div>
           )}
         </div>
       </div>
-      
+      </Router>
 
     );
   }
