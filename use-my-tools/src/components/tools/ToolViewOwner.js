@@ -89,69 +89,6 @@ class ToolViewOwner extends React.Component {
         const { classes } = this.props;
 
         return (
-            // <div>
-            //     <Paper>
-            //     {/* <Card className={classes.card}> */}
-            //         {tool.images ? (
-            //             <ImageCarousel toolImages={tool.images} />
-            //         ) : (
-            //             ''
-            //         )}
-
-            //         <CardContent className={classes.cardContent}>
-            //             <Typography gutterBottom variant="h5" component="h2">
-            //                 {tool.brand}{' '}{tool.name}
-            //             </Typography>
-            //             <Typography>
-            //                 {tool.description}
-            //             </Typography>
-            //             <Typography>
-            //                 Daily rental price: ${tool.price}
-            //             </Typography>
-                        
-            //             {tool.available === true ? (
-            //                 <Typography>
-            //                     This tool is available to be reserved and rented.
-            //                 </Typography>
-            //             ) : (
-            //                 <Typography>
-            //                     This tool is not available to be reserved or rented.
-            //                 </Typography>
-            //             )}
-
-            //             {tool.rented === true ? (
-            //                 <Typography>
-            //                     This tool is currently rented.
-            //                 </Typography>
-            //             ) : (
-            //                 <Typography>
-            //                     This tool is not currently rented.
-            //                 </Typography>
-            //             )}
-
-            //         </CardContent>
-
-            //         <CardActions>
-            //             <input
-            //                 accept="image/*"
-            //                 className="image-input"
-            //                 id="contained-button-file"
-            //                 multiple
-            //                 type="file"
-            //                 name="image"
-            //                 onChange={this.handleFileChange}
-            //             />
-            //             {/* <label htmlFor="contained-button-file">
-            //                 <Button component="span" className="register-button">
-            //                     Upload Image
-            //                 </Button>
-            //             </label> */}
-            //             {/* <RequestDatesPopUp toolId={tool.id} /> */}
-            //         </CardActions>
-                    
-            //     {/* </Card> */}
-            //     </Paper>
-            // </div>
             <div className="pageContainer">
                 <div className="title">
                     <Typography gutterBottom variant="h5" component="h2">
