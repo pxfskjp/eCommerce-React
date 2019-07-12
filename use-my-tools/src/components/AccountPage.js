@@ -136,7 +136,7 @@ class AccountPage extends Component {
     render() {
         const { classes } = this.props;
         const  addressReceived = this.state.fullAddress;
-        const isLoading = this.state.loading;
+
         return (
             <div className="account-page-container">
 

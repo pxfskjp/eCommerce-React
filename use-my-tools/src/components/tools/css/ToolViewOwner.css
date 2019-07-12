@@ -1,0 +1,46 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    padding: 10px;
+    text-align: left;
+}
+
+.mainContainer {
+    margin: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.leftContainer {
+    /* border: 1px solid black; */
+    width: 40%;
+    min-width: 270px;
+}
+
+.rightContainer {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 50%;
+}
+
+.toolInfo {
+    text-align: left;
+    flex-grow: 1;
+    /* max-height: 100px;
+    min-height: 100px; */
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .mainContainer {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
