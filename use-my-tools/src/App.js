@@ -62,7 +62,7 @@ class AppComponentBase extends Component {
         })
         .then(() => {
           this.props.history.push({         
-            pathname: "/"
+            pathname: "/accountpage"
           });
         })
       }
@@ -78,9 +78,9 @@ class AppComponentBase extends Component {
           {idToken ? (
             <div>
               <NavigationBar />
-              <Route exact path={"/"} component={LandingPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
+              <Route exact path={"/"} component={AccountPage} />
+              <Route path="/register" component={AccountPage} />
+              <Route path="/login" component={AccountPage} />
 
               <Route path={"/accountpage"} component={AccountPage} />
 
