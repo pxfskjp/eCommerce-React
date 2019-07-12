@@ -167,6 +167,16 @@ class ToolViewOwner extends React.Component {
                         ) : (
                             ''
                         )}
+
+                        <input
+                            accept="image/*"
+                            className="image-input"
+                            id="contained-button-file"
+                            multiple
+                            type="file"
+                            name="image"
+                            onChange={this.handleFileChange}
+                        />
                     </div>
 
                     <div className="rightContainer">
@@ -178,17 +188,37 @@ class ToolViewOwner extends React.Component {
                                 {tool.description}
                             </Typography>
                             <br/>
-                            <Typography>
-                                Location: {tool.ownerCity}{', '}{tool.ownerState}
-                            </Typography>
+                            
                             <br/>
                             <Typography>
                                 Daily rental price: ${tool.price}
                             </Typography>
+
+                            {/* Change Price */}
+
+                            {tool.available === true ? (
+                                <Typography>
+                                    This tool is available to be reserved and rented.
+                                </Typography>
+                            ) : (
+                                <Typography>
+                                    This tool is not available to be reserved or rented.
+                                </Typography>
+                            )}
+
+                            {tool.rented === true ? (
+                                <Typography>
+                                    This tool is currently rented.
+                                </Typography>
+                            ) : (
+                                <Typography>
+                                    This tool is not currently rented.
+                                </Typography>
+                            )}
+
+                            {/* View reserved rental dates */}
+
                         </div>
-                    
-                        
-                        <RequestDatesPopUp toolId={tool.id} />
 
                     </div>
                 </div>
