@@ -13,6 +13,8 @@ import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
 
 import axios from 'axios';
 
+import './css/ToolViewOwner.css';
+
 
 const styles = theme => ({
     card: {
@@ -87,50 +89,85 @@ class ToolViewOwner extends React.Component {
         const { classes } = this.props;
 
         return (
-            <div>
+            // <div>
+            //     <Paper>
+            //     {/* <Card className={classes.card}> */}
+            //         {tool.images ? (
+            //             <ImageCarousel toolImages={tool.images} />
+            //         ) : (
+            //             ''
+            //         )}
 
-                <Paper>
-                {/* <Card className={classes.card}> */}
-                    {tool.images ? (
-                        <ImageCarousel toolImages={tool.images} />
-                    ) : (
-                        ''
-                    )}
-
-                    <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {tool.brand}{' '}{tool.name}
-                        </Typography>
-                        <Typography>
-                            {tool.description}
-                        </Typography>
-                        <Typography>
-                            Daily rental price: ${tool.price}
-                        </Typography>
+            //         <CardContent className={classes.cardContent}>
+            //             <Typography gutterBottom variant="h5" component="h2">
+            //                 {tool.brand}{' '}{tool.name}
+            //             </Typography>
+            //             <Typography>
+            //                 {tool.description}
+            //             </Typography>
+            //             <Typography>
+            //                 Daily rental price: ${tool.price}
+            //             </Typography>
                         
-                        {tool.available === true ? (
-                            <Typography>
-                                This tool is available to be reserved and rented.
-                            </Typography>
+            //             {tool.available === true ? (
+            //                 <Typography>
+            //                     This tool is available to be reserved and rented.
+            //                 </Typography>
+            //             ) : (
+            //                 <Typography>
+            //                     This tool is not available to be reserved or rented.
+            //                 </Typography>
+            //             )}
+
+            //             {tool.rented === true ? (
+            //                 <Typography>
+            //                     This tool is currently rented.
+            //                 </Typography>
+            //             ) : (
+            //                 <Typography>
+            //                     This tool is not currently rented.
+            //                 </Typography>
+            //             )}
+
+            //         </CardContent>
+
+            //         <CardActions>
+            //             <input
+            //                 accept="image/*"
+            //                 className="image-input"
+            //                 id="contained-button-file"
+            //                 multiple
+            //                 type="file"
+            //                 name="image"
+            //                 onChange={this.handleFileChange}
+            //             />
+            //             {/* <label htmlFor="contained-button-file">
+            //                 <Button component="span" className="register-button">
+            //                     Upload Image
+            //                 </Button>
+            //             </label> */}
+            //             {/* <RequestDatesPopUp toolId={tool.id} /> */}
+            //         </CardActions>
+                    
+            //     {/* </Card> */}
+            //     </Paper>
+            // </div>
+            <div className="pageContainer">
+                <div className="title">
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {tool.brand}{' '}{tool.name}
+                    </Typography>
+                    
+                </div>
+
+                <div className="mainContainer">
+                    <div className="leftContainer">
+                        {tool.images ? (
+                            <ImageCarousel toolImages={tool.images} />
                         ) : (
-                            <Typography>
-                                This tool is not available to be reserved or rented.
-                            </Typography>
+                            ''
                         )}
 
-                        {tool.rented === true ? (
-                            <Typography>
-                                This tool is currently rented.
-                            </Typography>
-                        ) : (
-                            <Typography>
-                                This tool is not currently rented.
-                            </Typography>
-                        )}
-
-                    </CardContent>
-
-                    <CardActions>
                         <input
                             accept="image/*"
                             className="image-input"
@@ -140,16 +177,52 @@ class ToolViewOwner extends React.Component {
                             name="image"
                             onChange={this.handleFileChange}
                         />
-                        {/* <label htmlFor="contained-button-file">
-                            <Button component="span" className="register-button">
-                                Upload Image
-                            </Button>
-                        </label> */}
-                        {/* <RequestDatesPopUp toolId={tool.id} /> */}
-                    </CardActions>
-                    
-                {/* </Card> */}
-                </Paper>
+                    </div>
+
+                    <div className="rightContainer">
+                        <div className="toolInfo">
+                            <Typography gutterBottom variant="h5" component="h2">
+                                Description
+                            </Typography>
+                            <Typography>
+                                {tool.description}
+                            </Typography>
+                            <br/>
+                            
+                            <br/>
+                            <Typography>
+                                Daily rental price: ${tool.price}
+                            </Typography>
+
+                            {/* Change Price */}
+
+                            {tool.available === true ? (
+                                <Typography>
+                                    This tool is available to be reserved and rented.
+                                </Typography>
+                            ) : (
+                                <Typography>
+                                    This tool is not available to be reserved or rented.
+                                </Typography>
+                            )}
+
+                            {tool.rented === true ? (
+                                <Typography>
+                                    This tool is currently rented.
+                                </Typography>
+                            ) : (
+                                <Typography>
+                                    This tool is not currently rented.
+                                </Typography>
+                            )}
+
+                            {/* View reserved rental dates */}
+
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         )
     }
