@@ -41,14 +41,18 @@ class AddTool extends Component {
         axios.post('/api/tools/newtool', newToolData)
             .then(response => {
                 console.log('/newtool POST response: ', response);
-                this.setState({
-                    error: null,
-                    name: '',
-                    brand: '',
-                    description: '',
-                    price: '',
-                    selectedFile: null
-                })
+                // this.setState({
+                //     error: null,
+                //     name: '',
+                //     brand: '',
+                //     description: '',
+                //     price: '',
+                //     selectedFile: null
+                // });
+                this.props.history.push({        
+                    pathname: "/yourtools"
+                });
+
             })
             .catch(error => {
                 this.setState({error: error});
