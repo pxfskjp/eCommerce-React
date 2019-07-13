@@ -5,7 +5,8 @@ module.exports = {
     getMyTools,
     getAllTools,
     getTool,
-    getMyTool
+    getMyTool,
+    deleteTool
 }
 
 function createTool(newTool) {
@@ -98,6 +99,12 @@ function getMyTool(id) {
         .leftJoin('users', 'tools.renter_uid', 'users.uid')
         .where('tools.id', id)
         .first();
+}
+
+function deleteTool(id) {
+    return db('tools')
+        .where(id)
+        .del();
 }
 
 

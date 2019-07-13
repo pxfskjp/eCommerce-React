@@ -231,6 +231,17 @@ router.post('/reservedates', (req, res) => {
 
 })
 
+router.delete('/tool/:id', (req, res) => {
+    const id = req.params.id;
+    toolsDb.deleteTool(id)
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 
 module.exports = router;
 
