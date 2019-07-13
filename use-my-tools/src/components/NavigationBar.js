@@ -18,6 +18,7 @@ class NavigationBar extends Component {
         return (
             
             <header className="nav-container">
+                <h1 className="logo">Use My Tools</h1>
                 <div className="nav-link-container">
                     <Link to="/accountpage" className="nav-link">
                         Account
