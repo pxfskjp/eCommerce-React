@@ -19,6 +19,14 @@
     /* border: 1px solid black; */
     width: 40%;
     min-width: 270px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-image {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .rightContainer {

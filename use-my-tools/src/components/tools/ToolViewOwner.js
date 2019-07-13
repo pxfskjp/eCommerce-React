@@ -97,22 +97,28 @@ class ToolViewOwner extends React.Component {
                 </div>
 
                 <div className="mainContainer">
+
                     <div className="leftContainer">
+
                         {tool.images ? (
                             <ImageCarousel toolImages={tool.images} />
                         ) : (
                             ''
                         )}
+                        
+                        <div className ="add-image">
+                            <p>Add image:</p>
+                            <input
+                                accept="image/*"
+                                className="image-input"
+                                id="contained-button-file"
+                                multiple
+                                type="file"
+                                name="image"
+                                onChange={this.handleFileChange}
+                            />
+                        </div>
 
-                        <input
-                            accept="image/*"
-                            className="image-input"
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                            name="image"
-                            onChange={this.handleFileChange}
-                        />
                     </div>
 
                     <div className="rightContainer">
