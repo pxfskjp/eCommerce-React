@@ -7,6 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
 import DeleteDialog from './DeleteDialog';
@@ -36,6 +38,14 @@ class ToolViewOwner extends React.Component {
         super(props);
         this.state = {
             tool: {},
+            renterUid: null,
+            brand: null,
+            name: null,
+            description: null,
+            price: null,
+            available: null,
+            rented: null,
+            rating: null,
             selectedFile: null,
         };
     }
@@ -55,7 +65,15 @@ class ToolViewOwner extends React.Component {
                 // console.log('getToolInfo tool.data:', tool.data);
 
                 this.setState({
-                    tool: tool.data
+                    tool: tool.data,
+                    renterUid: tool.data.renter_uid,
+                    brand: tool.data.brand,
+                    name: tool.data.name,
+                    description: tool.data.description,
+                    price: tool.data.price,
+                    available: tool.data.available,
+                    rented: tool.data.rented,
+                    rating: tool.data.rating,
                 }, () => { 
                     console.log("ToolView state.tool after getToolInfo:", this.state.tool);
                     // console.log(this.state.tool.images);
@@ -89,6 +107,12 @@ class ToolViewOwner extends React.Component {
             pathname: "/yourtools"
         });
     }
+
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value
+        });
+    };
 
     render() {
         const { tool } = this.state;
@@ -130,7 +154,7 @@ class ToolViewOwner extends React.Component {
 
                     <div className="rightContainer">
                         <div className="toolInfo">
-                            <Typography gutterBottom variant="h5" component="h2">
+                            {/* <Typography gutterBottom variant="h5" component="h2">
                                 Description
                             </Typography>
                             <Typography>
@@ -141,11 +165,11 @@ class ToolViewOwner extends React.Component {
                             <br/>
                             <Typography>
                                 Daily rental price: ${tool.price}
-                            </Typography>
+                            </Typography> */}
 
                             {/* Change Price */}
 
-                            {tool.available === true ? (
+                            {/* {tool.available === true ? (
                                 <Typography>
                                     This tool is available to be reserved and rented.
                                 </Typography>
@@ -163,9 +187,37 @@ class ToolViewOwner extends React.Component {
                                 <Typography>
                                     This tool is not currently rented.
                                 </Typography>
-                            )}
+                            )} */}
 
                             {/* View reserved rental dates */}
+
+                            <form onSubmit={this.updateUserDetails}>
+
+                                <TextField
+                                    id="outlined-tool-description"
+                                    label="Description"
+                                    className={classes.textField}
+                                    value={this.state.firstName}
+                                    onChange={this.handleChange("description")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+
+                                {/* <TextField
+                                    id="outlined-last-name"
+                                    label="Last Name"
+                                    className={classes.textField}
+                                    value={this.state.lastName}
+                                    onChange={this.handleChange("lastName")}
+                                    margin="normal"
+                                    variant="outlined"
+                                /> */}
+
+                                <Button variant="outlined" color="primary" className="save-button" type="submit" >
+                                    Save
+                                </Button>
+
+                            </form>
 
                             <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
 
