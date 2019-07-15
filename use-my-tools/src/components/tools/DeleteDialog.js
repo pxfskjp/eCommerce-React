@@ -33,6 +33,7 @@ class DeleteDialog extends React.Component {
     axios.delete(`/api/tools/tool/delete/${id}`)
     .then(response => {
         this.handleClose();
+        this.props.handleToolDelete();
     })
     .catch(error => {
         this.setState({ error: error.message });

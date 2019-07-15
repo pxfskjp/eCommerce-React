@@ -84,6 +84,12 @@ class ToolViewOwner extends React.Component {
             })
     };
 
+    handleToolDelete = event => {
+        this.props.history.push({        
+            pathname: "/yourtools"
+        });
+    }
+
     render() {
         const { tool } = this.state;
         const { classes } = this.props;
@@ -161,7 +167,7 @@ class ToolViewOwner extends React.Component {
 
                             {/* View reserved rental dates */}
 
-                            <DeleteDialog toolId={this.props.match.params.id}/>
+                            <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
 
                         </div>
 
