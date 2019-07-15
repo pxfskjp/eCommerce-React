@@ -192,16 +192,16 @@ class ToolViewOwner extends React.Component {
                                     margin="normal"
                                     variant="outlined"
                                 />
-
-                                <label for="availableCheck">Available:</label>
-                                <input id="availableCheck" 
-                                        type="checkbox" 
-                                        value={this.state.available} 
-                                        onClick = {this.toggleAvailable}
-                                /> 
-
+                                <div className="available-container">
+                                    <label for="availableCheck">Available:</label>
+                                    <input id="availableCheck" 
+                                            type="checkbox" 
+                                            value={this.state.available} 
+                                            onClick = {this.toggleAvailable}
+                                    /> 
+                                </div>
                                 <Button variant="outlined" color="primary" className="save-button" type="submit" >
-                                    Save
+                                    Save Changes
                                 </Button>
 
                             </form>
