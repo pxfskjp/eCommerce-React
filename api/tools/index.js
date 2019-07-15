@@ -251,6 +251,26 @@ router.delete('/tool/delete/:id', (req, res) => {
         });
 })
 
+router.put('/updatetooldetails/:id', (req, res) => {
+    const id = req.params.id;
+    let { brand, name, description, price, available } = req.body;
+    let tool = {
+        brand, 
+        name, 
+        description, 
+        price, 
+        available
+    };
+    toolsDb.updateToolDetails(id, tool)
+        .then(response => {
+            res.status(200).json(response);     // send the updated user info back to display on accout page
+        })
+        .catch(error => {
+            res.status(500).json({ error: "Failed to update account information" });
+            console.log(error.message);
+        })
+})
+
 
 module.exports = router;
 

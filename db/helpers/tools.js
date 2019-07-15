@@ -7,7 +7,8 @@ module.exports = {
     getTool,
     getMyTool,
     deleteToolImages,
-    deleteTool
+    deleteTool,
+    updateToolDetails
 }
 
 function createTool(newTool) {

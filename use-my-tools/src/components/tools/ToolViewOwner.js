@@ -97,7 +97,7 @@ class ToolViewOwner extends React.Component {
 
     updateToolDetails = event => {
         console.log('TVO state on updateToolDetails: ', this.state);
-
+        const id = this.props.match.params.id;
         const tool = {
             brand: this.state.brand,
             name: this.state.name,
@@ -106,7 +106,7 @@ class ToolViewOwner extends React.Component {
             available: this.state.available
         }
 
-        axios.put('/api/tools/updatetooldetails', tool)
+        axios.put(`/api/tools/updatetooldetails/${id}`, tool)
             .then(tool => {
                 console.log("Response from /updatetooldetails", tool.data);
                 this.setState({
