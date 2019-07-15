@@ -161,7 +161,7 @@ class ToolViewOwner extends React.Component {
 
                             {/* View reserved rental dates */}
 
-                            <DeleteDialog />
+                            <DeleteDialog toolId={this.props.match.params.id}/>
 
                         </div>
 

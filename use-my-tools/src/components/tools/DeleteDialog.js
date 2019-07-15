@@ -20,7 +20,7 @@ class DeleteDialog extends React.Component {
     this.setState({ open: true });
   };
 
-  handleCancel = () => {
+  handleClose = () => {
     this.setState({ open: false });
   };
 
@@ -30,13 +30,13 @@ class DeleteDialog extends React.Component {
 
   handleConfirm = () => {
     const id = this.props.toolId;
-    // axios.post('/api/approvedemails', rep)
-    // .then(id => {
-    //     this.handleClose();
-    // })
-    // .catch(error => {
-    //     this.setState({ error: error.message });
-    // })
+    axios.delete(`/api/tools/tool/delete/${id}`)
+    .then(response => {
+        this.handleClose();
+    })
+    .catch(error => {
+        this.setState({ error: error.message });
+    })
   };
 
   render() {
@@ -58,12 +58,12 @@ class DeleteDialog extends React.Component {
 
                 <DialogContent>
                   <DialogContentText>
-                    Are you sure you want to delte this tool?
+                    Are you sure you want to delete this tool?
                   </DialogContentText>
                 </DialogContent>
 
                 <DialogActions>
-                  <Button onClick={this.handleCancel} color="primary">
+                  <Button onClick={this.handleClose} color="primary">
                     Cancel
                   </Button>
                   <Button onClick={this.handleConfirm} color="primary">

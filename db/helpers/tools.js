@@ -6,6 +6,7 @@ module.exports = {
     getAllTools,
     getTool,
     getMyTool,
+    deleteToolImages,
     deleteTool
 }
 
@@ -101,9 +102,16 @@ function getMyTool(id) {
         .first();
 }
 
+
+function deleteToolImages(id) {
+    return db('tool_images')
+        .where('tool_id', id)
+        .del();
+}
+
 function deleteTool(id) {
     return db('tools')
-        .where(id)
+        .where('id', id)
         .del();
 }
 
