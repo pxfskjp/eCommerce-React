@@ -115,6 +115,11 @@ function deleteTool(id) {
         .del();
 }
 
+function updateToolDetails(id, tool) {
+    return db('tools')
+        .where(id)
+        .update(tool);
+}
 
 
 

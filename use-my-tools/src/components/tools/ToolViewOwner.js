@@ -95,6 +95,34 @@ class ToolViewOwner extends React.Component {
             })
     }
 
+    updateToolDetails = event => {
+        console.log('TVO state on updateToolDetails: ', this.state);
+
+        const tool = {
+            brand: this.state.brand,
+            name: this.state.name,
+            description: this.state.description,
+            price: this.state.price,
+            available: this.state.available
+        }
+
+        axios.put('/api/tools/updatetooldetails', tool)
+            .then(tool => {
+                console.log("Response from /updatetooldetails", tool.data);
+                this.setState({
+                    brand: tool.data.brand,
+                    name: tool.data.name,
+                    description: tool.data.description,
+                    price: tool.data.price,
+                    available: tool.data.available,
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+            })
+
+    }
+
     handleFileChange = event => {
         // this.setState({
         //   selectedFile: event.target.files[0]
