@@ -124,6 +124,12 @@ class ToolViewOwner extends React.Component {
         });
     };
 
+    toggleAvailable = event => {
+        this.setState({
+            available: event.target.checked
+        }, () => console.log('state.available:', this.state.available));
+    }
+
     render() {
         const { tool } = this.state;
         const { classes } = this.props;
@@ -164,43 +170,7 @@ class ToolViewOwner extends React.Component {
 
                     <div className="rightContainer">
                         <div className="toolInfo">
-                            {/* <Typography gutterBottom variant="h5" component="h2">
-                                Description
-                            </Typography>
-                            <Typography>
-                                {tool.description}
-                            </Typography>
-                            <br/>
                             
-                            <br/>
-                            <Typography>
-                                Daily rental price: ${tool.price}
-                            </Typography> */}
-
-                            {/* Change Price */}
-
-                            {/* {tool.available === true ? (
-                                <Typography>
-                                    This tool is available to be reserved and rented.
-                                </Typography>
-                            ) : (
-                                <Typography>
-                                    This tool is not available to be reserved or rented.
-                                </Typography>
-                            )}
-
-                            {tool.rented === true ? (
-                                <Typography>
-                                    This tool is currently rented.
-                                </Typography>
-                            ) : (
-                                <Typography>
-                                    This tool is not currently rented.
-                                </Typography>
-                            )} */}
-
-                            {/* View reserved rental dates */}
-
                             <form onSubmit={this.updateUserDetails}>
 
                                 <TextField
@@ -223,6 +193,13 @@ class ToolViewOwner extends React.Component {
                                     variant="outlined"
                                 />
 
+                                <label for="availableCheck">Available:</label>
+                                <input id="availableCheck" 
+                                        type="checkbox" 
+                                        value={this.state.available} 
+                                        onClick = {this.toggleAvailable}
+                                /> 
+
                                 <Button variant="outlined" color="primary" className="save-button" type="submit" >
                                     Save
                                 </Button>
@@ -241,3 +218,60 @@ class ToolViewOwner extends React.Component {
 }
 
 export default withStyles(styles)(ToolViewOwner);
+
+{/* <Typography gutterBottom variant="h5" component="h2">
+    Description
+</Typography>
+<Typography>
+    {tool.description}
+</Typography>
+<br/>
+
+<br/>
+<Typography>
+    Daily rental price: ${tool.price}
+</Typography> */}
+
+{/* Change Price */}
+
+{/* {tool.available === true ? (
+    <Typography>
+        This tool is available to be reserved and rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not available to be reserved or rented.
+    </Typography>
+)}
+
+{tool.rented === true ? (
+    <Typography>
+        This tool is currently rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not currently rented.
+    </Typography>
+)} */}
+
+{/* View reserved rental dates */}
+
+{/* {tool.available === true ? (
+    <Typography>
+        This tool is available to be reserved and rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not available to be reserved or rented.
+    </Typography>
+)}
+
+{tool.rented === true ? (
+    <Typography>
+        This tool is currently rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not currently rented.
+    </Typography>
+)} */}
