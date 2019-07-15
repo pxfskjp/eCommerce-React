@@ -149,7 +149,7 @@ class ToolViewOwner extends React.Component {
     handleChange = name => event => {
         this.setState({
           [name]: event.target.value
-        });
+        }, () => console.log(this.state));
     };
 
     toggleAvailable = event => {
@@ -199,7 +199,7 @@ class ToolViewOwner extends React.Component {
                     <div className="rightContainer">
                         <div className="toolInfo">
                             
-                            <form onSubmit={this.updateUserDetails}>
+                            <form onSubmit={this.updateToolDetails}>
 
                                 <TextField
                                     id="outlined-description"
@@ -220,6 +220,7 @@ class ToolViewOwner extends React.Component {
                                     margin="normal"
                                     variant="outlined"
                                 />
+
                                 <div className="available-container">
                                     <label for="availableCheck">Available:</label>
                                     <input id="availableCheck" 
@@ -228,6 +229,7 @@ class ToolViewOwner extends React.Component {
                                             onClick = {this.toggleAvailable}
                                     /> 
                                 </div>
+
                                 <Button variant="outlined" color="primary" className="save-button" type="submit" >
                                     Save Changes
                                 </Button>
