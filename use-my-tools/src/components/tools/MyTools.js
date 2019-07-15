@@ -59,7 +59,7 @@ class MyTools extends Component {
 
                         {this.state.tools.map((tool, index) => {
                             return (
-                                <Grid item key={index}>
+                                <Grid item xs={3} key={index}>
 
                                     <Card className={classes.card}>
                                         <ImageCarousel toolImages={tool.images} />
