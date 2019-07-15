@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
+import DeleteDialog from './DeleteDialog';
 
 import axios from 'axios';
 
@@ -105,7 +106,7 @@ class ToolViewOwner extends React.Component {
                         ) : (
                             ''
                         )}
-                        
+
                         <div className ="add-image">
                             <p>Add image:</p>
                             <input
@@ -159,6 +160,8 @@ class ToolViewOwner extends React.Component {
                             )}
 
                             {/* View reserved rental dates */}
+
+                            <DeleteDialog />
 
                         </div>
 
