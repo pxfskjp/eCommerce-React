@@ -33,17 +33,22 @@
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+    /* justify-content: space-between;
+    align-items: flex-start; */
     width: 50%;
 }
 
 .toolInfo {
-    text-align: left;
-    flex-grow: 1;
+    /* text-align: left; */
+    /* flex-grow: 1; */
     /* max-height: 100px;
     min-height: 100px; */
-    overflow: hidden;
+    /* overflow: hidden; */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 600px) {

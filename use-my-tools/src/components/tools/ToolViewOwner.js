@@ -7,6 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
 import DeleteDialog from './DeleteDialog';
@@ -28,6 +30,16 @@ const styles = theme => ({
         minHeight: 200,
         overflowY: "scroll"
     },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit
+    },
+    dense: {
+        marginTop: 16
+    },
+    menu: {
+        width: 200
+    }
 
 })
 
@@ -36,6 +48,14 @@ class ToolViewOwner extends React.Component {
         super(props);
         this.state = {
             tool: {},
+            renterUid: '',
+            brand: '',
+            name: '',
+            description: '',
+            price: 0,
+            available: false,
+            rented: false,
+            rating: 0,
             selectedFile: null,
         };
     }
@@ -55,7 +75,15 @@ class ToolViewOwner extends React.Component {
                 // console.log('getToolInfo tool.data:', tool.data);
 
                 this.setState({
-                    tool: tool.data
+                    tool: tool.data,
+                    renterUid: tool.data.renter_uid,
+                    brand: tool.data.brand,
+                    name: tool.data.name,
+                    description: tool.data.description,
+                    price: tool.data.price,
+                    available: tool.data.available,
+                    rented: tool.data.rented,
+                    rating: tool.data.rating,
                 }, () => { 
                     console.log("ToolView state.tool after getToolInfo:", this.state.tool);
                     // console.log(this.state.tool.images);
@@ -88,6 +116,18 @@ class ToolViewOwner extends React.Component {
         this.props.history.push({        
             pathname: "/yourtools"
         });
+    }
+
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value
+        });
+    };
+
+    toggleAvailable = event => {
+        this.setState({
+            available: event.target.checked
+        }, () => console.log('state.available:', this.state.available));
     }
 
     render() {
@@ -130,46 +170,44 @@ class ToolViewOwner extends React.Component {
 
                     <div className="rightContainer">
                         <div className="toolInfo">
-                            <Typography gutterBottom variant="h5" component="h2">
-                                Description
-                            </Typography>
-                            <Typography>
-                                {tool.description}
-                            </Typography>
-                            <br/>
                             
-                            <br/>
-                            <Typography>
-                                Daily rental price: ${tool.price}
-                            </Typography>
+                            <form onSubmit={this.updateUserDetails}>
 
-                            {/* Change Price */}
+                                <TextField
+                                    id="outlined-description"
+                                    label="Description"
+                                    className={classes.textField}
+                                    value={this.state.description}
+                                    onChange={this.handleChange("description")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
 
-                            {tool.available === true ? (
-                                <Typography>
-                                    This tool is available to be reserved and rented.
-                                </Typography>
-                            ) : (
-                                <Typography>
-                                    This tool is not available to be reserved or rented.
-                                </Typography>
-                            )}
+                                <TextField
+                                    id="outlined-price"
+                                    label="Price"
+                                    className={classes.textField}
+                                    value={this.state.price}
+                                    onChange={this.handleChange("price")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
 
-                            {tool.rented === true ? (
-                                <Typography>
-                                    This tool is currently rented.
-                                </Typography>
-                            ) : (
-                                <Typography>
-                                    This tool is not currently rented.
-                                </Typography>
-                            )}
+                                <label for="availableCheck">Available:</label>
+                                <input id="availableCheck" 
+                                        type="checkbox" 
+                                        value={this.state.available} 
+                                        onClick = {this.toggleAvailable}
+                                /> 
 
-                            {/* View reserved rental dates */}
+                                <Button variant="outlined" color="primary" className="save-button" type="submit" >
+                                    Save
+                                </Button>
 
-                            <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
-
+                            </form>
                         </div>
+
+                        <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
 
                     </div>
                 </div>
@@ -180,3 +218,60 @@ class ToolViewOwner extends React.Component {
 }
 
 export default withStyles(styles)(ToolViewOwner);
+
+{/* <Typography gutterBottom variant="h5" component="h2">
+    Description
+</Typography>
+<Typography>
+    {tool.description}
+</Typography>
+<br/>
+
+<br/>
+<Typography>
+    Daily rental price: ${tool.price}
+</Typography> */}
+
+{/* Change Price */}
+
+{/* {tool.available === true ? (
+    <Typography>
+        This tool is available to be reserved and rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not available to be reserved or rented.
+    </Typography>
+)}
+
+{tool.rented === true ? (
+    <Typography>
+        This tool is currently rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not currently rented.
+    </Typography>
+)} */}
+
+{/* View reserved rental dates */}
+
+{/* {tool.available === true ? (
+    <Typography>
+        This tool is available to be reserved and rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not available to be reserved or rented.
+    </Typography>
+)}
+
+{tool.rented === true ? (
+    <Typography>
+        This tool is currently rented.
+    </Typography>
+) : (
+    <Typography>
+        This tool is not currently rented.
+    </Typography>
+)} */}
