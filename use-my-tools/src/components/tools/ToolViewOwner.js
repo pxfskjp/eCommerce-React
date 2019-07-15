@@ -30,6 +30,16 @@ const styles = theme => ({
         minHeight: 200,
         overflowY: "scroll"
     },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit
+    },
+    dense: {
+        marginTop: 16
+    },
+    menu: {
+        width: 200
+    }
 
 })
 
@@ -38,14 +48,14 @@ class ToolViewOwner extends React.Component {
         super(props);
         this.state = {
             tool: {},
-            renterUid: null,
-            brand: null,
-            name: null,
-            description: null,
-            price: null,
-            available: null,
-            rented: null,
-            rating: null,
+            renterUid: '',
+            brand: '',
+            name: '',
+            description: '',
+            price: 0,
+            available: false,
+            rented: false,
+            rating: 0,
             selectedFile: null,
         };
     }
@@ -194,34 +204,33 @@ class ToolViewOwner extends React.Component {
                             <form onSubmit={this.updateUserDetails}>
 
                                 <TextField
-                                    id="outlined-tool-description"
+                                    id="outlined-description"
                                     label="Description"
                                     className={classes.textField}
-                                    value={this.state.firstName}
+                                    value={this.state.description}
                                     onChange={this.handleChange("description")}
                                     margin="normal"
                                     variant="outlined"
                                 />
 
-                                {/* <TextField
-                                    id="outlined-last-name"
-                                    label="Last Name"
+                                <TextField
+                                    id="outlined-price"
+                                    label="Price"
                                     className={classes.textField}
-                                    value={this.state.lastName}
-                                    onChange={this.handleChange("lastName")}
+                                    value={this.state.price}
+                                    onChange={this.handleChange("price")}
                                     margin="normal"
                                     variant="outlined"
-                                /> */}
+                                />
 
                                 <Button variant="outlined" color="primary" className="save-button" type="submit" >
                                     Save
                                 </Button>
 
                             </form>
-
-                            <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
-
                         </div>
+
+                        <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
 
                     </div>
                 </div>
