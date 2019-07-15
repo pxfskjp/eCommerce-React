@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
+import DeleteDialog from './DeleteDialog';
 
 import axios from 'axios';
 
@@ -83,6 +84,12 @@ class ToolViewOwner extends React.Component {
             })
     };
 
+    handleToolDelete = event => {
+        this.props.history.push({        
+            pathname: "/yourtools"
+        });
+    }
+
     render() {
         const { tool } = this.state;
         const { classes } = this.props;
@@ -105,7 +112,7 @@ class ToolViewOwner extends React.Component {
                         ) : (
                             ''
                         )}
-                        
+
                         <div className ="add-image">
                             <p>Add image:</p>
                             <input
@@ -159,6 +166,8 @@ class ToolViewOwner extends React.Component {
                             )}
 
                             {/* View reserved rental dates */}
+
+                            <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
 
                         </div>
 
