@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
@@ -213,7 +214,10 @@ class ToolViewOwner extends React.Component {
 
                                 <TextField
                                     id="outlined-price"
-                                    label="Price"
+                                    label="Daily Rental Price"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                                      }}
                                     className={classes.textField}
                                     value={this.state.price}
                                     onChange={this.handleChange("price")}
@@ -249,20 +253,7 @@ class ToolViewOwner extends React.Component {
 
 export default withStyles(styles)(ToolViewOwner);
 
-{/* <Typography gutterBottom variant="h5" component="h2">
-    Description
-</Typography>
-<Typography>
-    {tool.description}
-</Typography>
-<br/>
 
-<br/>
-<Typography>
-    Daily rental price: ${tool.price}
-</Typography> */}
-
-{/* Change Price */}
 
 {/* {tool.available === true ? (
     <Typography>
