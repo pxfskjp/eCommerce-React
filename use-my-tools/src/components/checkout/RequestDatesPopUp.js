@@ -152,20 +152,25 @@ class RequestDatesPopUp extends React.Component {
             </Button>
           )}
           
-          
           <Dialog
             classes={{ paper: classes.dialogPaper }}
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
+            <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
 
             <DialogContent className={classes.dialogContent}>
-
-              <DialogContentText>
-                Select the dates to rent this tool:
-              </DialogContentText>
+              {userType === "renter" ? (
+                <DialogContentText>
+                  Select dates when you want to reserve this tool:
+                </DialogContentText>
+              ) : (
+                <DialogContentText>
+                  Select dates you want to block rental reservations:
+                </DialogContentText>
+              )}
+              
               
               {blockedDaysUpdated ? (
                 <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />

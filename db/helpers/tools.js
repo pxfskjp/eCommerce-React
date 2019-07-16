@@ -63,6 +63,7 @@ function getTool(id) {
         // .where('id', id)
         // .first();
         .select([
+            'tools.id',
             'tools.owner_uid as ownerUid',
             'tools.brand',
             'tools.name',
@@ -85,6 +86,7 @@ function getTool(id) {
 function getMyTool(id) {
     return db 
         .select([
+            'tools.id',
             'tools.renter_uid as renterUid',
             'tools.brand',
             'tools.name',
