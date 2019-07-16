@@ -120,7 +120,7 @@ class RequestDatesPopUp extends React.Component {
 
     let reservationData = { 
       toolId: this.props.toolId,
-      res_type: "rental",
+      resType: this.props.userType,
       startDate: this.state.startDate, 
       endDate: this.state.endDate 
     };
@@ -139,11 +139,18 @@ class RequestDatesPopUp extends React.Component {
   render() {
     const { classes } = this.props;
     const blockedDaysUpdated = this.state.blockedDaysUpdated;
+    const userType = this.props.userType;
     return (
         <div>
-          <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                Rent this tool
-          </Button>
+          {userType === "renter" ? (
+            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+              Rent this tool
+            </Button>
+          ) : (
+            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+              Manage Dates
+            </Button>
+          )}
           
           <Dialog
             classes={{ paper: classes.dialogPaper }}
@@ -151,13 +158,19 @@ class RequestDatesPopUp extends React.Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            <DialogTitle id="form-dialog-title">Request Dates</DialogTitle>
+            <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
 
             <DialogContent className={classes.dialogContent}>
-
-              <DialogContentText>
-                Select the dates to rent this tool:
-              </DialogContentText>
+              {userType === "renter" ? (
+                <DialogContentText>
+                  Select dates when you want to reserve this tool:
+                </DialogContentText>
+              ) : (
+                <DialogContentText>
+                  Select dates you want to block rental reservations:
+                </DialogContentText>
+              )}
+              
               
               {blockedDaysUpdated ? (
                 <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
