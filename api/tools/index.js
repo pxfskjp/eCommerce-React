@@ -211,11 +211,11 @@ router.get('/tool/reserveddates/:id', (req, res) => {
 router.post('/reservedates', (req, res) => {
     const uid = req.body.uid;
 
-    let { startDate, endDate, toolId } = req.body;
+    let { startDate, endDate, toolId, resType } = req.body;
 
     let reservationData = {
         tool_id: toolId,
-        res_type: "rental",
+        res_type: resType,
         renter_uid: uid,
         start_date: startDate,
         end_date: endDate,

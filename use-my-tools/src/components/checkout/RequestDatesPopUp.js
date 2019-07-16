@@ -117,10 +117,10 @@ class RequestDatesPopUp extends React.Component {
 //   };
 
   onSubmit = () => {
-
+    let res_type = this.props.userType;
     let reservationData = { 
       toolId: this.props.toolId,
-      res_type: "rental",
+      res_type,
       startDate: this.state.startDate, 
       endDate: this.state.endDate 
     };
