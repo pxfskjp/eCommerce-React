@@ -183,7 +183,7 @@ class ToolViewOwner extends React.Component {
                         )}
 
                         <div className ="add-image">
-                            <p>Add image:</p>
+                            <p>Add image:   </p>
                             <input
                                 accept="image/*"
                                 className="image-input"

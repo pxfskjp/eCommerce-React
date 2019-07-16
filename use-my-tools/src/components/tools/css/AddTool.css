@@ -1,0 +1,12 @@
+.add-tool-container {
+    margin: auto;
+    width: 50%;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.register-button {
+    width: 100px;
+}
+
