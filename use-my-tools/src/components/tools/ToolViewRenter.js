@@ -126,7 +126,7 @@ class ToolViewRenter extends React.Component {
                         </div>
                     
                         
-                        <RequestDatesPopUp toolId={tool.id} />
+                        <RequestDatesPopUp toolId={tool.id} userType="renter"/>
 
                     </div>
                 </div>

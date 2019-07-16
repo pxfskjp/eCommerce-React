@@ -241,6 +241,8 @@ class ToolViewOwner extends React.Component {
                             </form>
                         </div>
 
+                        <RequestDatesPopUp toolId={tool.id} />
+
                         <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
 
                     </div>

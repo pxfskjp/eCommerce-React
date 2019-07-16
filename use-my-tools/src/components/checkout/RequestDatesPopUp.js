@@ -139,11 +139,19 @@ class RequestDatesPopUp extends React.Component {
   render() {
     const { classes } = this.props;
     const blockedDaysUpdated = this.state.blockedDaysUpdated;
+    const userType = this.props.userType;
     return (
         <div>
-          <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                Rent this tool
-          </Button>
+          {userType === "renter" ? (
+            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+              Rent this tool
+            </Button>
+          ) : (
+            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+              Manage Dates
+            </Button>
+          )}
+          
           
           <Dialog
             classes={{ paper: classes.dialogPaper }}
