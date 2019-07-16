@@ -120,7 +120,7 @@ class AddTool extends Component {
                             <TextField
                                 style = {{width: '100%'}}
                                 hintText="Daily Rental Price"
-                                floatingLabelText="Daily Rental Price (enter 0 if you want people to borrow for free)"
+                                floatingLabelText="Daily Rental Price (enter 0 for free)"
                                 required={true}
                                 name="price"
                                 type="number"
@@ -129,7 +129,10 @@ class AddTool extends Component {
                             />
                             <br/>
                             <div className="add-image">
+                                <div>
                                 <p>Upload a photo of your tool:</p>
+                                </div>
+                                <div>
                                 <input
                                     accept="image/*"
                                     className="image-input"
@@ -139,6 +142,7 @@ class AddTool extends Component {
                                     name="image"
                                     onChange={this.handleFileChange}
                                 />
+                                </div>
                             </div>
                             {/* <label htmlFor="contained-button-file">
                                 <Button component="span" className="register-button">
@@ -156,7 +160,8 @@ class AddTool extends Component {
                             >
                                 Upload
                             </Button> */}
-
+                            <br/>
+                            <br/>
                             <RaisedButton
                                 className="register-button"
                                 label="Submit"

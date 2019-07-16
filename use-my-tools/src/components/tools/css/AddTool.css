@@ -1,12 +1,28 @@
 .add-tool-container {
     margin: auto;
     width: 50%;
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    align-items: center; */
+    align-items: flex-start;
 }
 
-.register-button {
+form {
+    height: 700px;
+}
+
+form .add-image {
+    display: flex;
+    justify-content: space-around;
+}
+
+form .register-button {
     width: 100px;
 }
 
+@media (max-width: 800px) {
+    .add-image {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
