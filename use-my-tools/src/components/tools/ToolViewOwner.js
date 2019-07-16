@@ -225,7 +225,7 @@ class ToolViewOwner extends React.Component {
                                     <label for="availableCheck">Available:</label>
                                     <input id="availableCheck" 
                                             type="checkbox" 
-                                            value={this.state.available} 
+                                            checked={this.state.available}
                                             onClick = {this.toggleAvailable}
                                     /> 
                                 </div>
