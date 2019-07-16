@@ -128,16 +128,18 @@ class AddTool extends Component {
                                 onChange={this.onChange}
                             />
                             <br/>
-
-                            <input
-                                accept="image/*"
-                                className="image-input"
-                                id="contained-button-file"
-                                multiple
-                                type="file"
-                                name="image"
-                                onChange={this.handleFileChange}
-                            />
+                            <div className="add-image">
+                                <p>Upload a photo of your tool:</p>
+                                <input
+                                    accept="image/*"
+                                    className="image-input"
+                                    id="contained-button-file"
+                                    multiple
+                                    type="file"
+                                    name="image"
+                                    onChange={this.handleFileChange}
+                                />
+                            </div>
                             {/* <label htmlFor="contained-button-file">
                                 <Button component="span" className="register-button">
                                     Choose Image
