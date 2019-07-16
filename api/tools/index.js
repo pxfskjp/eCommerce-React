@@ -124,9 +124,12 @@ router.get('/mytools', (req, res) => {
         })
 })
 
-router.get('/alltools', (req, res) => {
-    // let uid = req.body.uid;
+router.get('/findtools', (req, res) => {
+    let uid = req.body.uid;
+    // For default search use renter's city
+    if (req.body.city === 'renter') {
 
+    }
     toolsDb.getAllTools()
         .then(tools => {                  // db responds with array of all available tools
             // console.log('response from db getAllTools query: ', tools);

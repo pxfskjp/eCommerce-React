@@ -36,8 +36,6 @@ function getMyTools(uid) {
 
 function getAllTools(uid) {
     return db
-        // .select('*')
-        // .from('tools');
         .select([
             'tools.id',
             'tools.brand',
