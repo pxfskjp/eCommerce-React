@@ -1,4 +1,4 @@
-.pageContainer {
+.page-container {
     display: flex;
     flex-direction: column;
 }
@@ -8,42 +8,35 @@
     text-align: left;
 }
 
-.mainContainer {
+.main-container {
     margin: 10px;
     height: 100%;
     display: flex;
     justify-content: space-around;
 }
 
-.leftContainer {
+.left-container {
     /* border: 1px solid black; */
     width: 40%;
     min-width: 270px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .add-image {
+    height: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.rightContainer {
+.right-container {
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between;
-    align-items: flex-start; */
+    align-items: flex-start;
     width: 50%;
-}
-
-.toolInfo {
-    /* text-align: left; */
-    /* flex-grow: 1; */
-    /* max-height: 100px;
-    min-height: 100px; */
-    /* overflow: hidden; */
 }
 
 form {
@@ -57,9 +50,23 @@ form {
     justify-content: space-between;
 }
 
+.tool-info .button {
+    margin: 10px;
+    width: 150px;
+}
+
+.right-container .tool-management {
+    margin: 30px 10px 10px 10px ;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
 @media (max-width: 600px) {
-    .mainContainer {
+    .main-container {
         flex-direction: column;
-        justify-content: space-around;
+        align-items: space-around;
     }
 }

@@ -164,7 +164,7 @@ class ToolViewOwner extends React.Component {
         const { classes } = this.props;
 
         return (
-            <div className="pageContainer">
+            <div className="page-container">
                 <div className="title">
                     <Typography gutterBottom variant="h5" component="h2">
                         {tool.brand}{' '}{tool.name}
@@ -172,9 +172,9 @@ class ToolViewOwner extends React.Component {
                     
                 </div>
 
-                <div className="mainContainer">
+                <div className="main-container">
 
-                    <div className="leftContainer">
+                    <div className="left-container">
 
                         {tool.images ? (
                             <ImageCarousel toolImages={tool.images} />
@@ -197,8 +197,8 @@ class ToolViewOwner extends React.Component {
 
                     </div>
 
-                    <div className="rightContainer">
-                        <div className="toolInfo">
+                    <div className="right-container">
+                        <div className="tool-info">
                             
                             <form onSubmit={this.updateToolDetails}>
 
@@ -217,7 +217,7 @@ class ToolViewOwner extends React.Component {
                                     label="Daily Rental Price"
                                     InputProps={{
                                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                                      }}
+                                    }}
                                     className={classes.textField}
                                     value={this.state.price}
                                     onChange={this.handleChange("price")}
@@ -234,21 +234,32 @@ class ToolViewOwner extends React.Component {
                                     /> 
                                 </div>
 
-                                <Button variant="outlined" color="primary" className="save-button" type="submit" >
+                                <Button variant="outlined" color="primary" className="button" type="submit" >
                                     Save Changes
                                 </Button>
 
                             </form>
                         </div>
 
-                        <RequestDatesPopUp toolId={this.state.tool.id} userType="owner"/>
+                        <div className="tool-management">
+                            <RequestDatesPopUp 
+                                toolId={this.state.tool.id} 
+                                userType="owner" 
+                            />
 
-                        <DeleteDialog toolId={this.props.match.params.id} handleToolDelete={this.handleToolDelete}/>
-
+                            <DeleteDialog 
+                                toolId={this.props.match.params.id} 
+                                handleToolDelete={this.handleToolDelete} 
+                            />
+                        </div>
                     </div>
-                </div>
+                    {/* end right-container */}
+
+                </div> 
+                {/* end main-container */}
 
             </div>
+            // end page-container 
         )
     }
 }

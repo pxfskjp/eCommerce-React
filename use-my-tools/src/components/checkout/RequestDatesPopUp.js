@@ -72,13 +72,11 @@ class RequestDatesPopUp extends React.Component {
 
   handleClickOpen = () => {
     this.setState({ open: true });
-
     const toolId = this.props.toolId;
     axios.get(`/api/tools/tool/reserveddates/${toolId}`)
       .then(dates => {
-        const dateRanges = dates.data;
+        const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
         let blockedDays = [];
-
         for (let i = 0; i < dateRanges.length; i++) {
           // blockedDays.push(this.getDatesInRange(dateRanges[i]));
           let datesArray = this.getDatesInRange(dateRanges[i]);
@@ -86,7 +84,6 @@ class RequestDatesPopUp extends React.Component {
             blockedDays.push(datesArray[d]);
           }
         }
-
         // console.log('blockedDays:', blockedDays);
         this.setState({ 
           open: true,
@@ -112,11 +109,8 @@ class RequestDatesPopUp extends React.Component {
     this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
   };
 
-//   onChange = event => {
-//     this.setState({ [event.target.name]: event.target.value });
-//   };
-
   onSubmit = () => {
+    let { startDate, endDate } = this.state;
 
     let reservationData = { 
       toolId: this.props.toolId,
@@ -124,6 +118,17 @@ class RequestDatesPopUp extends React.Component {
       startDate: this.state.startDate, 
       endDate: this.state.endDate 
     };
+
+    // Add the dates that were just reserved to state.blockedDays array:
+      // This fixes bug where after submitting dates, on the next time you click 'manage dates',
+      // the recently reserved dates are not blocked until you reload page
+    let blockedDays = this.state.blockedDays;
+    let datesArray = this.getDatesInRange({ startDate, endDate });
+    for (let d = 0; d < datesArray.length; d++) {
+      blockedDays.push(datesArray[d]);
+    }
+    
+    this.setState({ blockedDays });
     
     axios.post('/api/tools/reserveDates', reservationData)
         .then(response => {

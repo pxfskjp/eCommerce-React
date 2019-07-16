@@ -10,7 +10,7 @@ const styles = theme => ({
   root: {
     minWidth: 250,
     maxWidth: 400,
-    flexGrow: 1
+    // flexGrow: 1
   },
   header: {
     display: "flex",
