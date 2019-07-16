@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import ImageCarousel from './ImageCarousel';
 import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
@@ -95,6 +96,34 @@ class ToolViewOwner extends React.Component {
             })
     }
 
+    updateToolDetails = event => {
+        console.log('TVO state on updateToolDetails: ', this.state);
+        const id = this.props.match.params.id;
+        const tool = {
+            brand: this.state.brand,
+            name: this.state.name,
+            description: this.state.description,
+            price: this.state.price,
+            available: this.state.available
+        }
+
+        axios.put(`/api/tools/updatetooldetails/${id}`, tool)
+            .then(tool => {
+                console.log("Response from /updatetooldetails", tool.data);
+                this.setState({
+                    brand: tool.data.brand,
+                    name: tool.data.name,
+                    description: tool.data.description,
+                    price: tool.data.price,
+                    available: tool.data.available,
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+            })
+
+    }
+
     handleFileChange = event => {
         // this.setState({
         //   selectedFile: event.target.files[0]
@@ -121,7 +150,7 @@ class ToolViewOwner extends React.Component {
     handleChange = name => event => {
         this.setState({
           [name]: event.target.value
-        });
+        }, () => console.log(this.state));
     };
 
     toggleAvailable = event => {
@@ -171,7 +200,7 @@ class ToolViewOwner extends React.Component {
                     <div className="rightContainer">
                         <div className="toolInfo">
                             
-                            <form onSubmit={this.updateUserDetails}>
+                            <form onSubmit={this.updateToolDetails}>
 
                                 <TextField
                                     id="outlined-description"
@@ -185,7 +214,10 @@ class ToolViewOwner extends React.Component {
 
                                 <TextField
                                     id="outlined-price"
-                                    label="Price"
+                                    label="Daily Rental Price"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                                      }}
                                     className={classes.textField}
                                     value={this.state.price}
                                     onChange={this.handleChange("price")}
@@ -193,15 +225,17 @@ class ToolViewOwner extends React.Component {
                                     variant="outlined"
                                 />
 
-                                <label for="availableCheck">Available:</label>
-                                <input id="availableCheck" 
-                                        type="checkbox" 
-                                        value={this.state.available} 
-                                        onClick = {this.toggleAvailable}
-                                /> 
+                                <div className="available-container">
+                                    <label for="availableCheck">Available:</label>
+                                    <input id="availableCheck" 
+                                            type="checkbox" 
+                                            checked={this.state.available}
+                                            onClick = {this.toggleAvailable}
+                                    /> 
+                                </div>
 
                                 <Button variant="outlined" color="primary" className="save-button" type="submit" >
-                                    Save
+                                    Save Changes
                                 </Button>
 
                             </form>
@@ -219,20 +253,7 @@ class ToolViewOwner extends React.Component {
 
 export default withStyles(styles)(ToolViewOwner);
 
-{/* <Typography gutterBottom variant="h5" component="h2">
-    Description
-</Typography>
-<Typography>
-    {tool.description}
-</Typography>
-<br/>
 
-<br/>
-<Typography>
-    Daily rental price: ${tool.price}
-</Typography> */}
-
-{/* Change Price */}
 
 {/* {tool.available === true ? (
     <Typography>

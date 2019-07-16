@@ -51,6 +51,12 @@ form {
     flex-direction: column;
 }
 
+.available-container {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
 @media (max-width: 600px) {
     .mainContainer {
         flex-direction: column;

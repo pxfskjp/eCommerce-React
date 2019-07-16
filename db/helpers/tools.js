@@ -7,7 +7,8 @@ module.exports = {
     getTool,
     getMyTool,
     deleteToolImages,
-    deleteTool
+    deleteTool,
+    updateToolDetails
 }
 
 function createTool(newTool) {
@@ -115,6 +116,11 @@ function deleteTool(id) {
         .del();
 }
 
+function updateToolDetails(id, tool) {
+    return db('tools')
+        .where('id', id)
+        .update(tool);
+}
 
 
 
