@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Button from "@material-ui/core/Button";
 // import { withStyles } from "@material-ui/core/styles";
-
+import './css/AddTool.css';
 
 import axios from 'axios';
 
@@ -82,7 +82,7 @@ class AddTool extends Component {
 
                         <form onSubmit={this.onSubmit}>
                             <TextField
-                                style = {{width: '65%'}}
+                                style = {{width: '100%'}}
                                 hintText="Tool Brand"
                                 floatingLabelText="Tool Brand"
                                 name="brand"
@@ -94,7 +94,7 @@ class AddTool extends Component {
                             <br/>
 
                             <TextField
-                                style = {{width: '65%'}}
+                                style = {{width: '100%'}}
                                 hintText="Tool Name"
                                 floatingLabelText="Tool Name"
                                 name="name"
@@ -106,7 +106,7 @@ class AddTool extends Component {
                             <br/>
 
                             <TextField
-                                style = {{width: '65%'}}
+                                style = {{width: '100%'}}
                                 hintText="Tool Description"
                                 floatingLabelText="Tool Description"
                                 name="description"
@@ -118,9 +118,9 @@ class AddTool extends Component {
                             <br/>
 
                             <TextField
-                                style = {{width: '65%'}}
+                                style = {{width: '100%'}}
                                 hintText="Daily Rental Price"
-                                floatingLabelText="Daily Rental Price (enter 0 if you want people to borrow for free)"
+                                floatingLabelText="Daily Rental Price (enter 0 for free)"
                                 required={true}
                                 name="price"
                                 type="number"
@@ -128,21 +128,27 @@ class AddTool extends Component {
                                 onChange={this.onChange}
                             />
                             <br/>
-
-                            <input
-                                accept="image/*"
-                                className="image-input"
-                                id="contained-button-file"
-                                multiple
-                                type="file"
-                                name="image"
-                                onChange={this.handleFileChange}
-                            />
-                            <label htmlFor="contained-button-file">
+                            <div className="add-image">
+                                <div>
+                                <p>Upload a photo of your tool:</p>
+                                </div>
+                                <div>
+                                <input
+                                    accept="image/*"
+                                    className="image-input"
+                                    id="contained-button-file"
+                                    multiple
+                                    type="file"
+                                    name="image"
+                                    onChange={this.handleFileChange}
+                                />
+                                </div>
+                            </div>
+                            {/* <label htmlFor="contained-button-file">
                                 <Button component="span" className="register-button">
                                     Choose Image
                                 </Button>
-                            </label>
+                            </label> */}
                             {/* <Button
                                 onClick={() => {
                                     uploadImages(uploadingTo, tool.image);
@@ -154,7 +160,8 @@ class AddTool extends Component {
                             >
                                 Upload
                             </Button> */}
-
+                            <br/>
+                            <br/>
                             <RaisedButton
                                 className="register-button"
                                 label="Submit"

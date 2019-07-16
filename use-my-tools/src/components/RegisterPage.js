@@ -134,7 +134,7 @@ class RegisterFormBase extends Component {
                                 name="lastName"
                                 type="text"
                                 required={true}
-                                value={this.state.lastnNme}
+                                value={this.state.lastName}
                                 onChange={this.onChange}
                             />
                             <br/>
