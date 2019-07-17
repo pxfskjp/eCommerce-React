@@ -21,11 +21,15 @@ const styles = theme => ({
         flexDirection: "column"
     },
     cardContent: {
-        flexGrow: 1,
+        // flexGrow: 1,
         maxHeight: 100,
-        minHeight: 100,
-        overflow: "hidden"
+        // minHeight: 100,
+        overflow: "hidden",
+        textAlign: "left"
     },
+    cardTitle: {
+        fontWeight: "bold"
+    }
 
 })
 
@@ -111,9 +115,10 @@ class FindTools extends Component {
                                 return (
                                     <Grid item xs={3} key={index}>
                                         <Card className={classes.card}>
-                                            <ImageCarousel toolImages={tool.images} />
+                                            {/* <ImageCarousel toolImages={tool.images} /> */}
+                                            <img src={tool.images[0].url} />
                                             <CardContent className={classes.cardContent}>
-                                                <Typography gutterBottom variant="h5" component="h2">
+                                                <Typography gutterBottom className={classes.cardTitle} >
                                                     {tool.brand}{' '}{tool.name}
                                                 </Typography>
                                                 <Typography>
