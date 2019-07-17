@@ -131,9 +131,11 @@ router.post('/findtools', async (req, res) => {
     console.log('req.body.city: ', city);
 
     try {
+        console.log('req.body.city: ', city);
         if (city === 'renter') {
             // call db function to get renter's city:
             const location = await usersDb.getUserLocation(uid);
+            console.log('location: ', location);
             city = location.city;
         }
         console.log('city: ', city);
