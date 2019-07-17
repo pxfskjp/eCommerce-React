@@ -57,7 +57,7 @@ class FindTools extends Component {
     // }
 
     updateFilter = (name, value) => {
-        this.setState({ [name]: value });
+        this.setState({ [name]: value }, () => console.log('updateFilter: ', this.state[name]));
     }
 
     render() {

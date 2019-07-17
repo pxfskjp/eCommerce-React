@@ -16,7 +16,14 @@ class FilterMenu extends Component {
     handleChange =  event => {
         this.setState({ 
             [event.target.name]: event.target.value 
-        }, () => console.log(this.state));
+        });
+    }
+
+    handleUpdateFilter = name => event => {
+        const value = this.state[name];
+        //console.log(value);
+        this.props.updateFilter(name, value);
+        event.preventDefault();
     }
 
     render() {
@@ -37,7 +44,7 @@ class FilterMenu extends Component {
                             onChange={this.handleChange}
                         />
 
-                        <button type="button">Enter</button>
+                        <button type="button" onClick={this.handleUpdateFilter("maxPrice")}>Enter</button>
                     {/* </div> */}
 
 
