@@ -124,14 +124,23 @@ router.get('/mytools', (req, res) => {
         })
 })
 
-router.get('/findtools', (req, res) => {
+router.post('/findtools', (req, res) => {
     let uid = req.body.uid;
     // For default search use renter's city
     let city = req.body.city;
+    console.log('req.body.city: ', city);
     if (city === 'renter') {
         // call db function to get renter's city:
-        
+        usersDb.getUserLocation(uid)
+            .then(location => {
+                console.log('location: ', location);
+                city = location.city;
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
+    console.log('city: ', city);
     toolsDb.getAllTools()
         .then(tools => {                  // db responds with array of all available tools
             // console.log('response from db getAllTools query: ', tools);
@@ -140,7 +149,7 @@ router.get('/findtools', (req, res) => {
                 const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
                 return imagesQuery 
                     .then(images => {
-                        console.log('response from db getToolImages query: ', images);
+                        //console.log('response from db getToolImages query: ', images);
                         tool.images = images;  // append images array to tool object
                     })
                     // .catch(error => {

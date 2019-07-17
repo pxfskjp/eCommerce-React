@@ -36,8 +36,8 @@ class FindTools extends Component {
 
     componentDidMount() {
         // Get available tools in the renter's city:
-        let criteria = { city: 'renter' };
-        axios.get('/api/tools/findtools', criteria)
+        const criteria = { city: 'renter' };
+        axios.post('/api/tools/findtools', criteria)
             .then(tools => {
                 this.setState({
                     tools: tools.data
