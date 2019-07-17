@@ -128,19 +128,20 @@ router.post('/findtools', async (req, res) => {
     let uid = req.body.uid;
     // For default search use renter's city:
     let city = req.body.city;
-    console.log('req.body.city: ', city);
+    // console.log('req.body.city: ', city);
 
     try {
         console.log('req.body.city: ', city);
         if (city === 'renter') {
             // call db function to get renter's city:
             const location = await usersDb.getUserLocation(uid);
-            console.log('location: ', location);
+            // console.log('location: ', location);
             city = location.city;
         }
-        console.log('city: ', city);
-        toolsDb.getAllTools()
-            .then(tools => {                  // db responds with array of all available tools
+        console.log('city: ', city)
+
+        toolsDb.findTools(city)
+            .then(tools => {    // db responds with array of all available tools
                 // console.log('response from db getAllTools query: ', tools);
 
                 const toolsWithImages = tools.map(tool => {

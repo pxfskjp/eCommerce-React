@@ -8,7 +8,8 @@ module.exports = {
     getMyTool,
     deleteToolImages,
     deleteTool,
-    updateToolDetails
+    updateToolDetails,
+    findTools
 }
 
 function createTool(newTool) {
@@ -34,7 +35,7 @@ function getMyTools(uid) {
         .where('tools.owner_uid', uid);
 }
 
-function getAllTools(uid) {
+function getAllTools() {
     return db
         .select([
             'tools.id',
@@ -52,6 +53,27 @@ function getAllTools(uid) {
         ])
         .from('tools')
         .leftJoin('users', 'tools.owner_uid', 'users.uid');
+}
+
+function findTools(city) {
+    return db
+        .select([
+            'tools.id',
+            'tools.brand',
+            'tools.name',
+            'tools.description',
+            'tools.price',
+            'tools.available',
+            'tools.rented',
+            'tools.rating',
+            'users.first_name as ownerFirstName',
+            'users.full_address',
+            'users.city',
+            'users.state'
+        ])
+        .from('tools')
+        .leftJoin('users', 'tools.owner_uid', 'users.uid')
+        .where('users.city', city);
 }
 
 function getTool(id) {
