@@ -63,23 +63,20 @@ class FindTools extends Component {
         if (name === 'searchString') {
             let keywords = [];
             let searchString = value;
-            // Handle case where searchString is empty string:
-            // if (searchString = '') {
-            //     console.log(searchString);
-            //     this.setState({ keywords });
-            //     return;
-            // }
+            // Return if searchString is null:
             if (!searchString) {
                 return;
             }
-            // If searchString is not null:
+            // If searchString is not null,
+            // split searchString into words 
+            // and push each word in lowerCase into state.keywords array:
             for (let word of searchString.split(' ')) {
                 keywords.push(word.toLowerCase());
             }
-            console.log(keywords);
+            // console.log(keywords);
             this.setState({ keywords }) 
         }
-        this.setState({ [name]: value }, () => console.log('updateFilter: ', this.state[name]));
+        this.setState({ [name]: value });
     }
 
     render() {
