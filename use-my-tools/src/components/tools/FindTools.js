@@ -122,10 +122,7 @@ class FindTools extends Component {
                                                     {tool.brand}{' '}{tool.name}
                                                 </Typography>
                                                 <Typography>
-                                                    {tool.description}
-                                                </Typography>
-                                                <Typography>
-                                                    {tool.city}{', '}{tool.state}
+                                                    ${tool.price} / day
                                                 </Typography>
                                             </CardContent>
                                             <CardActions>
