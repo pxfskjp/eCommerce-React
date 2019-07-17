@@ -33,7 +33,8 @@ class FindTools extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tools: []
+            tools: [],
+            maxPrice: 100
         };
     }
 
@@ -51,9 +52,9 @@ class FindTools extends Component {
             })
     }
 
-    openToolView = event => {
+    // openToolView = event => {
 
-    }
+    // }
 
     render() {
         const { classes } = this.props;
@@ -67,7 +68,7 @@ class FindTools extends Component {
                     <div className="filter-menu-container">
                         <FilterMenu />
                     </div>
-                    
+
                     <div className="tools-list-container">
 
                         <Grid container spacing={40}>

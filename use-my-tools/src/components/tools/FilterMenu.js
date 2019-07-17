@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './css/FilterMenu.css';
+
 class FilterMenu extends Component {
     constructor(props) {
         super(props);
@@ -23,9 +25,9 @@ class FilterMenu extends Component {
                 <h3>Filter Results</h3>
 
 
-                    <div className="max-price-container">
+                    {/* <div className="max-price-container"> */}
 
-                        <label for="max-price">Max Price ($)</label><br/>
+                        <label for="max-price">Max Price ($)</label>
                         
                         <input 
                             name="maxPrice" 
@@ -36,13 +38,13 @@ class FilterMenu extends Component {
                         />
 
                         <button type="button">Enter</button>
-                    </div>
+                    {/* </div> */}
 
 
-                <p>Keyword</p>
+                {/* <p>Keyword</p>
 
                     <input type="text" value={this.state.currentKeywordInput}/>
-                    <button type="button">Enter</button>
+                    <button type="button">Enter</button> */}
 
 
             </div>
