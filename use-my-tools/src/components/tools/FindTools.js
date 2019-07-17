@@ -74,7 +74,7 @@ class FindTools extends Component {
             }
             // If searchString is not null:
             for (let word of searchString.split(' ')) {
-                keywords.push(word);
+                keywords.push(word.toLowerCase());
             }
             console.log(keywords);
             this.setState({ keywords }) 
