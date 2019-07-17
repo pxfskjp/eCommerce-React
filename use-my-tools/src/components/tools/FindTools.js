@@ -56,6 +56,10 @@ class FindTools extends Component {
 
     // }
 
+    updateFilter = (name, value) => {
+        this.setState({ [name]: value });
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -66,7 +70,7 @@ class FindTools extends Component {
                 <div className="main-container">
 
                     <div className="filter-menu-container">
-                        <FilterMenu />
+                        <FilterMenu updateFilter={this.updateFilter} />
                     </div>
 
                     <div className="tools-list-container">
