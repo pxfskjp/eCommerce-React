@@ -3,7 +3,8 @@ const db = require('../db.js');
 module.exports = {
     createUser,
     getUserInfo,
-    updateUserDetails
+    updateUserDetails,
+    getUserLocation
 }
 
 function createUser(newUser) {
@@ -31,6 +32,25 @@ function getUserInfo(uid) {
             .then(users => {
                 return users[0];
             });
+}
+
+function getUserLocation(uid) {
+    return db
+        .select([
+            'users.full_address',
+            'users.street_number',
+            'users.street_name',
+            'users.city',
+            'users.county',
+            'users.state',
+            'users.country',
+            'users.zip_code',
+            'users.lat',
+            'users.lng',
+            'users.place_id'
+        ])
+        .from('users')
+        .where('users.uid', uid);
 }
 
 function updateUserDetails(uid, user) {
