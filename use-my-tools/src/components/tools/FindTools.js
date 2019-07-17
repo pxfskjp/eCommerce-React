@@ -35,11 +35,13 @@ class FindTools extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/tools/alltools')
+        // Get available tools in the renter's city:
+        const criteria = { city: 'renter' };
+        axios.post('/api/tools/findtools', criteria)
             .then(tools => {
                 this.setState({
                     tools: tools.data
-                }, () => console.log('FindTools state.tools after GET /alltools: ', this.state.tools)) ;
+                }, () => console.log('FindTools state.tools after GET /findtools: ', this.state.tools)) ;
             })
             .catch(error => {
                 console.log(error.message);

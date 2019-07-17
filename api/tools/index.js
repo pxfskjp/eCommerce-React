@@ -124,36 +124,54 @@ router.get('/mytools', (req, res) => {
         })
 })
 
-router.get('/alltools', (req, res) => {
-    // let uid = req.body.uid;
+router.post('/findtools', async (req, res) => {
+    let uid = req.body.uid;
+    // For default search use renter's city:
+    let city = req.body.city;
+    // console.log('req.body.city: ', city);
 
-    toolsDb.getAllTools()
-        .then(tools => {                  // db responds with array of all available tools
-            // console.log('response from db getAllTools query: ', tools);
+    try {
+        console.log('req.body.city: ', city);
+        if (city === 'renter') {
+            // call db function to get renter's city:
+            const location = await usersDb.getUserLocation(uid);
+            // console.log('location: ', location);
+            city = location.city;
+        }
+        console.log('city: ', city)
 
-            const toolsWithImages = tools.map(tool => {
-                const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
-                return imagesQuery 
-                    .then(images => {
-                        console.log('response from db getToolImages query: ', images);
-                        tool.images = images;  // append images array to tool object
+        toolsDb.findTools(city)
+            .then(tools => {    // db responds with array of all available tools
+                // console.log('response from db getAllTools query: ', tools);
+
+                const toolsWithImages = tools.map(tool => {
+                    const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
+                    return imagesQuery 
+                        .then(images => {
+                            //console.log('response from db getToolImages query: ', images);
+                            tool.images = images;  // append images array to tool object
+                        })
+                        // .catch(error => {
+                        //     res.status(500).json(error.message);
+                        // })
+                });
+
+                // console.log('toolsWithImages for /alltools response: ', toolsWithImages);
+                
+                Promise.all(toolsWithImages)
+                    .then(completed => {
+                        tools.data = completed;
+                        res.status(200).json(tools);  // Send back tools with images appended as response
                     })
-                    // .catch(error => {
-                    //     res.status(500).json(error.message);
-                    // })
-            });
-
-            // console.log('toolsWithImages for /alltools response: ', toolsWithImages);
-            
-            Promise.all(toolsWithImages)
-                .then(completed => {
-                    tools.data = completed;
-                    res.status(200).json(tools);  // Send back tools with images appended as response
-                })
-        })
-        .catch(error => {
-            res.status(500).json(error.message);
-        })
+            })
+            .catch(error => {
+                res.status(500).json(error.message);
+            })
+    }
+    
+    catch(error) {
+        res.status(500).json(error.message);
+    }
 })
 
 router.get('/renter/singletool/:id', (req, res) => {
