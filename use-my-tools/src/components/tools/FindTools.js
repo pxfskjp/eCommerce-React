@@ -8,6 +8,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from './ImageCarousel';
+import FilterMenu from './FilterMenu';
+
+import './css/FindTools.css';
 
 import axios from 'axios';
 
@@ -30,7 +33,8 @@ class FindTools extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tools: []
+            tools: [],
+            maxPrice: 100
         };
     }
 
@@ -48,54 +52,68 @@ class FindTools extends Component {
             })
     }
 
-    openToolView = event => {
+    // openToolView = event => {
 
+    // }
+
+    updateFilter = (name, value) => {
+        this.setState({ [name]: value }, () => console.log('updateFilter: ', this.state[name]));
     }
 
     render() {
         const { classes } = this.props;
+        const { tools, maxPrice } = this.state;
+
+        const filteredTools = tools.filter(tool => tool.price <= maxPrice);
 
         return (
-            <div className="mytools-page-container">
+            <div className="page-container">
                 <h1>Find tools to rent</h1>
 
-                <div className="tools-list-container">
+                <div className="main-container">
 
-                    <Grid container spacing={40}>
+                    <div className="filter-menu-container">
+                        <FilterMenu updateFilter={this.updateFilter} />
+                    </div>
 
-                        {this.state.tools.map((tool, index) => {
-                            return (
-                                <Grid item xs={3} key={index}>
-                                    <Card className={classes.card}>
-                                        <ImageCarousel toolImages={tool.images} />
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                {tool.brand}{' '}{tool.name}
-                                            </Typography>
-                                            <Typography>
-                                                {tool.description}
-                                            </Typography>
-                                            <Typography>
-                                                {tool.city}{', '}{tool.state}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button
-                                                component={Link}
-                                                to={`/toolviewrenter/${tool.id}`}
-                                                size="small"
-                                                color="primary"
-                                            >
-                                                View Tool Details
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            );
-                        })}
+                    <div className="tools-list-container">
 
-                    </Grid>
+                        <Grid container spacing={40}>
 
+                            {filteredTools.map((tool, index) =>  {
+                                return (
+                                    <Grid item xs={3} key={index}>
+                                        <Card className={classes.card}>
+                                            <ImageCarousel toolImages={tool.images} />
+                                            <CardContent className={classes.cardContent}>
+                                                <Typography gutterBottom variant="h5" component="h2">
+                                                    {tool.brand}{' '}{tool.name}
+                                                </Typography>
+                                                <Typography>
+                                                    {tool.description}
+                                                </Typography>
+                                                <Typography>
+                                                    {tool.city}{', '}{tool.state}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button
+                                                    component={Link}
+                                                    to={`/toolviewrenter/${tool.id}`}
+                                                    size="small"
+                                                    color="primary"
+                                                >
+                                                    View Tool Details
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                );
+                            })}
+
+                        </Grid>
+                            
+                    </div>
                 </div>
             </div>
 
