@@ -9,7 +9,7 @@ class FilterMenu extends Component {
             // currentMaxPriceInput: 100,
             // currentKeywordInput: '',
             maxPrice: 100,
-            searchString: '',
+            searchString: null,
             // keywords: []
         };
     }
