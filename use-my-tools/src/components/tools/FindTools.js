@@ -61,11 +61,13 @@ class FindTools extends Component {
         return (
             <div className="page-container">
                 <h1>Find tools to rent</h1>
-                
+
                 <div className="main-container">
+
                     <div className="filter-menu-container">
                         <FilterMenu />
                     </div>
+                    
                     <div className="tools-list-container">
 
                         <Grid container spacing={40}>

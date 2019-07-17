@@ -4,11 +4,17 @@ class FilterMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentMaxPriceInput: 100,
+            // currentMaxPriceInput: 100,
             currentKeywordInput: '',
             maxPrice: 100,
             keywords: []
         };
+    }
+
+    handleChange =  event => {
+        this.setState({ 
+            [event.target.name]: event.target.value 
+        }, () => console.log(this.state));
     }
 
     render() {
@@ -16,19 +22,28 @@ class FilterMenu extends Component {
             <div className="filter-menu-container">
                 <h3>Filter Results</h3>
 
-                <form className="max-price-form">
-                    <div className="max-price-indicator">
-                        <p>Max Price: ${this.state.maxPrice}</p>
-                    </div>
-                    <input type="number" value={this.state.currentMaxPriceInput}/>
-                    <button type="submit"/>
-                </form>
 
-                <p>Keyword:</p>
-                <form className="keyword-form">
+                    <div className="max-price-container">
+
+                        <label for="max-price">Max Price ($)</label><br/>
+                        
+                        <input 
+                            name="maxPrice" 
+                            id="max-price" 
+                            type="number" 
+                            value={this.state.maxPrice}
+                            onChange={this.handleChange}
+                        />
+
+                        <button type="button">Enter</button>
+                    </div>
+
+
+                <p>Keyword</p>
+
                     <input type="text" value={this.state.currentKeywordInput}/>
-                    <button type="submit"/>
-                </form>
+                    <button type="button">Enter</button>
+
 
             </div>
         )
