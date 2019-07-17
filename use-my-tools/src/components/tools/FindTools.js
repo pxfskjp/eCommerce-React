@@ -34,7 +34,8 @@ class FindTools extends Component {
         super(props);
         this.state = {
             tools: [],
-            maxPrice: 100
+            maxPrice: 100,
+            keywords: []
         };
     }
 
@@ -57,14 +58,43 @@ class FindTools extends Component {
     // }
 
     updateFilter = (name, value) => {
+        // if updating the keywords filter with a search string, 
+        // split the string and put each word into the state.keywords array:
+        if (name === 'searchString') {
+            let keywords = [];
+            let searchString = value;
+            // Handle case where searchString is empty string:
+            // if (searchString = '') {
+            //     console.log(searchString);
+            //     this.setState({ keywords });
+            //     return;
+            // }
+            if (!searchString) {
+                return;
+            }
+            // If searchString is not null:
+            for (let word of searchString.split(' ')) {
+                keywords.push(word.toLowerCase());
+            }
+            console.log(keywords);
+            this.setState({ keywords }) 
+        }
         this.setState({ [name]: value }, () => console.log('updateFilter: ', this.state[name]));
     }
 
     render() {
         const { classes } = this.props;
-        const { tools, maxPrice } = this.state;
+        const { tools, maxPrice, keywords } = this.state;
 
-        const filteredTools = tools.filter(tool => tool.price <= maxPrice);
+        const filteredTools = tools.filter(tool => 
+            tool.price <= maxPrice 
+            && (
+                keywords.length === 0
+                || tool.brand.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >=0)
+                || tool.name.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
+                || tool.description.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
+            )
+        );
 
         return (
             <div className="page-container">

@@ -7,9 +7,10 @@ class FilterMenu extends Component {
         super(props);
         this.state = {
             // currentMaxPriceInput: 100,
-            currentKeywordInput: '',
+            // currentKeywordInput: '',
             maxPrice: 100,
-            keywords: []
+            searchString: null,
+            // keywords: []
         };
     }
 
@@ -44,14 +45,20 @@ class FilterMenu extends Component {
                             onChange={this.handleChange}
                         />
 
-                        <button type="button" onClick={this.handleUpdateFilter("maxPrice")}>Enter</button>
+                        <button type="button" onClick={this.handleUpdateFilter('maxPrice')}>Enter</button>
                     {/* </div> */}
 
+                <label for="search-string">Search</label>
+                        
+                        <input 
+                            name="searchString" 
+                            id="search-string" 
+                            type="text" 
+                            value={this.state.searchString}
+                            onChange={this.handleChange}
+                        />
 
-                {/* <p>Keyword</p>
-
-                    <input type="text" value={this.state.currentKeywordInput}/>
-                    <button type="button">Enter</button> */}
+                        <button type="button" onClick={this.handleUpdateFilter('searchString')}>Enter</button>
 
 
             </div>
