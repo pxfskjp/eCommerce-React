@@ -62,6 +62,9 @@ class FindTools extends Component {
 
     render() {
         const { classes } = this.props;
+        const { tools, maxPrice } = this.state;
+
+        const filteredTools = tools.filter(tool => tool.price <= maxPrice);
 
         return (
             <div className="page-container">
@@ -77,7 +80,7 @@ class FindTools extends Component {
 
                         <Grid container spacing={40}>
 
-                            {this.state.tools.map((tool, index) => {
+                            {filteredTools.map((tool, index) =>  {
                                 return (
                                     <Grid item xs={3} key={index}>
                                         <Card className={classes.card}>
