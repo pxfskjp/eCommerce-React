@@ -63,7 +63,7 @@ class FindTools extends Component {
         if (name === 'searchString') {
             let keywords = [];
             let searchString = value;
-            for (let word of searchString.split('')) {
+            for (let word of searchString.split(' ')) {
                 keywords.push(word);
             }
             console.log(keywords);
