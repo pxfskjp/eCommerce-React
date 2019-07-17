@@ -8,6 +8,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from './ImageCarousel';
+import FilterMenu from './FilterMenu';
+
+import './css/FindTools.css';
 
 import axios from 'axios';
 
@@ -56,46 +59,51 @@ class FindTools extends Component {
         const { classes } = this.props;
 
         return (
-            <div className="mytools-page-container">
+            <div className="page-container">
                 <h1>Find tools to rent</h1>
+                
+                <div className="main-container">
+                    <div className="filter-menu-container">
+                        <FilterMenu />
+                    </div>
+                    <div className="tools-list-container">
 
-                <div className="tools-list-container">
+                        <Grid container spacing={40}>
 
-                    <Grid container spacing={40}>
+                            {this.state.tools.map((tool, index) => {
+                                return (
+                                    <Grid item xs={3} key={index}>
+                                        <Card className={classes.card}>
+                                            <ImageCarousel toolImages={tool.images} />
+                                            <CardContent className={classes.cardContent}>
+                                                <Typography gutterBottom variant="h5" component="h2">
+                                                    {tool.brand}{' '}{tool.name}
+                                                </Typography>
+                                                <Typography>
+                                                    {tool.description}
+                                                </Typography>
+                                                <Typography>
+                                                    {tool.city}{', '}{tool.state}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button
+                                                    component={Link}
+                                                    to={`/toolviewrenter/${tool.id}`}
+                                                    size="small"
+                                                    color="primary"
+                                                >
+                                                    View Tool Details
+                                                </Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                );
+                            })}
 
-                        {this.state.tools.map((tool, index) => {
-                            return (
-                                <Grid item xs={3} key={index}>
-                                    <Card className={classes.card}>
-                                        <ImageCarousel toolImages={tool.images} />
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                {tool.brand}{' '}{tool.name}
-                                            </Typography>
-                                            <Typography>
-                                                {tool.description}
-                                            </Typography>
-                                            <Typography>
-                                                {tool.city}{', '}{tool.state}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button
-                                                component={Link}
-                                                to={`/toolviewrenter/${tool.id}`}
-                                                size="small"
-                                                color="primary"
-                                            >
-                                                View Tool Details
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grid>
-                            );
-                        })}
-
-                    </Grid>
-
+                        </Grid>
+                            
+                    </div>
                 </div>
             </div>
 

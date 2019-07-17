@@ -4,8 +4,8 @@ class FilterMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentMaxPriceInput,
-            currentKeywordInput,
+            currentMaxPriceInput: 100,
+            currentKeywordInput: '',
             maxPrice: 100,
             keywords: []
         };
