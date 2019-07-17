@@ -34,7 +34,8 @@ class FindTools extends Component {
         super(props);
         this.state = {
             tools: [],
-            maxPrice: 100
+            maxPrice: 100,
+            keywords: []
         };
     }
 
@@ -57,6 +58,17 @@ class FindTools extends Component {
     // }
 
     updateFilter = (name, value) => {
+        // if updating the keywords filter with a search string, 
+        // split the string and put each word into the state.keywords array:
+        if (name === 'searchString') {
+            let keywords = [];
+            let searchString = value;
+            for (let word of searchString.split('')) {
+                keywords.push(word);
+            }
+            console.log(keywords);
+            this.setState({ keywords })
+        }
         this.setState({ [name]: value }, () => console.log('updateFilter: ', this.state[name]));
     }
 
