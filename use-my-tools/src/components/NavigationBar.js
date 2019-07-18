@@ -32,6 +32,9 @@ class NavigationBar extends Component {
                     <Link to="/addtool" className="nav-link">
                         Add a tool
                     </Link>
+                    <Link to="/chat" className="nav-link">
+                        Messages
+                    </Link>
                     <LogoutButton className="nav-link" />
                 </div>
             </header>
