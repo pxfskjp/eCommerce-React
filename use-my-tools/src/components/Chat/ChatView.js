@@ -115,19 +115,20 @@ class ChatView extends Component {
 
 
   componentDidMount() {
-    console.log('ChatView CDM state: ', this.state);
-    console.log('ChatView CDM props: ', this.props);
+    // console.log('ChatView CDM state: ', this.state);
+    // console.log('ChatView CDM props: ', this.props);
+
+    // one-time get of messages from specific convo:
+    
 
     // To Do:
-    // subscribe to Firestore db and get existing messages
+    // initialize listener to Firestore db and get existing messages
+    // listen with onSnapshot()
+
 
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
   }
-
-    
-
-    
 
   onSubmit = event =>{
     // To Do:

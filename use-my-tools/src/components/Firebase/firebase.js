@@ -41,6 +41,9 @@ class Firebase {
   updatePassword = password => 
     this.auth.currentUser.updatePassword(password);
 
+  // Convos API:
+  convos = () => this.db.collection('conversations');
+
   // *** Message API ***
   // message = uid => this.db.doc(`messages/${uid}`);
   // messages = () => this.db.collection('messages');
