@@ -42,11 +42,9 @@ class Firebase {
     this.auth.currentUser.updatePassword(password);
 
   // *** Message API ***
-  message = uid => this.db.doc(`messages/${uid}`);
-  messages = () => this.db.collection('messages');
+  // message = uid => this.db.doc(`messages/${uid}`);
+  // messages = () => this.db.collection('messages');
   
 }
 
-// const firestoreDatabase = Firebase.database();
-
-export default Firebase; // export firestoreDatabase
+export default Firebase; 
