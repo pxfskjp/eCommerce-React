@@ -85,18 +85,24 @@ class ConvosBase extends React.Component {
 
     // one-time get of messages from specific convo:
   
-    this.props.firebase.convos().get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log('No such document!');
-        } else {
-          console.log('Document data:', doc.data());
-        }
+    this.props.firebase.db
+      .collection('conversations')
+      .where('isOpen', '==', true)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          return;
+        }  
+    
+        snapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+        });
       })
       .catch(err => {
-        console.log('Error getting document', err);
+        console.log('Error getting documents', err);
       });
-
+      
     // initialize listener to convos:
     // this.props.firebase.users().on('value', snapshot => {
     //   const usersObject = snapshot.val();
