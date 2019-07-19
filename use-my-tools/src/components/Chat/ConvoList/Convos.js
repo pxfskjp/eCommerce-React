@@ -11,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
+import { withFirebase } from "../../Firebase";
+import { FirebaseContext } from '../../Firebase';
 
 const styles = theme => ({
   root: {
@@ -61,7 +63,15 @@ const styles = theme => ({
   }
 });
 
-class Convos extends React.Component {
+const ConvosBox = () => (
+  <div>
+    <FirebaseContext.Consumer>
+      {firebase => <Convos firebase={firebase} />}
+    </FirebaseContext.Consumer>
+  </div>
+);
+
+class ConvosBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,19 +82,40 @@ class Convos extends React.Component {
 
   componentDidMount() {
     // this.getConvos();
+
+    // one-time get of messages from specific convo:
+  
+    this.props.firebase.convos().get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('No such document!');
+        } else {
+          console.log('Document data:', doc.data());
+        }
+      })
+      .catch(err => {
+        console.log('Error getting document', err);
+      });
+
+    // initialize listener to convos:
+    // this.props.firebase.users().on('value', snapshot => {
+    //   const usersObject = snapshot.val();
+
+    //   const usersList = Object.keys(usersObject).map(key => ({
+    //     ...usersObject[key],
+    //     uid: key,
+    //   }));
+
+    //   this.setState({
+    //     users: usersList,
+    //     loading: false,
+    //   });
+    // });
   }
 
   // getConvos = () => {
   //   console.log('getConvos called');
-  //   axios.get(`/api/chat/${this.props.convoStatus}`)
-  //     .then(response => {
-  //       this.setState({
-  //         conversations: response.data
-  //       }, () => console.log(this.state.conversations));
-  //     })
-  //     .catch(error => {
-  //       console.log(error.message);
-  //     })
+    
   // }
 
   // componentWillReceiveProps(newProps) {
@@ -145,7 +176,11 @@ class Convos extends React.Component {
           </div>
 
         );
-      }
     }
+}
 
-export default withStyles(styles)(Convos);
+const Convos =  withStyles(styles)(withFirebase(ConvosBase));
+
+export default (ConvosBox);
+
+export {Convos}

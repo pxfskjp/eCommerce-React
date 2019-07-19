@@ -21,84 +21,84 @@ class ChatDashboard extends React.Component {
             convoSelected: false,
             currentConvoClosed: false
         }
-        this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
-        this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
-        this.handleClosedConvoSelect = this.handleClosedConvoSelect.bind(this);
-        this.closeConvo = this.closeConvo.bind(this);
+        // this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
+        // this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
+        // this.handleClosedConvoSelect = this.handleClosedConvoSelect.bind(this);
+        // this.closeConvo = this.closeConvo.bind(this);
         // this.addMessage = this.addMessage.bind(this);
     }
 
-    componentDidMount() {
-        const repRequest = axios.get("/api/reps/alldetails");
-        repRequest.then(rep => {
-            this.setState({
-            rep_uid: rep.data.uid,
-            url: rep.data.url,
-            rep_name: rep.data.name,
-          }, () => {
-            console.log('ChatView state after getting messages in CDM: ', this.state);
-          });
-        })
-        .catch(error => {
-          console.log(error.message);
-          //this.setState({error:error});
-        });
-    }
+    // componentDidMount() {
+    //     const repRequest = axios.get("/api/reps/alldetails");
+    //     repRequest.then(rep => {
+    //         this.setState({
+    //         rep_uid: rep.data.uid,
+    //         url: rep.data.url,
+    //         rep_name: rep.data.name,
+    //       }, () => {
+    //         console.log('ChatView state after getting messages in CDM: ', this.state);
+    //       });
+    //     })
+    //     .catch(error => {
+    //       console.log(error.message);
+    //       //this.setState({error:error});
+    //     });
+    // }
 
-    handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    // handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
 
-        this.setState({
-            convoSelected: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
-        }, () => {
-            console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-        });
-    }
+    //     this.setState({
+    //         convoSelected: true,
+    //         currentConvoId: convo_id,
+    //         currentConvoSocket: customer_uid,
+    //         currentConvoSummary: summary,
+    //         currentCustomerName: customer_name,
+    //     }, () => {
+    //         console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+    //     });
+    // }
 
-    handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
-        this.setState({
-            convoSelected: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
-            currentConvoClosed: false
-        }, () => {
-            console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
-        });
-    }
+    // handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    //     this.setState({
+    //         convoSelected: true,
+    //         currentConvoId: convo_id,
+    //         currentConvoSocket: customer_uid,
+    //         currentConvoSummary: summary,
+    //         currentCustomerName: customer_name,
+    //         currentConvoClosed: false
+    //     }, () => {
+    //         console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
+    //     });
+    // }
 
-    handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    // handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
         
-        this.setState({
-            convoSelected: true,
-            currentConvoClosed: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
-        }, () => {
-            console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
-        });
-    }
+    //     this.setState({
+    //         convoSelected: true,
+    //         currentConvoClosed: true,
+    //         currentConvoId: convo_id,
+    //         currentConvoSocket: customer_uid,
+    //         currentConvoSummary: summary,
+    //         currentCustomerName: customer_name,
+    //     }, () => {
+    //         console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
+    //     });
+    // }
 
-    closeConvo() {
-        const data = { id: this.state.currentConvoId };
-        console.log("close convo data: ", data);
-        axios.put('/api/chat/close', data)
-        .then(response => {
-            console.log("Conversation closed.")
-            this.setState({ 
-                currentConvoClosed: true 
-            });
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
-    }
+    // closeConvo() {
+    //     const data = { id: this.state.currentConvoId };
+    //     console.log("close convo data: ", data);
+    //     axios.put('/api/chat/close', data)
+    //     .then(response => {
+    //         console.log("Conversation closed.")
+    //         this.setState({ 
+    //             currentConvoClosed: true 
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message);
+    //     })
+    // }
 
     render() {
         const convoSelected = this.state.convoSelected;
