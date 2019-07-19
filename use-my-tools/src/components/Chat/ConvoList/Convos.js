@@ -83,9 +83,9 @@ class ConvosBase extends React.Component {
   componentDidMount() {
     // this.getConvos();
 
-    // one-time get of messages from specific convo:
-  
-    this.props.firebase.db
+    let conversations = [];
+    // one-time get of open convos:
+    let conversationsRef = this.props.firebase.db
       .collection('conversations')
       .where('isOpen', '==', true)
       .get()
@@ -96,12 +96,17 @@ class ConvosBase extends React.Component {
         }  
     
         snapshot.forEach(doc => {
-          console.log(doc.id, '=>', doc.data());
+          conversations.push(doc.data());
+          // console.log(doc.id, '=>', doc.data());
         });
+        console.log(conversations);
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
+    
+    // get messages from a conversation:
+    // let messages = conversationsRef
       
     // initialize listener to convos:
     // this.props.firebase.users().on('value', snapshot => {
