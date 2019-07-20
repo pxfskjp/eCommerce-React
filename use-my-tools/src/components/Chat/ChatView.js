@@ -156,6 +156,12 @@ class ChatViewBase extends Component {
   onSubmit = event =>{
     // To Do:
     // configure relevant message data and send to Firestore
+    
+    // const data = {
+    //   content: this.state.message,
+    //   authorUID: 
+    // }
+
     event.preventDefault();
   }
 
