@@ -45,45 +45,32 @@ class ChatDashboard extends React.Component {
     //     });
     // }
 
-    // handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    handleOpenConvoSelect(convo_id, customer_uid, customer_name, summary) {
 
-    //     this.setState({
-    //         convoSelected: true,
-    //         currentConvoId: convo_id,
-    //         currentConvoSocket: customer_uid,
-    //         currentConvoSummary: summary,
-    //         currentCustomerName: customer_name,
-    //     }, () => {
-    //         console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-    //     });
-    // }
+        this.setState({
+            convoSelected: true,
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
+        }, () => {
+            console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+        });
+    }
 
-    // handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
-    //     this.setState({
-    //         convoSelected: true,
-    //         currentConvoId: convo_id,
-    //         currentConvoSocket: customer_uid,
-    //         currentConvoSummary: summary,
-    //         currentCustomerName: customer_name,
-    //         currentConvoClosed: false
-    //     }, () => {
-    //         console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
-    //     });
-    // }
-
-    // handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
         
-    //     this.setState({
-    //         convoSelected: true,
-    //         currentConvoClosed: true,
-    //         currentConvoId: convo_id,
-    //         currentConvoSocket: customer_uid,
-    //         currentConvoSummary: summary,
-    //         currentCustomerName: customer_name,
-    //     }, () => {
-    //         console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
-    //     });
-    // }
+        this.setState({
+            convoSelected: true,
+            currentConvoClosed: true,
+            currentConvoId: convo_id,
+            currentConvoSocket: customer_uid,
+            currentConvoSummary: summary,
+            currentCustomerName: customer_name,
+        }, () => {
+            console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
+        });
+    }
 
     // closeConvo() {
     //     const data = { id: this.state.currentConvoId };
@@ -111,8 +98,7 @@ class ChatDashboard extends React.Component {
                     <ConvoList
                         currentConvoId={this.state.currentConvoId}
                         currentConvoClosed={this.state.currentConvoClosed}
-                        handleQueueConvoSelect={this.handleQueueConvoSelect}
-                        handleActiveConvoSelect={this.handleActiveConvoSelect}
+                        handleOpenConvoSelect={this.handleQueueConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
                     />
                 </div>
