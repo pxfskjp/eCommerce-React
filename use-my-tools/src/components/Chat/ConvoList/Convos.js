@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
 import { withFirebase } from "../../Firebase";
-import { FirebaseContext } from '../../Firebase';
+// import { FirebaseContext } from '../../Firebase';
 
 const styles = theme => ({
   root: {

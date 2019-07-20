@@ -12,7 +12,7 @@ class ChatDashboard extends React.Component {
         super();
         this.state = {
             currentCompoundUID: null,
-            convoSelected: false,
+            convoSelected: true,
             currentConvoClosed: false
         }
         
@@ -92,13 +92,7 @@ class ChatDashboard extends React.Component {
                         <p>No conversation selected.</p>
                         ) : (
                             <ChatView
-                                currentConvoId={this.state.currentConvoId}
-                                currentConvoSocket={this.state.currentConvoSocket}
-                                rep_uid={this.state.rep_uid}
-                                rep_name={this.state.rep_name}
-                                url={this.state.url}
-                                summary={this.state.currentConvoSummary}
-                                customerName={this.state.currentCustomerName}
+                                currentCompoundUID={this.state.currentCompoundUID}
                                 closeConvo={this.closeConvo}
                                 currentConvoClosed={this.state.currentConvoClosed}
                             />

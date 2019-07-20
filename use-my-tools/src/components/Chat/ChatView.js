@@ -15,6 +15,8 @@ import './ChatView.css';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
 import { Grid } from '@material-ui/core';
 
+import { withFirebase } from "../Firebase";
+
 
 const styles = theme => ({
   root: {
@@ -103,13 +105,9 @@ class ChatViewBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: null,
       message: '',
       messages: [],
       isOpen: true,
-      imageId: null,
-      url: "",
-      userName: "",
     };
   }
 
@@ -117,9 +115,33 @@ class ChatViewBase extends Component {
   componentDidMount() {
     // console.log('ChatView CDM state: ', this.state);
     // console.log('ChatView CDM props: ', this.props);
+    let compoundUID = this.props.currentCompoundUID;
 
     // one-time get of messages from specific convo:
+    let messages = [];
+    this.props.firebase.db
+      .collection('conversations')
+      .doc('aabb')
+      .collection('messages')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          return;
+        }  
     
+        snapshot.forEach(doc => {
+          messages.push(doc.data());
+          // console.log(doc.id, '=>', doc.data());
+        });
+        console.log(messages);
+        this.setState({ messages });
+      })
+      .catch(err => {
+        console.log('Error getting documents', err);
+      });
+
+
 
     // To Do:
     // initialize listener to Firestore db and get existing messages
@@ -179,7 +201,7 @@ class ChatViewBase extends Component {
 
                <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
-                        console.log(this.state)
+                        // console.log(this.state)
                         console.log(message)
                         return (
                           <div className={classes.message} key={index}>
@@ -187,9 +209,9 @@ class ChatViewBase extends Component {
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" className={classes.avatar}>
+                                    {/* <Avatar alt="Avatar" className={classes.avatar}>
                                       {message.author_name[0]}
-                                    </Avatar>
+                                    </Avatar> */}
                                   </Grid>
                                   <Grid>
                                     <Grid
@@ -200,7 +222,7 @@ class ChatViewBase extends Component {
                                         variant="h6"
                                         className={classes.messageAuthor}
                                       >
-                                        {message.author_name}
+                                        {message.authorUID}
                                       </Typography>
                                     </Grid>
                                     <Grid
@@ -211,7 +233,7 @@ class ChatViewBase extends Component {
                                         variant="componenth6"
                                         className={classes.messageBody}
                                       >
-                                      {message.body}
+                                      {message.content}
                                       </Typography>
                                     </Grid>
                                   </Grid>
@@ -279,6 +301,6 @@ class ChatViewBase extends Component {
 // };
 
 // export default withStyles(styles)(ChatView);
-const ChatView = withStyles(styles)(withRouter(ChatViewBase));
+const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
 
 export default ChatView;
