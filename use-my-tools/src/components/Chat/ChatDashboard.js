@@ -11,21 +11,11 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            rep_uid: null,
-            rep_name: null,
-            url: null,
-            currentConvoId: null,
-            currentConvoSocket: null,
-            currentConvoSummary: null,
-            currentCustomerName: null,
-            convoSelected: false,
+            currentCompoundUID: null,
+            convoSelected: true,
             currentConvoClosed: false
         }
-        // this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
-        // this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
-        // this.handleClosedConvoSelect = this.handleClosedConvoSelect.bind(this);
-        // this.closeConvo = this.closeConvo.bind(this);
-        // this.addMessage = this.addMessage.bind(this);
+        
     }
 
     // componentDidMount() {
@@ -45,45 +35,26 @@ class ChatDashboard extends React.Component {
     //     });
     // }
 
-    // handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    handleOpenConvoSelect = (compoundUID) => {
 
-    //     this.setState({
-    //         convoSelected: true,
-    //         currentConvoId: convo_id,
-    //         currentConvoSocket: customer_uid,
-    //         currentConvoSummary: summary,
-    //         currentCustomerName: customer_name,
-    //     }, () => {
-    //         console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
-    //     });
-    // }
+        this.setState({
+            convoSelected: true,
+            currentCompoundUID: compoundUID,
+        }, () => {
+            console.log("\nConvo Selected. ChatDashboard state: ", this.state);
+        });
+    }
 
-    // handleActiveConvoSelect(convo_id, customer_uid, customer_name, summary) {
-    //     this.setState({
-    //         convoSelected: true,
-    //         currentConvoId: convo_id,
-    //         currentConvoSocket: customer_uid,
-    //         currentConvoSummary: summary,
-    //         currentCustomerName: customer_name,
-    //         currentConvoClosed: false
-    //     }, () => {
-    //         console.log("\nActive Convo Selected. ChatDashboard state: ", this.state);
-    //     });
-    // }
-
-    // handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    handleClosedConvoSelect(compoundUID) {
         
-    //     this.setState({
-    //         convoSelected: true,
-    //         currentConvoClosed: true,
-    //         currentConvoId: convo_id,
-    //         currentConvoSocket: customer_uid,
-    //         currentConvoSummary: summary,
-    //         currentCustomerName: customer_name,
-    //     }, () => {
-    //         console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
-    //     });
-    // }
+        this.setState({
+            convoSelected: true,
+            currentConvoClosed: true,
+            currentCompoundUID: compoundUID,
+        }, () => {
+            console.log("\nConvo Selected. ChatDashboard state: ", this.state);
+        });
+    }
 
     // closeConvo() {
     //     const data = { id: this.state.currentConvoId };
@@ -111,8 +82,7 @@ class ChatDashboard extends React.Component {
                     <ConvoList
                         currentConvoId={this.state.currentConvoId}
                         currentConvoClosed={this.state.currentConvoClosed}
-                        handleQueueConvoSelect={this.handleQueueConvoSelect}
-                        handleActiveConvoSelect={this.handleActiveConvoSelect}
+                        handleOpenConvoSelect={this.handleOpenConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
                     />
                 </div>
@@ -122,13 +92,7 @@ class ChatDashboard extends React.Component {
                         <p>No conversation selected.</p>
                         ) : (
                             <ChatView
-                                currentConvoId={this.state.currentConvoId}
-                                currentConvoSocket={this.state.currentConvoSocket}
-                                rep_uid={this.state.rep_uid}
-                                rep_name={this.state.rep_name}
-                                url={this.state.url}
-                                summary={this.state.currentConvoSummary}
-                                customerName={this.state.currentCustomerName}
+                                currentCompoundUID={this.state.currentCompoundUID}
                                 closeConvo={this.closeConvo}
                                 currentConvoClosed={this.state.currentConvoClosed}
                             />

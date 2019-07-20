@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
 import { withFirebase } from "../../Firebase";
-import { FirebaseContext } from '../../Firebase';
+// import { FirebaseContext } from '../../Firebase';
 
 const styles = theme => ({
   root: {
@@ -63,13 +63,13 @@ const styles = theme => ({
   }
 });
 
-const ConvosBox = () => (
-  <div>
-    <FirebaseContext.Consumer>
-      {firebase => <Convos firebase={firebase} />}
-    </FirebaseContext.Consumer>
-  </div>
-);
+// const ConvosBox = () => (
+//   <div>
+//     <FirebaseContext.Consumer>
+//       {firebase => <Convos firebase={firebase} />}
+//     </FirebaseContext.Consumer>
+//   </div>
+// );
 
 class ConvosBase extends React.Component {
   constructor(props) {
@@ -82,12 +82,14 @@ class ConvosBase extends React.Component {
 
   componentDidMount() {
     // this.getConvos();
-
+    console.log('convos this.props: ', this.props);
+    const isOpen = this.props.isOpen;
+    
     let conversations = [];
     // one-time get of open convos:
-    let conversationsRef = this.props.firebase.db
+    this.props.firebase.db
       .collection('conversations')
-      .where('isOpen', '==', true)
+      .where('isOpen', '==', isOpen)
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -170,18 +172,9 @@ class ConvosBase extends React.Component {
                         <Paper
                           className={classes.paper}
                           style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
-                          onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.customer_name, convo.summary)}
+                          onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
                         >
-                          {/* <Grid item
-                            onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
-                          > */}
-                            <h3 className={classes.queueTitle}>
-                              {convo.customer_name}
-                            </h3>
-                            <h5 className={classes.queueSummary}>
-                              {convo.summary}
-                            </h5>
-                         {/* </Grid> */}
+                          <p>{convo.compoundUID}</p>
                         </Paper>
                       </MuiThemeProvider>
                     </div>
@@ -197,8 +190,15 @@ class ConvosBase extends React.Component {
     }
 }
 
+
+// const Convos =  withStyles(styles)(withFirebase(ConvosBase));
+
+// export default (ConvosBox);
+
+// export {Convos}
+
 const Convos =  withStyles(styles)(withFirebase(ConvosBase));
 
-export default (ConvosBox);
+export default Convos;
 
-export {Convos}
+

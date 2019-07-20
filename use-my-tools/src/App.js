@@ -48,11 +48,11 @@ class AppComponentBase extends Component {
       if (authUser) {
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
-            console.log('idToken in App.js Firebase auth listener: ', idToken);
+            // console.log('idToken in App.js Firebase auth listener: ', idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
               idToken
-            }, () => console.log('idToken: ', idToken))
+            })
           })
           .catch(error => {
             console.log(error.message);

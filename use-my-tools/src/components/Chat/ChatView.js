@@ -15,6 +15,8 @@ import './ChatView.css';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
 import { Grid } from '@material-ui/core';
 
+import { withFirebase } from "../Firebase";
+
 
 const styles = theme => ({
   root: {
@@ -99,27 +101,47 @@ const styles = theme => ({
 });
 
 
-class ChatView extends Component {
+class ChatViewBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: null,
       message: '',
       messages: [],
       isOpen: true,
-      imageId: null,
-      url: "",
-      userName: "",
     };
   }
 
 
-  componentDidMount() {
+  componentWillReceiveProps(newProps) {
     // console.log('ChatView CDM state: ', this.state);
-    // console.log('ChatView CDM props: ', this.props);
-
+    console.log('ChatView CDM new props: ', newProps);
+    let compoundUID = newProps.currentCompoundUID || ' ';
+    console.log('ChatView new props.compoundUID: ', compoundUID);
     // one-time get of messages from specific convo:
+    let messages = [];
+    this.props.firebase.db
+      .collection('conversations')
+      .doc(compoundUID)
+      .collection('messages')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          return;
+        }  
     
+        snapshot.forEach(doc => {
+          messages.unshift(doc.data());
+          // console.log(doc.id, '=>', doc.data());
+        });
+        console.log(messages);
+        this.setState({ messages });
+      })
+      .catch(err => {
+        console.log('Error getting documents', err);
+      });
+
+
 
     // To Do:
     // initialize listener to Firestore db and get existing messages
@@ -166,20 +188,18 @@ class ChatView extends Component {
 
     render() {
         const currentConvoClosed = this.props.currentConvoClosed;
-        const customer_name = `${this.props.customerName}`;
-        const conversation_summary = `${this.props.summary}`
+        const compoundUID = this.props.currentCompoundUID;
         const { classes } = this.props;
         return (
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <p className={classes.chatViewHeadName}>{customer_name}</p>
-                <p className={classes.chatViewHeadSummary}>{conversation_summary}</p>
+                <p className={classes.chatViewHeadName}>Recipient User Name</p>
               </div>
 
                <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
-                        console.log(this.state)
+                        // console.log(this.state)
                         console.log(message)
                         return (
                           <div className={classes.message} key={index}>
@@ -187,9 +207,9 @@ class ChatView extends Component {
                               <Paper className={classes.paper}>
                                 <Grid container wrap="nowrap" spacing={16}>
                                   <Grid item>
-                                    <Avatar alt="Avatar" className={classes.avatar}>
+                                    {/* <Avatar alt="Avatar" className={classes.avatar}>
                                       {message.author_name[0]}
-                                    </Avatar>
+                                    </Avatar> */}
                                   </Grid>
                                   <Grid>
                                     <Grid
@@ -200,7 +220,7 @@ class ChatView extends Component {
                                         variant="h6"
                                         className={classes.messageAuthor}
                                       >
-                                        {message.author_name}
+                                        {message.authorUID}
                                       </Typography>
                                     </Grid>
                                     <Grid
@@ -211,7 +231,7 @@ class ChatView extends Component {
                                         variant="componenth6"
                                         className={classes.messageBody}
                                       >
-                                      {message.body}
+                                      {message.content}
                                       </Typography>
                                     </Grid>
                                   </Grid>
@@ -279,116 +299,6 @@ class ChatView extends Component {
 // };
 
 // export default withStyles(styles)(ChatView);
-export default withStyles(styles)(withRouter(ChatView));
+const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
 
-
-
-
-
-
-
-// Underneath is old JSX
-
-
-{/* <div className="chat-view">
-<ThemeProvider>
-<MuiThemeProvider>
-  <div className="chat-view-header">
-      <MessageGroup>
-          <MessageTitle>Serving Customer: {customer_name}</MessageTitle>
-          <MessageText>{conversation_summary}</MessageText>
-      </MessageGroup>
-  </div>
-
-    <div className="messageList">
-      <MessageList>
-        {this.state.messages.map((message, index) => {
-          console.log(message);
-          if(customer_name === message.author_name) {
-            return (
-              <Row reverse>
-                <AgentBar>
-                    <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                </AgentBar>
-
-                <Message
-                    authorName={message.author_name}
-                    isOwn={true}
-                >
-                    <MessageText>
-                        {message.body}
-                    </MessageText>
-                </Message>
-              </Row>
-            );
-          } else {
-            return (
-              <Row>
-                <AgentBar>
-                  <img src={message.image_url} style={{ width: 55, height: 55 }}/>
-                </AgentBar>
-                <Message
-                  authorName={message.author_name}
-                >
-                  <MessageText>
-                    {message.body}
-                  </MessageText>
-                </Message>
-              </Row>
-            );
-            }
-        })}
-      </MessageList>
-    </div>
-    <form
-      className="form"
-      onSubmit={this.onSubmit}
-    >
-
-      <input
-          hintText="message"
-          name="message"
-          type="text"
-          style ={{
-            padding: '20px',
-            border: '2px solid red',
-            width: '90vw',
-            padding:'0px 15px 0px 10px'
-          }}
-          inputStyle ={{width: '100%' }}
-          className="messageInput"
-          value={this.state.message}
-          onChange={this.onChange}
-      />
-
-      {is_closed ? (
-          <p>This conversation is closed.</p>
-      ) : (
-          <div className="footer-buttons">
-          <RaisedButton
-              label="send"
-              primary={true}
-              type="submit"
-          />
-
-          <RaisedButton
-              label="End Conversation"
-              secondary={true}
-              onClick={this.handleCloseConvo}
-          />
-          </div>
-      )}
-    </form>
-            <div className="rootReplacement">
-                <div className="messages">
-                </div>
-                <div style={{ float:"left", clear: "both" }}
-                ref={(el) => { this.messagesEnd = el; }}>
-                </div>
-
-                <div className="footer">
-                </div>
-            </div>
-</MuiThemeProvider>
-</ThemeProvider>
-</div> */}
+export default ChatView;
