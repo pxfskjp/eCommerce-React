@@ -112,16 +112,16 @@ class ChatViewBase extends Component {
   }
 
 
-  componentDidMount() {
+  componentWillReceiveProps(newProps) {
     // console.log('ChatView CDM state: ', this.state);
-    // console.log('ChatView CDM props: ', this.props);
-    let compoundUID = this.props.currentCompoundUID;
-
+    console.log('ChatView CDM new props: ', newProps);
+    let compoundUID = newProps.currentCompoundUID || ' ';
+    console.log('ChatView new props.compoundUID: ', compoundUID);
     // one-time get of messages from specific convo:
     let messages = [];
     this.props.firebase.db
       .collection('conversations')
-      .doc('aabb')
+      .doc(compoundUID)
       .collection('messages')
       .get()
       .then(snapshot => {
@@ -131,7 +131,7 @@ class ChatViewBase extends Component {
         }  
     
         snapshot.forEach(doc => {
-          messages.push(doc.data());
+          messages.unshift(doc.data());
           // console.log(doc.id, '=>', doc.data());
         });
         console.log(messages);
@@ -188,15 +188,13 @@ class ChatViewBase extends Component {
 
     render() {
         const currentConvoClosed = this.props.currentConvoClosed;
-        const customer_name = `${this.props.customerName}`;
-        const conversation_summary = `${this.props.summary}`
+        const compoundUID = this.props.currentCompoundUID;
         const { classes } = this.props;
         return (
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <p className={classes.chatViewHeadName}>{customer_name}</p>
-                <p className={classes.chatViewHeadSummary}>{conversation_summary}</p>
+                <p className={classes.chatViewHeadName}>Recipient User Name</p>
               </div>
 
                <div className={classes.messageList}>
