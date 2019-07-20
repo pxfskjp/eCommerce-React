@@ -100,13 +100,20 @@ class ConvosBase extends React.Component {
           // console.log(doc.id, '=>', doc.data());
         });
         console.log(conversations);
+        this.setState({ conversations });
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
     
-    // get messages from a conversation:
-    // let messages = conversationsRef
+    // get single from convos list:
+    // let conversationsRef = this.props.firebase.db
+    //   .collection('conversations')
+    //   .where('isOpen', '==', true);
+    // let convo = conversationsRef
+    //   .where('compoundUID', '==', 'aabb')
+    //   .get();
+    // console.log(convo);
       
     // initialize listener to convos:
     // this.props.firebase.users().on('value', snapshot => {
