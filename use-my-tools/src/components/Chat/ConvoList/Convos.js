@@ -83,13 +83,13 @@ class ConvosBase extends React.Component {
   componentDidMount() {
     // this.getConvos();
     console.log('convos this.props: ', this.props);
-    const isOpen = this.props.convoStatus;
-    console.log(this.props.convoStatus);
+    const isOpen = this.props.isOpen;
+    
     let conversations = [];
     // one-time get of open convos:
     this.props.firebase.db
       .collection('conversations')
-      .where('isOpen', '==', true)
+      .where('isOpen', '==', isOpen)
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
