@@ -11,6 +11,10 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
+            uid: null,
+            firstName: '',
+            lastName: '',
+            imageURL: '',
             currentCompoundUID: null,
             convoSelected: true,
             currentConvoClosed: false
@@ -18,22 +22,23 @@ class ChatDashboard extends React.Component {
         
     }
 
-    // componentDidMount() {
-    //     const repRequest = axios.get("/api/reps/alldetails");
-    //     repRequest.then(rep => {
-    //         this.setState({
-    //         rep_uid: rep.data.uid,
-    //         url: rep.data.url,
-    //         rep_name: rep.data.name,
-    //       }, () => {
-    //         console.log('ChatView state after getting messages in CDM: ', this.state);
-    //       });
-    //     })
-    //     .catch(error => {
-    //       console.log(error.message);
-    //       //this.setState({error:error});
-    //     });
-    // }
+    componentDidMount() {
+        axios.get("/api/users/userinfo")
+            .then(user => {
+                this.setState({
+                uid: user.data.uid,
+                imageUrl: user.data.image_url,
+                firstName: user.data.first_name,
+                lastName: user.data.last_name,
+            }, () => {
+                console.log('ChatDash state after CDM get user info: ', this.state);
+            });
+            })
+            .catch(error => {
+            console.log(error.message);
+            //this.setState({error:error});
+            });
+    }
 
     handleOpenConvoSelect = (compoundUID) => {
 
@@ -92,6 +97,7 @@ class ChatDashboard extends React.Component {
                         <p>No conversation selected.</p>
                         ) : (
                             <ChatView
+                                uid={this.state.uid}
                                 currentCompoundUID={this.state.currentCompoundUID}
                                 closeConvo={this.closeConvo}
                                 currentConvoClosed={this.state.currentConvoClosed}
