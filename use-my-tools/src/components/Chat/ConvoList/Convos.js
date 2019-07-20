@@ -172,18 +172,9 @@ class ConvosBase extends React.Component {
                         <Paper
                           className={classes.paper}
                           style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
-                          onClick={() => this.props.handleConvoSelect()}
+                          onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
                         >
-                          {/* <Grid item
-                            onClick={() => this.props.handleConvoSelect(convo.convo_id, convo.customer_uid, convo.summary, convo.customer_name)}
-                          > */}
-                            <h3 className={classes.queueTitle}>
-                              {convo.customer_name}
-                            </h3>
-                            <h5 className={classes.queueSummary}>
-                              {convo.summary}
-                            </h5>
-                         {/* </Grid> */}
+                          <p>{convo.compoundUID}</p>
                         </Paper>
                       </MuiThemeProvider>
                     </div>

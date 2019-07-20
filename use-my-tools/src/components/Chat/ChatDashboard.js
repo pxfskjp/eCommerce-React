@@ -11,21 +11,11 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            rep_uid: null,
-            rep_name: null,
-            url: null,
-            currentConvoId: null,
-            currentConvoSocket: null,
-            currentConvoSummary: null,
-            currentCustomerName: null,
+            currentCompoundUID: null,
             convoSelected: false,
             currentConvoClosed: false
         }
-        // this.handleQueueConvoSelect = this.handleQueueConvoSelect.bind(this);
-        // this.handleActiveConvoSelect = this.handleActiveConvoSelect.bind(this);
-        // this.handleClosedConvoSelect = this.handleClosedConvoSelect.bind(this);
-        // this.closeConvo = this.closeConvo.bind(this);
-        // this.addMessage = this.addMessage.bind(this);
+        
     }
 
     // componentDidMount() {
@@ -45,30 +35,24 @@ class ChatDashboard extends React.Component {
     //     });
     // }
 
-    handleOpenConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    handleOpenConvoSelect = (compoundUID) => {
 
         this.setState({
             convoSelected: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
+            currentCompoundUID: compoundUID,
         }, () => {
-            console.log("\nQueue Convo Selected. ChatDashboard state: ", this.state);
+            console.log("\nConvo Selected. ChatDashboard state: ", this.state);
         });
     }
 
-    handleClosedConvoSelect(convo_id, customer_uid, customer_name, summary) {
+    handleClosedConvoSelect(compoundUID) {
         
         this.setState({
             convoSelected: true,
             currentConvoClosed: true,
-            currentConvoId: convo_id,
-            currentConvoSocket: customer_uid,
-            currentConvoSummary: summary,
-            currentCustomerName: customer_name,
+            currentCompoundUID: compoundUID,
         }, () => {
-            console.log("\nClosed Convo Selected. ChatDashboard state: ", this.state);
+            console.log("\nConvo Selected. ChatDashboard state: ", this.state);
         });
     }
 
@@ -98,7 +82,7 @@ class ChatDashboard extends React.Component {
                     <ConvoList
                         currentConvoId={this.state.currentConvoId}
                         currentConvoClosed={this.state.currentConvoClosed}
-                        handleOpenConvoSelect={this.handleQueueConvoSelect}
+                        handleOpenConvoSelect={this.handleOpenConvoSelect}
                         handleClosedConvoSelect={this.handleClosedConvoSelect}
                     />
                 </div>
