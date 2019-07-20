@@ -279,6 +279,6 @@ class ChatViewBase extends Component {
 // };
 
 // export default withStyles(styles)(ChatView);
-export default withStyles(styles)(withRouter(ChatView));
+const ChatView = withStyles(styles)(withRouter(ChatViewBase));
 
-
+export default ChatView;
