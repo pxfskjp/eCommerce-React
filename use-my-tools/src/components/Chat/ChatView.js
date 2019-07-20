@@ -53,7 +53,7 @@ const styles = theme => ({
     padding: '0',
   },
   messageList: {
-    marginBottom: 70,
+    marginBottom: 10,
     marginTop: 20,
     overflowY: 'scroll',
     overflowX: 'hidden',
@@ -89,13 +89,14 @@ const styles = theme => ({
   },
   inputArea: {
     height: '40px',
-    marginBottom: '5%'
+    marginBottom: '2%'
   },
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    maxHeight: 40
   },
 
 });
@@ -247,45 +248,45 @@ class ChatViewBase extends Component {
                 <h1>This conversation is closed.</h1>
               ) : (
                 <div className={classes.inputArea}>
-                {/* Scroll div */}
-                {/* <div
-                  style={{ float:"left", clear: "both" }}
-                  ref={(el) => { this.messagesEnd = el; }
-                }>
-                </div>       */}
-                <form className={classes.inputForm} onSubmit={this.onSubmit}>
-                  <input
-                    hintText="message"
-                    name="message"
-                    type="text"
-                    value={this.state.message}
-                    onChange={this.onChange}
-                    style ={{
-                      border: '1.5px solid lightgrey',
-                      borderRadius: '3px',
-                      height: '35px',
-                      padding: '0',
-                      width: '90vw',
-                      maxWidth: '490px',
-                    }}
-                    className="messageInput"
-                  />
-                  <div style={{
-                    marginLeft: '3px',
-                  }}>
-                    <MuiThemeProvider>
-                      <RaisedButton
-                        label="Send"
-                        primary={true}
-                        type="submit"
-                      />
-                      <RaisedButton
-                        label="End Convo"
-                        onClick={this.handleCloseConvo}
-                      />
-                    </MuiThemeProvider>
-                  </div>
-                </form>
+                  {/* Scroll div */}
+                  {/* <div
+                    style={{ float:"left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }
+                  }>
+                  </div>       */}
+                  <form className={classes.inputForm} onSubmit={this.onSubmit}>
+                    <input
+                      hintText="message"
+                      name="message"
+                      type="text"
+                      value={this.state.message}
+                      onChange={this.onChange}
+                      style ={{
+                        border: '1.5px solid lightgrey',
+                        borderRadius: '3px',
+                        height: '35px',
+                        padding: '0',
+                        width: '90vw',
+                        maxWidth: '490px',
+                      }}
+                      className="messageInput"
+                    />
+                    <div style={{
+                      marginLeft: '3px',
+                    }}>
+                      <MuiThemeProvider>
+                        <RaisedButton
+                          label="Send"
+                          primary={true}
+                          type="submit"
+                        />
+                        <RaisedButton
+                          label="End Convo"
+                          onClick={this.handleCloseConvo}
+                        />
+                      </MuiThemeProvider>
+                    </div>
+                  </form>
                 </div>
               )}
               
