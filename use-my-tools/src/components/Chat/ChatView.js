@@ -142,7 +142,7 @@ class ChatViewBase extends Component {
           return;
         }  
         snapshot.forEach(doc => {
-          messages.unshift(doc.data());
+          messages.push(doc.data());
           // console.log(doc.id, '=>', doc.data());
         });
         console.log(messages);
@@ -168,13 +168,13 @@ class ChatViewBase extends Component {
   onSubmit = event => {
     // To Do:
     // configure relevant message data and send to Firestore
-    // const timeStamp = this.props.firebase.db.FieldValue.serverTimestamp();
+    const timeStamp = Date.now();
     const { compoundUID } = this.state; 
     const data = {
       content: this.state.message,
       authorUID: this.state.uid,
       recipientUID: this.state.recipientUID,
-      // timeSent: timeStamp
+      timeSent: timeStamp
     }
     console.log('message data:', data);
 
@@ -182,10 +182,8 @@ class ChatViewBase extends Component {
       .collection('conversations')
       .doc(compoundUID)
       .collection('messages')
-      .add(data)
-      .then(ref => {
-        console.log('Document added to messages with ID: ', ref.id);
-      })
+      .doc(`${timeStamp}`)
+      .set(data);
 
     event.preventDefault();
   }
