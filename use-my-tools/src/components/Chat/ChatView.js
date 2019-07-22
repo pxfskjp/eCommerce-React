@@ -116,10 +116,18 @@ class ChatViewBase extends Component {
 
 
   componentWillReceiveProps(newProps) {
-    // console.log('ChatView CDM state: ', this.state);
+
     console.log('ChatView CDM new props: ', newProps);
-    let compoundUID = newProps.currentConvo.compoundUID || ' ';
-    console.log('ChatView new props.compoundUID: ', compoundUID);
+
+    const compoundUID = newProps.currentConvo.compoundUID || ' ';
+    const uid = newProps.uid;
+    let recipientUID = null;
+    if (newProps.currentConvo.UIDOne !== uid) {
+      recipientUID =  newProps.currentConvo.UIDOne;
+    } else {
+      recipientUID =  newProps.currentConvo.UIDTwo;
+    }
+
     // one-time get of messages from specific convo:
     let messages = [];
     this.props.firebase.db
@@ -132,7 +140,6 @@ class ChatViewBase extends Component {
           console.log('No matching documents.');
           return;
         }  
-    
         snapshot.forEach(doc => {
           messages.unshift(doc.data());
           // console.log(doc.id, '=>', doc.data());
@@ -140,19 +147,16 @@ class ChatViewBase extends Component {
         console.log(messages);
         this.setState({ 
           messages,
-
+          uid
         });
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
 
-
-
     // To Do:
     // initialize listener to Firestore db and get existing messages
     // listen with onSnapshot()
-
 
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
@@ -161,25 +165,30 @@ class ChatViewBase extends Component {
   onSubmit = event =>{
     // To Do:
     // configure relevant message data and send to Firestore
-
+    const timeStamp = this.props.firebase.db.FieldValue.serverTimestamp();
     const data = {
       content: this.state.message,
-      authorUID: this.state.uid
+      authorUID: this.state.uid,
+      recipientUID: this.state.recipientUID,
+      timeSent: timeStamp
     }
+    console.log('message data:', data);
+
+
 
     event.preventDefault();
   }
 
   // method to update state.messages with new message from Firestore
-  addNewMessage = (newMessage) => {
-      console.log("newMessage in ChatView addNewMessage: ", newMessage);
-      const newMessages = [];
-      this.state.messages.forEach(message => {
-          newMessages.push({...message});
-      });
-      newMessages.push(newMessage);
-      this.setState({ messages: newMessages });
-  }
+  // addNewMessage = (newMessage) => {
+  //     console.log("newMessage in ChatView addNewMessage: ", newMessage);
+  //     const newMessages = [];
+  //     this.state.messages.forEach(message => {
+  //         newMessages.push({...message});
+  //     });
+  //     newMessages.push(newMessage);
+  //     this.setState({ messages: newMessages });
+  // }
 
   // method to update state.message based on user input
   onChange = event => {
