@@ -1,0 +1,17 @@
+.message-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: max-content;
+    max-width: 80%;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.align-left {
+    float: left;
+}
+
+.align-right {
+    float: right;
+    background-color: #06D14E;
+}

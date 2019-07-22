@@ -67,7 +67,7 @@ const styles = theme => ({
 
   },
   message: {
-    marginBottom: 30
+    marginBottom: 30,
   },
   avatar: {
     marginLeft: 15,
@@ -130,36 +130,56 @@ class ChatViewBase extends Component {
     }
 
     // one-time get of messages from specific convo:
+    // let messages = [];
+    // this.props.firebase.db
+    //   .collection('conversations')
+    //   .doc(compoundUID)
+    //   .collection('messages')
+    //   .get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('No matching documents.');
+    //       return;
+    //     }  
+    //     snapshot.forEach(doc => {
+    //       messages.push(doc.data());
+    //       // console.log(doc.id, '=>', doc.data());
+    //     });
+    //     console.log(messages);
+    //     this.setState({ 
+    //       messages,
+    //       uid,
+    //       compoundUID,
+    //       recipientUID
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
+
+    // To Do:
+    // initialize listener to Firestore db and get existing messages
+    // listen with onSnapshot()
+    // The first query snapshot contains 'added' events 
+    // for all existing documents that match the query
     let messages = [];
-    this.props.firebase.db
+    let messagesQuery = this.props.firebase.db
       .collection('conversations')
       .doc(compoundUID)
       .collection('messages')
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          return;
-        }  
-        snapshot.forEach(doc => {
-          messages.push(doc.data());
-          // console.log(doc.id, '=>', doc.data());
-        });
-        console.log(messages);
+      .onSnapshot(querySnapshot => {
+        querySnapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            messages.push(change.doc.data());
+          }
+        })
         this.setState({ 
           messages,
           uid,
           compoundUID,
           recipientUID
         });
-      })
-      .catch(err => {
-        console.log('Error getting documents', err);
       });
-
-    // To Do:
-    // initialize listener to Firestore db and get existing messages
-    // listen with onSnapshot()
 
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
@@ -184,7 +204,7 @@ class ChatViewBase extends Component {
       .collection('messages')
       .doc(`${timeStamp}`)
       .set(data);
-
+    this.setState({ message: ''});
     event.preventDefault();
   }
 
@@ -229,47 +249,47 @@ class ChatViewBase extends Component {
 
                <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
-                        // console.log(this.state)
-                        console.log(message)
+                        let alignClass = null;
+                        if (message.authorUID === this.state.uid) {
+                          alignClass = 'message-container align-right'
+                        } else {
+                          alignClass = 'message-container align-left'
+                        }
                         return (
-                          <div className={classes.message} key={index}>
-                            <MuiThemeProvider>
-                              <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                  <Grid item>
-                                    {/* <Avatar alt="Avatar" className={classes.avatar}>
-                                      {message.author_name[0]}
-                                    </Avatar> */}
-                                  </Grid>
-                                  <Grid>
-                                    <Grid
-                                      item
-                                      xs
-                                    >
-                                      <Typography
-                                        variant="h6"
-                                        className={classes.messageAuthor}
-                                      >
-                                        {message.authorUID}
-                                      </Typography>
-                                    </Grid>
-                                    <Grid
-                                      item
-                                      xs
-                                    >
-                                      <Typography
-                                        variant="componenth6"
-                                        className={classes.messageBody}
-                                      >
-                                      {message.content}
-                                      </Typography>
-                                    </Grid>
-                                  </Grid>
+                          <MuiThemeProvider>
+                          <div className={alignClass} key={index}>
+                            <div className="message-header">
+                              {/* <Avatar alt="Avatar" className={classes.avatar}>
+                                {message.author_name[0]}
+                              </Avatar> */}
+                              <Typography
+                                  variant="h6"
+                                  className={classes.messageAuthor}
+                                >
+                                  {message.authorUID}
+                              </Typography>
+                            </div>
 
-                                </Grid>
-                              </Paper>
-                            </MuiThemeProvider>
+                            <div className="message-body">
+                              
+                                {/* <Typography
+                                  variant="h6"
+                                  className={classes.messageAuthor}
+                                >
+                                  {message.authorUID}
+                                </Typography> */}
+                              
+                                <Typography
+                                  variant="componenth6"
+                                  className={classes.messageBody}
+                                >
+                                {message.content}
+                                </Typography>
+
+                            </div>
+
                           </div>
+                          </MuiThemeProvider>
                         );
                     })}
               </div>
@@ -332,3 +352,7 @@ class ChatViewBase extends Component {
 const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
 
 export default ChatView;
+
+
+
+
