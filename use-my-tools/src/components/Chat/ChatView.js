@@ -106,6 +106,8 @@ class ChatViewBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      uid: null,
+      ricipientUID: null,
       message: '',
       messages: [],
       isOpen: true,
@@ -116,7 +118,7 @@ class ChatViewBase extends Component {
   componentWillReceiveProps(newProps) {
     // console.log('ChatView CDM state: ', this.state);
     console.log('ChatView CDM new props: ', newProps);
-    let compoundUID = newProps.currentCompoundUID || ' ';
+    let compoundUID = newProps.currentConvo.compoundUID || ' ';
     console.log('ChatView new props.compoundUID: ', compoundUID);
     // one-time get of messages from specific convo:
     let messages = [];
@@ -136,7 +138,10 @@ class ChatViewBase extends Component {
           // console.log(doc.id, '=>', doc.data());
         });
         console.log(messages);
-        this.setState({ messages });
+        this.setState({ 
+          messages,
+
+        });
       })
       .catch(err => {
         console.log('Error getting documents', err);
@@ -156,11 +161,11 @@ class ChatViewBase extends Component {
   onSubmit = event =>{
     // To Do:
     // configure relevant message data and send to Firestore
-    
-    // const data = {
-    //   content: this.state.message,
-    //   authorUID: 
-    // }
+
+    const data = {
+      content: this.state.message,
+      authorUID: this.state.uid
+    }
 
     event.preventDefault();
   }

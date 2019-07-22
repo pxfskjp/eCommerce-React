@@ -172,7 +172,8 @@ class ConvosBase extends React.Component {
                         <Paper
                           className={classes.paper}
                           style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
-                          onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
+                          // onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
+                          onClick={() => this.props.handleConvoSelect(convo)}
                         >
                           <p>{convo.compoundUID}</p>
                         </Paper>

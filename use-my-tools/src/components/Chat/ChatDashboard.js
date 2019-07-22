@@ -15,7 +15,8 @@ class ChatDashboard extends React.Component {
             firstName: '',
             lastName: '',
             imageURL: '',
-            currentCompoundUID: null,
+            //currentCompoundUID: null,
+            currentConvo: {},
             convoSelected: true,
             currentConvoClosed: false
         }
@@ -40,11 +41,12 @@ class ChatDashboard extends React.Component {
             });
     }
 
-    handleOpenConvoSelect = (compoundUID) => {
+    handleOpenConvoSelect = (convo) => {
 
         this.setState({
             convoSelected: true,
-            currentCompoundUID: compoundUID,
+            // currentCompoundUID: convo.compoundUID,
+            currentConvo: convo,
         }, () => {
             console.log("\nConvo Selected. ChatDashboard state: ", this.state);
         });
@@ -98,7 +100,8 @@ class ChatDashboard extends React.Component {
                         ) : (
                             <ChatView
                                 uid={this.state.uid}
-                                currentCompoundUID={this.state.currentCompoundUID}
+                                // currentCompoundUID={this.state.currentCompoundUID}
+                                currentConvo={this.state.currentConvo}
                                 closeConvo={this.closeConvo}
                                 currentConvoClosed={this.state.currentConvoClosed}
                             />
