@@ -10,12 +10,14 @@ import Avatar from '@material-ui/core/Avatar';
 // import ButtonBase from '@material-ui/core/ButtonBase';
 // import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios';
+
 import './ChatView.css';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
 import { Grid } from '@material-ui/core';
 
 import { withFirebase } from "../Firebase";
+
+import axios from 'axios';
 
 
 const styles = theme => ({
@@ -101,19 +103,18 @@ const styles = theme => ({
 
 });
 
-
 class ChatViewBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
       uid: null,
       ricipientUID: null,
+      compoundUID: null,
       message: '',
       messages: [],
       isOpen: true,
     };
   }
-
 
   componentWillReceiveProps(newProps) {
 
@@ -147,7 +148,9 @@ class ChatViewBase extends Component {
         console.log(messages);
         this.setState({ 
           messages,
-          uid
+          uid,
+          compoundUID,
+          recipientUID
         });
       })
       .catch(err => {
@@ -162,19 +165,27 @@ class ChatViewBase extends Component {
     // this.scrollToBottom();
   }
 
-  onSubmit = event =>{
+  onSubmit = event => {
     // To Do:
     // configure relevant message data and send to Firestore
-    const timeStamp = this.props.firebase.db.FieldValue.serverTimestamp();
+    // const timeStamp = this.props.firebase.db.FieldValue.serverTimestamp();
+    const { compoundUID } = this.state; 
     const data = {
       content: this.state.message,
       authorUID: this.state.uid,
       recipientUID: this.state.recipientUID,
-      timeSent: timeStamp
+      // timeSent: timeStamp
     }
     console.log('message data:', data);
 
-
+    this.props.firebase.db
+      .collection('conversations')
+      .doc(compoundUID)
+      .collection('messages')
+      .add(data)
+      .then(ref => {
+        console.log('Document added to messages with ID: ', ref.id);
+      })
 
     event.preventDefault();
   }

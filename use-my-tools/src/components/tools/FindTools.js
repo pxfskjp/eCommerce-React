@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ImageCarousel from './ImageCarousel';
 import FilterMenu from './FilterMenu';
 
 import './css/FindTools.css';
@@ -116,7 +115,7 @@ class FindTools extends Component {
                                     <Grid item xs={3} key={index}>
                                         <Card className={classes.card}>
                                             {/* <ImageCarousel toolImages={tool.images} /> */}
-                                            <img src={tool.images[0].url} />
+                                            <img src={tool.images[0].url} alt="tool-image" />
                                             <CardContent className={classes.cardContent}>
                                                 <Typography gutterBottom className={classes.cardTitle} >
                                                     {tool.brand}{' '}{tool.name}

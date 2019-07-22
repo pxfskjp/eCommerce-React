@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,11 +9,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
 import moment from "moment";
-import isSameDay from 'react-dates/lib/utils/isSameDay';
-
+// import isSameDay from 'react-dates/lib/utils/isSameDay';
 
 import axios from 'axios';
-import { get } from 'https';
+
 
 const styles = {
   dialogPaper: {
