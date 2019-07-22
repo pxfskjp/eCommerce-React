@@ -8,7 +8,7 @@ import "react-dates/lib/css/_datepicker.css";
 import omit from "lodash/omit";
 import { DateRangePicker } from "react-dates";
 import { withStyles, withStylesPropTypes, css } from "react-with-styles";
-import axios from 'axios';
+// import axios from 'axios';
 
 const propTypes = {
   ...withStylesPropTypes,

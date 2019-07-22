@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
 import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Paper from '@material-ui/core/Paper';
+
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -44,7 +41,7 @@ const styles = theme => ({
 
 })
 
-class ToolViewOwner extends React.Component {
+class ToolViewOwner extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -128,7 +125,7 @@ class ToolViewOwner extends React.Component {
         // this.setState({
         //   selectedFile: event.target.files[0]
         // });
-        let tool_id = this.props.match.params.id;
+        // let tool_id = this.props.match.params.id;
         const newImageData = new FormData();
         newImageData.append('id', this.props.match.params.id);
         newImageData.append('image_file', event.target.files[0]);
@@ -265,47 +262,3 @@ class ToolViewOwner extends React.Component {
 }
 
 export default withStyles(styles)(ToolViewOwner);
-
-
-
-{/* {tool.available === true ? (
-    <Typography>
-        This tool is available to be reserved and rented.
-    </Typography>
-) : (
-    <Typography>
-        This tool is not available to be reserved or rented.
-    </Typography>
-)}
-
-{tool.rented === true ? (
-    <Typography>
-        This tool is currently rented.
-    </Typography>
-) : (
-    <Typography>
-        This tool is not currently rented.
-    </Typography>
-)} */}
-
-{/* View reserved rental dates */}
-
-{/* {tool.available === true ? (
-    <Typography>
-        This tool is available to be reserved and rented.
-    </Typography>
-) : (
-    <Typography>
-        This tool is not available to be reserved or rented.
-    </Typography>
-)}
-
-{tool.rented === true ? (
-    <Typography>
-        This tool is currently rented.
-    </Typography>
-) : (
-    <Typography>
-        This tool is not currently rented.
-    </Typography>
-)} */}

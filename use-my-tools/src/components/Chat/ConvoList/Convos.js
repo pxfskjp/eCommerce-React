@@ -71,7 +71,7 @@ const styles = theme => ({
 //   </div>
 // );
 
-class ConvosBase extends React.Component {
+class ConvosBase extends Component {
   constructor(props) {
     super(props);
     this.state = {

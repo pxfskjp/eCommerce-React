@@ -1,33 +1,17 @@
 import React from "react";
-import { withRouter } from "react-router-dom"
+// import { withRouter } from "react-router-dom"
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import axios from 'axios';
+// import axios from 'axios';
 
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 // import NoSsr from "@material-ui/core/NoSsr";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 
 import Convos from './Convos';
 
-
-function TabContainer(props) {
-    return (
-      <Typography component="div" style={{ margin: 'none' }}>
-        {props.children}
-      </Typography>
-    );
-}
-
-function StyledTab(props) {
-  return (
-    <Typography component="h1" style={{ margin: 'none' }}>
-      {props.children}
-    </Typography>
-  );
-}
 
 const styles = {
     root: {
@@ -142,8 +126,8 @@ class ConvoList extends React.Component {
 
     render() {
       const { classes } = this.props;
-      const { value } = this.state;
-      const newConvosCount = this.state.newConvosCount;
+      // const { value } = this.state;
+      // const newConvosCount = this.state.newConvosCount;
       return (
 
         <div className={classes.root}>
