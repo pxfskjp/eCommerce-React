@@ -249,9 +249,15 @@ class ChatViewBase extends Component {
 
                <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
+                        let alignClass = null;
+                        if (message.authorUID === this.state.uid) {
+                          alignClass = 'message-container align-right'
+                        } else {
+                          alignClass = 'message-container align-left'
+                        }
                         return (
                           <MuiThemeProvider>
-                          <div className={classes.message} key={index}>
+                          <div className={alignClass} key={index}>
                             <div className="message-header">
                               {/* <Avatar alt="Avatar" className={classes.avatar}>
                                 {message.author_name[0]}

@@ -1,0 +1,14 @@
+.message-container {
+    border: 1px solid black;
+    width: max-content;
+    max-width: 80%;
+    clear: both;
+}
+
+.align-left {
+    float: left;
+}
+
+.align-right {
+    float: right;
+}
