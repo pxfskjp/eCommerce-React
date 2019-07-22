@@ -2,7 +2,7 @@
     display: flex;
     /* display: fixed; */
     justify-content: center;
-    margin-left: 250px;
+
     height: 100vh;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -22,12 +22,6 @@
 .chat-dash-right-container p {
   font-size: 22px;
   margin-top: 5%;
-}
-
-@media (max-width: 1250px) {
-    .chat-dashboard-container {
-      margin-left: 150px;
-    }
 }
 
 @media (max-width: 800px) {

@@ -11,35 +11,42 @@ class ChatDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            currentCompoundUID: null,
+            uid: null,
+            firstName: '',
+            lastName: '',
+            imageURL: '',
+            //currentCompoundUID: null,
+            currentConvo: {},
             convoSelected: true,
             currentConvoClosed: false
         }
         
     }
 
-    // componentDidMount() {
-    //     const repRequest = axios.get("/api/reps/alldetails");
-    //     repRequest.then(rep => {
-    //         this.setState({
-    //         rep_uid: rep.data.uid,
-    //         url: rep.data.url,
-    //         rep_name: rep.data.name,
-    //       }, () => {
-    //         console.log('ChatView state after getting messages in CDM: ', this.state);
-    //       });
-    //     })
-    //     .catch(error => {
-    //       console.log(error.message);
-    //       //this.setState({error:error});
-    //     });
-    // }
+    componentDidMount() {
+        axios.get("/api/users/userinfo")
+            .then(user => {
+                this.setState({
+                uid: user.data.uid,
+                imageUrl: user.data.image_url,
+                firstName: user.data.first_name,
+                lastName: user.data.last_name,
+            }, () => {
+                console.log('ChatDash state after CDM get user info: ', this.state);
+            });
+            })
+            .catch(error => {
+            console.log(error.message);
+            //this.setState({error:error});
+            });
+    }
 
-    handleOpenConvoSelect = (compoundUID) => {
+    handleOpenConvoSelect = (convo) => {
 
         this.setState({
             convoSelected: true,
-            currentCompoundUID: compoundUID,
+            // currentCompoundUID: convo.compoundUID,
+            currentConvo: convo,
         }, () => {
             console.log("\nConvo Selected. ChatDashboard state: ", this.state);
         });
@@ -92,7 +99,9 @@ class ChatDashboard extends React.Component {
                         <p>No conversation selected.</p>
                         ) : (
                             <ChatView
-                                currentCompoundUID={this.state.currentCompoundUID}
+                                uid={this.state.uid}
+                                // currentCompoundUID={this.state.currentCompoundUID}
+                                currentConvo={this.state.currentConvo}
                                 closeConvo={this.closeConvo}
                                 currentConvoClosed={this.state.currentConvoClosed}
                             />

@@ -53,7 +53,7 @@ const styles = theme => ({
     padding: '0',
   },
   messageList: {
-    marginBottom: 70,
+    marginBottom: 10,
     marginTop: 20,
     overflowY: 'scroll',
     overflowX: 'hidden',
@@ -89,13 +89,14 @@ const styles = theme => ({
   },
   inputArea: {
     height: '40px',
-    marginBottom: '5%'
+    marginBottom: '2%'
   },
   inputForm: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    maxHeight: 40
   },
 
 });
@@ -105,6 +106,8 @@ class ChatViewBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      uid: null,
+      ricipientUID: null,
       message: '',
       messages: [],
       isOpen: true,
@@ -113,10 +116,18 @@ class ChatViewBase extends Component {
 
 
   componentWillReceiveProps(newProps) {
-    // console.log('ChatView CDM state: ', this.state);
+
     console.log('ChatView CDM new props: ', newProps);
-    let compoundUID = newProps.currentCompoundUID || ' ';
-    console.log('ChatView new props.compoundUID: ', compoundUID);
+
+    const compoundUID = newProps.currentConvo.compoundUID || ' ';
+    const uid = newProps.uid;
+    let recipientUID = null;
+    if (newProps.currentConvo.UIDOne !== uid) {
+      recipientUID =  newProps.currentConvo.UIDOne;
+    } else {
+      recipientUID =  newProps.currentConvo.UIDTwo;
+    }
+
     // one-time get of messages from specific convo:
     let messages = [];
     this.props.firebase.db
@@ -129,24 +140,23 @@ class ChatViewBase extends Component {
           console.log('No matching documents.');
           return;
         }  
-    
         snapshot.forEach(doc => {
           messages.unshift(doc.data());
           // console.log(doc.id, '=>', doc.data());
         });
         console.log(messages);
-        this.setState({ messages });
+        this.setState({ 
+          messages,
+          uid
+        });
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
 
-
-
     // To Do:
     // initialize listener to Firestore db and get existing messages
     // listen with onSnapshot()
-
 
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
@@ -155,19 +165,30 @@ class ChatViewBase extends Component {
   onSubmit = event =>{
     // To Do:
     // configure relevant message data and send to Firestore
+    const timeStamp = this.props.firebase.db.FieldValue.serverTimestamp();
+    const data = {
+      content: this.state.message,
+      authorUID: this.state.uid,
+      recipientUID: this.state.recipientUID,
+      timeSent: timeStamp
+    }
+    console.log('message data:', data);
+
+
+
     event.preventDefault();
   }
 
   // method to update state.messages with new message from Firestore
-  addNewMessage = (newMessage) => {
-      console.log("newMessage in ChatView addNewMessage: ", newMessage);
-      const newMessages = [];
-      this.state.messages.forEach(message => {
-          newMessages.push({...message});
-      });
-      newMessages.push(newMessage);
-      this.setState({ messages: newMessages });
-  }
+  // addNewMessage = (newMessage) => {
+  //     console.log("newMessage in ChatView addNewMessage: ", newMessage);
+  //     const newMessages = [];
+  //     this.state.messages.forEach(message => {
+  //         newMessages.push({...message});
+  //     });
+  //     newMessages.push(newMessage);
+  //     this.setState({ messages: newMessages });
+  // }
 
   // method to update state.message based on user input
   onChange = event => {
@@ -247,45 +268,45 @@ class ChatViewBase extends Component {
                 <h1>This conversation is closed.</h1>
               ) : (
                 <div className={classes.inputArea}>
-                {/* Scroll div */}
-                {/* <div
-                  style={{ float:"left", clear: "both" }}
-                  ref={(el) => { this.messagesEnd = el; }
-                }>
-                </div>       */}
-                <form className={classes.inputForm} onSubmit={this.onSubmit}>
-                  <input
-                    hintText="message"
-                    name="message"
-                    type="text"
-                    value={this.state.message}
-                    onChange={this.onChange}
-                    style ={{
-                      border: '1.5px solid lightgrey',
-                      borderRadius: '3px',
-                      height: '35px',
-                      padding: '0',
-                      width: '90vw',
-                      maxWidth: '490px',
-                    }}
-                    className="messageInput"
-                  />
-                  <div style={{
-                    marginLeft: '3px',
-                  }}>
-                    <MuiThemeProvider>
-                      <RaisedButton
-                        label="Send"
-                        primary={true}
-                        type="submit"
-                      />
-                      <RaisedButton
-                        label="End Convo"
-                        onClick={this.handleCloseConvo}
-                      />
-                    </MuiThemeProvider>
-                  </div>
-                </form>
+                  {/* Scroll div */}
+                  {/* <div
+                    style={{ float:"left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }
+                  }>
+                  </div>       */}
+                  <form className={classes.inputForm} onSubmit={this.onSubmit}>
+                    <input
+                      hintText="message"
+                      name="message"
+                      type="text"
+                      value={this.state.message}
+                      onChange={this.onChange}
+                      style ={{
+                        border: '1.5px solid lightgrey',
+                        borderRadius: '3px',
+                        height: '35px',
+                        padding: '0',
+                        width: '90vw',
+                        maxWidth: '490px',
+                      }}
+                      className="messageInput"
+                    />
+                    <div style={{
+                      marginLeft: '3px',
+                    }}>
+                      <MuiThemeProvider>
+                        <RaisedButton
+                          label="Send"
+                          primary={true}
+                          type="submit"
+                        />
+                        <RaisedButton
+                          label="End Convo"
+                          onClick={this.handleCloseConvo}
+                        />
+                      </MuiThemeProvider>
+                    </div>
+                  </form>
                 </div>
               )}
               

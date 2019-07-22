@@ -17,6 +17,7 @@ function createUser(newUser) {
 function getUserInfo(uid) {
     const query = db
         .select([
+            'users.uid',
             'users.first_name',
             'users.last_name',
             'users.email',
