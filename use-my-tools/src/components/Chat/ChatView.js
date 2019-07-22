@@ -130,36 +130,56 @@ class ChatViewBase extends Component {
     }
 
     // one-time get of messages from specific convo:
+    // let messages = [];
+    // this.props.firebase.db
+    //   .collection('conversations')
+    //   .doc(compoundUID)
+    //   .collection('messages')
+    //   .get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('No matching documents.');
+    //       return;
+    //     }  
+    //     snapshot.forEach(doc => {
+    //       messages.push(doc.data());
+    //       // console.log(doc.id, '=>', doc.data());
+    //     });
+    //     console.log(messages);
+    //     this.setState({ 
+    //       messages,
+    //       uid,
+    //       compoundUID,
+    //       recipientUID
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
+
+    // To Do:
+    // initialize listener to Firestore db and get existing messages
+    // listen with onSnapshot()
+    // The first query snapshot contains 'added' events 
+    // for all existing documents that match the query
     let messages = [];
-    this.props.firebase.db
+    let messagesQuery = this.props.firebase.db
       .collection('conversations')
       .doc(compoundUID)
       .collection('messages')
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          return;
-        }  
-        snapshot.forEach(doc => {
-          messages.push(doc.data());
-          // console.log(doc.id, '=>', doc.data());
-        });
-        console.log(messages);
+      .onSnapshot(querySnapshot => {
+        querySnapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            messages.push(change.doc.data());
+          }
+        })
         this.setState({ 
           messages,
           uid,
           compoundUID,
           recipientUID
         });
-      })
-      .catch(err => {
-        console.log('Error getting documents', err);
       });
-
-    // To Do:
-    // initialize listener to Firestore db and get existing messages
-    // listen with onSnapshot()
 
     // Scroll to latest message whenever component mounts
     // this.scrollToBottom();
@@ -184,7 +204,7 @@ class ChatViewBase extends Component {
       .collection('messages')
       .doc(`${timeStamp}`)
       .set(data);
-
+    this.setState({ message: ''});
     event.preventDefault();
   }
 
@@ -229,8 +249,6 @@ class ChatViewBase extends Component {
 
                <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
-                        // console.log(this.state)
-                        console.log(message)
                         return (
                           <div className={classes.message} key={index}>
                             <MuiThemeProvider>
