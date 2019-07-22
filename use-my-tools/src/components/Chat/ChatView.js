@@ -67,7 +67,7 @@ const styles = theme => ({
 
   },
   message: {
-    marginBottom: 30
+    marginBottom: 30,
   },
   avatar: {
     marginLeft: 15,
@@ -250,44 +250,40 @@ class ChatViewBase extends Component {
                <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
                         return (
+                          <MuiThemeProvider>
                           <div className={classes.message} key={index}>
-                            <MuiThemeProvider>
-                              <Paper className={classes.paper}>
-                                <Grid container wrap="nowrap" spacing={16}>
-                                  <Grid item>
-                                    {/* <Avatar alt="Avatar" className={classes.avatar}>
-                                      {message.author_name[0]}
-                                    </Avatar> */}
-                                  </Grid>
-                                  <Grid>
-                                    <Grid
-                                      item
-                                      xs
-                                    >
-                                      <Typography
-                                        variant="h6"
-                                        className={classes.messageAuthor}
-                                      >
-                                        {message.authorUID}
-                                      </Typography>
-                                    </Grid>
-                                    <Grid
-                                      item
-                                      xs
-                                    >
-                                      <Typography
-                                        variant="componenth6"
-                                        className={classes.messageBody}
-                                      >
-                                      {message.content}
-                                      </Typography>
-                                    </Grid>
-                                  </Grid>
+                            <div className="message-header">
+                              {/* <Avatar alt="Avatar" className={classes.avatar}>
+                                {message.author_name[0]}
+                              </Avatar> */}
+                              <Typography
+                                  variant="h6"
+                                  className={classes.messageAuthor}
+                                >
+                                  {message.authorUID}
+                              </Typography>
+                            </div>
 
-                                </Grid>
-                              </Paper>
-                            </MuiThemeProvider>
+                            <div className="message-body">
+                              
+                                {/* <Typography
+                                  variant="h6"
+                                  className={classes.messageAuthor}
+                                >
+                                  {message.authorUID}
+                                </Typography> */}
+                              
+                                <Typography
+                                  variant="componenth6"
+                                  className={classes.messageBody}
+                                >
+                                {message.content}
+                                </Typography>
+
+                            </div>
+
                           </div>
+                          </MuiThemeProvider>
                         );
                     })}
               </div>
@@ -350,3 +346,7 @@ class ChatViewBase extends Component {
 const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
 
 export default ChatView;
+
+
+
+
