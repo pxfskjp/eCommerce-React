@@ -109,6 +109,7 @@ class ChatViewBase extends Component {
     this.state = {
       uid: null,
       ricipientUID: null,
+      recipientName: '',
       compoundUID: null,
       message: '',
       messages: [],
@@ -130,11 +131,11 @@ class ChatViewBase extends Component {
     }
 
     // get the name of the other user (recipient) in the convo:
+    let recipientName = null;
     axios.get(`/api/users/username/${recipientUID}`)
       .then(user => {
-        // console.log('recipient first name: ', user.data.first_name);
-        // console.log('recipient last name: ', user.data.last_name);
-        console.log(user);
+        // save recipient name as variable to store in state in setState below:
+        recipientName = user.data.first_name + ' ' + user.data.last_name;
       })
       .catch(error =>{
         console.log(error.message);
@@ -188,7 +189,8 @@ class ChatViewBase extends Component {
           messages,
           uid,
           compoundUID,
-          recipientUID
+          recipientUID,
+          recipientName
         });
       });
 
@@ -255,7 +257,7 @@ class ChatViewBase extends Component {
 
           <div className={classes.root}>
               <div className={classes.chatViewHead}>
-                <p className={classes.chatViewHeadName}>Recipient User Name</p>
+                <p className={classes.chatViewHeadName}>{this.state.recipientName}</p>
               </div>
 
                <div className={classes.messageList}>
