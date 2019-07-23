@@ -129,6 +129,17 @@ class ChatViewBase extends Component {
       recipientUID =  newProps.currentConvo.UIDTwo;
     }
 
+    // get the name of the other user (recipient) in the convo:
+    axios.get(`/api/users/username/${recipientUID}`)
+      .then(user => {
+        // console.log('recipient first name: ', user.data.first_name);
+        // console.log('recipient last name: ', user.data.last_name);
+        console.log(user);
+      })
+      .catch(error =>{
+        console.log(error.message);
+      });
+
     // one-time get of messages from specific convo:
     // let messages = [];
     // this.props.firebase.db

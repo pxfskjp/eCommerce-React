@@ -77,7 +77,6 @@ class ContactOwnerBase extends React.Component {
     
     this.setState({ message: '', open: false })
 
-
     event.preventDefault();
   };
 
