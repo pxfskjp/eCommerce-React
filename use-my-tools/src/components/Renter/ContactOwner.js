@@ -41,25 +41,41 @@ class ContactOwnerBase extends React.Component {
     } else {
         compoundUID = ownerUID + renterUID;
     }
+    // console.log(compoundUID);
 
+    // define convo data for conversations collection:
     let convoData = {
         UIDOne: renterUID,
         UIDTwo: ownerUID,
         compoundUID,
         isOpen: true,
     }
-
-    console.log(compoundUID);
-    // add a document with id === compoundUID in the conversations collection in firestore
+    
+    // add a document with id === compoundUID in the conversations collection in firestore:
     this.props.firebase.db
         .collection('conversations')
         .doc(`${compoundUID}`)
         .set(convoData, { merge: true });
 
+
+    // define message data for firestore:
+    let timeStamp = Date.now();
+    let messageData = {
+        authorUID: renterUID,
+        recipientUID: ownerUID,
+        content: this.state.message,
+        timeSent: timeStamp
+    }
+    // add a messages collection to the new conversation and
+    // add a document to the messages collection with id === timestamp and content === state.message
+    this.props.firebase.db
+        .collection('conversations')
+        .doc(compoundUID)
+        .collection('messages')
+        .doc(`${timeStamp}`)
+        .set(messageData);
     
     this.setState({ message: '', open: false })
-    // add a messages collection to the new conversation
-    // add a document to the messages collection with id === timestamp and content === state.message
 
 
     event.preventDefault();
