@@ -32,12 +32,32 @@ class ContactOwnerBase extends React.Component {
   };
 
   handleConfirm = event => {
-
+    const renterUID = this.props.renterUID;
+    const ownerUID = this.props.ownerUID;
     // create compoundUID from owner and renter uid
-    
-    // create a document with id === compoundUID in the conversations collection in firestore
-    // create a messages collection
-    // add a document to the messages collection with id === timestamp
+    let compoundUID = null;
+    if (renterUID < ownerUID) {
+        compoundUID = renterUID + ownerUID;
+    } else {
+        compoundUID = ownerUID + renterUID;
+    }
+
+    let data = {
+        UIDOne: renterUID,
+        UIDTwo: ownerUID,
+        compoundUID,
+        isOpen: true,
+    }
+
+    console.log(compoundUID);
+    // add a document with id === compoundUID in the conversations collection in firestore
+    this.props.firebase.db
+        .collection('conversations')
+        .doc(`${compoundUID}`)
+        .set(data);
+    this.setState({ message: '', open: false })
+    // add a messages collection to the new conversation
+    // add a document to the messages collection with id === timestamp and content === state.message
 
 
     event.preventDefault();
@@ -58,7 +78,7 @@ class ContactOwnerBase extends React.Component {
           >
             
               <div>
-                <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
+                <DialogTitle id="form-dialog-title">Contact Owner</DialogTitle>
 
                 <DialogContent>
                   <DialogContentText>
