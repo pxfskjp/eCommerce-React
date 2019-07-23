@@ -7,14 +7,13 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import ImageCarousel from './ImageCarousel';
-import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
+import ImageCarousel from '../ImageCarousel';
+import RequestDatesPopUp from '../RequestTool/RequestDatesPopUp';
 import DeleteDialog from './DeleteDialog';
 
 import axios from 'axios';
 
 import './css/ToolViewOwner.css';
-
 
 const styles = theme => ({
     card: {

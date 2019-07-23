@@ -15,11 +15,11 @@ import NavigationBar from './components/NavigationBar';
 
 import AccountPage from './components/AccountPage';
 
-import MyTools from './components/tools/MyTools';
-import AddTool from './components/tools/AddTool';
-import FindTools from './components/tools/FindTools';
-import ToolViewRenter from './components/tools/ToolViewRenter';
-import ToolViewOwner from './components/tools/ToolViewOwner';
+import MyTools from './components/Owner/MyTools';
+import AddTool from './components/Owner/AddTool';
+import FindTools from './components/Renter/FindTools';
+import ToolViewRenter from './components/Renter/ToolViewRenter';
+import ToolViewOwner from './components/Owner/ToolViewOwner';
 import ChatDashboard from './components/Chat/ChatDashboard';
 
 import DateRangePickerWrapper from './components/ReactDates/DateRangePicker';
