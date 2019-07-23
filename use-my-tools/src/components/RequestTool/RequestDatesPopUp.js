@@ -118,13 +118,14 @@ class RequestDatesPopUp extends React.Component {
     for (let d = 0; d < datesArray.length; d++) {
       blockedDays.push(datesArray[d]);
     }
-    
     this.setState({ blockedDays });
     
+    // store the selected date range in db:
     axios.post('/api/tools/reserveDates', reservationData)
         .then(response => {
             console.log('Dates reservation created with response: ', response);
-            this.handleClose();
+            //this.handleClose();
+            this.setState({ datesSubmitted: true });
         })
         .catch(error => {
             console.log(error.message);
