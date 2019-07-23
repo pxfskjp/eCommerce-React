@@ -42,7 +42,7 @@ class ContactOwnerBase extends React.Component {
         compoundUID = ownerUID + renterUID;
     }
 
-    let data = {
+    let convoData = {
         UIDOne: renterUID,
         UIDTwo: ownerUID,
         compoundUID,
@@ -54,7 +54,9 @@ class ContactOwnerBase extends React.Component {
     this.props.firebase.db
         .collection('conversations')
         .doc(`${compoundUID}`)
-        .set(data);
+        .set(convoData, { merge: true });
+
+    
     this.setState({ message: '', open: false })
     // add a messages collection to the new conversation
     // add a document to the messages collection with id === timestamp and content === state.message
