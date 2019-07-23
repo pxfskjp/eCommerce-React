@@ -1,53 +1,16 @@
 import React from 'react';
 
 import { withStyles } from "@material-ui/core/styles";
-// import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
-// import CardContent from "@material-ui/core/CardContent";
-// import Grid from "@material-ui/core/Grid";
-// import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from '../ImageCarousel';
 import RequestDatesPopUp from '../RequestTool/RequestDatesPopUp';
+import ContactOwner from './ContactOwner.js';
 
 import axios from 'axios';
 
 import './css/ToolViewRenter.css';
 
 const styles = theme => ({
-    // pageContainer: {
-    //     display: "flex",
-    //     flexDirection: "column"
-    // },
-    // title: {
-    //     padding: 20,
-    //     textAlign: "left"
-    // },
-    // mainContainer: {
-    //     margin: 10,
-    //     height: "100%",
-    //     display: "flex",
-    //     justifyContent: "space-around"
-    // },
-    // leftContainer: {
-    //     border: "1px solid black",
-    //     width: "40%",
-    //     minWidth: 270
-    // },
-    // rightContainer: {
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     alignItems: "space-between",
-    //     border: "1px solid black",
-    //     width: "50%",
-    // },
-    // cardContent: {
-    //     textAlign: "left",
-    //     flexGrow: 1,
-    //     maxHeight: 100,
-    //     minHeight: 100,
-    //     overflow: "hidden"
-    // },
 
 })
 
@@ -127,6 +90,8 @@ class ToolViewRenter extends React.Component {
                     
                         
                         <RequestDatesPopUp toolId={tool.id} userType="renter"/>
+
+                        <ContactOwner />
 
                     </div>
                 </div>
