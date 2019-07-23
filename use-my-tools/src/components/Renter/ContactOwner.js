@@ -31,16 +31,16 @@ class ContactOwnerBase extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleConfirm = () => {
-    const id = this.props.toolId;
-    axios.delete(`/api/tools/tool/delete/${id}`)
-    .then(response => {
-        this.handleClose();
-        this.props.handleToolDelete();
-    })
-    .catch(error => {
-        this.setState({ error: error.message });
-    })
+  handleConfirm = event => {
+
+    // create compoundUID from owner and renter uid
+    
+    // create a document with id === compoundUID in the conversations collection in firestore
+    // create a messages collection
+    // add a document to the messages collection with id === timestamp
+
+
+    event.preventDefault();
   };
 
   render() {

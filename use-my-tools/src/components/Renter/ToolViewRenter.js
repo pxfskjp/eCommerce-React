@@ -24,9 +24,10 @@ class ToolViewRenter extends React.Component {
 
     componentDidMount() {
         let tool_id = this.props.match.params.id;
-        console.log(tool_id);
+        // console.log(tool_id);
         this.getToolInfo(tool_id);
-        console.log(this.state.tool.images);
+        // console.log(this.state.tool.images);
+        console.log(this.state.tool);
     }
 
     getToolInfo = tool_id => {
@@ -40,7 +41,7 @@ class ToolViewRenter extends React.Component {
                     tool: tool.data
                 }, () => { 
                     console.log("ToolView state.tool after getToolInfo:", this.state.tool);
-                    console.log(this.state.tool.images);
+                    // console.log(this.state.tool.images);
                 });
             })
             .catch(error => {
@@ -91,7 +92,7 @@ class ToolViewRenter extends React.Component {
                         
                         <RequestDatesPopUp toolId={tool.id} userType="renter"/>
 
-                        <ContactOwner />
+                        <ContactOwner renterUID={this.state.tool.renterUid} ownerUID={this.state.tool.ownerUid}/>
 
                     </div>
                 </div>
