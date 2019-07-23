@@ -7,8 +7,8 @@ import { withStyles } from "@material-ui/core/styles";
 // import Grid from "@material-ui/core/Grid";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ImageCarousel from './ImageCarousel';
-import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
+import ImageCarousel from '../ImageCarousel';
+import RequestDatesPopUp from '../RequestTool/RequestDatesPopUp';
 
 import axios from 'axios';
 
@@ -137,30 +137,3 @@ class ToolViewRenter extends React.Component {
 }
 
 export default withStyles(styles)(ToolViewRenter);
-
-// <div>
-//                 <Card className={classes.card}>
-//                     <div className={classes.leftContainer}>
-//                         {tool.images ? (
-//                             <ImageCarousel toolImages={tool.images} />
-//                         ) : (
-//                             ''
-//                         )}
-//                     </div>
-
-//                     <div className={classes.rightContainer}>
-//                         <CardContent className={classes.cardContent}>
-//                             <Typography gutterBottom variant="h5" component="h2">
-//                                 {tool.brand}{' '}{tool.name}
-//                             </Typography>
-//                             <Typography>
-//                                 {tool.description}
-//                             </Typography>
-//                         </CardContent>
-                    
-//                         <CardActions>
-//                             <RequestDatesPopUp toolId={tool.id} />
-//                         </CardActions>
-//                     </div>
-//                 </Card>
-//             </div>

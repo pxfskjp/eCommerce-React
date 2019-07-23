@@ -35,6 +35,7 @@ class RequestDatesPopUp extends React.Component {
     blockedDateRanges: [],
     blockedDays: [],
     blockedDaysUpdated: false,
+    datesSubmitted: false,
     error: null
   };
 
@@ -95,14 +96,6 @@ class RequestDatesPopUp extends React.Component {
       })
   };
 
-  handleClose = () => {
-    this.setState({ 
-      startDate: null,
-      endDate: null, 
-      open: false 
-    });
-  };
-
   onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
   };
@@ -125,13 +118,14 @@ class RequestDatesPopUp extends React.Component {
     for (let d = 0; d < datesArray.length; d++) {
       blockedDays.push(datesArray[d]);
     }
-    
     this.setState({ blockedDays });
     
+    // store the selected date range in db:
     axios.post('/api/tools/reserveDates', reservationData)
         .then(response => {
             console.log('Dates reservation created with response: ', response);
-            this.handleClose();
+            //this.handleClose();
+            this.setState({ datesSubmitted: true });
         })
         .catch(error => {
             console.log(error.message);
@@ -166,11 +160,11 @@ class RequestDatesPopUp extends React.Component {
             <DialogContent className={classes.dialogContent}>
               {userType === "renter" ? (
                 <DialogContentText>
-                  Select dates when you want to reserve this tool:
+                  Select dates to reserve this tool:
                 </DialogContentText>
               ) : (
                 <DialogContentText>
-                  Select dates you want to block rental reservations:
+                  Select dates to block from rental reservations:
                 </DialogContentText>
               )}
               
