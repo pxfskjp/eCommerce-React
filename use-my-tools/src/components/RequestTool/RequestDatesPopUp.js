@@ -35,6 +35,7 @@ class RequestDatesPopUp extends React.Component {
     blockedDateRanges: [],
     blockedDays: [],
     blockedDaysUpdated: false,
+    datesSubmitted: false,
     error: null
   };
 
