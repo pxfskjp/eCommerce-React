@@ -95,14 +95,6 @@ class RequestDatesPopUp extends React.Component {
       })
   };
 
-  handleClose = () => {
-    this.setState({ 
-      startDate: null,
-      endDate: null, 
-      open: false 
-    });
-  };
-
   onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
   };
@@ -166,11 +158,11 @@ class RequestDatesPopUp extends React.Component {
             <DialogContent className={classes.dialogContent}>
               {userType === "renter" ? (
                 <DialogContentText>
-                  Select dates when you want to reserve this tool:
+                  Select dates to reserve this tool:
                 </DialogContentText>
               ) : (
                 <DialogContentText>
-                  Select dates you want to block rental reservations:
+                  Select dates to block from rental reservations:
                 </DialogContentText>
               )}
               

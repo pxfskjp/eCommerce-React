@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from './ImageCarousel';
-import RequestDatesPopUp from '../checkout/RequestDatesPopUp';
+import RequestDatesPopUp from '../RequestTool/RequestDatesPopUp';
 
 import axios from 'axios';
 
