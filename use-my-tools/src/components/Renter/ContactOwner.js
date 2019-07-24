@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
 import { withFirebase } from "../Firebase";
-
+import axios from 'axios';
 
 class ContactOwnerBase extends React.Component {
   state = {
@@ -18,6 +18,27 @@ class ContactOwnerBase extends React.Component {
   };
 
   handleClickOpen = () => {
+    const renterUID = this.props.renterUID;  // get uid of current user b/c request is going to firebase and not through built-in server auth
+    const ownerUID = this.props.ownerUID;
+    let renterName = null;
+    let ownerName = null;
+    axios.get(`/api/users/username/${renterUID}`)
+      .then(renter => {
+        renterName = renter.data.first_name + ' ' + renter.data.last_name;
+        console.log('renter name: ', renterName);
+
+        axios.get(`/api/users/username/${ownerUID}`)
+          .then(owner => {
+            ownerName = owner.data.first_name + ' ' + owner.data.last_name;
+            console.log('owner name: ', ownerName);
+          })
+          .catch(error => {
+            console.log(error.message);
+          })
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
     this.setState({ open: true });
   };
 
@@ -30,7 +51,7 @@ class ContactOwnerBase extends React.Component {
   };
 
   handleConfirm = event => {
-    const renterUID = this.props.renterUID;
+    const renterUID = this.props.renterUID;  // get uid of current user b/c request is going to firebase and not through built-in server auth
     const ownerUID = this.props.ownerUID;
     // create compoundUID from owner and renter uid
     let compoundUID = null;
