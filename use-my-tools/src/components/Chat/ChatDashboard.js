@@ -86,33 +86,37 @@ class ChatDashboard extends React.Component {
         const convoSelected = this.state.convoSelected;
         return (
             <div>
-            
-            <div className="chat-dashboard-container">
-                <div className="chat-dash-left-container">
-                    
-                    <ConvoList
-                        uid={this.state.uid}
-                        currentConvoId={this.state.currentConvoId}
-                        currentConvoClosed={this.state.currentConvoClosed}
-                        handleOpenConvoSelect={this.handleOpenConvoSelect}
-                        handleClosedConvoSelect={this.handleClosedConvoSelect}
-                    />
-                </div>
-
-                <div className="chat-dash-right-container">
-                    {!convoSelected ? (
-                        <p>No conversation selected.</p>
-                        ) : (
-                            <ChatView
+                {this.state.uid ? (
+                    <div className="chat-dashboard-container">
+                        <div className="chat-dash-left-container">
+                            
+                            <ConvoList
                                 uid={this.state.uid}
-                                currentConvo={this.state.currentConvo}
-                                closeConvo={this.closeConvo}
+                                currentConvoId={this.state.currentConvoId}
                                 currentConvoClosed={this.state.currentConvoClosed}
+                                handleOpenConvoSelect={this.handleOpenConvoSelect}
+                                handleClosedConvoSelect={this.handleClosedConvoSelect}
                             />
-                        )
-                    }
-                </div>
-            </div>
+                        </div>
+
+                        <div className="chat-dash-right-container">
+                            {!convoSelected ? (
+                                <p>No conversation selected.</p>
+                                ) : (
+                                    <ChatView
+                                        uid={this.state.uid}
+                                        currentConvo={this.state.currentConvo}
+                                        closeConvo={this.closeConvo}
+                                        currentConvoClosed={this.state.currentConvoClosed}
+                                    />
+                                )
+                            }
+                        </div>  
+                    </div>
+                ) : ( 
+                    ''
+                )}
+                
             </div>
         );
     }

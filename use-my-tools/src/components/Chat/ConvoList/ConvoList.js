@@ -82,7 +82,32 @@ class ConvoListBase extends React.Component {
     }
 
     componentDidMount() {
-
+      const uid = this.props.uid;
+      console.log(uid);
+      let openConvos = [];
+      let closedConvos = [];
+      let convos = [];
+      // one-time get of convos all convos (open and closed) where UIDs contains current user uid:
+      this.props.firebase.db
+        .collection('conversations')
+        .where('UIDs', 'array-contains', `${uid}`)
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          }  
+      
+          snapshot.forEach(doc => {
+            convos.push(doc.data());
+            // console.log(doc.id, '=>', doc.data());
+          });
+          console.log(convos);
+          this.setState({ convos });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
 
 
     }
@@ -98,20 +123,6 @@ class ConvoListBase extends React.Component {
       this.setState({ value });
     };
 
-    // handleQueueConvoSelect = (convo_id, customer_uid, customer_name, summary) => {
-    //   // Remove convo from the Queue by updating in_q to false in the convo's db entry
-    //   const data = { id: convo_id };
-    //   const deQueueRequest = axios.put('/api/chat/dequeue', data);
-    //   deQueueRequest
-    //       .then(response => {
-    //           console.log("Conversation removed from Queue.");
-    //           this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);  // call hander at ChatDashboard to pass current convo info to ChatView
-    //           this.setState({ value: 1 });                                                        // switch selected tab to Open tab
-    //       })
-    //       .catch(error => {
-    //           console.log(error.message);
-    //       })
-    // }
 
     render() {
       const { classes } = this.props;
@@ -174,7 +185,7 @@ class ConvoListBase extends React.Component {
     }
 }
 
-ConvoList.propTypes = {
+ConvoListBase.propTypes = {
     classes: PropTypes.object.isRequired
 };
 

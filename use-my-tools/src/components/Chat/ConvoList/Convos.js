@@ -74,11 +74,11 @@ class ConvosBase extends Component {
   componentDidMount() {
     // this.getConvos();
     const uid = this.props.uid;
-    console.log('convos this.props: ', this.props);
+    // console.log('convos this.props: ', this.props);
     const isOpen = this.props.isOpen;
     
     let conversations = [];
-    // one-time get of open convos:
+    // one-time get of convos:
     // this.props.firebase.db
     //   .collection('conversations')
     //   .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
@@ -101,26 +101,26 @@ class ConvosBase extends Component {
     //   });
 
 
-    this.props.firebase.db
-      .collection('conversations')
-      .where('isOpen', '==', isOpen)  //  isOpen can be true or false depending on prop
-      .where('UIDs', 'array-contains', uid)
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          // return;
-        }  
-        snapshot.forEach(doc => {
-          conversations.push(doc.data()); // push each doc from the conversations collection
-          // console.log(doc.id, '=>', doc.data());
-        });
-        console.log('conversations: ', conversations);
-        this.setState({ conversations });
-      })
-      .catch(err => {
-        console.log('Error getting documents', err.message);
-      });
+    // this.props.firebase.db
+    //   .collection('conversations')
+    //   .where('UIDs', 'array-contains', uid)
+    //   .where('isOpen', '==', isOpen)  //  isOpen can be true or false depending on prop
+    //   .get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('No matching documents.');
+    //       // return;
+    //     }  
+    //     snapshot.forEach(doc => {
+    //       conversations.push(doc.data()); // push each doc from the conversations collection
+    //       // console.log(doc.id, '=>', doc.data());
+    //     });
+    //     console.log('conversations: ', conversations);
+    //     this.setState({ conversations });
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err.message);
+    //   });
 
 
   }
