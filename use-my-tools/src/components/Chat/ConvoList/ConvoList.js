@@ -135,8 +135,15 @@ class ConvoListBase extends React.Component {
               
             if (change.type === 'modified') {
               if (change.doc.data().isOpen === false) {
-                closedConvos.push(change.doc.data());
+                console.log('convo changed to closed: ', change.doc.data());
+                // closedConvos.push(change.doc.data());
+
+                openConvos = openConvos.filter(function(convo) {
+                  return convo.compoundUID !== change.doc.data().compoundUID;
+                })
+                console.log(openConvos);
               } else {
+                console.log('convo changed to open: ', change.doc.data());
                 openConvos.push(change.doc.data());
               }
             }
@@ -149,17 +156,9 @@ class ConvoListBase extends React.Component {
 
     }
 
-
-    // getNewConvos is used by Convolist to check how many New Convos are in the database
-    // in order to update the number icon on the New tab showing how many are in that list
-    // even when another tab/list is selected:
-
-    
-
     handleTabSelect= (event, value) => {
       this.setState({ value });
     };
-
 
     render() {
       const { classes } = this.props;
@@ -192,7 +191,7 @@ class ConvoListBase extends React.Component {
                     }
                   /> */}
                   <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Open</h1>} />
-                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} />
+                  {/* <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} /> */}
               </Tabs>
             </Paper>
           </div>
@@ -207,7 +206,7 @@ class ConvoListBase extends React.Component {
                     handleConvoSelect={this.props.handleOpenConvoSelect} 
                   />
                 }
-                {this.state.value === 1 && 
+                {/* {this.state.value === 1 && 
                   <Convos 
                     convos={this.state.closedConvos}
                     uid={this.props.uid}
@@ -216,7 +215,7 @@ class ConvoListBase extends React.Component {
                     currentConvoClosed={this.props.currentConvoClosed} 
                     handleConvoSelect={this.props.handleClosedConvoSelect} 
                   />
-                }
+                } */}
           </div>
 
         </div>

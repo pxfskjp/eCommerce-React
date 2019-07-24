@@ -202,7 +202,7 @@ class ChatViewBase extends Component {
   };
 
   // method to mark the convo as closed
-  handleCloseConvo = event => {
+  handleCloseConvo = event => { 
       // this.props.closeConvo();
       const { compoundUID } = this.state;
       this.props.firebase.db
