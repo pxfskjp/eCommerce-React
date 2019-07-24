@@ -4,7 +4,8 @@ module.exports = {
     createUser,
     getUserInfo,
     updateUserDetails,
-    getUserLocation
+    getUserLocation,
+    getUserName
 }
 
 function createUser(newUser) {
@@ -33,6 +34,19 @@ function getUserInfo(uid) {
             .then(users => {
                 return users[0];
             });
+}
+
+function getUserName(uid) {
+    return db 
+        .select([
+            'users.first_name',
+            'users.last_name'
+        ])
+        .from('users')
+        .where('users.uid', uid)
+        .then(users => {
+            return users[0];
+        });
 }
 
 function getUserLocation(uid) {

@@ -175,6 +175,7 @@ router.post('/findtools', async (req, res) => {
 })
 
 router.get('/renter/singletool/:id', (req, res) => {
+    const uid = req.body.uid;
     const id = req.params.id;
     toolsDb.getTool(id)
         .then(tool => {
@@ -182,6 +183,9 @@ router.get('/renter/singletool/:id', (req, res) => {
                 .then(images => {
                     // console.log('response from db getToolImages query: ', images);
                     tool.images = images;  // append images array to tool object
+
+                    // add uid to response to identify renter on front end:
+                    tool.renterUid = uid;
                     // console.log('tool with images for /renter/singletool/:id response: ', tool );
                     res.status(200).json(tool);  // Send back tool with images appended as response
                 })

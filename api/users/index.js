@@ -73,6 +73,18 @@ router.get('/userinfo', (req, res) => {
         })
 })
 
+// Get first and last name of a user:
+router.get('/username/:uid', (req, res) => {
+    let uid = req.params.uid;
+    usersDb.getUserName(uid)
+        .then(response => {
+            res.status(200).json(response);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 // Update profile details for a logged in user:
 router.put('/updateuserdetails', (req, res) => {
 
