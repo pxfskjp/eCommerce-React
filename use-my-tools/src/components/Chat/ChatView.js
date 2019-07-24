@@ -318,7 +318,7 @@ class ChatViewBase extends Component {
                   </div>       */}
                   <form className={classes.inputForm} onSubmit={this.onSubmit}>
                     <input
-                      hintText="message"
+                      // hintText="message"
                       name="message"
                       type="text"
                       value={this.state.message}
