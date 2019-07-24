@@ -75,6 +75,7 @@ class ConvoListBase extends React.Component {
         this.state = {
           value: 0,  // value corresponding to Open tab to display the Open convo list on mount
           newConvosCount: 0,
+          convos: [],
           openConvos: [],
           closedConvos: []
         };
@@ -87,7 +88,7 @@ class ConvoListBase extends React.Component {
       let openConvos = [];
       let closedConvos = [];
       let convos = [];
-      // one-time get of convos all convos (open and closed) where UIDs contains current user uid:
+      // one-time get of convos (open and closed) where UIDs array contains current user uid:
       this.props.firebase.db
         .collection('conversations')
         .where('UIDs', 'array-contains', `${uid}`)
@@ -99,11 +100,17 @@ class ConvoListBase extends React.Component {
           }  
       
           snapshot.forEach(doc => {
-            convos.push(doc.data());
+            if (doc.data().isOpen === true) {
+              openConvos.push(doc.data());
+            } else {
+              closedConvos.push(doc.data());
+            }
+              
             // console.log(doc.id, '=>', doc.data());
           });
-          console.log(convos);
-          this.setState({ convos });
+          console.log('openConvos: ', openConvos);
+          console.log('closedConvos: ', closedConvos);
+          this.setState({ openConvos, closedConvos });
         })
         .catch(err => {
           console.log('Error getting documents', err);
