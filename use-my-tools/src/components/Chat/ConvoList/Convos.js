@@ -63,9 +63,9 @@ const styles = theme => ({
 });
 
 const ConvosBase = props => {
-  
     
   const { classes } = props;
+  
   return (
     <div className={classes.root}>
       <Typography
@@ -74,7 +74,12 @@ const ConvosBase = props => {
       </Typography>
       <div className={classes.convoList}>
           {props.convos.map((convo, index) => {
-
+            let recipientUID = null;
+            if (convo.UIDs[0] === props.uid) {
+              recipientUID = convo.UIDs[1];
+            } else {
+              recipientUID = convo.UIDs[0];
+            }
             return (
               <div className={classes.queueItem} key={index}>
                 <MuiThemeProvider>
@@ -84,7 +89,7 @@ const ConvosBase = props => {
                     // onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
                     onClick={() => props.handleConvoSelect(convo)}
                   >
-                    <p>{convo.compoundUID}</p>
+                    <p>{convo[recipientUID]}</p>
                   </Paper>
                 </MuiThemeProvider>
               </div>
