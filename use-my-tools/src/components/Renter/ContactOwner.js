@@ -7,20 +7,49 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
-import axios from 'axios';
-
 import { withFirebase } from "../Firebase";
-
+import axios from 'axios';
 
 class ContactOwnerBase extends React.Component {
   state = {
     open: false,
+    renterName: '',
+    ownerName: '',
     message: '',
     error: null
   };
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    const renterUID = this.props.renterUID;  // get uid of current user b/c request is going to firebase and not through built-in server auth
+    const ownerUID = this.props.ownerUID;
+    let renterName = null;
+    let ownerName = null;
+
+    axios.get(`/api/users/username/${renterUID}`)
+      .then(renter => {
+        renterName = renter.data.first_name + ' ' + renter.data.last_name;
+        // console.log('renter name: ', renterName);
+
+        axios.get(`/api/users/username/${ownerUID}`)
+          .then(owner => {
+            ownerName = owner.data.first_name + ' ' + owner.data.last_name;
+            this.setState({ 
+              open: true,
+              renterName,
+              ownerName
+            }, () => console.log(this.state));
+            // console.log('owner name: ', ownerName);
+          })
+          .catch(error => {
+            console.log(error.message);
+          })
+
+      })
+      .catch(error => {
+        console.log(error.message);
+      })
+
+    
   };
 
   handleClose = () => {
@@ -32,7 +61,7 @@ class ContactOwnerBase extends React.Component {
   };
 
   handleConfirm = event => {
-    const renterUID = this.props.renterUID;
+    const renterUID = this.props.renterUID;  // get uid of current user b/c request is going to firebase and not through built-in server auth
     const ownerUID = this.props.ownerUID;
     // create compoundUID from owner and renter uid
     let compoundUID = null;
@@ -45,8 +74,11 @@ class ContactOwnerBase extends React.Component {
 
     // define convo data for conversations collection:
     let convoData = {
-        UIDOne: renterUID,
-        UIDTwo: ownerUID,
+        // UIDOne: renterUID,
+        // UIDTwo: ownerUID,
+        UIDs: [renterUID, ownerUID],      // store UIDs in array so that convos can be queried on the array containing a uid
+        [renterUID]: this.state.renterName, // store name as value with uid as key so that each name is tied to the correct uid
+        [ownerUID]: this.state.ownerName,   // store name as value with uid as key so that each name is tied to the correct uid
         compoundUID,
         isOpen: true,
     }
@@ -55,7 +87,7 @@ class ContactOwnerBase extends React.Component {
     this.props.firebase.db
         .collection('conversations')
         .doc(`${compoundUID}`)
-        .set(convoData, { merge: true });
+        .set(convoData, { merge: true }); // merge if there is existing doc with same id, i.e., convo already started between the two users
 
 
     // define message data for firestore:

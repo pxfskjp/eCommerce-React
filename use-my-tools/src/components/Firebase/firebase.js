@@ -23,7 +23,7 @@ class Firebase {
     // Firebase APIs:
     this.auth = app.auth();	 
     this.db = app.firestore();
-
+    
   }
 
   createUser = (email, password) => 

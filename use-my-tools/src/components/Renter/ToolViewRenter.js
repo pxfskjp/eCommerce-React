@@ -51,7 +51,7 @@ class ToolViewRenter extends React.Component {
 
     render() {
         const { tool } = this.state;
-        const { classes } = this.props;
+        // const { classes } = this.props;
 
         return (
             <div className="pageContainer">

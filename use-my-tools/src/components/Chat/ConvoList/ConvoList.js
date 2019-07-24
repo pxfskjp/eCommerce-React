@@ -10,6 +10,8 @@ import Tab from "@material-ui/core/Tab";
 // import NoSsr from "@material-ui/core/NoSsr";
 // import Typography from "@material-ui/core/Typography";
 
+import { withFirebase } from "../../Firebase";
+
 import Convos from './Convos';
 
 
@@ -67,62 +69,67 @@ const styles = {
   }
 };
 
-class ConvoList extends React.Component {
+class ConvoListBase extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
           value: 0,  // value corresponding to Open tab to display the Open convo list on mount
-          newConvosCount: 0
+          newConvosCount: 0,
+          convos: [],
+          openConvos: [],
+          closedConvos: []
         };
         // this.intervalID = 0;
     }
 
-    
-
     componentDidMount() {
-      // this.intervalID = setInterval(this.getNewConvos, 5000);
+      const uid = this.props.uid;
+      console.log(uid);
+      let openConvos = [];
+      let closedConvos = [];
+      let convos = [];
+      // one-time get of convos (open and closed) where UIDs array contains current user uid:
+      this.props.firebase.db
+        .collection('conversations')
+        .where('UIDs', 'array-contains', `${uid}`)
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          }  
+      
+          snapshot.forEach(doc => {
+            if (doc.data().isOpen === true) {
+              openConvos.push(doc.data());
+            } else {
+              closedConvos.push(doc.data());
+            }
+              
+            // console.log(doc.id, '=>', doc.data());
+          });
+          console.log('openConvos: ', openConvos);
+          console.log('closedConvos: ', closedConvos);
+          this.setState({ openConvos, closedConvos });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
+
+
     }
 
-    componentWillUnmount() {
-      // clearInterval(this.intervalID);
-    }
 
     // getNewConvos is used by Convolist to check how many New Convos are in the database
     // in order to update the number icon on the New tab showing how many are in that list
     // even when another tab/list is selected:
 
-    // getNewConvos= () => {
-    //   axios.get(`/api/chat/queue`)
-    //   .then(response => {
-    //     // if (response.data.length > this.state.newConvos.length) {
-    //       this.setState({
-    //         newConvosCount: response.data.length
-    //       }, () => console.log('newConvosLength: ', this.state.newConvosLength));
-    //     // }
-    //   })
-    //   .catch(error => {
-    //     console.log(error.message);
-    //   })
-    // }
+    
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
     };
 
-    // handleQueueConvoSelect = (convo_id, customer_uid, customer_name, summary) => {
-    //   // Remove convo from the Queue by updating in_q to false in the convo's db entry
-    //   const data = { id: convo_id };
-    //   const deQueueRequest = axios.put('/api/chat/dequeue', data);
-    //   deQueueRequest
-    //       .then(response => {
-    //           console.log("Conversation removed from Queue.");
-    //           this.props.handleQueueConvoSelect(convo_id, customer_uid, customer_name, summary);  // call hander at ChatDashboard to pass current convo info to ChatView
-    //           this.setState({ value: 1 });                                                        // switch selected tab to Open tab
-    //       })
-    //       .catch(error => {
-    //           console.log(error.message);
-    //       })
-    // }
 
     render() {
       const { classes } = this.props;
@@ -163,14 +170,18 @@ class ConvoList extends React.Component {
           <div className={classes.queueList}>
                 {this.state.value === 0 && 
                   <Convos  
-                    isOpen={true} 
+                    convos={this.state.openConvos}
+                    uid={this.props.uid}
+                    // isOpen={true} 
                     currentConvoId={this.props.currentConvoId} 
                     handleConvoSelect={this.props.handleOpenConvoSelect} 
                   />
                 }
                 {this.state.value === 1 && 
                   <Convos 
-                    isOpen={false} 
+                    convos={this.state.closedConvos}
+                    uid={this.props.uid}
+                    // isOpen={false} 
                     currentConvoId={this.props.currentConvoId} 
                     currentConvoClosed={this.props.currentConvoClosed} 
                     handleConvoSelect={this.props.handleClosedConvoSelect} 
@@ -183,8 +194,11 @@ class ConvoList extends React.Component {
     }
 }
 
-ConvoList.propTypes = {
+ConvoListBase.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ConvoList);
+ 
+const ConvoList = withStyles(styles)(withFirebase(ConvoListBase));
+
+export default ConvoList;

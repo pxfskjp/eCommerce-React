@@ -66,7 +66,7 @@ class ImageCarousel extends React.Component {
                 ? toolImages[activeStep].url
                 : "https://openclipart.org/image/2400px/svg_to_png/298157/CrossedTools.png"
             }
-            alt="tool-image"
+            alt="tool"
           />
         </div>
         <MobileStepper

@@ -107,7 +107,6 @@ class AccountPage extends Component {
         });
     };
     
-    
     imageUpload = event => {
         console.log('inside imageUpload file is', this.state.selectedFile);
     
@@ -200,7 +199,7 @@ class AccountPage extends Component {
                     
                         <img
                             src={this.state.imageUrl}
-                            alt="profile picture"
+                            alt="avatar"
                         />
                         
                     
