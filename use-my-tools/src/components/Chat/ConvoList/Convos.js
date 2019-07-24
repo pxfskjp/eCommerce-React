@@ -112,7 +112,7 @@ class ConvosBase extends Component {
           // return;
         }  
         snapshot.forEach(doc => {
-          conversations.push(doc.data());
+          conversations.push(doc.data()); // push each doc from the conversations collection
           // console.log(doc.id, '=>', doc.data());
         });
         console.log('conversations after first query: ', conversations);

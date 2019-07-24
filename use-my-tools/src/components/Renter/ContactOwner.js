@@ -76,7 +76,9 @@ class ContactOwnerBase extends React.Component {
     let convoData = {
         // UIDOne: renterUID,
         // UIDTwo: ownerUID,
-        UIDs: [renterUID, ownerUID],
+        UIDs: [renterUID, ownerUID],      // store UIDs in array so that convos can be queried on the array containing a uid
+        [renterUID]: this.state.renterName, // store name as value with uid as key so that each name is tied to the correct uid
+        [ownerUID]: this.state.ownerName,   // store name as value with uid as key so that each name is tied to the correct uid
         compoundUID,
         isOpen: true,
     }
@@ -85,7 +87,7 @@ class ContactOwnerBase extends React.Component {
     this.props.firebase.db
         .collection('conversations')
         .doc(`${compoundUID}`)
-        .set(convoData, { merge: true });
+        .set(convoData, { merge: true }); // merge if there is existing doc with same id, i.e., convo already started between the two users
 
 
     // define message data for firestore:
