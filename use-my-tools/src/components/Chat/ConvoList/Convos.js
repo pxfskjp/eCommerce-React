@@ -62,68 +62,110 @@ const styles = theme => ({
   }
 });
 
-class ConvosBase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      conversations: []
-    }
+const ConvosBase = props => {
+  
     
-  }
+  const { classes } = props;
+  return (
+    <div className={classes.root}>
+      <Typography
+        variant='h4'
+      >
+      </Typography>
+      <div className={classes.convoList}>
+          {props.convos.map((convo, index) => {
 
-  componentDidMount() {
-    // this.getConvos();
-    const uid = this.props.uid;
-    // console.log('convos this.props: ', this.props);
-    const isOpen = this.props.isOpen;
+            return (
+              <div className={classes.queueItem} key={index}>
+                <MuiThemeProvider>
+                  <Paper
+                    className={classes.paper}
+                    style={{ backgroundColor: props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
+                    // onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
+                    onClick={() => props.handleConvoSelect(convo)}
+                  >
+                    <p>{convo.compoundUID}</p>
+                  </Paper>
+                </MuiThemeProvider>
+              </div>
+            );
+          })}
+          <div className={classes.listFooter}>
+            <p>End of list</p>
+          </div>
+      </div>
+    </div>
+
+  );
     
-    let conversations = [];
-    // one-time get of convos:
-    // this.props.firebase.db
-    //   .collection('conversations')
-    //   .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('No matching documents.');
-    //       return;
-    //     }  
+}
+
+const Convos =  withStyles(styles)(withFirebase(ConvosBase));
+
+export default Convos;
+
+
+// constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     conversations: []
+  //   }
     
-    //     snapshot.forEach(doc => {
-    //       conversations.push(doc.data());
-    //       // console.log(doc.id, '=>', doc.data());
-    //     });
-    //     console.log(conversations);
-    //     this.setState({ conversations });
-    //   })
-    //   .catch(err => {
-    //     console.log('Error getting documents', err);
-    //   });
+  // }
+
+  // componentDidMount() {
+  //   // this.getConvos();
+  //   const uid = this.props.uid;
+  //   // console.log('convos this.props: ', this.props);
+  //   const isOpen = this.props.isOpen;
+    
+  //   let conversations = [];
+  //   // one-time get of convos:
+  //   // this.props.firebase.db
+  //   //   .collection('conversations')
+  //   //   .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
+  //   //   .get()
+  //   //   .then(snapshot => {
+  //   //     if (snapshot.empty) {
+  //   //       console.log('No matching documents.');
+  //   //       return;
+  //   //     }  
+    
+  //   //     snapshot.forEach(doc => {
+  //   //       conversations.push(doc.data());
+  //   //       // console.log(doc.id, '=>', doc.data());
+  //   //     });
+  //   //     console.log(conversations);
+  //   //     this.setState({ conversations });
+  //   //   })
+  //   //   .catch(err => {
+  //   //     console.log('Error getting documents', err);
+  //   //   });
 
 
-    // this.props.firebase.db
-    //   .collection('conversations')
-    //   .where('UIDs', 'array-contains', uid)
-    //   .where('isOpen', '==', isOpen)  //  isOpen can be true or false depending on prop
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('No matching documents.');
-    //       // return;
-    //     }  
-    //     snapshot.forEach(doc => {
-    //       conversations.push(doc.data()); // push each doc from the conversations collection
-    //       // console.log(doc.id, '=>', doc.data());
-    //     });
-    //     console.log('conversations: ', conversations);
-    //     this.setState({ conversations });
-    //   })
-    //   .catch(err => {
-    //     console.log('Error getting documents', err.message);
-    //   });
+  //   // this.props.firebase.db
+  //   //   .collection('conversations')
+  //   //   .where('UIDs', 'array-contains', uid)
+  //   //   .where('isOpen', '==', isOpen)  //  isOpen can be true or false depending on prop
+  //   //   .get()
+  //   //   .then(snapshot => {
+  //   //     if (snapshot.empty) {
+  //   //       console.log('No matching documents.');
+  //   //       // return;
+  //   //     }  
+  //   //     snapshot.forEach(doc => {
+  //   //       conversations.push(doc.data()); // push each doc from the conversations collection
+  //   //       // console.log(doc.id, '=>', doc.data());
+  //   //     });
+  //   //     console.log('conversations: ', conversations);
+  //   //     this.setState({ conversations });
+  //   //   })
+  //   //   .catch(err => {
+  //   //     console.log('Error getting documents', err.message);
+  //   //   });
 
 
-  }
+  // }
 
   // getConvos = () => {
   //   console.log('getConvos called');
@@ -146,52 +188,38 @@ class ConvosBase extends Component {
   //   }
   // }
 
-    render() {
-        const { classes } = this.props;
+  // render() {
+    //     const { classes } = this.props;
+        
+//     return (
+//       <div className={classes.root}>
+//         <Typography
+//           variant='h4'
+//         >
+//         </Typography>
+//         <div className={classes.convoList}>
+//             {this.state.conversations.map((convo, index) => {
 
-        return (
-          <div className={classes.root}>
-            <Typography
-              variant='h4'
-            >
-            </Typography>
-            <div className={classes.convoList}>
-                {this.state.conversations.map((convo, index) => {
+//               return (
+//                 <div className={classes.queueItem} key={index}>
+//                   <MuiThemeProvider>
+//                     <Paper
+//                       className={classes.paper}
+//                       style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
+//                       // onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
+//                       onClick={() => this.props.handleConvoSelect(convo)}
+//                     >
+//                       <p>{convo.compoundUID}</p>
+//                     </Paper>
+//                   </MuiThemeProvider>
+//                 </div>
+//               );
+//             })}
+//             <div className={classes.listFooter}>
+//               <p>End of list</p>
+//             </div>
+//         </div>
+//       </div>
 
-                  return (
-                    <div className={classes.queueItem} key={index}>
-                      <MuiThemeProvider>
-                        <Paper
-                          className={classes.paper}
-                          style={{ backgroundColor: this.props.currentConvoId === convo.convo_id ? '#E7E7E7' : 'white' }}
-                          // onClick={() => this.props.handleConvoSelect(convo.compoundUID)}
-                          onClick={() => this.props.handleConvoSelect(convo)}
-                        >
-                          <p>{convo.compoundUID}</p>
-                        </Paper>
-                      </MuiThemeProvider>
-                    </div>
-                  );
-                })}
-                <div className={classes.listFooter}>
-                  <p>End of list</p>
-                </div>
-            </div>
-          </div>
-
-        );
-    }
-}
-
-
-// const Convos =  withStyles(styles)(withFirebase(ConvosBase));
-
-// export default (ConvosBox);
-
-// export {Convos}
-
-const Convos =  withStyles(styles)(withFirebase(ConvosBase));
-
-export default Convos;
-
-
+//     );
+// // }
