@@ -203,8 +203,14 @@ class ChatViewBase extends Component {
 
   // method to mark the convo as closed
   handleCloseConvo = event => {
-      this.props.closeConvo();
-      this.setState({ is_closed: true });
+      // this.props.closeConvo();
+      const { compoundUID } = this.state;
+      this.props.firebase.db
+        .collection('conversations')
+        .doc(compoundUID)
+        .update({ isOpen: false });
+      
+      this.setState({ isClosed: true });
       event.preventDefault();
   }
 
@@ -214,7 +220,7 @@ class ChatViewBase extends Component {
 
 
     render() {
-        const currentConvoClosed = this.props.currentConvoClosed;
+        const isClosed = this.state.isClosed;
         const compoundUID = this.props.currentCompoundUID;
         const { classes } = this.props;
         return (
@@ -263,7 +269,7 @@ class ChatViewBase extends Component {
                         );
                     })}
               </div>
-              {currentConvoClosed ? (
+              {isClosed ? (
                 <h1>This conversation is closed.</h1>
               ) : (
                 <div className={classes.inputArea}>

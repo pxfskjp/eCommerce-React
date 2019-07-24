@@ -89,31 +89,61 @@ class ConvoListBase extends React.Component {
       let closedConvos = [];
       let convos = [];
       // one-time get of convos (open and closed) where UIDs array contains current user uid:
+      // this.props.firebase.db
+      //   .collection('conversations')
+      //   .where('UIDs', 'array-contains', `${uid}`)
+      //   .get()
+      //   .then(snapshot => {
+      //     if (snapshot.empty) {
+      //       console.log('No matching documents.');
+      //       return;
+      //     }  
+      
+      //     snapshot.forEach(doc => {
+      //       if (doc.data().isOpen === true) {
+      //         openConvos.push(doc.data());
+      //       } else {
+      //         closedConvos.push(doc.data());
+      //       }
+              
+      //       // console.log(doc.id, '=>', doc.data());
+      //     });
+      //     console.log('openConvos: ', openConvos);
+      //     console.log('closedConvos: ', closedConvos);
+      //     this.setState({ openConvos, closedConvos });
+      //   })
+      //   .catch(err => {
+      //     console.log('Error getting documents', err);
+      //   });
+
+      // initialize listener to Firestore db and get existing messages
+      // listen with onSnapshot()
+      // The first query snapshot contains 'added' events 
+      // for all existing documents that match the query  
       this.props.firebase.db
         .collection('conversations')
         .where('UIDs', 'array-contains', `${uid}`)
-        .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('No matching documents.');
-            return;
-          }  
-      
-          snapshot.forEach(doc => {
-            if (doc.data().isOpen === true) {
-              openConvos.push(doc.data());
-            } else {
-              closedConvos.push(doc.data());
+        .onSnapshot(querySnapshot => {
+          querySnapshot.docChanges().forEach(change => {
+            if (change.type === 'added') {
+              if (change.doc.data().isOpen === false) {
+                closedConvos.push(change.doc.data());
+              } else {
+                openConvos.push(change.doc.data());
+              }
             }
               
-            // console.log(doc.id, '=>', doc.data());
-          });
+            if (change.type === 'modified') {
+              if (change.doc.data().isOpen === false) {
+                closedConvos.push(change.doc.data());
+              } else {
+                openConvos.push(change.doc.data());
+              }
+            }
+          })
           console.log('openConvos: ', openConvos);
           console.log('closedConvos: ', closedConvos);
           this.setState({ openConvos, closedConvos });
-        })
-        .catch(err => {
-          console.log('Error getting documents', err);
         });
 
 
