@@ -103,8 +103,8 @@ class ConvosBase extends Component {
 
     this.props.firebase.db
       .collection('conversations')
-      .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
-      .where('UIDOne', '==', uid)
+      .where('isOpen', '==', isOpen)  //  isOpen can be true or false depending on prop
+      .where('UIDs', 'array-contains', uid)
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -115,31 +115,11 @@ class ConvosBase extends Component {
           conversations.push(doc.data()); // push each doc from the conversations collection
           // console.log(doc.id, '=>', doc.data());
         });
-        console.log('conversations after first query: ', conversations);
-      })
-      .catch(err => {
-        console.log('Error getting documents', err);
-      });
-
-    this.props.firebase.db
-      .collection('conversations')
-      .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
-      .where('UIDTwo', '==', uid)
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          // return;
-        }  
-        snapshot.forEach(doc => {
-          conversations.push(doc.data());
-          // console.log(doc.id, '=>', doc.data());
-        });
-        console.log('conversations after second query: ', conversations);
+        console.log('conversations: ', conversations);
         this.setState({ conversations });
       })
       .catch(err => {
-        console.log('Error getting documents', err);
+        console.log('Error getting documents', err.message);
       });
 
 

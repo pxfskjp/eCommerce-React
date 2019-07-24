@@ -10,6 +10,8 @@ import Tab from "@material-ui/core/Tab";
 // import NoSsr from "@material-ui/core/NoSsr";
 // import Typography from "@material-ui/core/Typography";
 
+import { withFirebase } from "../../Firebase";
+
 import Convos from './Convos';
 
 
@@ -67,43 +69,30 @@ const styles = {
   }
 };
 
-class ConvoList extends React.Component {
+class ConvoListBase extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
           value: 0,  // value corresponding to Open tab to display the Open convo list on mount
-          newConvosCount: 0
+          newConvosCount: 0,
+          openConvos: [],
+          closedConvos: []
         };
         // this.intervalID = 0;
     }
 
-    
-
     componentDidMount() {
-      // this.intervalID = setInterval(this.getNewConvos, 5000);
+
+
+
     }
 
-    componentWillUnmount() {
-      // clearInterval(this.intervalID);
-    }
 
     // getNewConvos is used by Convolist to check how many New Convos are in the database
     // in order to update the number icon on the New tab showing how many are in that list
     // even when another tab/list is selected:
 
-    // getNewConvos= () => {
-    //   axios.get(`/api/chat/queue`)
-    //   .then(response => {
-    //     // if (response.data.length > this.state.newConvos.length) {
-    //       this.setState({
-    //         newConvosCount: response.data.length
-    //       }, () => console.log('newConvosLength: ', this.state.newConvosLength));
-    //     // }
-    //   })
-    //   .catch(error => {
-    //     console.log(error.message);
-    //   })
-    // }
+    
 
     handleTabSelect= (event, value) => {
       this.setState({ value });
@@ -189,4 +178,7 @@ ConvoList.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ConvoList);
+ 
+const ConvoList = withStyles(styles)(withFirebase(ConvoListBase));
+
+export default ConvoList;
