@@ -124,14 +124,18 @@ class RequestDatesPopUp extends React.Component {
     axios.post('/api/tools/reserveDates', reservationData)
         .then(response => {
             console.log('Dates reservation created with response: ', response);
-            //this.handleClose();
-            this.setState({ datesSubmitted: true });
+            this.handleClose();
+            // this.setState({ datesSubmitted: true });
         })
         .catch(error => {
             console.log(error.message);
             this.setState({ error: error.message });
         })
   };
+
+  handleClose = event => {
+    this.setState({ open: false });
+  }
 
   render() {
     const { classes } = this.props;
