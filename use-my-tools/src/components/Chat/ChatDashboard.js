@@ -91,6 +91,7 @@ class ChatDashboard extends React.Component {
                 <div className="chat-dash-left-container">
                     
                     <ConvoList
+                        uid={this.state.uid}
                         currentConvoId={this.state.currentConvoId}
                         currentConvoClosed={this.state.currentConvoClosed}
                         handleOpenConvoSelect={this.handleOpenConvoSelect}

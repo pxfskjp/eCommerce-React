@@ -5,15 +5,15 @@ import { withRouter} from "react-router-dom"
 import Typography from '@material-ui/core/Typography';
 // import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-import Paper from '@material-ui/core/Paper';
-import Avatar from '@material-ui/core/Avatar';
+// import Paper from '@material-ui/core/Paper';
+// import Avatar from '@material-ui/core/Avatar';
 // import ButtonBase from '@material-ui/core/ButtonBase';
 // import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import './ChatView.css';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 
 import { withFirebase } from "../Firebase";
 
@@ -175,7 +175,7 @@ class ChatViewBase extends Component {
     // The first query snapshot contains 'added' events 
     // for all existing documents that match the query
     let messages = [];
-    let messagesQuery = this.props.firebase.db
+    this.props.firebase.db
       .collection('conversations')
       .doc(compoundUID)
       .collection('messages')

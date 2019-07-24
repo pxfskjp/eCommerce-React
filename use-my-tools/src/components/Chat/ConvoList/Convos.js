@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import io from 'socket.io-client';
 // import { withRouter} from "react-router-dom"
 // import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
-import axios from 'axios';
+// import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
 // import Grid from '@material-ui/core/Grid';
@@ -82,21 +82,64 @@ class ConvosBase extends Component {
 
   componentDidMount() {
     // this.getConvos();
+    const uid = this.props.uid;
     console.log('convos this.props: ', this.props);
     const isOpen = this.props.isOpen;
     
     let conversations = [];
     // one-time get of open convos:
+    // this.props.firebase.db
+    //   .collection('conversations')
+    //   .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
+    //   .get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('No matching documents.');
+    //       return;
+    //     }  
+    
+    //     snapshot.forEach(doc => {
+    //       conversations.push(doc.data());
+    //       // console.log(doc.id, '=>', doc.data());
+    //     });
+    //     console.log(conversations);
+    //     this.setState({ conversations });
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
+
+
     this.props.firebase.db
       .collection('conversations')
-      .where('isOpen', '==', isOpen)
+      .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
+      .where('UIDOne', '==', uid)
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
           console.log('No matching documents.');
-          return;
+          // return;
         }  
-    
+        snapshot.forEach(doc => {
+          conversations.push(doc.data());
+          // console.log(doc.id, '=>', doc.data());
+        });
+        console.log(conversations);
+      })
+      .catch(err => {
+        console.log('Error getting documents', err);
+      });
+
+    this.props.firebase.db
+      .collection('conversations')
+      .where('isOpen', '==', isOpen)  //isOpen can be true or false depending on prop
+      .where('UIDTwo', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('No matching documents.');
+          // return;
+        }  
         snapshot.forEach(doc => {
           conversations.push(doc.data());
           // console.log(doc.id, '=>', doc.data());
@@ -107,30 +150,8 @@ class ConvosBase extends Component {
       .catch(err => {
         console.log('Error getting documents', err);
       });
-    
-    // get single from convos list:
-    // let conversationsRef = this.props.firebase.db
-    //   .collection('conversations')
-    //   .where('isOpen', '==', true);
-    // let convo = conversationsRef
-    //   .where('compoundUID', '==', 'aabb')
-    //   .get();
-    // console.log(convo);
-      
-    // initialize listener to convos:
-    // this.props.firebase.users().on('value', snapshot => {
-    //   const usersObject = snapshot.val();
 
-    //   const usersList = Object.keys(usersObject).map(key => ({
-    //     ...usersObject[key],
-    //     uid: key,
-    //   }));
 
-    //   this.setState({
-    //     users: usersList,
-    //     loading: false,
-    //   });
-    // });
   }
 
   // getConvos = () => {

@@ -115,7 +115,7 @@ class FindTools extends Component {
                                     <Grid item xs={3} key={index}>
                                         <Card className={classes.card}>
                                             {/* <ImageCarousel toolImages={tool.images} /> */}
-                                            <img src={tool.images[0].url} alt="tool-image" />
+                                            <img src={tool.images[0].url} alt="tool" />
                                             <CardContent className={classes.cardContent}>
                                                 <Typography gutterBottom className={classes.cardTitle} >
                                                     {tool.brand}{' '}{tool.name}

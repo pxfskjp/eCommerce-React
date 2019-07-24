@@ -163,6 +163,7 @@ class ConvoList extends React.Component {
           <div className={classes.queueList}>
                 {this.state.value === 0 && 
                   <Convos  
+                    uid={this.props.uid}
                     isOpen={true} 
                     currentConvoId={this.props.currentConvoId} 
                     handleConvoSelect={this.props.handleOpenConvoSelect} 
@@ -170,6 +171,7 @@ class ConvoList extends React.Component {
                 }
                 {this.state.value === 1 && 
                   <Convos 
+                    uid={this.props.uid}
                     isOpen={false} 
                     currentConvoId={this.props.currentConvoId} 
                     currentConvoClosed={this.props.currentConvoClosed} 
