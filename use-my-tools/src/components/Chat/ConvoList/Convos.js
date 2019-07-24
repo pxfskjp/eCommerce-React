@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import io from 'socket.io-client';
 // import { withRouter} from "react-router-dom"
 // import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
 // import axios from 'axios';
@@ -12,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
 import { withFirebase } from "../../Firebase";
-// import { FirebaseContext } from '../../Firebase';
+
 
 const styles = theme => ({
   root: {
@@ -62,14 +61,6 @@ const styles = theme => ({
     fontSize: '20px',
   }
 });
-
-// const ConvosBox = () => (
-//   <div>
-//     <FirebaseContext.Consumer>
-//       {firebase => <Convos firebase={firebase} />}
-//     </FirebaseContext.Consumer>
-//   </div>
-// );
 
 class ConvosBase extends Component {
   constructor(props) {
@@ -124,7 +115,7 @@ class ConvosBase extends Component {
           conversations.push(doc.data());
           // console.log(doc.id, '=>', doc.data());
         });
-        console.log(conversations);
+        console.log('conversations after first query: ', conversations);
       })
       .catch(err => {
         console.log('Error getting documents', err);
@@ -144,7 +135,7 @@ class ConvosBase extends Component {
           conversations.push(doc.data());
           // console.log(doc.id, '=>', doc.data());
         });
-        console.log(conversations);
+        console.log('conversations after second query: ', conversations);
         this.setState({ conversations });
       })
       .catch(err => {

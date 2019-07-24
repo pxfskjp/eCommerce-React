@@ -43,8 +43,9 @@ class ContactOwnerBase extends React.Component {
 
     // define convo data for conversations collection:
     let convoData = {
-        UIDOne: renterUID,
-        UIDTwo: ownerUID,
+        // UIDOne: renterUID,
+        // UIDTwo: ownerUID,
+        UIDs: [renterUID, ownerUID],
         compoundUID,
         isOpen: true,
     }
