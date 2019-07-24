@@ -13,6 +13,8 @@ import axios from 'axios';
 class ContactOwnerBase extends React.Component {
   state = {
     open: false,
+    renterName: '',
+    ownerName: '',
     message: '',
     error: null
   };
@@ -22,24 +24,32 @@ class ContactOwnerBase extends React.Component {
     const ownerUID = this.props.ownerUID;
     let renterName = null;
     let ownerName = null;
+
     axios.get(`/api/users/username/${renterUID}`)
       .then(renter => {
         renterName = renter.data.first_name + ' ' + renter.data.last_name;
-        console.log('renter name: ', renterName);
+        // console.log('renter name: ', renterName);
 
         axios.get(`/api/users/username/${ownerUID}`)
           .then(owner => {
             ownerName = owner.data.first_name + ' ' + owner.data.last_name;
-            console.log('owner name: ', ownerName);
+            this.setState({ 
+              open: true,
+              renterName,
+              ownerName
+            }, () => console.log(this.state));
+            // console.log('owner name: ', ownerName);
           })
           .catch(error => {
             console.log(error.message);
           })
+
       })
       .catch(error => {
         console.log(error.message);
       })
-    this.setState({ open: true });
+
+    
   };
 
   handleClose = () => {
