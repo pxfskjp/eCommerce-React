@@ -134,35 +134,6 @@ class ChatViewBase extends Component {
     const recipientName = newProps.currentConvo[recipientUID];
     console.log('recipientName: ', recipientName);
 
-    // one-time get of messages from specific convo:
-    // let messages = [];
-    // this.props.firebase.db
-    //   .collection('conversations')
-    //   .doc(compoundUID)
-    //   .collection('messages')
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('No matching documents.');
-    //       return;
-    //     }  
-    //     snapshot.forEach(doc => {
-    //       messages.push(doc.data());
-    //       // console.log(doc.id, '=>', doc.data());
-    //     });
-    //     console.log(messages);
-    //     this.setState({ 
-    //       messages,
-    //       uid,
-    //       compoundUID,
-    //       recipientUID
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log('Error getting documents', err);
-    //   });
-
-    // To Do:
     // initialize listener to Firestore db and get existing messages
     // listen with onSnapshot()
     // The first query snapshot contains 'added' events 
