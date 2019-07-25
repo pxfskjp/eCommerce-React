@@ -14,8 +14,12 @@ import './css/FindTools.css';
 import axios from 'axios';
 
 const styles = theme => ({
+    gridContainer: {
+
+    },
     card: {
         height: "100%",
+        width: "100%",
         display: "flex",
         flexDirection: "column"
     },
@@ -98,7 +102,7 @@ class FindTools extends Component {
 
         return (
             <div className="page-container">
-                <h1>Find tools to rent</h1>
+                <h1>Showing Tools in Your City:</h1>
 
                 <div className="main-container">
 
@@ -108,11 +112,11 @@ class FindTools extends Component {
 
                     <div className="tools-list-container">
 
-                        <Grid container spacing={40}>
+                        <Grid container spacing={40} className="tools-grid">
 
                             {filteredTools.map((tool, index) =>  {
                                 return (
-                                    <Grid item xs={3} key={index}>
+                                    <Grid item key={index} className="grid-item">
                                         <Card className={classes.card}>
                                             {/* <ImageCarousel toolImages={tool.images} /> */}
                                             <img src={tool.images[0].url} alt="tool" />

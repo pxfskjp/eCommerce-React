@@ -4,7 +4,8 @@
 }
 
 .tools-list-container {
-    margin-left: 20px;
+    /* margin-left: 20px; */
+    margin: 20px 10px 20px 10px;
 }
 
 img {
@@ -14,4 +15,32 @@ img {
     /* margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px; */
+}
+
+.grid-item {
+    width: 25%;
+}
+
+@media (max-width: 700px) {
+    .main-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .tools-list-container {
+        /* margin-left: 20px; */
+
+    }
+
+    .tools-grid {
+        /* border: 1px solid red; */
+        /* display: flex;
+        flex-direction: column; */
+        margin: auto;
+        width: 100%;
+    }
+
+    .grid-item {
+        /* border: 1px solid black; */
+        width: 45%;
+    }
 }
