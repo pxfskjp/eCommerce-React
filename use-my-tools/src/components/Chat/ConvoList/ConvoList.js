@@ -89,47 +89,76 @@ class ConvoListBase extends React.Component {
       let closedConvos = [];
       let convos = [];
       // one-time get of convos (open and closed) where UIDs array contains current user uid:
+      // this.props.firebase.db
+      //   .collection('conversations')
+      //   .where('UIDs', 'array-contains', `${uid}`)
+      //   .get()
+      //   .then(snapshot => {
+      //     if (snapshot.empty) {
+      //       console.log('No matching documents.');
+      //       return;
+      //     }  
+      
+      //     snapshot.forEach(doc => {
+      //       if (doc.data().isOpen === true) {
+      //         openConvos.push(doc.data());
+      //       } else {
+      //         closedConvos.push(doc.data());
+      //       }
+              
+      //       // console.log(doc.id, '=>', doc.data());
+      //     });
+      //     console.log('openConvos: ', openConvos);
+      //     console.log('closedConvos: ', closedConvos);
+      //     this.setState({ openConvos, closedConvos });
+      //   })
+      //   .catch(err => {
+      //     console.log('Error getting documents', err);
+      //   });
+
+      // initialize listener to Firestore db and get existing messages
+      // listen with onSnapshot()
+      // The first query snapshot contains 'added' events 
+      // for all existing documents that match the query  
       this.props.firebase.db
         .collection('conversations')
         .where('UIDs', 'array-contains', `${uid}`)
-        .get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('No matching documents.');
-            return;
-          }  
-      
-          snapshot.forEach(doc => {
-            if (doc.data().isOpen === true) {
-              openConvos.push(doc.data());
-            } else {
-              closedConvos.push(doc.data());
+        .onSnapshot(querySnapshot => {
+          querySnapshot.docChanges().forEach(change => {
+            if (change.type === 'added') {
+              if (change.doc.data().isOpen === false) {
+                closedConvos.push(change.doc.data());
+              } else {
+                openConvos.push(change.doc.data());
+              }
             }
               
-            // console.log(doc.id, '=>', doc.data());
-          });
+            if (change.type === 'modified') {
+              if (change.doc.data().isOpen === false) {
+                console.log('convo changed to closed: ', change.doc.data());
+                // closedConvos.push(change.doc.data());
+
+                openConvos = openConvos.filter(function(convo) {
+                  return convo.compoundUID !== change.doc.data().compoundUID;
+                })
+                console.log(openConvos);
+              } else {
+                console.log('convo changed to open: ', change.doc.data());
+                openConvos.push(change.doc.data());
+              }
+            }
+          })
           console.log('openConvos: ', openConvos);
           console.log('closedConvos: ', closedConvos);
           this.setState({ openConvos, closedConvos });
-        })
-        .catch(err => {
-          console.log('Error getting documents', err);
         });
 
 
     }
 
-
-    // getNewConvos is used by Convolist to check how many New Convos are in the database
-    // in order to update the number icon on the New tab showing how many are in that list
-    // even when another tab/list is selected:
-
-    
-
     handleTabSelect= (event, value) => {
       this.setState({ value });
     };
-
 
     render() {
       const { classes } = this.props;
@@ -162,7 +191,7 @@ class ConvoListBase extends React.Component {
                     }
                   /> */}
                   <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Open</h1>} />
-                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} />
+                  {/* <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} /> */}
               </Tabs>
             </Paper>
           </div>
@@ -177,7 +206,7 @@ class ConvoListBase extends React.Component {
                     handleConvoSelect={this.props.handleOpenConvoSelect} 
                   />
                 }
-                {this.state.value === 1 && 
+                {/* {this.state.value === 1 && 
                   <Convos 
                     convos={this.state.closedConvos}
                     uid={this.props.uid}
@@ -186,7 +215,7 @@ class ConvoListBase extends React.Component {
                     currentConvoClosed={this.props.currentConvoClosed} 
                     handleConvoSelect={this.props.handleClosedConvoSelect} 
                   />
-                }
+                } */}
           </div>
 
         </div>

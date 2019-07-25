@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 // import Paper from '@material-ui/core/Paper';
 // import Avatar from '@material-ui/core/Avatar';
 // import ButtonBase from '@material-ui/core/ButtonBase';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import './ChatView.css';
@@ -119,57 +119,21 @@ class ChatViewBase extends Component {
 
   componentWillReceiveProps(newProps) {
 
-    console.log('ChatView CDM new props: ', newProps);
+    console.log('ChatView new props: ', newProps);
 
     const compoundUID = newProps.currentConvo.compoundUID || ' ';
     const uid = newProps.uid;
+
     let recipientUID = null;
-    if (newProps.currentConvo.UIDOne !== uid) {
-      recipientUID =  newProps.currentConvo.UIDOne;
+    // let recipientName = null;
+    if (newProps.currentConvo.UIDs[0] === uid) {
+      recipientUID = newProps.currentConvo.UIDs[1];
     } else {
-      recipientUID =  newProps.currentConvo.UIDTwo;
+      recipientUID = newProps.currentConvo.UIDs[0];
     }
+    const recipientName = newProps.currentConvo[recipientUID];
+    console.log('recipientName: ', recipientName);
 
-    // get the name of the other user (recipient) in the convo:
-    let recipientName = null;
-    axios.get(`/api/users/username/${recipientUID}`)
-      .then(user => {
-        // save recipient name as variable to store in state in setState below:
-        recipientName = user.data.first_name + ' ' + user.data.last_name;
-      })
-      .catch(error =>{
-        console.log(error.message);
-      });
-
-    // one-time get of messages from specific convo:
-    // let messages = [];
-    // this.props.firebase.db
-    //   .collection('conversations')
-    //   .doc(compoundUID)
-    //   .collection('messages')
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('No matching documents.');
-    //       return;
-    //     }  
-    //     snapshot.forEach(doc => {
-    //       messages.push(doc.data());
-    //       // console.log(doc.id, '=>', doc.data());
-    //     });
-    //     console.log(messages);
-    //     this.setState({ 
-    //       messages,
-    //       uid,
-    //       compoundUID,
-    //       recipientUID
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log('Error getting documents', err);
-    //   });
-
-    // To Do:
     // initialize listener to Firestore db and get existing messages
     // listen with onSnapshot()
     // The first query snapshot contains 'added' events 
@@ -238,9 +202,15 @@ class ChatViewBase extends Component {
   };
 
   // method to mark the convo as closed
-  handleCloseConvo = event => {
-      this.props.closeConvo();
-      this.setState({ is_closed: true });
+  handleCloseConvo = event => { 
+      // this.props.closeConvo();
+      const { compoundUID } = this.state;
+      this.props.firebase.db
+        .collection('conversations')
+        .doc(compoundUID)
+        .update({ isOpen: false });
+      
+      this.setState({ isClosed: true });
       event.preventDefault();
   }
 
@@ -250,7 +220,7 @@ class ChatViewBase extends Component {
 
 
     render() {
-        const currentConvoClosed = this.props.currentConvoClosed;
+        const isClosed = this.state.isClosed;
         const compoundUID = this.props.currentCompoundUID;
         const { classes } = this.props;
         return (
@@ -275,25 +245,18 @@ class ChatViewBase extends Component {
                               {/* <Avatar alt="Avatar" className={classes.avatar}>
                                 {message.author_name[0]}
                               </Avatar> */}
-                              <Typography
+                              {/* <Typography
                                   variant="h6"
                                   className={classes.messageAuthor}
                                 >
                                   {message.authorUID}
-                              </Typography>
+                              </Typography> */}
                             </div>
 
                             <div className="message-body">
                               
-                                {/* <Typography
-                                  variant="h6"
-                                  className={classes.messageAuthor}
-                                >
-                                  {message.authorUID}
-                                </Typography> */}
-                              
                                 <Typography
-                                  variant="componenth6"
+                                  variant="h6"
                                   className={classes.messageBody}
                                 >
                                 {message.content}
@@ -306,7 +269,7 @@ class ChatViewBase extends Component {
                         );
                     })}
               </div>
-              {currentConvoClosed ? (
+              {isClosed ? (
                 <h1>This conversation is closed.</h1>
               ) : (
                 <div className={classes.inputArea}>
@@ -359,9 +322,9 @@ class ChatViewBase extends Component {
   }
 }
 
-// ChatView.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
+ChatViewBase.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 // export default withStyles(styles)(ChatView);
 const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
