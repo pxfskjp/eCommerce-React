@@ -1,6 +1,6 @@
 .account-page-container {
     /* background-color: #EAEAEA; */
-    height: 100%;
+    /* height: 100vh; */
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
@@ -10,11 +10,14 @@
     display: flex;
     flex-direction: column;
     width: 50%;
+    /* height: 100%; */
 }
 
 .account-page-container .left-container form {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
 
 .location-input {
