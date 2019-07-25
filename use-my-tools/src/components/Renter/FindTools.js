@@ -30,6 +30,10 @@ const styles = theme => ({
         overflow: "hidden",
         textAlign: "left"
     },
+    cardActions: {
+        flexGrow: 1,
+        alignItems: "flex-end"
+    },
     cardTitle: {
         fontWeight: "bold"
     }
@@ -128,14 +132,15 @@ class FindTools extends Component {
                                                     ${tool.price} / day
                                                 </Typography>
                                             </CardContent>
-                                            <CardActions>
+                                            <CardActions className={classes.cardActions}>
                                                 <Button
+                                                    className="details-button"
                                                     component={Link}
                                                     to={`/toolviewrenter/${tool.id}`}
                                                     size="small"
                                                     color="primary"
                                                 >
-                                                    View Tool Details
+                                                    See Details
                                                 </Button>
                                             </CardActions>
                                         </Card>

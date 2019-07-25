@@ -26,21 +26,13 @@ img {
         display: flex;
         flex-direction: column;
     }
-    .tools-list-container {
-        /* margin-left: 20px; */
-
-    }
 
     .tools-grid {
-        /* border: 1px solid red; */
-        /* display: flex;
-        flex-direction: column; */
         margin: auto;
         width: 100%;
     }
 
     .grid-item {
-        /* border: 1px solid black; */
         width: 45%;
     }
 }
