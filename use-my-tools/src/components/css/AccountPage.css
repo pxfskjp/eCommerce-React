@@ -20,6 +20,11 @@
     width: 100%;
 }
 
+.update-password-link {
+    text-decoration: none;
+    margin: 50px 10px 10px 10px;
+}
+
 .location-input {
     margin-left: 9px;
     width: 97%;
@@ -28,7 +33,7 @@
 .account-page-container .left-container button {
     margin-top: 5%;
     margin-left: 5%;
-    width: 10%;
+    width: max-content;
     height: 8%;
     align-self: flex-start;
 }
