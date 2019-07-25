@@ -1,6 +1,6 @@
 .account-page-container {
     /* background-color: #EAEAEA; */
-    height: 100%;
+    /* height: 100vh; */
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
@@ -10,11 +10,19 @@
     display: flex;
     flex-direction: column;
     width: 50%;
+    /* height: 100%; */
 }
 
 .account-page-container .left-container form {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.update-password-link {
+    text-decoration: none;
+    margin: 50px 10px 10px 10px;
 }
 
 .location-input {
@@ -25,7 +33,7 @@
 .account-page-container .left-container button {
     margin-top: 5%;
     margin-left: 5%;
-    width: 10%;
+    width: max-content;
     height: 8%;
     align-self: flex-start;
 }

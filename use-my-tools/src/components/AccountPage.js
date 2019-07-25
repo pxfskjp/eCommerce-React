@@ -189,7 +189,11 @@ class AccountPage extends Component {
 
                     </form>
                         
-                    <Link to="/updatepassword">Update Password</Link>
+                    <Link to="/updatepassword" className="update-password-link">
+                        <Button variant="outlined" color="primary" className="update-password-button" >
+                            Update Password
+                        </Button>
+                    </Link>
                     
                 </div> 
                 {/* end left-container */}
@@ -201,9 +205,8 @@ class AccountPage extends Component {
                             src={this.state.imageUrl}
                             alt="avatar"
                         />
-                        
-                    
                     <br/>
+                    
                     <form className="image-upload" onSubmit={this.imageUpload}>
                         <input
                             accept="image/*"
