@@ -94,8 +94,8 @@ class OwnerDashboard extends Component {
                             centered
                             >
                             
-                            <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Open</h1>} />
-                            <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} />
+                            <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
+                            <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
                         </Tabs>
                     </Paper>
                 </div>
