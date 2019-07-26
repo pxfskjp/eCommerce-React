@@ -15,6 +15,7 @@ import NavigationBar from './components/NavigationBar';
 
 import AccountPage from './components/AccountPage';
 
+import OwnerDashboard from './components/Owner/OwnerDashboard';
 import MyTools from './components/Owner/MyTools';
 import AddTool from './components/Owner/AddTool';
 import FindTools from './components/Renter/FindTools';
@@ -84,7 +85,7 @@ class AppComponentBase extends Component {
               <Route path="/login" component={AccountPage} />
 
               <Route path={"/accountpage"} component={AccountPage} />
-              <Route path={"/yourtools"} component={MyTools} />
+              <Route path={"/ownerdashboard"} component={OwnerDashboard} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
               <Route path={"/findtools"} component={FindTools} />
