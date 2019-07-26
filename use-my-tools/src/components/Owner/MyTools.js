@@ -51,7 +51,7 @@ class MyTools extends Component {
 
         return (
             <div className="mytools-page-container">
-                <h1>Manage your tools</h1>
+                {/* <h1>Manage your tools</h1> */}
 
                 <div className="tools-list-container">
 

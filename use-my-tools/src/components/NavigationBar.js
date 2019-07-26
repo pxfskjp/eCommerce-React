@@ -26,8 +26,8 @@ class NavigationBar extends Component {
                     <Link to="/findtools" className="nav-link">
                         Find Tools
                     </Link>
-                    <Link to="/yourtools" className="nav-link">
-                        My Tools
+                    <Link to="/ownerdashboard" className="nav-link">
+                        Owner Dashboard
                     </Link>
                     <Link to="/addtool" className="nav-link">
                         Add a tool
