@@ -53,7 +53,6 @@ const styles = theme => ({
         fontSize: 16,
         padding: 0
     }
-
 })
 
 class OwnerDashboard extends Component {
@@ -76,6 +75,10 @@ class OwnerDashboard extends Component {
         //         console.log(error.message);
         //     })
     }
+
+    handleTabSelect = (event, value) => {
+        this.setState({ value });
+    };
 
     render() {
         const { classes } = this.props;
