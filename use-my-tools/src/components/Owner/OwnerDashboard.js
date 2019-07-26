@@ -22,7 +22,7 @@ const styles = theme => ({
     //     minHeight: 100,
     //     overflow: "hidden"
     // },
-    queueMenu: {
+    tabMenu: {
         // height: '100%',
         // border: '1px solid red',
         borderRadius: '0px',
@@ -52,7 +52,8 @@ const styles = theme => ({
         tabLabel: {
         fontSize: 16,
         padding: 0
-    }
+    },
+
 })
 
 class OwnerDashboard extends Component {
@@ -86,7 +87,7 @@ class OwnerDashboard extends Component {
         return (
             <div className="mytools-page-container">
                 <h1>Manage your tools and rentals</h1>
-                <div className={classes.queueMenu}>
+                <div className={classes.tabMenu}>
                     <Paper className={classes.paper}>
                         <Tabs
                             className={classes.paper2}
@@ -101,6 +102,15 @@ class OwnerDashboard extends Component {
                             <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
                         </Tabs>
                     </Paper>
+                </div>
+
+                <div className="selected-view-container">
+                    {this.state.value === 0 && 
+                        <MyTools />
+                    }
+                    {this.state.value === 1 && 
+                        <MyTools />
+                    }
                 </div>
                 
             </div>
