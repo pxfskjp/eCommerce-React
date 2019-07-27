@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('RentalStatus', table => {
             table.increments('RentalStatusID').primary();
             table.string('Status')
+                .unique()
                 .notNullable();
         })
     ])
