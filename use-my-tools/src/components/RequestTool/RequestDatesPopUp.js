@@ -121,7 +121,7 @@ class RequestDatesPopUp extends React.Component {
     this.setState({ blockedDays });
     
     // store the selected date range in db:
-    axios.post('/api/tools/reserveDates', reservationData)
+    axios.post('/api/tools/newrental', reservationData)
         .then(response => {
             console.log('Dates reservation created with response: ', response);
             this.handleClose();

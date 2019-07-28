@@ -9,7 +9,9 @@ module.exports = {
     deleteToolImages,
     deleteTool,
     updateToolDetails,
-    findTools
+    findTools,
+    createRental,
+    getToolOwnerUID
 }
 
 function createTool(newTool) {
@@ -144,5 +146,16 @@ function updateToolDetails(id, tool) {
         .update(tool);
 }
 
+function createRental(rental) {
+
+}
+
+function getToolOwnerUID(toolID) {
+    return db
+        .select('owner_uid')
+        .from('tools')
+        .where('tools.id', toolID)
+        .first();
+}
 
 
