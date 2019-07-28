@@ -15,12 +15,13 @@ function reserveDates(dateRange) {
 function getReservedDates(tool_id) {
     return db
         .select([
-            'reserved_dates.start_date as startDate',
-            'reserved_dates.end_date as endDate',
             'Rentals.ReservedDatesID',
+            'reserved_dates.start_date as startDate',
+            'reserved_dates.end_date as endDate'
         ])
-        .from('reserved_dates')
-        .innerJoin('Rentals', 'Rentals.ReservedDatesID', 'reserved_dates.id')
+        .from('Rentals')
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
         .where('Rentals.ToolID', tool_id)
-        .where('Rentals.Status', '!==', 'cancelled');
+        .whereNot('Rentals.Status', 'cancelledByOwner')
+        .whereNot('Rentals.Status', 'cancelledByRenter');
 }
