@@ -253,7 +253,7 @@ router.post('/reservedates', (req, res) => {
 
 })
 
-router.post('/newrental', (req, res) => {
+router.post('/newrental', async (req, res) => {
     const uid = req.body.uid;
 
     let { startDate, endDate, toolId, resType } = req.body;
@@ -266,15 +266,33 @@ router.post('/newrental', (req, res) => {
         end_date: endDate,
     }
 
-    datesDb.reserveDates(datesData)
-        .then(response => { // response is id of new entry in reserved_dates
-            // toolsDb.createRental
+    try {
+        // datesDb.reserveDates(datesData)
+        // .then(response => { // response is id of new entry in reserved_dates
+        //     // toolsDb.createRental
 
-        })
-        .catch(error => {
-            res.status(500).json(error.message);
-        })
+        // })
+        // .catch(error => {
+        //     res.status(500).json(error.message);
+        // })
 
+        const toolData = await toolsDb.getToolDataForRental(toolId);
+        const ReservedDatesID = await datesDb.reserveDates(datesData);  // Add dates to reserved_dates table and get id back from table
+
+        let rentalData = {
+            RenterUID: uid,
+            ToolID: toolId,
+            OwnerUID,
+            ReservedDatesID,
+            Status: 'upcoming',
+
+        }
+        rentalData.ReservedDatesID = reservedDatesID;
+
+        toolsDb.createRental
+
+    }
+    
 })
 
 router.delete('/tool/delete/:id', (req, res) => {

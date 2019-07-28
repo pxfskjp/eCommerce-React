@@ -11,7 +11,7 @@ module.exports = {
     updateToolDetails,
     findTools,
     createRental,
-    getToolOwnerUID
+    getToolDataForRental
 }
 
 function createTool(newTool) {
@@ -150,9 +150,12 @@ function createRental(rental) {
 
 }
 
-function getToolOwnerUID(toolID) {
+function getToolDataForRental(toolID) {
     return db
-        .select('owner_uid')
+        .select([
+            'owner_uid',
+            'price'
+        ])
         .from('tools')
         .where('tools.id', toolID)
         .first();
