@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
 
 import MyTools from './MyTools';
 
@@ -56,11 +57,35 @@ const styles = theme => ({
 
 })
 
+const VerticalTabs = withStyles(theme => ({
+    flexContainer: {
+      flexDirection: "column"
+    },
+    indicator: {
+      display: "none"
+    }
+}))(Tabs);
+
+const MyTab = withStyles(theme => ({
+    selected: {
+      color: "tomato",
+      borderRight: "2px solid tomato"
+    }
+}))(Tab);
+
+function TabContainer(props) {
+    return (
+      <Typography component="div" style={{ padding: 8 * 3 }}>
+        {props.children}
+      </Typography>
+    );
+}
+
 class OwnerDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
+            activeTabIndex: 0,
             tools: []
         };
     }
@@ -77,41 +102,42 @@ class OwnerDashboard extends Component {
         //     })
     }
 
-    handleTabSelect = (event, value) => {
-        this.setState({ value });
-    };
+    handleTabSelect = (_, activeTabIndex) => this.setState({ activeTabIndex });
 
     render() {
         const { classes } = this.props;
-
+        const { activeTabIndex } = this.state
         return (
             <div className="mytools-page-container">
-                <h1>Manage your tools and rentals</h1>
-                <div className={classes.tabMenu}>
-                    <Paper className={classes.paper}>
-                        <Tabs
-                            className={classes.paper2}
-                            value={this.state.value}
-                            onChange={this.handleTabSelect}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            centered
-                            >
-                            
-                            <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
-                            <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
-                        </Tabs>
-                    </Paper>
-                </div>
+                <h1>Owner Dashboard</h1>
+                <div
+                    style={{
+                        width: "max-content",
+                        height: "100vh",
+                        // display: "flex",
+                        borderRight: "2px solid grey",
+                        padding: 10
+                    }}
+                >
+                    <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
+                    <MyTab label="rentals" />
+                    <MyTab label="tools" />
 
-                <div className="selected-view-container">
+                    </VerticalTabs>
+                </div>
+                    {activeTabIndex === 0 && <TabContainer>Rentals</TabContainer>}
+                    {activeTabIndex === 1 && <TabContainer>Tools</TabContainer>}
+
+                
+
+                {/* <div className="selected-view-container">
                     {this.state.value === 0 && 
                         <MyTools />
                     }
                     {this.state.value === 1 && 
                         <MyTools />
                     }
-                </div>
+                </div> */}
                 
             </div>
 
@@ -120,3 +146,22 @@ class OwnerDashboard extends Component {
 }
 
 export default withRouter(withStyles(styles)(OwnerDashboard));
+
+{/* <div className={classes.sideTabeMenu}>
+
+<Tabs
+    orientation="vertical"
+    variant="scrollable"
+    // className={classes.paper2}
+    value={this.state.value}
+    onChange={this.handleTabSelect}
+    indicatorColor="primary"
+    textColor="primary"
+    // centered
+    >
+    
+    <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
+    <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
+</Tabs>
+
+</div> */}
