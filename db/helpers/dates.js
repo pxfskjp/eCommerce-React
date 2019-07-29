@@ -2,7 +2,8 @@ const db = require('../db.js');
 
 module.exports = {
     reserveDates,
-    getRentalDates
+    getRentalDates,
+    getOwnerReservedDates
 }
 
 function reserveDates(dateRange) {
@@ -12,7 +13,7 @@ function reserveDates(dateRange) {
         .then(ids => ids[0]);
 }
 
-function getRentalDates(toolID) {
+function getRentalDates(toolId) {
     return db
         .select([
             'Rentals.ReservedDatesID',
