@@ -36,12 +36,14 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    /* height: max-content; */
     width: 50%;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    height: max-content;
 }
 
 .available-container {
@@ -56,12 +58,15 @@ form {
 }
 
 .right-container .tool-management {
-    margin: 30px 10px 10px 10px ;
     height: 100px;
+    width: 100%;
+    padding-top: 10px;
+    margin: 30px 10px 10px 10px ;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    border-top: 2px solid grey;
 }
 
 @media (max-width: 600px) {

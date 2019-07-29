@@ -9,7 +9,9 @@ module.exports = {
     deleteToolImages,
     deleteTool,
     updateToolDetails,
-    findTools
+    findTools,
+    createRental,
+    getToolDataForRental
 }
 
 function createTool(newTool) {
@@ -144,5 +146,26 @@ function updateToolDetails(id, tool) {
         .update(tool);
 }
 
+function createRental(rental) {
+    return db('Rentals')
+        .insert(rental)
+        .returning('RentalID')
+        .then(RentalIDs => RentalIDs[0])
+        .catch(error => {
+            console.log(error.message);
+            res.status(500).json(error.message);
+        })
+}
+
+function getToolDataForRental(toolID) {
+    return db
+        .select([
+            'owner_uid',
+            'price'
+        ])
+        .from('tools')
+        .where('tools.id', toolID)
+        .first();
+}
 
 

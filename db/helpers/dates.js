@@ -2,7 +2,8 @@ const db = require('../db.js');
 
 module.exports = {
     reserveDates,
-    getReservedDates
+    getRentalDates,
+    getOwnerReservedDates
 }
 
 function reserveDates(dateRange) {
@@ -12,15 +13,27 @@ function reserveDates(dateRange) {
         .then(ids => ids[0]);
 }
 
-function getReservedDates(tool_id) {
+function getRentalDates(toolId) {
     return db
         .select([
-            'reserved_dates.start_date as startDate',
-            'reserved_dates.end_date as endDate',
             'Rentals.ReservedDatesID',
+            'reserved_dates.start_date as startDate',
+            'reserved_dates.end_date as endDate'
+        ])
+        .from('Rentals')
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
+        .where('Rentals.ToolID', toolId)
+        .whereNot('Rentals.Status', 'cancelledByOwner')
+        .whereNot('Rentals.Status', 'cancelledByRenter');
+}
+
+function getOwnerReservedDates(toolId) {
+    return db
+        .select([
+            'start_date',
+            'end_date'
         ])
         .from('reserved_dates')
-        .innerJoin('Rentals', 'Rentals.ReservedDatesID', 'reserved_dates.id')
-        .where('Rentals.ToolID', tool_id)
-        .where('Rentals.Status', '!==', 'cancelled');
+        .where('tool_id', toolId)
+        .where('res_type', 'owner');
 }
