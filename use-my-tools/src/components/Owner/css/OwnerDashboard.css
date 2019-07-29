@@ -1,3 +1,7 @@
 .owner-dashboard-container {
     display: flex;
 }
+
+.selected-view-container {
+    width: 100%;
+}

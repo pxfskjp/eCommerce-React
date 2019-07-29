@@ -8,6 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 
 import MyTools from './MyTools';
+import RentalsView from '../RentalsView';
 
 // import axios from 'axios';
 
@@ -119,7 +120,6 @@ class OwnerDashboard extends Component {
                         // display: "flex",
                         borderRight: "2px solid grey",
                         padding: 10,
-                        marginRight: 10
                     }}
                 >
                     <h2>Owner Dashboard</h2>
@@ -130,11 +130,8 @@ class OwnerDashboard extends Component {
                     </VerticalTabs>
                 </div>
                     
-
-                
-
                 <div className="selected-view-container">
-                    {activeTabIndex === 0 && <TabContainer>Rentals</TabContainer>}
+                    {activeTabIndex === 0 && <RentalsView />}
                     {activeTabIndex === 1 && <MyTools />}
                 </div>
                 
@@ -145,22 +142,3 @@ class OwnerDashboard extends Component {
 }
 
 export default withRouter(withStyles(styles)(OwnerDashboard));
-
-{/* <div className={classes.sideTabeMenu}>
-
-<Tabs
-    orientation="vertical"
-    variant="scrollable"
-    // className={classes.paper2}
-    value={this.state.value}
-    onChange={this.handleTabSelect}
-    indicatorColor="primary"
-    textColor="primary"
-    // centered
-    >
-    
-    <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
-    <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
-</Tabs>
-
-</div> */}
