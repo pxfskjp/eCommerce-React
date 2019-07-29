@@ -118,7 +118,8 @@ class OwnerDashboard extends Component {
                         height: "100vh",
                         // display: "flex",
                         borderRight: "2px solid grey",
-                        padding: 10
+                        padding: 10,
+                        marginRight: 10
                     }}
                 >
                     <h2>Owner Dashboard</h2>
@@ -128,19 +129,14 @@ class OwnerDashboard extends Component {
 
                     </VerticalTabs>
                 </div>
-                    {activeTabIndex === 0 && <TabContainer>Rentals</TabContainer>}
-                    {activeTabIndex === 1 && <MyTools />}
+                    
 
                 
 
-                {/* <div className="selected-view-container">
-                    {this.state.value === 0 && 
-                        <MyTools />
-                    }
-                    {this.state.value === 1 && 
-                        <MyTools />
-                    }
-                </div> */}
+                <div className="selected-view-container">
+                    {activeTabIndex === 0 && <TabContainer>Rentals</TabContainer>}
+                    {activeTabIndex === 1 && <MyTools />}
+                </div>
                 
             </div>
 
