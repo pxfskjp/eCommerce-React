@@ -228,8 +228,8 @@ router.get('/tool/reserveddates/:id', (req, res) => {
             // res.status(200).json(dates);
             datesDb.getOwnerReservedDates(id)
                 .then(ownerDates => {
-                    allReservedDates = rentalDates.concat(ownerDates);
-                    console.log('allReservedDates: ', allReservedDates);
+                    allReservedDates = rentalDates.concat(ownerDates);  // create new array combining owner reserved dats and rental dates
+                    // console.log('allReservedDates: ', allReservedDates);
                     res.status(200).json(allReservedDates);
                 })
                 .catch(error => {
