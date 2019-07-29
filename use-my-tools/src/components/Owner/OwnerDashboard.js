@@ -9,7 +9,9 @@ import Typography from "@material-ui/core/Typography";
 
 import MyTools from './MyTools';
 
-import axios from 'axios';
+// import axios from 'axios';
+
+import './css/OwnerDashboard.css';
 
 const styles = theme => ({
     // card: {
@@ -108,8 +110,8 @@ class OwnerDashboard extends Component {
         const { classes } = this.props;
         const { activeTabIndex } = this.state
         return (
-            <div className="mytools-page-container">
-                <h1>Owner Dashboard</h1>
+            <div className="owner-dashboard-container">
+                
                 <div
                     style={{
                         width: "max-content",
@@ -119,6 +121,7 @@ class OwnerDashboard extends Component {
                         padding: 10
                     }}
                 >
+                    <h2>Owner Dashboard</h2>
                     <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
                     <MyTab label="rentals" />
                     <MyTab label="tools" />
@@ -126,7 +129,7 @@ class OwnerDashboard extends Component {
                     </VerticalTabs>
                 </div>
                     {activeTabIndex === 0 && <TabContainer>Rentals</TabContainer>}
-                    {activeTabIndex === 1 && <TabContainer>Tools</TabContainer>}
+                    {activeTabIndex === 1 && <MyTools />}
 
                 
 
