@@ -221,9 +221,11 @@ router.get('/owner/singletool/:id', (req, res) => {
 router.get('/tool/reserveddates/:id', (req, res) => {
     // console.log(req.params.id);
     const id = req.params.id;
-    datesDb.getReservedDates(id)
-        .then(dates => {
+    datesDb.getRentalDates(id)
+        .then(dates => {    // dates is an array of objects each containing ReservedDatesID, startDate, and endDate
+            // console.log('RentalDates: ', dates);
             res.status(200).json(dates);
+            
         })
         .catch(error => {
             res.status(500).json(error.message);
