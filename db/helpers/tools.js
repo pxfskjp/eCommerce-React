@@ -147,10 +147,14 @@ function updateToolDetails(id, tool) {
 }
 
 function createRental(rental) {
-    return db('Rental')
+    return db('Rentals')
         .insert(rental)
         .returning('RentalID')
-        .then(RentalIDs => RentalIDs[0]);
+        .then(RentalIDs => RentalIDs[0])
+        .catch(error => {
+            console.log(error.message);
+            res.status(500).json(error.message);
+        })
 }
 
 function getToolDataForRental(toolID) {

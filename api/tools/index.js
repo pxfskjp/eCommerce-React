@@ -257,7 +257,7 @@ router.post('/newrental', async (req, res) => {
     const uid = req.body.uid;
 
     let { startDate, endDate, createDate, toolId, resType } = req.body;
-
+    console.log('Rental startDate: ', startDate);
     let datesData = {
         tool_id: toolId,
         res_type: resType,
@@ -276,9 +276,10 @@ router.post('/newrental', async (req, res) => {
         //     res.status(500).json(error.message);
         // })
 
-        const toolData = await toolsDb.getToolDataForRental(toolId);
+        const toolData = await toolsDb.getToolDataForRental(toolId);    // get tool's owner uid and price
+        console.log('toolData: ', toolData);
         const ReservedDatesID = await datesDb.reserveDates(datesData);  // Add dates to reserved_dates table and get id back from table
-        
+        console.log('ReservedDatesID; ', ReservedDatesID);
 
         let rentalData = {
             RenterUID: uid,
@@ -289,12 +290,20 @@ router.post('/newrental', async (req, res) => {
             DailyRentalPrice: toolData.price,
             CreateDate: createDate
         }
-        rentalData.ReservedDatesID = reservedDatesID;
+        console.log('rentalData: ', rentalData);
 
-        // toolsDb.createRental
+        toolsDb.createRental(rentalData)
+            .then(response => {
+                res.status(200).json(response);
+            })
+            .catch(error => {
+                console.log('error at createRental in newrental endpoint');
+                res.status(500).json(error.message);
+            })
 
     }
     catch(error) {
+        console.log('error at end of newrental endpoint');
         res.status(500).json(error.message);
     }
     
