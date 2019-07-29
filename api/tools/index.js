@@ -278,19 +278,23 @@ router.post('/newrental', async (req, res) => {
 
         const toolData = await toolsDb.getToolDataForRental(toolId);
         const ReservedDatesID = await datesDb.reserveDates(datesData);  // Add dates to reserved_dates table and get id back from table
+        
 
         let rentalData = {
             RenterUID: uid,
             ToolID: toolId,
-            OwnerUID,
+            OwnerUID: toolData.owner_uid,
             ReservedDatesID,
             Status: 'upcoming',
-
+            DailyRentalPrice: toolData.price
         }
         rentalData.ReservedDatesID = reservedDatesID;
 
-        toolsDb.createRental
+        // toolsDb.createRental
 
+    }
+    catch(error) {
+        res.status(500).json(error.message);
     }
     
 })

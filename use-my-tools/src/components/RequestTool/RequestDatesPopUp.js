@@ -58,6 +58,7 @@ class RequestDatesPopUp extends React.Component {
     let datesArray = [];
     // const startDate = startDate;
     // const endDate = endDate;
+    console.log('RDPU getDatesInRange startDate: ', startDate);
     let currentDate = moment(startDate);
     let stopDate = moment(endDate);
     while (currentDate <= stopDate) {
@@ -101,13 +102,16 @@ class RequestDatesPopUp extends React.Component {
   };
 
   onSubmit = () => {
-    let { startDate, endDate } = this.state;
+    const { startDate, endDate } = this.state;
+    const createDate = moment(Date.now());
+    console.log('createDate: ', createDate);
 
     let reservationData = { 
       toolId: this.props.toolId,
       resType: this.props.userType,
       startDate: this.state.startDate, 
-      endDate: this.state.endDate 
+      endDate: this.state.endDate,
+      createDate 
     };
 
     // Add the dates that were just reserved to state.blockedDays array:
