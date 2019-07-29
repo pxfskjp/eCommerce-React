@@ -127,7 +127,7 @@ class RequestDatesPopUp extends React.Component {
     // store the selected date range in db:
     axios.post('/api/tools/newrental', reservationData)
         .then(response => {
-            console.log('Dates reservation created with response: ', response);
+            console.log('Rental created with response: ', response);
             this.handleClose();
             // this.setState({ datesSubmitted: true });
         })

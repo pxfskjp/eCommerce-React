@@ -256,7 +256,7 @@ router.post('/reservedates', (req, res) => {
 router.post('/newrental', async (req, res) => {
     const uid = req.body.uid;
 
-    let { startDate, endDate, toolId, resType } = req.body;
+    let { startDate, endDate, createDate, toolId, resType } = req.body;
 
     let datesData = {
         tool_id: toolId,
@@ -286,7 +286,8 @@ router.post('/newrental', async (req, res) => {
             OwnerUID: toolData.owner_uid,
             ReservedDatesID,
             Status: 'upcoming',
-            DailyRentalPrice: toolData.price
+            DailyRentalPrice: toolData.price,
+            CreateDate: createDate
         }
         rentalData.ReservedDatesID = reservedDatesID;
 
