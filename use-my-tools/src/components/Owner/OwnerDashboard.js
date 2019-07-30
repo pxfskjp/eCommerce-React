@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 
 import MyTools from './MyTools';
-import RentalsView from '../RentalsView';
+import RentalsView from '../Rentals/RentalsView';
 
 // import axios from 'axios';
 
@@ -72,17 +72,17 @@ const VerticalTabs = withStyles(theme => ({
 const MyTab = withStyles(theme => ({
     selected: {
       color: "tomato",
-      borderRight: "2px solid tomato"
+      borderRight: "5px solid tomato"
     }
 }))(Tab);
 
-function TabContainer(props) {
-    return (
-      <Typography component="div" style={{ padding: 8 * 3 }}>
-        {props.children}
-      </Typography>
-    );
-}
+// function TabContainer(props) {
+//     return (
+//       <Typography component="div" style={{ padding: 8 * 3 }}>
+//         {props.children}
+//       </Typography>
+//     );
+// }
 
 class OwnerDashboard extends Component {
     constructor(props) {
@@ -118,8 +118,8 @@ class OwnerDashboard extends Component {
                         width: "max-content",
                         height: "100vh",
                         // display: "flex",
-                        borderRight: "2px solid grey",
-                        padding: 10,
+                        borderRight: "5px solid grey",
+                        padding: 5,
                     }}
                 >
                     <h2>Owner Dashboard</h2>
