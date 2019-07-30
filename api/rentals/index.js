@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const toolsDb = require('../../db/helpers/tools');
 const datesDb = require('../../db/helpers/dates');
+const rentalsDb = require('../../db/helpers/rentals');
 
 // Create a new Rental (first create reserved dates, then add ReservedDatesID to Rental):
 
@@ -35,7 +36,7 @@ router.post('/newrental', async (req, res) => {
         }
         console.log('rentalData: ', rentalData);
 
-        toolsDb.createRental(rentalData)
+        rentalsDb.createRental(rentalData)
             .then(response => {
                 res.status(200).json(response);
             })
