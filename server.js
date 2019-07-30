@@ -74,7 +74,7 @@ server.use(multipart, async(req,res) => {
       }
 })
 
-
+// Connect API base routes to corresponding api folder:
 server.use('/api/users', usersRoutes);
 server.use('/api/tools', toolsRoutes);
 server.use('/api/rentals', rentalsRoutes)
