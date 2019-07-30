@@ -19,15 +19,6 @@ router.post('/newrental', async (req, res) => {
     }
 
     try {
-        // datesDb.reserveDates(datesData)
-        // .then(response => { // response is id of new entry in reserved_dates
-        //     // toolsDb.createRental
-
-        // })
-        // .catch(error => {
-        //     res.status(500).json(error.message);
-        // })
-
         const toolData = await toolsDb.getToolDataForRental(toolId);    // get tool's owner uid and price
         console.log('toolData: ', toolData);
         const ReservedDatesID = await datesDb.reserveDates(datesData);  // Add dates to reserved_dates table and get id back from table
@@ -52,13 +43,11 @@ router.post('/newrental', async (req, res) => {
                 console.log('error at createRental in newrental endpoint');
                 res.status(500).json(error.message);
             })
-
     }
     catch(error) {
         console.log('error at end of newrental endpoint');
         res.status(500).json(error.message);
     }
-    
 })
 
 // Get reserved dates for a single tool, 
