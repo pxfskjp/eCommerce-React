@@ -73,7 +73,7 @@ class RequestDatesPopUp extends React.Component {
   handleClickOpen = () => {
     this.setState({ open: true });
     const toolId = this.props.toolId;
-    axios.get(`/api/tools/tool/reserveddates/${toolId}`)
+    axios.get(`/api/rentals/tool/reserveddates/${toolId}`)
       .then(dates => {
         const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
         let blockedDays = [];
@@ -125,7 +125,7 @@ class RequestDatesPopUp extends React.Component {
     this.setState({ blockedDays });
     
     // store the selected date range in db:
-    axios.post('/api/tools/newrental', reservationData)
+    axios.post('/api/rentals/newrental', reservationData)
         .then(response => {
             console.log('Rental created with response: ', response);
             this.handleClose();

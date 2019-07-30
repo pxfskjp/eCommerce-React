@@ -53,8 +53,9 @@ server.get('/',(req, res) => {
 });
 
 // Import API route/endpoint files:
-const userRoutes = require('./api/users');    // All CRUD endpoints for users
-const toolsRoutes = require('./api/tools');   // All CRUD endpoints for tools
+const usersRoutes = require('./api/users');      // All CRUD endpoints for user-specific data
+const toolsRoutes = require('./api/tools');     // All CRUD endpoints for tool-specific data
+const rentalsRoutes = require('./api/rentals'); // All CRUD endpoints for rental-specific data
 
 // Verify requests using Firebase-admin auth:
 server.use(multipart, async(req,res) => {
@@ -73,8 +74,9 @@ server.use(multipart, async(req,res) => {
       }
 })
 
-
-server.use('/api/users', userRoutes);
+// Connect API base routes to corresponding api folder:
+server.use('/api/users', usersRoutes);
 server.use('/api/tools', toolsRoutes);
+server.use('/api/rentals', rentalsRoutes)
 
 module.exports = server;
