@@ -60,7 +60,7 @@ form {
 .right-container .tool-management {
     height: 100px;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 15px;
     margin: 30px 10px 10px 10px ;
     display: flex;
     flex-direction: column;
