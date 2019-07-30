@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
 const toolsDb = require('../../db/helpers/tools');
-// const usersDb = require('../../db/helpers/users');
-// const imagesDb = require('../../db/helpers/images');
 const datesDb = require('../../db/helpers/dates');
+
+// Create a new Rental (first create reserved dates, then add ReservedDatesID to Rental):
 
 router.post('/newrental', async (req, res) => {
     const uid = req.body.uid;
@@ -61,6 +60,9 @@ router.post('/newrental', async (req, res) => {
     }
     
 })
+
+// Get reserved dates for a single tool, 
+// including reserved dates from non-cancelled rentals and reserved dates from owner:
 
 router.get('/tool/reserveddates/:id', (req, res) => {
     // console.log(req.params.id);
