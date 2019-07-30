@@ -62,4 +62,27 @@ router.post('/newrental', async (req, res) => {
     
 })
 
+router.get('/tool/reserveddates/:id', (req, res) => {
+    // console.log(req.params.id);
+    const id = req.params.id;
+    let allReservedDates = [];
+    datesDb.getRentalDates(id)
+        .then(rentalDates => {    // dates is an array of objects each containing ReservedDatesID, startDate, and endDate
+            // console.log('RentalDates: ', dates);
+            // res.status(200).json(dates);
+            datesDb.getOwnerReservedDates(id)
+                .then(ownerDates => {
+                    allReservedDates = rentalDates.concat(ownerDates);  // create new array combining owner reserved dats and rental dates
+                    // console.log('allReservedDates: ', allReservedDates);
+                    res.status(200).json(allReservedDates);
+                })
+                .catch(error => {
+                    res.status(500).json(error.message);
+                })
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 module.exports = router;
