@@ -86,7 +86,16 @@ router.post('/owner/getrentals/', (req, res) => {
         
     const { uid, statuses } = req.body;     // uid is string, statuses is array
 
-    rentalsDb.
+    rentalsDb.getOwnerRentals(uid, statuses)
+        .then(rentals => {
+            console.log('response from DB getOwnerRentals:', rentals);
+            res.status(200).json(rentals);
+        })
+        .catch(error => {
+            console.log(error.message);
+            res.status(500).json(error.message);
+        })
+
 
 
 })
