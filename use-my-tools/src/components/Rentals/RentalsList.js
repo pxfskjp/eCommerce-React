@@ -31,15 +31,32 @@ class RentalsList extends Component {
     componentDidMount() {
         // get rentals
         const { userType, tabName } = this.props;
-        console.log(userType);
-        console.log(tabName);
-        // axios.post('/api/rentals/')
+        let statuses = [];
+        if (tabName === 'upcoming') {
+            statuses = ['upcoming']
+        } else if (tabName === 'active') {
+            statuses = ['active']
+        } else if (tabName === 'history') {
+            statuses = ['completed', 'cancelledByOwner', 'cancelledByRenter']
+        }
+
+        let rentalRequestData = {
+            statuses
+        }
+        
+        axios.post(`/api/rentals/${userType}/getrentals`, rentalRequestData)
+            .then(rentals => {
+                console.log(rentals.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     } 
 
     render() {
         return (
             <div className="rentals-list-container">
-            
+
             </div>
         )
     }

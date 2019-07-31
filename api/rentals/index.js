@@ -85,7 +85,7 @@ router.post('/owner/getrentals/', (req, res) => {
         // Rental Status; if multiple Status categories, request will send an array containing the required status categories
         
     const { uid, statuses } = req.body;     // uid is string, statuses is array
-
+    console.log(statuses);
     rentalsDb.getOwnerRentals(uid, statuses)
         .then(rentals => {
             console.log('response from DB getOwnerRentals:', rentals);
