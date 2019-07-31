@@ -30,7 +30,19 @@ class RentalsList extends Component {
     
     componentDidMount() {
         // get rentals
+        const { userType, tabName } = this.props;
+        console.log(userType);
+        console.log(tabName);
+        // axios.post('/api/rentals/')
     } 
+
+    render() {
+        return (
+            <div className="rentals-list-container">
+            
+            </div>
+        )
+    }
 }
 
 export default withRouter(RentalsList);

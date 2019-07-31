@@ -131,7 +131,7 @@ class OwnerDashboard extends Component {
                 </div>
                     
                 <div className="selected-view-container">
-                    {activeTabIndex === 0 && <RentalsView />}
+                    {activeTabIndex === 0 && <RentalsView userType={"owner"}/>}
                     {activeTabIndex === 1 && <MyTools />}
                 </div>
                 
