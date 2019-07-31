@@ -88,8 +88,8 @@ class RentalsView extends Component {
 
                 <div className="selected-view-container">
                     {activeTabIndex === 0 && <RentalsList userType={this.props.userType} tabName={"upcoming"}/>}
-                    {activeTabIndex === 1 && <RentalsList userType={this.props.userType}/>}
-                    {activeTabIndex === 2 && <RentalsList userType={this.props.userType}/>}
+                    {activeTabIndex === 1 && <RentalsList userType={this.props.userType} tabName={"active"}/>}
+                    {activeTabIndex === 2 && <RentalsList userType={this.props.userType} tabName={"history"}/>}
                 </div>
             </div>
         )
