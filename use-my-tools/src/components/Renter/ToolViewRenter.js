@@ -89,9 +89,9 @@ class ToolViewRenter extends React.Component {
                             </Typography>
                         </div>
                     
-                        
+                        <br/>
                         <RequestDatesPopUp toolId={tool.id} userType="renter"/>
-
+                        <br/>
                         <ContactOwner renterUID={this.state.tool.renterUid} ownerUID={this.state.tool.ownerUid}/>
 
                     </div>
