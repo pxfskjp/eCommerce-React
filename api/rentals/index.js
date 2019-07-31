@@ -77,4 +77,17 @@ router.get('/tool/reserveddates/:id', (req, res) => {
         })
 })
 
+// Get all rentals associated with a user
+// use POST in order to send req.body with data indicating the Rental Status being requested
+router.post('/user/getrentals/', (req, res) => {
+    // Required data from request:
+        // uid of current user
+        // Rental Status; if multiple Status categories, request will send an array containing the required status categories
+        
+    const { uid, statuses } = req.body;     // uid is string, statuses is array
+
+    
+
+})
+
 module.exports = router;
