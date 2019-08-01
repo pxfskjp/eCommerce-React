@@ -19,6 +19,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 import axios from 'axios';
+import moment from 'moment';
 
 import './css/RentalsList.css';
 
@@ -49,21 +50,50 @@ class RentalsList extends Component {
         axios.post(`/api/rentals/${userType}/getrentals`, rentalRequestData)
             .then(rentals => {
                 console.log('RentalsList CDM rental data: ', rentals.data);
-                this.setState({ rentals: rentals.data });
+
+                const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };   // format options for dates used below
+                // convert dates into correct format for display:
+                for (let rental of rentals.data) {
+                    const formattedStartDate = this.formatDate(rental.StartDate, dateFormatOptions);
+                    const formattedEndDate = this.formatDate(rental.EndDate, dateFormatOptions);
+                    rental.StartDate = formattedStartDate;
+                    rental.EndDate = formattedEndDate;
+                }
+                this.setState({ rentals: rentals.data }, () => console.log(this.state));
             })
             .catch(error => {
                 console.log(error.message);
             })
     } 
 
+    formatDate = (dateData, dateFormatOptions) =>{
+        const date = new Date(dateData);
+        // console.log(date);
+        const formattedDate = date.toLocaleDateString("en-US", dateFormatOptions); 
+        // console.log(formattedDate);
+        return formattedDate;
+    }
+
     render() {
         const { rentals } = this.state;
         return (
             <div className="rentals-list-container">
                 {rentals.map((rental, index) => {
+                    
                     return (
                         <div className="rental-container">
-                            <h3>{rental.ToolBrand}{' '}{rental.ToolName}</h3>
+                                <Typography
+                                  variant="h5"
+                                >
+                                    {rental.ToolBrand}{' '}{rental.ToolName}
+                                </Typography>
+
+                                <Typography
+                                  variant="h6"
+                                >
+                                    {rental.StartDate}{' - '}{rental.EndDate}
+                                </Typography>
+
                         </div>
                     )
                 })}

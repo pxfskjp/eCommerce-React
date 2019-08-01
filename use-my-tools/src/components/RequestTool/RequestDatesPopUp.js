@@ -56,11 +56,14 @@ class RequestDatesPopUp extends React.Component {
 
   getDatesInRange = ({ startDate, endDate }) => {
     let datesArray = [];
-    // const startDate = startDate;
-    // const endDate = endDate;
+    
     console.log('RDPU getDatesInRange startDate: ', startDate);
+
     let currentDate = moment(startDate);
     let stopDate = moment(endDate);
+    // console.log('startDate: ', startDate);
+    // console.log('moment(startDate): ', currentDate);
+    console.log('Date(startDate): ', Date(startDate));
     while (currentDate <= stopDate) {
       datesArray.push(moment(currentDate).format('YYYY-MM-DD'));
       // datesArray.push(moment(currentDate));
