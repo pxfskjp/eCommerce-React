@@ -22,11 +22,13 @@ function getOwnerRentals(uid, statuses) {
             'Rentals.RentalID',
             'Rentals.RenterUID',
             'Rentals.OwnerUID',
-            // 'Rentals.ToolID',
+            'Rentals.ToolID',
             'Rentals.ReservedDatesID',
             'Rentals.Status',
             'Rentals.DailyRentalPrice',
-            'tools.id as ToolId',
+            'reserved_dates.start_date as StartDate',
+            'reserved_dates.end_date as EndDate',
+            // 'tools.id as ToolId',
             'tools.brand as ToolBrand',
             'tools.name as ToolName',
             'users.first_name as RenterFirstName',
@@ -35,6 +37,7 @@ function getOwnerRentals(uid, statuses) {
         .from('Rentals')
         .whereIn('Rentals.Status', statuses)
         .where('Rentals.OwnerUID', uid)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
         .innerJoin('tools', 'Rentals.ToolID', 'tools.id')
         .innerJoin('users', 'Rentals.RenterUID', 'users.uid');
 

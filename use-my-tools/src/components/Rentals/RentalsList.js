@@ -20,6 +20,8 @@ import Tab from "@material-ui/core/Tab";
 
 import axios from 'axios';
 
+import './css/RentalsList.css';
+
 class RentalsList extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +48,8 @@ class RentalsList extends Component {
         
         axios.post(`/api/rentals/${userType}/getrentals`, rentalRequestData)
             .then(rentals => {
-                console.log(rentals.data);
+                console.log('RentalsList CDM rental data: ', rentals.data);
+                this.setState({ rentals: rentals.data });
             })
             .catch(error => {
                 console.log(error.message);
@@ -54,9 +57,16 @@ class RentalsList extends Component {
     } 
 
     render() {
+        const { rentals } = this.state;
         return (
             <div className="rentals-list-container">
-
+                {rentals.map((rental, index) => {
+                    return (
+                        <div className="rental-container">
+                            <h3>{rental.ToolBrand}{' '}{rental.ToolName}</h3>
+                        </div>
+                    )
+                })}
             </div>
         )
     }

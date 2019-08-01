@@ -95,9 +95,6 @@ router.post('/owner/getrentals/', (req, res) => {
             console.log(error.message);
             res.status(500).json(error.message);
         })
-
-
-
 })
 
 module.exports = router;
