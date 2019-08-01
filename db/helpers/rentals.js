@@ -2,7 +2,8 @@ const db = require('../db.js');
 
 module.exports = {
     createRental,
-    getOwnerRentals
+    getOwnerRentals,
+    getRenterRentals
 }
 
 function createRental(rental) {
