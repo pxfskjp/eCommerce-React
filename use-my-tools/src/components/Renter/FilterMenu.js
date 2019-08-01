@@ -27,15 +27,16 @@ class FilterMenu extends Component {
         event.preventDefault();
     }
 
+
     render() {
         return (
-            <div className="filter-menu-container">
+            <div className="filter-menu">
                 <h3>Filter Results</h3>
 
 
-                    {/* <div className="max-price-container"> */}
+                    <div className="filter-input-container">
 
-                        <label for="max-price">Max Price ($)</label>
+                        <label for="max-price" className="filter-label">Max Price ($)</label>
                         
                         <input 
                             name="maxPrice" 
@@ -43,12 +44,15 @@ class FilterMenu extends Component {
                             type="number" 
                             value={this.state.maxPrice}
                             onChange={this.handleChange}
+                            className="filter-input"
                         />
 
-                        <button type="button" onClick={this.handleUpdateFilter('maxPrice')}>Enter</button>
-                    {/* </div> */}
+                        <button type="button" onClick={this.handleUpdateFilter('maxPrice')} className="filter-button">Apply</button>
+                    </div>
 
-                <label for="search-string">Search</label>
+                    <div className="filter-input-container">
+
+                        <label for="search-string" className="filter-label">Search</label>
                         
                         <input 
                             name="searchString" 
@@ -56,9 +60,25 @@ class FilterMenu extends Component {
                             type="text" 
                             value={this.state.searchString}
                             onChange={this.handleChange}
+                            className="filter-input"
                         />
 
-                        <button type="button" onClick={this.handleUpdateFilter('searchString')}>Enter</button>
+                        <button 
+                            type="button" 
+                            onClick={this.handleUpdateFilter('searchString')} 
+                            className="filter-button"
+                        >
+                            Apply
+                        </button>
+                        
+                        <button 
+                            type="button" 
+                            onClick={this.props.clearAllKeywords()} 
+                            className="clear-filter-button"
+                        >
+                            Clear Search Filter
+                        </button>
+                    </div>
 
 
             </div>

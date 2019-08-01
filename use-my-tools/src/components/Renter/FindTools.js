@@ -90,6 +90,10 @@ class FindTools extends Component {
         this.setState({ [name]: value });
     }
 
+    clearAllKeywords = event => {
+        this.setState({ keywords: []});
+    }
+
     render() {
         const { classes } = this.props;
         const { tools, maxPrice, keywords } = this.state;
