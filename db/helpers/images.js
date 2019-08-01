@@ -37,7 +37,7 @@ function getFirstToolImage(toolId) {
         .select('i.url')
         .from('tool_images as ti')
         .join('images as i', 'ti.image_id', 'i.id')
-        .where({tool_id: id})
+        .where({tool_id: toolId})
         .first();
 }
 

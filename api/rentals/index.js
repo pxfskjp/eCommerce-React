@@ -91,8 +91,28 @@ router.post('/owner/getrentals/', (req, res) => {
     rentalsDb.getOwnerRentals(uid, statuses)
         .then(rentals => {
             // console.log('response from DB getOwnerRentals:', rentals);
+            const rentalsWithImages = rentals.map(rental => {
+                const imageQuery = imagesDb.getFirstToolImage(rental.ToolID); // get the first image URL for the tool in each rental
+                return imageQuery 
+                    .then(image => {
+                        console.log('response from db getFirstToolImage query: ', image);
+                        rental.ToolImageURL = image.url;  // append image to rental object
+                    })
+                    // .catch(error => {
+                    //     res.status(500).json(error.message);
+                    // })
+            });
 
-            res.status(200).json(rentals);
+            // console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            
+            Promise.all(rentalsWithImages)
+                .then(completed => {
+                    rentals.data = completed;
+                    res.status(200).json(rentals);  // Send back tools with images appended as response
+                })
+                .catch(error => {
+                    res.status(500).json(error.message);
+                })
         })
         .catch(error => {
             console.log(error.message);
