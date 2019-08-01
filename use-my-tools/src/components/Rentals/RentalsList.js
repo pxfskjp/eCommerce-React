@@ -19,6 +19,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 import axios from 'axios';
+import moment from 'moment';
+
+import './css/RentalsList.css';
 
 class RentalsList extends Component {
     constructor(props) {
@@ -30,7 +33,106 @@ class RentalsList extends Component {
     
     componentDidMount() {
         // get rentals
+        const { userType, tabName } = this.props;
+        let statuses = [];
+        if (tabName === 'upcoming') {
+            statuses = ['upcoming']
+        } else if (tabName === 'active') {
+            statuses = ['active']
+        } else if (tabName === 'history') {
+            statuses = ['completed', 'cancelledByOwner', 'cancelledByRenter']
+        }
+
+        let rentalRequestData = {
+            statuses
+        }
+        
+        axios.post(`/api/rentals/${userType}/getrentals`, rentalRequestData)
+            .then(rentals => {
+                console.log('RentalsList CDM rental data: ', rentals.data);
+
+                const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };   // format options for dates used below
+                // convert dates into correct format for display:
+                for (let rental of rentals.data) {
+                    const formattedStartDate = this.formatDate(rental.StartDate, dateFormatOptions);
+                    const formattedEndDate = this.formatDate(rental.EndDate, dateFormatOptions);
+                    rental.StartDate = formattedStartDate;
+                    rental.EndDate = formattedEndDate;
+                }
+                this.setState({ rentals: rentals.data }, () => console.log(this.state));
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     } 
+
+    formatDate = (dateData, dateFormatOptions) =>{
+        const date = new Date(dateData);
+        // console.log(date);
+        const formattedDate = date.toLocaleDateString("en-US", dateFormatOptions); 
+        // console.log(formattedDate);
+        return formattedDate;
+    }
+
+    render() {
+        const { rentals } = this.state;
+        return (
+            <div className="rentals-list-container">
+                {rentals.map((rental, index) => {
+                    
+                    return (
+                        <div className="rental-container">
+
+                            <img 
+                                className="tool-image"
+                                src={rental.ToolImageURL} 
+                                alt="tool"
+                            />
+                            <div className="rental-info">
+                                <Typography
+                                  variant="h5"
+                                >
+                                    {rental.ToolBrand}{' '}{rental.ToolName}
+                                </Typography>
+                                <br/>
+
+                                <Typography
+                                  variant="h6"
+                                >
+                                    {rental.StartDate}{' - '}{rental.EndDate}
+                                </Typography>
+                                <br/>
+
+                                {rental.Status === 'completed' && 
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        Completed
+                                    </Typography>
+                                }
+                                {rental.Status === 'cancelledByRenter' && 
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        Cancelled by renter
+                                    </Typography>
+                                }
+                                {rental.Status === 'cancelledByOwner' && 
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        Cancelled by you
+                                    </Typography>
+                                }
+
+                            </div>
+
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
 }
 
 export default withRouter(RentalsList);

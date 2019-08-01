@@ -60,7 +60,8 @@ const rentalsRoutes = require('./api/rentals'); // All CRUD endpoints for rental
 // Verify requests using Firebase-admin auth:
 server.use(multipart, async(req,res) => {
     console.log('server auth hit with req.body: ', req.body);
-    const idToken = req.headers.authorization;  
+    const idToken = req.headers.authorization; 
+    console.log(idToken); 
     try {
         await admin.auth().verifyIdToken(idToken)       // verify the idToken of the incoming req
           .then(decodedToken => {                       // get the decoded token back from Firebase

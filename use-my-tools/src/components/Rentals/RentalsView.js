@@ -13,6 +13,8 @@ import Tab from "@material-ui/core/Tab";
 
 import axios from 'axios';
 
+import RentalsList from './RentalsList';
+
 const styles = {
     tabMenu: {
         // height: '100%',
@@ -85,9 +87,9 @@ class RentalsView extends Component {
                 </div>
 
                 <div className="selected-view-container">
-                    {activeTabIndex === 0 && <p>Upcoming</p>}
-                    {activeTabIndex === 1 && <p>Active</p>}
-                    {activeTabIndex === 2 && <p>History</p>}
+                    {activeTabIndex === 0 && <RentalsList userType={this.props.userType} tabName={"upcoming"}/>}
+                    {activeTabIndex === 1 && <RentalsList userType={this.props.userType} tabName={"active"}/>}
+                    {activeTabIndex === 2 && <RentalsList userType={this.props.userType} tabName={"history"}/>}
                 </div>
             </div>
         )

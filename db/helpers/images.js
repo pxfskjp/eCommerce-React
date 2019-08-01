@@ -4,7 +4,8 @@ module.exports = {
     addImage,
     addToolImage,
     getToolImages,
-    updateImage
+    updateImage,
+    getFirstToolImage
 }
 
 // add image url to images table:
@@ -29,6 +30,15 @@ function getToolImages(id) {
         .from('tool_images as ti')
         .join('images as i', 'ti.image_id', 'i.id')
         .where({tool_id: id});
+}
+
+function getFirstToolImage(toolId) {
+    return db
+        .select('i.url')
+        .from('tool_images as ti')
+        .join('images as i', 'ti.image_id', 'i.id')
+        .where({tool_id: toolId})
+        .first();
 }
 
 function updateImage(id, url) {

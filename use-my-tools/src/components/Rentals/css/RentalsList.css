@@ -1,0 +1,26 @@
+.rentals-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rental-container {
+    width: 90%;
+    height: 150px;
+    border: 3px solid grey;
+    /* border-bottom: 3px solid grey; */
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tool-image {
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    border: 0;
+}
+
+.rental-info {
+    text-align: left;
+}
