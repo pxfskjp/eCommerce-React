@@ -41,12 +41,4 @@ function getOwnerRentals(uid, statuses) {
         .innerJoin('tools', 'Rentals.ToolID', 'tools.id')
         .innerJoin('users', 'Rentals.RenterUID', 'users.uid');
 
-        // return query
-        //     .havingIn('Rentals.Status', statuses);
-        // .groupBy('Rentals.RentalID', 'tools.brand');
-        // .then(rentals => rentals)
-        // .catch(error => {
-        //     console.log(error.message);
-        // })
-
 }

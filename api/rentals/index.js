@@ -120,4 +120,43 @@ router.post('/owner/getrentals/', (req, res) => {
         })
 })
 
+router.post('/renter/getrentals/', (req, res) => {
+    // Required data from request:
+        // uid of current user
+        // Rental Status; if multiple Status categories, request will send an array containing the required status categories
+        
+    const { uid, statuses } = req.body;     // uid is string, statuses is array
+    // console.log(statuses);
+    rentalsDb.getRenterRentals(uid, statuses)
+        .then(rentals => {
+            // console.log('response from DB getOwnerRentals:', rentals);
+            const rentalsWithImages = rentals.map(rental => {
+                const imageQuery = imagesDb.getFirstToolImage(rental.ToolID); // get the first image URL for the tool in each rental
+                return imageQuery 
+                    .then(image => {
+                        console.log('response from db getFirstToolImage query: ', image);
+                        rental.ToolImageURL = image.url;  // append image to rental object
+                    })
+                    // .catch(error => {
+                    //     res.status(500).json(error.message);
+                    // })
+            });
+
+            // console.log('toolsWithImages for /mytools response: ', toolsWithImages);
+            
+            Promise.all(rentalsWithImages)
+                .then(completed => {
+                    rentals.data = completed;
+                    res.status(200).json(rentals);  // Send back tools with images appended as response
+                })
+                .catch(error => {
+                    res.status(500).json(error.message);
+                })
+        })
+        .catch(error => {
+            console.log(error.message);
+            res.status(500).json(error.message);
+        })
+})
+
 module.exports = router;
