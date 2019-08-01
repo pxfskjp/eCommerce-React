@@ -82,17 +82,50 @@ class RentalsList extends Component {
                     
                     return (
                         <div className="rental-container">
+
+                            <img 
+                                className="tool-image"
+                                src={rental.ToolImageURL} 
+                                alt="tool"
+                            />
+                            <div className="rental-info">
                                 <Typography
                                   variant="h5"
                                 >
                                     {rental.ToolBrand}{' '}{rental.ToolName}
                                 </Typography>
+                                <br/>
 
                                 <Typography
                                   variant="h6"
                                 >
                                     {rental.StartDate}{' - '}{rental.EndDate}
                                 </Typography>
+                                <br/>
+
+                                {rental.Status === 'completed' && 
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        Completed
+                                    </Typography>
+                                }
+                                {rental.Status === 'cancelledByRenter' && 
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        Cancelled by renter
+                                    </Typography>
+                                }
+                                {rental.Status === 'cancelledByOwner' && 
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        Cancelled by you
+                                    </Typography>
+                                }
+
+                            </div>
 
                         </div>
                     )
