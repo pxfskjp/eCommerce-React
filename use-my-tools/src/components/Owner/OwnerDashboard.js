@@ -15,17 +15,6 @@ import RentalsView from '../Rentals/RentalsView';
 import './css/OwnerDashboard.css';
 
 const styles = theme => ({
-    // card: {
-    //     height: "100%",
-    //     display: "flex",
-    //     flexDirection: "column"
-    // },
-    // cardContent: {
-    //     flexGrow: 1,
-    //     maxHeight: 100,
-    //     minHeight: 100,
-    //     overflow: "hidden"
-    // },
     tabMenu: {
         // height: '100%',
         // border: '1px solid red',
@@ -77,33 +66,12 @@ const VerticalTab = withStyles(theme => ({
     }
 }))(Tab);
 
-// function TabContainer(props) {
-//     return (
-//       <Typography component="div" style={{ padding: 8 * 3 }}>
-//         {props.children}
-//       </Typography>
-//     );
-// }
-
 class OwnerDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTabIndex: 0,
-            tools: []
+            activeTabIndex: 0
         };
-    }
-
-    componentDidMount() {
-        // axios.get('/api/tools/mytools')
-        //     .then(tools => {
-        //         this.setState({
-        //             tools: tools.data
-        //         }, () => console.log('ToolsOwned state.tools after GET tools: ', this.state.tools)) ;
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //     })
     }
 
     handleTabSelect = (_, activeTabIndex) => this.setState({ activeTabIndex });
