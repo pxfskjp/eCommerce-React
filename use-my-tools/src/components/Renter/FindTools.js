@@ -45,6 +45,7 @@ class FindTools extends Component {
         super(props);
         this.state = {
             tools: [],
+            maxPriceInput: 100,
             maxPrice: 100,
             searchString: null,
             keywords: []
@@ -68,7 +69,7 @@ class FindTools extends Component {
     handleFilterInputChange =  event => {
         this.setState({ 
             [event.target.name]: event.target.value 
-        });
+        }, () => {console.log(this.state)});
     }
 
     // Method to update max price and search/keyword filter based on input:
@@ -90,8 +91,8 @@ class FindTools extends Component {
             }
             // console.log(keywords);
             this.setState({ keywords }) 
-        } else if (name === 'maxPrice') {
-            this.setState({ maxPrice: value });
+        } else if (name === 'maxPriceInput') {
+            this.setState({ maxPrice: value }, () => {console.log(this.state.maxPrice)});
         }
     }
 
@@ -125,7 +126,7 @@ class FindTools extends Component {
                             handleFilterInputChange={this.handleFilterInputChange}
                             updateFilter={this.updateFilter} 
                             clearAllKeywords={this.clearAllKeywords}
-                            maxPrice={this.state.maxPrice}
+                            maxPriceInput={this.state.maxPriceInput}
                             searchString={this.state.searchString}
                         />
                     </div>
@@ -133,7 +134,7 @@ class FindTools extends Component {
                     <div className="tools-list-container">
 
                         <Grid container spacing={40} className="tools-grid">
-                
+
                             {filteredTools.map((tool, index) =>  {
                                 return (
                                     <Grid item key={index} className="grid-item">

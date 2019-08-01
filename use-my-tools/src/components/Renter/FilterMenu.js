@@ -36,16 +36,16 @@ const FilterMenu = props => {
                         <label for="max-price" className="filter-label">Max Price ($)</label>
                         
                         <input 
-                            name="maxPrice" 
+                            name="maxPriceInput" 
                             id="max-price" 
                             type="number" 
-                            value={props.maxPrice}
+                            value={props.maxPriceInput}
                             onChange={props.handleFilterInputChange}
                             className="filter-input"
                         />
 
                         <button type="button" 
-                            onClick={handleUpdateFilter('maxPrice')} 
+                            onClick={handleUpdateFilter('maxPriceInput')} 
                             className="filter-button"
                         >
                             Apply
