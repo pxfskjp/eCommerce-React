@@ -29,6 +29,9 @@ class NavigationBar extends Component {
                     <Link to="/ownerdashboard" className="nav-link">
                         Owner Dashboard
                     </Link>
+                    <Link to="/renterdashboard" className="nav-link">
+                        Renter Dashboard
+                    </Link>
                     <Link to="/addtool" className="nav-link">
                         Add a tool
                     </Link>
