@@ -73,7 +73,7 @@ class FilterMenu extends Component {
                         
                         <button 
                             type="button" 
-                            onClick={this.props.clearAllKeywords()} 
+                            onClick={this.props.clearAllKeywords} 
                             className="clear-filter-button"
                         >
                             Clear Search Filter

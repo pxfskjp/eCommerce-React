@@ -115,7 +115,7 @@ class FindTools extends Component {
                 <div className="main-container">
 
                     <div className="filter-menu-container">
-                        <FilterMenu updateFilter={this.updateFilter} />
+                        <FilterMenu updateFilter={this.updateFilter} clearAllKeywords={this.clearAllKeywords}/>
                     </div>
 
                     <div className="tools-list-container">
