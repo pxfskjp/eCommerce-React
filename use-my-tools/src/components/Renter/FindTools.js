@@ -46,6 +46,7 @@ class FindTools extends Component {
         this.state = {
             tools: [],
             maxPrice: 100,
+            searchString: null,
             keywords: []
         };
     }
@@ -64,10 +65,13 @@ class FindTools extends Component {
             })
     }
 
-    // openToolView = event => {
+    handleFilterInputChange =  event => {
+        this.setState({ 
+            [event.target.name]: event.target.value 
+        });
+    }
 
-    // }
-
+    // Method to update max price and search/keyword filter based on input:
     updateFilter = (name, value) => {
         // if updating the keywords filter with a search string, 
         // split the string and put each word into the state.keywords array:
@@ -86,9 +90,11 @@ class FindTools extends Component {
             }
             // console.log(keywords);
             this.setState({ keywords }) 
+        } else if (name === 'maxPrice') {
+            this.setState({ maxPrice: value });
         }
-        this.setState({ [name]: value });
     }
+
 
     clearAllKeywords = event => {
         this.setState({ keywords: []});
@@ -102,7 +108,7 @@ class FindTools extends Component {
             tool.price <= maxPrice 
             && (
                 keywords.length === 0
-                || tool.brand.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >=0)
+                || tool.brand.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
                 || tool.name.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
                 || tool.description.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
             )
@@ -115,13 +121,19 @@ class FindTools extends Component {
                 <div className="main-container">
 
                     <div className="filter-menu-container">
-                        <FilterMenu updateFilter={this.updateFilter} clearAllKeywords={this.clearAllKeywords}/>
+                        <FilterMenu 
+                            handleFilterInputChange={this.handleFilterInputChange}
+                            updateFilter={this.updateFilter} 
+                            clearAllKeywords={this.clearAllKeywords}
+                            maxPrice={this.state.maxPrice}
+                            searchString={this.state.searchString}
+                        />
                     </div>
 
                     <div className="tools-list-container">
 
                         <Grid container spacing={40} className="tools-grid">
-
+                
                             {filteredTools.map((tool, index) =>  {
                                 return (
                                     <Grid item key={index} className="grid-item">
