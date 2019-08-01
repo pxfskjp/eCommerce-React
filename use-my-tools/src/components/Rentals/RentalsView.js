@@ -24,7 +24,7 @@ const styles = {
         borderBottom: '1px gray solid',
     },
     paper: {
-        // height: '100%'
+        // height: '100%',
         borderRadius: '0px'
     },
     paper2: {

@@ -4,8 +4,6 @@ import LogoutButton from './LogoutButton';
 
 import "./css/NavigationBar.css";
 
-
-
 class NavigationBar extends Component {
     constructor(props) {
         super(props);

@@ -62,14 +62,15 @@ const styles = theme => ({
 
 const VerticalTabs = withStyles(theme => ({
     flexContainer: {
-      flexDirection: "column"
+      flexDirection: "column",
+      height: "100%",
     },
     indicator: {
       display: "none"
     }
 }))(Tabs);
 
-const MyTab = withStyles(theme => ({
+const VerticalTab = withStyles(theme => ({
     selected: {
       color: "tomato",
       borderRight: "5px solid tomato"
@@ -124,8 +125,8 @@ class OwnerDashboard extends Component {
                 >
                     <h2>Owner Dashboard</h2>
                     <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
-                    <MyTab label="rentals" />
-                    <MyTab label="tools" />
+                        <VerticalTab label="rentals" />
+                        <VerticalTab label="tools" />
 
                     </VerticalTabs>
                 </div>
