@@ -3,6 +3,8 @@ const router = express.Router();
 const toolsDb = require('../../db/helpers/tools');
 const datesDb = require('../../db/helpers/dates');
 const rentalsDb = require('../../db/helpers/rentals');
+const imagesDb = require('../../db/helpers/images');
+
 
 // Create a new Rental (first create reserved dates, then add ReservedDatesID to Rental):
 
@@ -85,10 +87,11 @@ router.post('/owner/getrentals/', (req, res) => {
         // Rental Status; if multiple Status categories, request will send an array containing the required status categories
         
     const { uid, statuses } = req.body;     // uid is string, statuses is array
-    console.log(statuses);
+    // console.log(statuses);
     rentalsDb.getOwnerRentals(uid, statuses)
         .then(rentals => {
-            console.log('response from DB getOwnerRentals:', rentals);
+            // console.log('response from DB getOwnerRentals:', rentals);
+
             res.status(200).json(rentals);
         })
         .catch(error => {
