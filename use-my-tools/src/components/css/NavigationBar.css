@@ -8,7 +8,7 @@
 }
 
 .nav-link-container {
-    width: 40%;
+    width: 70%;
     min-width: 400px;
     display: flex;
     justify-content: space-between;
@@ -18,12 +18,16 @@
 .nav-link {
     margin: 0px 30px 0px 0px;
     text-decoration: none;
+    color: white;
+}
+
+.nav-link:hover {
+    color: black;
 }
 
 .logo {
     padding: 10px;
     margin: 0;
-    /* font-weight: bold; */
 }
 
 @media (max-width: 800px) {

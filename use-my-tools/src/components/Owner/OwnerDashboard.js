@@ -15,17 +15,6 @@ import RentalsView from '../Rentals/RentalsView';
 import './css/OwnerDashboard.css';
 
 const styles = theme => ({
-    // card: {
-    //     height: "100%",
-    //     display: "flex",
-    //     flexDirection: "column"
-    // },
-    // cardContent: {
-    //     flexGrow: 1,
-    //     maxHeight: 100,
-    //     minHeight: 100,
-    //     overflow: "hidden"
-    // },
     tabMenu: {
         // height: '100%',
         // border: '1px solid red',
@@ -62,47 +51,27 @@ const styles = theme => ({
 
 const VerticalTabs = withStyles(theme => ({
     flexContainer: {
-      flexDirection: "column"
+      flexDirection: "column",
+      height: "100%",
     },
     indicator: {
       display: "none"
     }
 }))(Tabs);
 
-const MyTab = withStyles(theme => ({
+const VerticalTab = withStyles(theme => ({
     selected: {
       color: "tomato",
       borderRight: "5px solid tomato"
     }
 }))(Tab);
 
-// function TabContainer(props) {
-//     return (
-//       <Typography component="div" style={{ padding: 8 * 3 }}>
-//         {props.children}
-//       </Typography>
-//     );
-// }
-
 class OwnerDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTabIndex: 0,
-            tools: []
+            activeTabIndex: 0
         };
-    }
-
-    componentDidMount() {
-        // axios.get('/api/tools/mytools')
-        //     .then(tools => {
-        //         this.setState({
-        //             tools: tools.data
-        //         }, () => console.log('ToolsOwned state.tools after GET tools: ', this.state.tools)) ;
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //     })
     }
 
     handleTabSelect = (_, activeTabIndex) => this.setState({ activeTabIndex });
@@ -124,8 +93,8 @@ class OwnerDashboard extends Component {
                 >
                     <h2>Owner Dashboard</h2>
                     <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
-                    <MyTab label="rentals" />
-                    <MyTab label="tools" />
+                        <VerticalTab label="rentals" />
+                        <VerticalTab label="tools" />
 
                     </VerticalTabs>
                 </div>

@@ -2,68 +2,180 @@ import React, { Component } from 'react';
 
 import './css/FilterMenu.css';
 
-class FilterMenu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // currentMaxPriceInput: 100,
-            // currentKeywordInput: '',
-            maxPrice: 100,
-            searchString: null,
-            // keywords: []
-        };
-    }
+const FilterMenu = props => {
+    
 
-    handleChange =  event => {
-        this.setState({ 
-            [event.target.name]: event.target.value 
-        });
-    }
+    // handleChange =  event => {
+    //     this.setState({ 
+    //         [event.target.name]: event.target.value 
+    //     });
+    // }
 
-    handleUpdateFilter = name => event => {
-        const value = this.state[name];
+    const handleUpdateFilter = name => event => {
+        const value = props[name];
         //console.log(value);
-        this.props.updateFilter(name, value);
+        props.updateFilter(name, value);
         event.preventDefault();
     }
 
-    render() {
+    // handleClearAllKeywords = event => {
+    //     // this.props.clearAllKeywords();
+    //     this.setState({ searchString: null }, () => this.props.clearAllKeywords());
+    //     event.preventDefault();
+    // }
+
+
+
         return (
-            <div className="filter-menu-container">
+            <div className="filter-menu">
                 <h3>Filter Results</h3>
 
 
-                    {/* <div className="max-price-container"> */}
+                    <div className="filter-input-container">
 
-                        <label for="max-price">Max Price ($)</label>
+                        <label for="max-price" className="filter-label">Max Price ($)</label>
                         
                         <input 
-                            name="maxPrice" 
+                            name="maxPriceInput" 
                             id="max-price" 
                             type="number" 
-                            value={this.state.maxPrice}
-                            onChange={this.handleChange}
+                            value={props.maxPriceInput}
+                            onChange={props.handleFilterInputChange}
+                            className="filter-input"
                         />
 
-                        <button type="button" onClick={this.handleUpdateFilter('maxPrice')}>Enter</button>
-                    {/* </div> */}
+                        <button type="button" 
+                            onClick={handleUpdateFilter('maxPriceInput')} 
+                            className="filter-button"
+                        >
+                            Apply
+                        </button>
+                    </div>
 
-                <label for="search-string">Search</label>
+                    <div className="filter-input-container">
+
+                        <label for="search-string" className="filter-label">Search</label>
                         
                         <input 
                             name="searchString" 
                             id="search-string" 
                             type="text" 
-                            value={this.state.searchString}
-                            onChange={this.handleChange}
+                            value={props.searchString}
+                            onChange={props.handleFilterInputChange}
+                            className="filter-input"
                         />
 
-                        <button type="button" onClick={this.handleUpdateFilter('searchString')}>Enter</button>
+                        <button 
+                            type="button" 
+                            onClick={handleUpdateFilter('searchString')} 
+                            className="filter-button"
+                        >
+                            Apply
+                        </button>
+                        
+                        <button 
+                            type="button" 
+                            onClick={props.clearAllKeywords} 
+                            className="clear-filter-button"
+                        >
+                            Clear Search Filter
+                        </button>
+                    </div>
 
 
             </div>
         )
-    }
+    
 }
 
 export default FilterMenu;
+
+// class FilterMenu extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             // currentMaxPriceInput: 100,
+//             // currentKeywordInput: '',
+//             maxPrice: 100,
+//             searchString: null,
+//             // keywords: []
+//         };
+//     }
+
+//     handleChange =  event => {
+//         this.setState({ 
+//             [event.target.name]: event.target.value 
+//         });
+//     }
+
+//     handleUpdateFilter = name => event => {
+//         const value = this.state[name];
+//         //console.log(value);
+//         this.props.updateFilter(name, value);
+//         event.preventDefault();
+//     }
+
+//     handleClearAllKeywords = event => {
+//         // this.props.clearAllKeywords();
+//         this.setState({ searchString: null }, () => this.props.clearAllKeywords());
+//         event.preventDefault();
+//     }
+
+
+//     render() {
+//         return (
+//             <div className="filter-menu">
+//                 <h3>Filter Results</h3>
+
+
+//                     <div className="filter-input-container">
+
+//                         <label for="max-price" className="filter-label">Max Price ($)</label>
+                        
+//                         <input 
+//                             name="maxPrice" 
+//                             id="max-price" 
+//                             type="number" 
+//                             value={this.state.maxPrice}
+//                             onChange={this.handleChange}
+//                             className="filter-input"
+//                         />
+
+//                         <button type="button" onClick={this.handleUpdateFilter('maxPrice')} className="filter-button">Apply</button>
+//                     </div>
+
+//                     <div className="filter-input-container">
+
+//                         <label for="search-string" className="filter-label">Search</label>
+                        
+//                         <input 
+//                             name="searchString" 
+//                             id="search-string" 
+//                             type="text" 
+//                             value={this.state.searchString}
+//                             onChange={this.handleChange}
+//                             className="filter-input"
+//                         />
+
+//                         <button 
+//                             type="button" 
+//                             onClick={this.handleUpdateFilter('searchString')} 
+//                             className="filter-button"
+//                         >
+//                             Apply
+//                         </button>
+                        
+//                         <button 
+//                             type="button" 
+//                             onClick={this.handleClearAllKeywords} 
+//                             className="clear-filter-button"
+//                         >
+//                             Clear Search Filter
+//                         </button>
+//                     </div>
+
+
+//             </div>
+//         )
+//     }
+// }

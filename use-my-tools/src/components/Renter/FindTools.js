@@ -45,7 +45,9 @@ class FindTools extends Component {
         super(props);
         this.state = {
             tools: [],
+            maxPriceInput: 100,
             maxPrice: 100,
+            searchString: null,
             keywords: []
         };
     }
@@ -64,10 +66,13 @@ class FindTools extends Component {
             })
     }
 
-    // openToolView = event => {
+    handleFilterInputChange =  event => {
+        this.setState({ 
+            [event.target.name]: event.target.value 
+        }, () => {console.log(this.state)});
+    }
 
-    // }
-
+    // Method to update max price and search/keyword filter based on input:
     updateFilter = (name, value) => {
         // if updating the keywords filter with a search string, 
         // split the string and put each word into the state.keywords array:
@@ -86,8 +91,14 @@ class FindTools extends Component {
             }
             // console.log(keywords);
             this.setState({ keywords }) 
+        } else if (name === 'maxPriceInput') {
+            this.setState({ maxPrice: value }, () => {console.log(this.state.maxPrice)});
         }
-        this.setState({ [name]: value });
+    }
+
+
+    clearAllKeywords = event => {
+        this.setState({ keywords: []});
     }
 
     render() {
@@ -98,7 +109,7 @@ class FindTools extends Component {
             tool.price <= maxPrice 
             && (
                 keywords.length === 0
-                || tool.brand.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >=0)
+                || tool.brand.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
                 || tool.name.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
                 || tool.description.split(' ').some(word => keywords.indexOf(word.toLowerCase()) >= 0)
             )
@@ -111,7 +122,13 @@ class FindTools extends Component {
                 <div className="main-container">
 
                     <div className="filter-menu-container">
-                        <FilterMenu updateFilter={this.updateFilter} />
+                        <FilterMenu 
+                            handleFilterInputChange={this.handleFilterInputChange}
+                            updateFilter={this.updateFilter} 
+                            clearAllKeywords={this.clearAllKeywords}
+                            maxPriceInput={this.state.maxPriceInput}
+                            searchString={this.state.searchString}
+                        />
                     </div>
 
                     <div className="tools-list-container">
