@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom"
+import { NavLink, Link, withRouter } from "react-router-dom"
 import LogoutButton from './LogoutButton';
 
 import "./css/NavigationBar.css";
@@ -18,24 +18,24 @@ class NavigationBar extends Component {
             <header className="nav-container">
                 <h1 className="logo">Use My Tools</h1>
                 <div className="nav-link-container">
-                    <Link to="/accountpage" className="nav-link">
+                    <NavLink to="/accountpage" className="nav-link" activeStyle={{ color: 'white' }}>
                         Account
-                    </Link>
-                    <Link to="/findtools" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/findtools" className="nav-link" activeStyle={{ color: 'white' }}>
                         Find Tools
-                    </Link>
-                    <Link to="/ownerdashboard" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/ownerdashboard" className="nav-link" activeStyle={{ color: 'white' }}>
                         Owner Dashboard
-                    </Link>
-                    <Link to="/renterdashboard" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/renterdashboard" className="nav-link" activeStyle={{ color: 'white' }}>
                         Renter Dashboard
-                    </Link>
-                    <Link to="/addtool" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/addtool" className="nav-link" activeStyle={{ color: 'white' }}>
                         Add a tool
-                    </Link>
-                    <Link to="/chat" className="nav-link">
+                    </NavLink>
+                    <NavLink to="/chat" className="nav-link" activeStyle={{ color: 'white' }}>
                         Messages
-                    </Link>
+                    </NavLink>
                     <LogoutButton className="nav-link" />
                 </div>
             </header>

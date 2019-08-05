@@ -47,7 +47,7 @@ class FindTools extends Component {
             tools: [],
             maxPriceInput: 100,
             maxPrice: 100,
-            searchString: null,
+            searchString: '',
             keywords: []
         };
     }
@@ -80,7 +80,8 @@ class FindTools extends Component {
             let keywords = [];
             let searchString = value;
             // Return if searchString is null:
-            if (!searchString) {
+            if (searchString === null || searchString === '') {
+                this.setState({ keywords: [], searchString: '' });
                 return;
             }
             // If searchString is not null,
@@ -98,7 +99,7 @@ class FindTools extends Component {
 
 
     clearAllKeywords = event => {
-        this.setState({ keywords: []});
+        this.setState({ keywords: [], searchString: ''});
     }
 
     render() {

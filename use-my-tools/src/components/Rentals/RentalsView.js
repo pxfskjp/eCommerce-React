@@ -49,7 +49,6 @@ const styles = {
     }
 }
 
-
 class RentalsView extends Component {
     constructor(props) {
         super(props);

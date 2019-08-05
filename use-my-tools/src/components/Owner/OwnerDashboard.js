@@ -33,16 +33,16 @@ const styles = theme => ({
     tabs1: {
         height: '100%'
     },
-        tabElement: {
-        width: '30%',
-        minWidth: 50,
-        maxWidth: 200
-    },
-        tab: {
-        display: 'flex',
-        justifyContent: 'space-around'
-    },
-        tabLabel: {
+    // tabElement: {
+    //     width: '30%',
+    //     minWidth: 50,
+    //     maxWidth: 200
+    // },
+    // tab: {
+    //     display: 'flex',
+    //     justifyContent: 'space-around'
+    // },
+    tabLabel: {
         fontSize: 16,
         padding: 0
     },
@@ -93,8 +93,9 @@ class OwnerDashboard extends Component {
                 >
                     <h2>Owner Dashboard</h2>
                     <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
-                        <VerticalTab label="rentals" />
-                        <VerticalTab label="tools" />
+                        {/* <VerticalTab label="rentals" /> */}
+                        <VerticalTab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
+                        <VerticalTab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
 
                     </VerticalTabs>
                 </div>

@@ -31,7 +31,10 @@ const FilterMenu = props => {
                 <h3>Filter Results</h3>
 
 
-                    <div className="filter-input-container">
+                    <form 
+                        className="filter-form-container"
+                        onSubmit={handleUpdateFilter('maxPriceInput')}
+                    >
 
                         <label for="max-price" className="filter-label">Max Price ($)</label>
                         
@@ -44,17 +47,21 @@ const FilterMenu = props => {
                             className="filter-input"
                         />
 
-                        <button type="button" 
-                            onClick={handleUpdateFilter('maxPriceInput')} 
+                        <button 
+                            type="submit" 
                             className="filter-button"
                         >
                             Apply
                         </button>
-                    </div>
 
-                    <div className="filter-input-container">
+                    </form>
 
-                        <label for="search-string" className="filter-label">Search</label>
+                    <form 
+                        className="filter-form-container"
+                        onSubmit={handleUpdateFilter('searchString')} 
+                    >
+
+                        <label for="search-string" className="filter-label">Keywords</label>
                         
                         <input 
                             name="searchString" 
@@ -66,8 +73,7 @@ const FilterMenu = props => {
                         />
 
                         <button 
-                            type="button" 
-                            onClick={handleUpdateFilter('searchString')} 
+                            type="submit" 
                             className="filter-button"
                         >
                             Apply
@@ -78,9 +84,9 @@ const FilterMenu = props => {
                             onClick={props.clearAllKeywords} 
                             className="clear-filter-button"
                         >
-                            Clear Search Filter
+                            Clear Keywords
                         </button>
-                    </div>
+                    </form>
 
 
             </div>
