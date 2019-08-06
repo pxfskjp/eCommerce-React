@@ -175,36 +175,30 @@ router.get('/owner/rental/:rentalId', async (req, res) => {
     catch(error){
         res.status(500).json(error.message);
     }
+})
 
-    // rentalsDb.getOwnerRental(rentalId)
+// endpoint to get rental data for a single rental for the tool Renter
+// for use on RentalView component:
+router.get('/renter/rental/:rentalId', async (req, res) => {
+    const rentalId = req.params.rentalId;
+
+    try {
+        const rental = await rentalsDb.getOwnerRental(rentalId);
+        const image = await imagesDb.getFirstToolImage(rental.ToolID);
+        rental.ToolImageURL = image.url;
+        res.status(200).json(rental);
+    }
+    catch(error){
+        res.status(500).json(error.message);
+    }
+    // rentalsDb.getRenterRental(rentalId)
     //     .then(rental => {
-    //         const imageQuery = imagesDb.getFirstToolImage(rental.ToolID); // get the first image URL for the tool in each rental
-    //         if ()
-    //         return imageQuery 
-    //             .then(image => {
-    //                 // console.log('response from db getFirstToolImage query: ', image);
-    //                 rental.ToolImageURL = image.url;  // append image to rental object
-    //             })
+    //         // console.log('Rental data from db received at API layer: ', rental);
     //         res.status(200).json(rental);
     //     })
     //     .catch(error => {
     //         res.status(500).json(error.message);
     //     })
-})
-
-// endpoint to get rental data for a single rental for the tool Renter
-// for use on RentalView component:
-router.get('/renter/rental/:rentalId', (req, res) => {
-    const rentalId = req.params.rentalId;
-
-    rentalsDb.getRenterRental(rentalId)
-        .then(rental => {
-            // console.log('Rental data from db received at API layer: ', rental);
-            res.status(200).json(rental);
-        })
-        .catch(error => {
-            res.status(500).json(error.message);
-        })
 })
 
 module.exports = router;
