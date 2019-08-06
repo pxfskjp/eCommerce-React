@@ -17,6 +17,7 @@ import AccountPage from './components/AccountPage';
 
 import OwnerDashboard from './components/Owner/OwnerDashboard';
 import RenterDashboard from './components/Renter/RenterDashboard';
+import RentalView from './components/Rentals/RentalView';
 // import MyTools from './components/Owner/MyTools';
 import AddTool from './components/Owner/AddTool';
 import FindTools from './components/Renter/FindTools';
@@ -86,8 +87,12 @@ class AppComponentBase extends Component {
               <Route path="/login" component={AccountPage} />
 
               <Route path={"/accountpage"} component={AccountPage} />
+
               <Route path={"/ownerdashboard"} component={OwnerDashboard} />
               <Route path={"/renterdashboard"} component={RenterDashboard} />
+
+              <Route path={"/rentalview/:rentalId/:userType"} component={RentalView} />
+
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
               <Route path={"/findtools"} component={FindTools} />

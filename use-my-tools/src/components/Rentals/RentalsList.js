@@ -7,19 +7,19 @@
 
 import React, { Component } from 'react';
 import { withRouter, Link } from "react-router-dom"
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
+// import { withStyles } from "@material-ui/core/styles";
+// import Card from "@material-ui/core/Card";
+// import CardActions from "@material-ui/core/CardActions";
+// import CardContent from "@material-ui/core/CardContent";
 // import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+// import Paper from "@material-ui/core/Paper";
+// import Tabs from "@material-ui/core/Tabs";
+// import Tab from "@material-ui/core/Tab";
 
 import axios from 'axios';
-import moment from 'moment';
+// import moment from 'moment';
 
 import './css/RentalsList.css';
 
@@ -49,8 +49,7 @@ class RentalsList extends Component {
         
         axios.post(`/api/rentals/${userType}/getrentals`, rentalRequestData)
             .then(rentals => {
-                console.log('RentalsList CDM rental data: ', rentals.data);
-
+                // console.log('RentalsList CDM rental data: ', rentals.data);
                 const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };   // format options for dates used below
                 // convert dates into correct format for display:
                 for (let rental of rentals.data) {
@@ -76,62 +75,72 @@ class RentalsList extends Component {
 
     render() {
         const { rentals } = this.state;
-        return (
-            <div className="rentals-list-container">
-                {rentals.map((rental, index) => {
+        if (rentals.length === 0) {
+            return (
+                <h1>You do not have any rentals in {this.props.tabName}.</h1>
+            )
+        } else {
+            return (
+                <div className="rentals-list-container">
                     
-                    return (
-                        <div className="rental-container">
-
-                            <img 
-                                className="tool-image"
-                                src={rental.ToolImageURL} 
-                                alt="tool"
-                            />
-                            <div className="rental-info">
-                                <Typography
-                                  variant="h5"
+                        {rentals.map((rental, index) => {
+                        
+                            return (
+                                <Link 
+                                    className="rental-container" 
+                                    key={index} 
+                                    to={`/rentalview/${rental.RentalID}/${this.props.userType}`}
                                 >
-                                    {rental.ToolBrand}{' '}{rental.ToolName}
-                                </Typography>
-                                <br/>
-
-                                <Typography
-                                  variant="h6"
-                                >
-                                    {rental.StartDate}{' - '}{rental.EndDate}
-                                </Typography>
-                                <br/>
-
-                                {rental.Status === 'completed' && 
-                                    <Typography
+        
+                                    <img 
+                                        className="tool-image"
+                                        src={rental.ToolImageURL} 
+                                        alt="tool"
+                                    />
+                                    <div className="rental-info">
+                                        <Typography
+                                        variant="h5"
+                                        >
+                                            {rental.ToolBrand}{' '}{rental.ToolName}
+                                        </Typography>
+                                        <br/>
+        
+                                        <Typography
                                         variant="h6"
-                                    >
-                                        Completed
-                                    </Typography>
-                                }
-                                {rental.Status === 'cancelledByRenter' && 
-                                    <Typography
-                                        variant="h6"
-                                    >
-                                        Cancelled by renter
-                                    </Typography>
-                                }
-                                {rental.Status === 'cancelledByOwner' && 
-                                    <Typography
-                                        variant="h6"
-                                    >
-                                        Cancelled by you
-                                    </Typography>
-                                }
-
-                            </div>
-
-                        </div>
-                    )
-                })}
-            </div>
-        )
+                                        >
+                                            {rental.StartDate}{' - '}{rental.EndDate}
+                                        </Typography>
+                                        <br/>
+        
+                                        {rental.Status === 'completed' && 
+                                            <Typography
+                                                variant="h6"
+                                            >
+                                                Completed
+                                            </Typography>
+                                        }
+                                        {rental.Status === 'cancelledByRenter' && 
+                                            <Typography
+                                                variant="h6"
+                                            >
+                                                Cancelled by renter
+                                            </Typography>
+                                        }
+                                        {rental.Status === 'cancelledByOwner' && 
+                                            <Typography
+                                                variant="h6"
+                                            >
+                                                Cancelled by you
+                                            </Typography>
+                                        }
+                                    </div>
+        
+                                </Link>
+                            )
+                        })}
+                </div>
+            )
+        }   
     }
 }
 
