@@ -60,7 +60,7 @@ class RentalView extends Component {
 
     getRentalInfo = (rentalId, userType) => {
         console.log('getRentalInfo called');
-        axios.get(`/api/rentals/rental/${rentalId}/${userType}`)
+        axios.get(`/api/rentals/${userType}/rental/${rentalId}`)
             .then(rental => {
                 this.setState({
                     rental: rental.data,
