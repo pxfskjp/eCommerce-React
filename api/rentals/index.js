@@ -183,7 +183,7 @@ router.get('/renter/rental/:rentalId', async (req, res) => {
     const rentalId = req.params.rentalId;
 
     try {
-        const rental = await rentalsDb.getOwnerRental(rentalId);
+        const rental = await rentalsDb.getRenterRental(rentalId);
         const image = await imagesDb.getFirstToolImage(rental.ToolID);
         rental.ToolImageURL = image.url;
         res.status(200).json(rental);

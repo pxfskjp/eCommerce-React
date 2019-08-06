@@ -121,6 +121,7 @@ class RentalView extends Component {
     render() {
         const { rental } = this.state;
         const { classes } = this.props;
+        const { userType } = this.props.match.params;
 
         return (
             <div className="page-container">
@@ -135,12 +136,11 @@ class RentalView extends Component {
 
                     <div className="left-container">
                         <div className="image-container">
-                            Tool image here
-                            {/* {tool.images ? (
-                                <ImageCarousel toolImages={tool.images} />
+                            {rental.ToolImageURL ? (
+                                <img src={rental.ToolImageURL} alt="tool"/>
                             ) : (
                                 ''
-                            )} */}
+                            )}
                         </div>
 
                         <div className="rental-management">
@@ -166,11 +166,21 @@ class RentalView extends Component {
                                 {rental.StartDate}{' - '}{rental.EndDate}
                             </Typography>
                             <br/>
-                            <Typography
-                                variant="h6"
-                            >
-                                Rented by
-                            </Typography>
+                            {userType === 'owner' &&
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Renter: {rental.RenterFirstName}{' '}{rental.RenterLastName}
+                                </Typography>
+                            }
+                            {userType === 'renter' &&
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
+                                </Typography>
+                            }
+                            
                             {rental.Status === 'upcoming' && 
                                 <Typography
                                     variant="h6"
