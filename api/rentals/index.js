@@ -172,4 +172,17 @@ router.get('/owner/rental/:rentalId', (req, res) => {
         })
 })
 
+router.get('/renter/rental/:rentalId', (req, res) => {
+    const rentalId = req.params.rentalId;
+
+    rentalsDb.getRenterRental(rentalId)
+        .then(rental => {
+            // console.log('Rental data from db received at API layer: ', rental);
+            res.status(200).json(rental);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
+})
+
 module.exports = router;

@@ -81,32 +81,6 @@ class RentalView extends Component {
             })
     }
 
-    // updateToolDetails = event => {
-    //     console.log('TVO state on updateToolDetails: ', this.state);
-    //     const id = this.props.match.params.id;
-    //     const tool = {
-    //         brand: this.state.brand,
-    //         name: this.state.name,
-    //         description: this.state.description,
-    //         price: this.state.price,
-    //         available: this.state.available
-    //     }
-
-    //     axios.put(`/api/tools/updatetooldetails/${id}`, tool)
-    //         .then(tool => {
-    //             console.log("Response from /updatetooldetails", tool.data);
-    //             this.setState({
-    //                 brand: tool.data.brand,
-    //                 name: tool.data.name,
-    //                 description: tool.data.description,
-    //                 price: tool.data.price,
-    //                 available: tool.data.available,
-    //             })
-    //             .catch(error => {
-    //                 console.log(error.message);
-    //             });
-    //         })
-
     // }
 
     // handleFileChange = event => {
@@ -125,12 +99,6 @@ class RentalView extends Component {
     //             console.log(error.messages);
     //         })
     // };
-
-    // handleToolDelete = event => {
-    //     this.props.history.push({        
-    //         pathname: "/yourtools"
-    //     });
-    // }
 
     handleChange = name => event => {
         this.setState({
