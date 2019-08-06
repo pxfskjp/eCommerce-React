@@ -74,8 +74,6 @@ class RentalView extends Component {
                     // rating: tool.data.rating,
                 }, () => { 
                     console.log("RentalView state.rental after getRentalInfo:", this.state.rental);
-                    // console.log(this.state.tool.images);
-
                 });
             })
             .catch(error => {

@@ -164,7 +164,8 @@ router.get('/owner/rental/:rentalId', (req, res) => {
 
     rentalsDb.getOwnerRental(rentalId)
         .then(rental => {
-            console.log('Rental data from db received at API layer: ', rental);
+            // console.log('Rental data from db received at API layer: ', rental);
+            res.status(200).json(rental);
         })
         .catch(error => {
             res.status(500).json(error.message);
