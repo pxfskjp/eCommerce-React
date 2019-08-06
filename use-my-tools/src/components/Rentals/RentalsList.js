@@ -89,7 +89,7 @@ class RentalsList extends Component {
                                 <Link 
                                     className="rental-container" 
                                     key={index} 
-                                    to={`/rentalview/${rental.RentalID}`}
+                                    to={`/rentalview/${rental.RentalID}/${this.props.userType}`}
                                 >
         
                                     <img 
