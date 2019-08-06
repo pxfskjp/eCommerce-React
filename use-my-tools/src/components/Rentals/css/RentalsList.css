@@ -11,12 +11,12 @@
     width: 90%;
     max-width: 800px;
     height: 150px;
-    border: 3px solid grey;
-    background-color: white;
-    /* border-bottom: 3px solid grey; */
     margin: 10px 0 0 0;
     display: flex;
     justify-content: space-around;
+    border: 3px solid grey;
+    background-color: white;
+    text-decoration: none;
 }
 
 .tool-image {

@@ -5,7 +5,8 @@ module.exports = {
     getOwnerRentals,
     getRenterRentals,
     getOwnerRental,
-    getRenterRental
+    getRenterRental,
+    updateRentalStatus
 }
 
 // function to create a new rental in the Rentals table:
@@ -122,4 +123,10 @@ function getRenterRental(rentalId) {
         .innerJoin('tools', 'Rentals.ToolID', 'tools.id')
         .innerJoin('users', 'Rentals.OwnerUID', 'users.uid')
         .first();
+}
+
+function updateRentalStatus(rentalId, status) {
+    return db('Rentals')
+        .where('RentalID', rentalId)
+        .update({ 'Status': status });
 }

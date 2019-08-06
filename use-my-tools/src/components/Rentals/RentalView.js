@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 
 // import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";
 // import TextField from "@material-ui/core/TextField";
-// import InputAdornment from '@material-ui/core/InputAdornment';
 
-// import ImageCarousel from '../ImageCarousel';
+import CancelDialog from './CancelDialog';
 
 import axios from 'axios';
 
@@ -62,6 +61,12 @@ class RentalView extends Component {
         console.log('getRentalInfo called');
         axios.get(`/api/rentals/${userType}/rental/${rentalId}`)
             .then(rental => {
+                const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };   // format options for dates
+                // convert dates into correct format for display:
+                const formattedStartDate = this.formatDate(rental.data.StartDate, dateFormatOptions);
+                const formattedEndDate = this.formatDate(rental.data.EndDate, dateFormatOptions);
+                rental.data.StartDate = formattedStartDate;
+                rental.data.EndDate = formattedEndDate;
                 this.setState({
                     rental: rental.data,
                     // renterUid: tool.data.renter_uid,
@@ -81,7 +86,13 @@ class RentalView extends Component {
             })
     }
 
-    // }
+    formatDate = (dateData, dateFormatOptions) =>{
+        const date = new Date(dateData);
+        // console.log(date);
+        const formattedDate = date.toLocaleDateString("en-US", dateFormatOptions); 
+        // console.log(formattedDate);
+        return formattedDate;
+    }
 
     // handleFileChange = event => {
     //     // this.setState({
@@ -106,36 +117,51 @@ class RentalView extends Component {
         }, () => console.log(this.state));
     };
 
-    render() {
-        const { tool } = this.state;
-        const { classes } = this.props;
+    cancelRental = () => {
+        const { userType, rentalId } = this.props.match.params;
+        let cancelStatus = null;
+        if (userType === 'owner') {
+            cancelStatus = 'cancelledByOwner';
+        } else if (userType === 'renter') {
+            cancelStatus = 'cancelledByRenter';
+        }
+        
+        const updateData = { rentalId, status: cancelStatus };
+        axios.put(`/api/rentals/updatestatus`, updateData)
+        .then(response => {
+            console.log('resonse from cancel request: ', response);
+            let { rental } = this.state;
+            rental.Status = response.data;
+            this.setState({ rental }, () => console.log(this.state));
+        })
+        .catch(error => {
+            this.setState({ error: error.message });
+        })
+      };
 
+    render() {
+        const { rental } = this.state;
+        const { classes } = this.props;
+        const { userType, rentalId } = this.props.match.params;
+        
         return (
             <div className="page-container">
+
                 <div className="title">
-                    Title here
-                    {/* <Typography gutterBottom variant="h5" component="h2">
-                        {tool.brand}{' '}{tool.name}
-                    </Typography> */}
-                    
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {rental.ToolBrand}{' '}{rental.ToolName}
+                    </Typography>
                 </div>
 
                 <div className="main-container">
 
                     <div className="left-container">
-                        Tool image here
-                        {/* {tool.images ? (
-                            <ImageCarousel toolImages={tool.images} />
-                        ) : (
-                            ''
-                        )} */}
-
-                    </div>
-
-                    <div className="right-container">
-                        <div className="rental-info">
-                            Rental Info here
-                           
+                        <div className="image-container">
+                            {rental.ToolImageURL ? (
+                                <img src={rental.ToolImageURL} alt="tool"/>
+                            ) : (
+                                ''
+                            )}
                         </div>
 
                         <div className="rental-management">
@@ -145,11 +171,76 @@ class RentalView extends Component {
                             {/* Rental review */}
 
                             {/* Cancel rental Dialog*/}
-                            {/* <CancelDialog 
-                                toolId={this.props.match.params.id} 
-                                handleToolDelete={this.handleToolDelete} 
-                            /> */}
+                            <CancelDialog 
+                                confirmCancelRental={this.cancelRental}
+                                // rentalId={rentalId}
+                                // cancelStatus={cancelStatus}
+                            />
                         </div>
+
+                    </div>
+
+                    <div className="right-container">
+                        <div className="rental-info">
+                            <Typography
+                                variant="h6"
+                            >
+                                {rental.StartDate}{' - '}{rental.EndDate}
+                            </Typography>
+                            <br/>
+                            {userType === 'owner' &&
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Renter: {rental.RenterFirstName}{' '}{rental.RenterLastName}
+                                </Typography>
+                            }
+                            {userType === 'renter' &&
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
+                                </Typography>
+                            }
+                            
+                            {rental.Status === 'upcoming' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Upcoming
+                                </Typography>
+                            }
+                            {rental.Status === 'completed' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Completed
+                                </Typography>
+                            }
+                            {rental.Status === 'cancelledByRenter' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Cancelled by Renter
+                                </Typography>
+                            }
+                            {rental.Status === 'cancelledByOwner' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Cancelled by Owner
+                                </Typography>
+                            }
+                            <br/>
+                            <Typography
+                                variant="h6"
+                            >
+                                Daily rental price: ${rental.DailyRentalPrice}
+                            </Typography>
+                           
+                        </div>
+
+                        
                     </div>
                     {/* end right-container */}
 

@@ -79,7 +79,7 @@ router.get('/tool/reserveddates/:id', (req, res) => {
         })
 })
 
-// Get all rentals associated with a user
+// Get all rentals associated with an Owner
 // use POST in order to send req.body with data indicating the Rental Status being requested
 router.post('/owner/getrentals/', (req, res) => {
     // Required data from request:
@@ -120,6 +120,8 @@ router.post('/owner/getrentals/', (req, res) => {
         })
 })
 
+// Get all rentals associated with a Renter
+// use POST in order to send req.body with data indicating the Rental Status being requested
 router.post('/renter/getrentals/', (req, res) => {
     // Required data from request:
         // uid of current user
@@ -159,30 +161,61 @@ router.post('/renter/getrentals/', (req, res) => {
         })
 })
 
-router.get('/owner/rental/:rentalId', (req, res) => {
+// endpoint to get rental data for a single rental for the tool Owner
+// for use on RentalView component:
+router.get('/owner/rental/:rentalId', async (req, res) => {
     const rentalId = req.params.rentalId;
 
-    rentalsDb.getOwnerRental(rentalId)
-        .then(rental => {
-            // console.log('Rental data from db received at API layer: ', rental);
-            res.status(200).json(rental);
-        })
-        .catch(error => {
-            res.status(500).json(error.message);
-        })
+    try {
+        const rental = await rentalsDb.getOwnerRental(rentalId);
+        const image = await imagesDb.getFirstToolImage(rental.ToolID);
+        rental.ToolImageURL = image.url;
+        res.status(200).json(rental);
+    }
+    catch(error){
+        res.status(500).json(error.message);
+    }
 })
 
-router.get('/renter/rental/:rentalId', (req, res) => {
+// endpoint to get rental data for a single rental for the tool Renter
+// for use on RentalView component:
+router.get('/renter/rental/:rentalId', async (req, res) => {
     const rentalId = req.params.rentalId;
 
-    rentalsDb.getRenterRental(rentalId)
-        .then(rental => {
-            // console.log('Rental data from db received at API layer: ', rental);
-            res.status(200).json(rental);
-        })
-        .catch(error => {
-            res.status(500).json(error.message);
-        })
+    try {
+        const rental = await rentalsDb.getRenterRental(rentalId);
+        const image = await imagesDb.getFirstToolImage(rental.ToolID);
+        rental.ToolImageURL = image.url;
+        res.status(200).json(rental);
+    }
+    catch(error){
+        res.status(500).json(error.message);
+    }
+    // rentalsDb.getRenterRental(rentalId)
+    //     .then(rental => {
+    //         // console.log('Rental data from db received at API layer: ', rental);
+    //         res.status(200).json(rental);
+    //     })
+    //     .catch(error => {
+    //         res.status(500).json(error.message);
+    //     })
+})
+
+// endpoint to update rental status:
+router.put('/updatestatus', async (req, res) => {
+    const { rentalId, status } = req.body;
+    // const newStatus = { 'Status' }
+    console.log('rentalId at /updatestatus: ', rentalId);
+    console.log('status at /updatestatus: ', status);
+    try {
+        const update = await rentalsDb.updateRentalStatus(rentalId, status);
+        // console.log('update response from db:', update);
+        res.status(200).json(status);
+    }
+    catch(error) {
+        console.log(error.message);
+        res.status(500).json(error.message);
+    }
 })
 
 module.exports = router;
