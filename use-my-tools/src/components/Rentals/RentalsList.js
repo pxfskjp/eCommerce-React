@@ -86,7 +86,11 @@ class RentalsList extends Component {
                         {rentals.map((rental, index) => {
                         
                             return (
-                                <Link key={index} className="rental-container">
+                                <Link 
+                                    className="rental-container" 
+                                    key={index} 
+                                    to={`/rentalview/${rental.RentalID}`}
+                                >
         
                                     <img 
                                         className="tool-image"

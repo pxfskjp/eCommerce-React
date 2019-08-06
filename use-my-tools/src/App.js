@@ -89,7 +89,7 @@ class AppComponentBase extends Component {
               <Route path={"/accountpage"} component={AccountPage} />
               <Route path={"/ownerdashboard"} component={OwnerDashboard} />
               <Route path={"/renterdashboard"} component={RenterDashboard} />
-              <Route path={"/rentalview/:id"} component={RentalView} />
+              <Route path={"/rentalview/:rentalId"} component={RentalView} />
               <Route path={"/addtool"} component={AddTool} />
               <Route path={"/updatepassword"} component={UpdatePassword} />
               <Route path={"/findtools"} component={FindTools} />

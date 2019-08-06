@@ -13,7 +13,7 @@ import ImageCarousel from '../ImageCarousel';
 
 import axios from 'axios';
 
-// import './css/ToolViewOwner.css';
+import './css/RentalView.css';
 
 const styles = theme => ({
     card: {
@@ -50,8 +50,9 @@ class RentalView extends Component {
     }
 
     componentDidMount() {
-        console.log('RentalView props: ', this.props);
-        // let tool_id = this.props.match.params.id;
+
+        let rentalId = this.props.match.params.rentalId;
+        console.log()
         // console.log(tool_id);
         // this.getToolInfo(tool_id);
         // console.log(this.state.tool.images);
@@ -149,21 +150,22 @@ class RentalView extends Component {
         return (
             <div className="page-container">
                 <div className="title">
-                    <Typography gutterBottom variant="h5" component="h2">
+                    Title here
+                    {/* <Typography gutterBottom variant="h5" component="h2">
                         {tool.brand}{' '}{tool.name}
-                    </Typography>
+                    </Typography> */}
                     
                 </div>
 
                 <div className="main-container">
 
                     <div className="left-container">
-
-                        {tool.images ? (
+                        Tool image here
+                        {/* {tool.images ? (
                             <ImageCarousel toolImages={tool.images} />
                         ) : (
                             ''
-                        )}
+                        )} */}
 
                     </div>
 
@@ -174,6 +176,7 @@ class RentalView extends Component {
                         </div>
 
                         <div className="rental-management">
+                            Rental management here
                             {/* Rental rating */}
 
                             {/* Rental review */}
