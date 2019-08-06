@@ -123,14 +123,14 @@ class RentalsList extends Component {
                                             <Typography
                                                 variant="h6"
                                             >
-                                                Cancelled by renter
+                                                Cancelled
                                             </Typography>
                                         }
                                         {rental.Status === 'cancelledByOwner' && 
                                             <Typography
                                                 variant="h6"
                                             >
-                                                Cancelled by you
+                                                Cancelled
                                             </Typography>
                                         }
                                     </div>

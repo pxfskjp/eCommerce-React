@@ -79,7 +79,7 @@ router.get('/tool/reserveddates/:id', (req, res) => {
         })
 })
 
-// Get all rentals associated with a user
+// Get all rentals associated with an Owner
 // use POST in order to send req.body with data indicating the Rental Status being requested
 router.post('/owner/getrentals/', (req, res) => {
     // Required data from request:
@@ -120,6 +120,8 @@ router.post('/owner/getrentals/', (req, res) => {
         })
 })
 
+// Get all rentals associated with a Renter
+// use POST in order to send req.body with data indicating the Rental Status being requested
 router.post('/renter/getrentals/', (req, res) => {
     // Required data from request:
         // uid of current user
@@ -159,6 +161,8 @@ router.post('/renter/getrentals/', (req, res) => {
         })
 })
 
+// endpoint to get rental data for a single rental for the tool Owner
+// for use on RentalView component:
 router.get('/owner/rental/:rentalId', (req, res) => {
     const rentalId = req.params.rentalId;
 
@@ -172,6 +176,8 @@ router.get('/owner/rental/:rentalId', (req, res) => {
         })
 })
 
+// endpoint to get rental data for a single rental for the tool Renter
+// for use on RentalView component:
 router.get('/renter/rental/:rentalId', (req, res) => {
     const rentalId = req.params.rentalId;
 

@@ -134,29 +134,13 @@ class RentalView extends Component {
                 <div className="main-container">
 
                     <div className="left-container">
-                        Tool image here
-                        {/* {tool.images ? (
-                            <ImageCarousel toolImages={tool.images} />
-                        ) : (
-                            ''
-                        )} */}
-
-                    </div>
-
-                    <div className="right-container">
-                        <div className="rental-info">
-                            {/* <Typography>
-                                {rental.e}
-                            </Typography>
-                            <br/>
-                            <Typography>
-                                Location: {tool.ownerCity}{', '}{tool.ownerState}
-                            </Typography>
-                            <br/>
-                            <Typography>
-                                Daily rental price: ${rental.DailyRentalPrice}
-                            </Typography> */}
-                           
+                        <div className="image-container">
+                            Tool image here
+                            {/* {tool.images ? (
+                                <ImageCarousel toolImages={tool.images} />
+                            ) : (
+                                ''
+                            )} */}
                         </div>
 
                         <div className="rental-management">
@@ -171,6 +155,60 @@ class RentalView extends Component {
                                 handleToolDelete={this.handleToolDelete} 
                             /> */}
                         </div>
+
+                    </div>
+
+                    <div className="right-container">
+                        <div className="rental-info">
+                            <Typography
+                                variant="h6"
+                            >
+                                {rental.StartDate}{' - '}{rental.EndDate}
+                            </Typography>
+                            <br/>
+                            <Typography
+                                variant="h6"
+                            >
+                                Rented by
+                            </Typography>
+                            {rental.Status === 'upcoming' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Upcoming
+                                </Typography>
+                            }
+                            {rental.Status === 'completed' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Completed
+                                </Typography>
+                            }
+                            {rental.Status === 'cancelledByRenter' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Cancelled
+                                </Typography>
+                            }
+                            {rental.Status === 'cancelledByOwner' && 
+                                <Typography
+                                    variant="h6"
+                                >
+                                    Status: Cancelled
+                                </Typography>
+                            }
+                            <br/>
+                            <Typography
+                                variant="h6"
+                            >
+                                Daily rental price: ${rental.DailyRentalPrice}
+                            </Typography>
+                           
+                        </div>
+
+                        
                     </div>
                     {/* end right-container */}
 
