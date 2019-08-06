@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 
 import { withStyles } from "@material-ui/core/styles";
 
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from '@material-ui/core/InputAdornment';
+// import Button from "@material-ui/core/Button";
+// import Typography from "@material-ui/core/Typography";
+// import TextField from "@material-ui/core/TextField";
+// import InputAdornment from '@material-ui/core/InputAdornment';
 
-import ImageCarousel from '../ImageCarousel';
-
-
+// import ImageCarousel from '../ImageCarousel';
 
 import axios from 'axios';
 
@@ -52,7 +50,7 @@ class RentalView extends Component {
     componentDidMount() {
 
         let rentalId = this.props.match.params.rentalId;
-        console.log()
+        console.log('RentalView rentalId:', rentalId);
         // console.log(tool_id);
         // this.getToolInfo(tool_id);
         // console.log(this.state.tool.images);
