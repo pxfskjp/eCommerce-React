@@ -161,7 +161,8 @@ router.post('/renter/getrentals/', (req, res) => {
 
 router.get('/owner/rental/:rentalId', (req, res) => {
     const rentalId = req.params.rentalId;
-    rentalsDb.getRental(rentalId)
+
+    rentalsDb.getOwnerRental(rentalId)
         .then(rental => {
             console.log('Rental data from db received at API layer: ', rental);
         })
