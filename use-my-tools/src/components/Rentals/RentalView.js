@@ -199,14 +199,14 @@ class RentalView extends Component {
                                 <Typography
                                     variant="h6"
                                 >
-                                    Status: Cancelled
+                                    Status: Cancelled by Renter
                                 </Typography>
                             }
                             {rental.Status === 'cancelledByOwner' && 
                                 <Typography
                                     variant="h6"
                                 >
-                                    Status: Cancelled
+                                    Status: Cancelled by Owner
                                 </Typography>
                             }
                             <br/>

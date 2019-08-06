@@ -201,4 +201,21 @@ router.get('/renter/rental/:rentalId', async (req, res) => {
     //     })
 })
 
+// endpoint to update rental status:
+router.put('/updatestatus', async (req, res) => {
+    const { rentalId, status } = req.body;
+    // const newStatus = { 'Status' }
+    console.log('rentalId at /updatestatus: ', rentalId);
+    console.log('status at /updatestatus: ', status);
+    try {
+        const update = await rentalsDb.updateRentalStatus(rentalId, status);
+        console.log('update response from db:', update);
+        res.status(200).json(update);
+    }
+    catch(error) {
+        console.log(error.message);
+        res.status(500).json(error.message);
+    }
+})
+
 module.exports = router;
