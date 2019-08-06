@@ -30,7 +30,6 @@ function getOwnerRentals(uid, statuses) {
             'Rentals.DailyRentalPrice',
             'reserved_dates.start_date as StartDate',
             'reserved_dates.end_date as EndDate',
-            // 'tools.id as ToolId',
             'tools.brand as ToolBrand',
             'tools.name as ToolName',
             'users.first_name as RenterFirstName',

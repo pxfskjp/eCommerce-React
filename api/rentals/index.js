@@ -134,7 +134,7 @@ router.post('/renter/getrentals/', (req, res) => {
                 const imageQuery = imagesDb.getFirstToolImage(rental.ToolID); // get the first image URL for the tool in each rental
                 return imageQuery 
                     .then(image => {
-                        console.log('response from db getFirstToolImage query: ', image);
+                        // console.log('response from db getFirstToolImage query: ', image);
                         rental.ToolImageURL = image.url;  // append image to rental object
                     })
                     // .catch(error => {
@@ -160,7 +160,14 @@ router.post('/renter/getrentals/', (req, res) => {
 })
 
 router.get('/rental/:rentalId', (req, res) => {
-    
+    const rentalId = req.params.rentalId;
+    rentalsDb.getRental(rentalId)
+        .then(rental => {
+            console.log('Rental data from db received at API layer: ', rental);
+        })
+        .catch(error => {
+            res.status(500).json(error.message);
+        })
 })
 
 module.exports = router;

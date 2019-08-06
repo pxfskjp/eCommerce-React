@@ -1,5 +1,5 @@
 # Use-My-Tools-CSR
-My version of Build Week 1 Project
+Use My Tools is a rental marketplace where individuals can find and rent tools owned by people nearby. It's a great way to save money when you need a tool for one project and it's not worth buying one.
 
 The root directory contains backend (server and database) code as well as the use-my-tools React App, which contains the front end (client app) code.
 
