@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 
 // import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";
 // import TextField from "@material-ui/core/TextField";
 // import InputAdornment from '@material-ui/core/InputAdornment';
 
@@ -62,6 +62,12 @@ class RentalView extends Component {
         console.log('getRentalInfo called');
         axios.get(`/api/rentals/${userType}/rental/${rentalId}`)
             .then(rental => {
+                const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };   // format options for dates
+                // convert dates into correct format for display:
+                const formattedStartDate = this.formatDate(rental.data.StartDate, dateFormatOptions);
+                const formattedEndDate = this.formatDate(rental.data.EndDate, dateFormatOptions);
+                rental.data.StartDate = formattedStartDate;
+                rental.data.EndDate = formattedEndDate;
                 this.setState({
                     rental: rental.data,
                     // renterUid: tool.data.renter_uid,
@@ -81,7 +87,13 @@ class RentalView extends Component {
             })
     }
 
-    // }
+    formatDate = (dateData, dateFormatOptions) =>{
+        const date = new Date(dateData);
+        // console.log(date);
+        const formattedDate = date.toLocaleDateString("en-US", dateFormatOptions); 
+        // console.log(formattedDate);
+        return formattedDate;
+    }
 
     // handleFileChange = event => {
     //     // this.setState({
@@ -107,17 +119,16 @@ class RentalView extends Component {
     };
 
     render() {
-        const { tool } = this.state;
+        const { rental } = this.state;
         const { classes } = this.props;
 
         return (
             <div className="page-container">
+
                 <div className="title">
-                    Title here
-                    {/* <Typography gutterBottom variant="h5" component="h2">
-                        {tool.brand}{' '}{tool.name}
-                    </Typography> */}
-                    
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {rental.ToolBrand}{' '}{rental.ToolName}
+                    </Typography>
                 </div>
 
                 <div className="main-container">
@@ -134,7 +145,17 @@ class RentalView extends Component {
 
                     <div className="right-container">
                         <div className="rental-info">
-                            Rental Info here
+                            {/* <Typography>
+                                {rental.e}
+                            </Typography>
+                            <br/>
+                            <Typography>
+                                Location: {tool.ownerCity}{', '}{tool.ownerState}
+                            </Typography>
+                            <br/>
+                            <Typography>
+                                Daily rental price: ${rental.DailyRentalPrice}
+                            </Typography> */}
                            
                         </div>
 
