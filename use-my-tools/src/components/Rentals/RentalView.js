@@ -54,36 +54,33 @@ class RentalView extends Component {
         // console.log('RentalView rentalId:', rentalId);
         // console.log('RentalView userType:', userType);
 
-        this.getRentalInfo(rentalId);
+        this.getRentalInfo(rentalId, userType);
         // console.log(this.state.tool.images);
     }
 
-    getRentalInfo = rentalId => {
+    getRentalInfo = (rentalId, userType) => {
         console.log('getRentalInfo called');
-        // axios.get(`/api/rentals/owner/rental/${rentalId}`)
-        //     .then(tool => {
-        //         // console.log('getToolInfo tool:', tool);
-        //         // console.log('getToolInfo tool.data:', tool.data);
+        axios.get(`/api/rentals/rental/${rentalId}/${userType}`)
+            .then(rental => {
+                this.setState({
+                    rental: rental.data,
+                    // renterUid: tool.data.renter_uid,
+                    // brand: tool.data.brand,
+                    // name: tool.data.name,
+                    // description: tool.data.description,
+                    // price: tool.data.price,
+                    // available: tool.data.available,
+                    // rented: tool.data.rented,
+                    // rating: tool.data.rating,
+                }, () => { 
+                    console.log("RentalView state.rental after getRentalInfo:", this.state.rental);
+                    // console.log(this.state.tool.images);
 
-        //         this.setState({
-        //             tool: tool.data,
-        //             renterUid: tool.data.renter_uid,
-        //             brand: tool.data.brand,
-        //             name: tool.data.name,
-        //             description: tool.data.description,
-        //             price: tool.data.price,
-        //             available: tool.data.available,
-        //             rented: tool.data.rented,
-        //             rating: tool.data.rating,
-        //         }, () => { 
-        //             console.log("ToolView state.tool after getToolInfo:", this.state.tool);
-        //             // console.log(this.state.tool.images);
-
-        //         });
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message);
-        //     })
+                });
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
     }
 
     // updateToolDetails = event => {
