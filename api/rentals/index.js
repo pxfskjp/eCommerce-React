@@ -159,4 +159,8 @@ router.post('/renter/getrentals/', (req, res) => {
         })
 })
 
+router.get('/rental/:rentalId', (req, res) => {
+    
+})
+
 module.exports = router;
