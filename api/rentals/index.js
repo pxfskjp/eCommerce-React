@@ -209,8 +209,8 @@ router.put('/updatestatus', async (req, res) => {
     console.log('status at /updatestatus: ', status);
     try {
         const update = await rentalsDb.updateRentalStatus(rentalId, status);
-        console.log('update response from db:', update);
-        res.status(200).json(update);
+        // console.log('update response from db:', update);
+        res.status(200).json(status);
     }
     catch(error) {
         console.log(error.message);

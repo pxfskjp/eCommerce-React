@@ -24,15 +24,18 @@ class CancelDialog extends React.Component {
   };
 
   handleConfirm = () => {
-    const { rentalId, cancelStatus } = this.props;
-    const updateData = { rentalId, status: cancelStatus };
-    axios.put(`/api/rentals/updatestatus`, updateData)
-    .then(response => {
-        this.handleClose();
-    })
-    .catch(error => {
-        this.setState({ error: error.message });
-    })
+    this.handleClose();
+    this.props.confirmCancelRental();
+    // const { rentalId, cancelStatus } = this.props;
+    // const updateData = { rentalId, status: cancelStatus };
+    // axios.put(`/api/rentals/updatestatus`, updateData)
+    // .then(response => {
+    //     console.log('resonse from cancel request: ', response);
+    //     this.handleClose();
+    // })
+    // .catch(error => {
+    //     this.setState({ error: error.message });
+    // })
   };
 
   render() {

@@ -117,9 +117,7 @@ class RentalView extends Component {
         }, () => console.log(this.state));
     };
 
-    render() {
-        const { rental } = this.state;
-        const { classes } = this.props;
+    cancelRental = () => {
         const { userType, rentalId } = this.props.match.params;
         let cancelStatus = null;
         if (userType === 'owner') {
@@ -127,6 +125,25 @@ class RentalView extends Component {
         } else if (userType === 'renter') {
             cancelStatus = 'cancelledByRenter';
         }
+        
+        const updateData = { rentalId, status: cancelStatus };
+        axios.put(`/api/rentals/updatestatus`, updateData)
+        .then(response => {
+            console.log('resonse from cancel request: ', response);
+            let { rental } = this.state;
+            rental.Status = response.data;
+            this.setState({ rental }, () => console.log(this.state));
+        })
+        .catch(error => {
+            this.setState({ error: error.message });
+        })
+      };
+
+    render() {
+        const { rental } = this.state;
+        const { classes } = this.props;
+        const { userType, rentalId } = this.props.match.params;
+        
         return (
             <div className="page-container">
 
@@ -155,8 +172,9 @@ class RentalView extends Component {
 
                             {/* Cancel rental Dialog*/}
                             <CancelDialog 
-                                rentalId={rentalId}
-                                cancelStatus={cancelStatus}
+                                confirmCancelRental={this.cancelRental}
+                                // rentalId={rentalId}
+                                // cancelStatus={cancelStatus}
                             />
                         </div>
 
