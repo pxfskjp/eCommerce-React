@@ -50,6 +50,7 @@ class RentalView extends Component {
     }
 
     componentDidMount() {
+        console.log('RentalView props: ', this.props);
         // let tool_id = this.props.match.params.id;
         // console.log(tool_id);
         // this.getToolInfo(tool_id);
