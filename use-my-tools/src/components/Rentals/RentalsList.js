@@ -87,7 +87,7 @@ class RentalsList extends Component {
                         {rentals.map((rental, index) => {
                         
                             return (
-                                <div className="rental-container">
+                                <Link className="rental-container">
         
                                     <img 
                                         className="tool-image"
@@ -132,7 +132,7 @@ class RentalsList extends Component {
                                         }
                                     </div>
         
-                                </div>
+                                </Link>
                             )
                         })}
                 </div>
