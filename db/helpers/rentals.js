@@ -4,9 +4,11 @@ module.exports = {
     createRental,
     getOwnerRentals,
     getRenterRentals,
-    getOwnerRental
+    getOwnerRental,
+    getRenterRental
 }
 
+// function to create a new rental in the Rentals table:
 function createRental(rental) {
     return db('Rentals')
         .insert(rental)
@@ -18,6 +20,7 @@ function createRental(rental) {
         })
 }
 
+// function to get all Rentals for a tool owner:
 function getOwnerRentals(uid, statuses) {
     return db
         .select([
@@ -43,6 +46,33 @@ function getOwnerRentals(uid, statuses) {
         .innerJoin('users', 'Rentals.RenterUID', 'users.uid');
 }
 
+// function to get a specific Rental for an owner:
+function getOwnerRental(rentalId) {
+    return db
+        .select([
+            'Rentals.RentalID',
+            'Rentals.RenterUID',
+            'Rentals.OwnerUID',
+            'Rentals.ToolID',
+            'Rentals.ReservedDatesID',
+            'Rentals.Status',
+            'Rentals.DailyRentalPrice',
+            'reserved_dates.start_date as StartDate',
+            'reserved_dates.end_date as EndDate',
+            'tools.brand as ToolBrand',
+            'tools.name as ToolName',
+            'users.first_name as RenterFirstName',
+            'users.last_name as RenterLastName'
+        ])
+        .from('Rentals')
+        .where('Rentals.RentalID', rentalId)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
+        .innerJoin('tools', 'Rentals.ToolID', 'tools.id')
+        .innerJoin('users', 'Rentals.RenterUID', 'users.uid')
+        .first();
+}
+
+// function to get all Rentals for a renter:
 function getRenterRentals(uid, statuses) {
     return db
         .select([
@@ -68,7 +98,8 @@ function getRenterRentals(uid, statuses) {
         .innerJoin('users', 'Rentals.OwnerUID', 'users.uid');
 }
 
-function getOwnerRental(rentalId) {
+// function to get a specific Rental for a renter:
+function getRenterRental(rentalId) {
     return db
         .select([
             'Rentals.RentalID',
@@ -82,10 +113,13 @@ function getOwnerRental(rentalId) {
             'reserved_dates.end_date as EndDate',
             'tools.brand as ToolBrand',
             'tools.name as ToolName',
-            'users.first_name as RenterFirstName',
-            'users.last_name as RenterLastName'
+            'users.first_name as OwnerFirstName',
+            'users.last_name as OwnerLastName'
         ])
         .from('Rentals')
         .where('Rentals.RentalID', rentalId)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
+        .innerJoin('tools', 'Rentals.ToolID', 'tools.id')
+        .innerJoin('users', 'Rentals.OwnerUID', 'users.uid')
         .first();
 }

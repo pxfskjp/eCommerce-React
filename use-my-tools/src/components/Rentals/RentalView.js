@@ -51,8 +51,8 @@ class RentalView extends Component {
     componentDidMount() {
 
         let { rentalId, userType } = this.props.match.params;
-        console.log('RentalView rentalId:', rentalId);
-        console.log('RentalView userType:', userType);
+        // console.log('RentalView rentalId:', rentalId);
+        // console.log('RentalView userType:', userType);
 
         this.getRentalInfo(rentalId);
         // console.log(this.state.tool.images);
