@@ -5,9 +5,8 @@ import { withStyles } from "@material-ui/core/styles";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // import TextField from "@material-ui/core/TextField";
-// import InputAdornment from '@material-ui/core/InputAdornment';
 
-// import ImageCarousel from '../ImageCarousel';
+import CancelDialog from './CancelDialog';
 
 import axios from 'axios';
 
@@ -121,8 +120,13 @@ class RentalView extends Component {
     render() {
         const { rental } = this.state;
         const { classes } = this.props;
-        const { userType } = this.props.match.params;
-
+        const { userType, rentalId } = this.props.match.params;
+        let cancelStatus = null;
+        if (userType === 'owner') {
+            cancelStatus = 'cancelledByOwner';
+        } else if (userType === 'renter') {
+            cancelStatus = 'cancelledByRenter';
+        }
         return (
             <div className="page-container">
 
@@ -150,10 +154,10 @@ class RentalView extends Component {
                             {/* Rental review */}
 
                             {/* Cancel rental Dialog*/}
-                            {/* <CancelDialog 
-                                toolId={this.props.match.params.id} 
-                                handleToolDelete={this.handleToolDelete} 
-                            /> */}
+                            <CancelDialog 
+                                rentalId={rentalId}
+                                cancelStatus={cancelStatus}
+                            />
                         </div>
 
                     </div>

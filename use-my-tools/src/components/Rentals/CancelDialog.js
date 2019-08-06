@@ -16,6 +16,7 @@ class CancelDialog extends React.Component {
 
   handleClickOpen = () => {
     this.setState({ open: true });
+    console.log(this.props);
   };
 
   handleClose = () => {
@@ -23,8 +24,8 @@ class CancelDialog extends React.Component {
   };
 
   handleConfirm = () => {
-    const { rentalId, status } = this.props;
-    const updateData = { rentalId, status };
+    const { rentalId, cancelStatus } = this.props;
+    const updateData = { rentalId, status: cancelStatus };
     axios.put(`/api/rentals/updatestatus`, updateData)
     .then(response => {
         this.handleClose();
@@ -59,10 +60,10 @@ class CancelDialog extends React.Component {
 
                 <DialogActions>
                   <Button onClick={this.handleClose} color="primary">
-                    No, don't cancel.
+                    No, don't cancel
                   </Button>
                   <Button onClick={this.handleConfirm} color="primary">
-                    Yes, cancel.
+                    Yes, cancel
                   </Button>
                 </DialogActions>
               </div>
