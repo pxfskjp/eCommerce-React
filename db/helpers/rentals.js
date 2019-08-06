@@ -4,7 +4,7 @@ module.exports = {
     createRental,
     getOwnerRentals,
     getRenterRentals,
-    getRental
+    getOwnerRental
 }
 
 function createRental(rental) {
@@ -68,7 +68,7 @@ function getRenterRentals(uid, statuses) {
         .innerJoin('users', 'Rentals.OwnerUID', 'users.uid');
 }
 
-function getRental(rentalId) {
+function getOwnerRental(rentalId) {
     return db
         .select([
             'Rentals.RentalID',

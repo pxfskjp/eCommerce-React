@@ -159,7 +159,7 @@ router.post('/renter/getrentals/', (req, res) => {
         })
 })
 
-router.get('/rental/:rentalId', (req, res) => {
+router.get('/owner/rental/:rentalId', (req, res) => {
     const rentalId = req.params.rentalId;
     rentalsDb.getRental(rentalId)
         .then(rental => {
