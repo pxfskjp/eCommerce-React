@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
 import { withStyles } from "@material-ui/core/styles";
-
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // import TextField from "@material-ui/core/TextField";
@@ -111,11 +109,11 @@ class RentalView extends Component {
     //         })
     // };
 
-    handleChange = name => event => {
-        this.setState({
-          [name]: event.target.value
-        }, () => console.log(this.state));
-    };
+    // handleChange = name => event => {
+    //     this.setState({
+    //       [name]: event.target.value
+    //     }, () => console.log(this.state));
+    // };
 
     cancelRental = () => {
         const { userType, rentalId } = this.props.match.params;
@@ -148,9 +146,20 @@ class RentalView extends Component {
             <div className="page-container">
 
                 <div className="title">
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {rental.ToolBrand}{' '}{rental.ToolName}
-                    </Typography>
+                    {userType === 'renter' &&
+                        <Typography
+                            variant="h6"
+                        >
+                            You booked this rental
+                        </Typography>
+                    }
+                    {userType === 'owner' &&
+                        <Typography
+                            variant="h6"
+                        >
+                            This is your tool
+                        </Typography>
+                    }
                 </div>
 
                 <div className="main-container">
@@ -164,81 +173,68 @@ class RentalView extends Component {
                             )}
                         </div>
 
-                        <div className="rental-management">
-                            Rental management here
-                            {/* Rental rating */}
+                        <div className="tool-info">
+                            <Typography variant="h6">
+                                {rental.ToolBrand}{' '}{rental.ToolName}
+                            </Typography>
 
-                            {/* Rental review */}
-
-                            {/* Cancel rental Dialog*/}
-                            <CancelDialog 
-                                confirmCancelRental={this.cancelRental}
-                                // rentalId={rentalId}
-                                // cancelStatus={cancelStatus}
-                            />
+                            {userType === 'renter' &&
+                                <Typography variant="h6">
+                                    Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
+                                </Typography>
+                            }
                         </div>
 
                     </div>
 
                     <div className="right-container">
                         <div className="rental-info">
-                            <Typography
-                                variant="h6"
-                            >
-                                {rental.StartDate}{' - '}{rental.EndDate}
-                            </Typography>
-                            <br/>
                             {userType === 'owner' &&
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Renter: {rental.RenterFirstName}{' '}{rental.RenterLastName}
                                 </Typography>
                             }
-                            {userType === 'renter' &&
-                                <Typography
-                                    variant="h6"
-                                >
-                                    Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
-                                </Typography>
-                            }
+                            <br/>
+                            <Typography variant="h6">
+                                {rental.StartDate}{' - '}{rental.EndDate}
+                            </Typography>
+                            <br/>
                             
                             {rental.Status === 'upcoming' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Upcoming
                                 </Typography>
                             }
                             {rental.Status === 'completed' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Completed
                                 </Typography>
                             }
                             {rental.Status === 'cancelledByRenter' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Cancelled by Renter
                                 </Typography>
                             }
                             {rental.Status === 'cancelledByOwner' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Cancelled by Owner
                                 </Typography>
                             }
                             <br/>
-                            <Typography
-                                variant="h6"
-                            >
+                            <Typography variant="h6">
                                 Daily rental price: ${rental.DailyRentalPrice}
                             </Typography>
-                           
                         </div>
+
+                        <div className="rental-management">
+                            {/* Rental rating */}
+
+                            {/* Rental review */}
+
+                            <CancelDialog confirmCancelRental={this.cancelRental}/>
+                        </div>
+                           
+                        
 
                         
                     </div>

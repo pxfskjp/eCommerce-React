@@ -218,4 +218,52 @@ router.put('/updatestatus', async (req, res) => {
     }
 })
 
+// endpoint to update all of a user's rentals to 'active' or 'complete' Status based on current date:
+router.post('/autoupdatestatusbydate', async (req, res) => {
+    // take uid from req.body:
+    const { uid } = req.body;
+    // get current date:
+    const currentDate = new Date();
+    // console.log('currentDate: ', currentDate);
+    
+    let updates = [];
+    let update = null;
+    try {
+        // Moving upcoming rentals to active or completed:
+        const renterRentalsUpcoming = await rentalsDb.getRenterRentalIDs(uid, ['upcoming']);
+        const ownerRentalsUpcoming = await rentalsDb.getOwnerRentalIDs(uid, ['upcoming']);
+        const upcomingRentals = renterRentalsUpcoming.concat(ownerRentalsUpcoming);
+
+        for (let rental of upcomingRentals) {
+            if (currentDate >= rental.StartDate && currentDate <= rental.EndDate) {
+                // update rental status to active
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'active');
+                updates.push(update);
+            }
+            if (currentDate > rental.EndDate) {
+                // update rental status to completed
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
+                updates.push(update);
+            }
+        }
+        // Move active rentals to completed:
+        const renterRentalsActive = await rentalsDb.getRenterRentalIDs(uid, ['active']);
+        const ownerRentalsActive = await rentalsDb.getOwnerRentalIDs(uid, ['active']);
+        const activeRentals = renterRentalsActive.concat(ownerRentalsActive);
+
+        for (let rental of activeRentals) {
+            if (currentDate > rental.EndDate) {
+                // update rental status to completed
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
+                updates.push(update);
+            }
+        }
+        res.status(200).json(updates);
+    }
+    catch(error) {
+        console.log(error.message);
+        res.status(500).json(error.message);
+    }
+})
+
 module.exports = router;

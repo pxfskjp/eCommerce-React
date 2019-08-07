@@ -64,11 +64,11 @@ class AppComponentBase extends Component {
         this.setState({
           idToken: null
         })
-        .then(() => {
-          this.props.history.push({         
-            pathname: "/accountpage"
-          });
-        })
+        // .then(() => {
+        //   this.props.history.push({         
+        //     pathname: "/accountpage"
+        //   });
+        // })
       }
     });
   }
