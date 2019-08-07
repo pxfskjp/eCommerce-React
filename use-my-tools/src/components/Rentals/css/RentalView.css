@@ -24,6 +24,42 @@
     align-items: flex-start;
 }
 
+.left-container .image-container {
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.left-container img {
+    border: none;
+    height: auto;
+    width: auto;
+    max-height: 225px;
+    /* margin: auto; */
+}
+
+.tool-info {
+    width: 100%;
+    margin: 30px 10px 10px 0px;
+    padding-top: 15px;
+    /* border-top: 2px solid grey; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.rental-management {
+    height: 100px;
+    width: 100%;
+    padding-top: 15px;
+    margin: 30px 10px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-top: 2px solid grey;
+}
+
 .right-container {
     /* border: 1px solid black; */
     display: flex;
@@ -31,18 +67,6 @@
     align-items: flex-start;
     /* height: max-content; */
     width: 50%;
-}
-
-.right-container .rental-management {
-    height: 100px;
-    width: 100%;
-    padding-top: 15px;
-    margin: 30px 10px 10px 10px ;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-top: 2px solid grey;
 }
 
 @media (max-width: 600px) {
