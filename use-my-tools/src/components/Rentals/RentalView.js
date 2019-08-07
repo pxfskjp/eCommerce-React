@@ -160,9 +160,6 @@ class RentalView extends Component {
                             This is your tool
                         </Typography>
                     }
-                    {/* <Typography gutterBottom variant="h5" component="h2">
-                        {rental.ToolBrand}{' '}{rental.ToolName}
-                    </Typography> */}
                 </div>
 
                 <div className="main-container">
