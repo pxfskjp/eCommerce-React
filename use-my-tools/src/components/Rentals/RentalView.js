@@ -177,16 +177,12 @@ class RentalView extends Component {
                         </div>
 
                         <div className="tool-info">
-                            <Typography
-                                variant="h6"
-                            >
+                            <Typography variant="h6">
                                 {rental.ToolBrand}{' '}{rental.ToolName}
                             </Typography>
 
                             {userType === 'renter' &&
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
                                 </Typography>
                             }
@@ -197,52 +193,38 @@ class RentalView extends Component {
                     <div className="right-container">
                         <div className="rental-info">
                             {userType === 'owner' &&
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Renter: {rental.RenterFirstName}{' '}{rental.RenterLastName}
                                 </Typography>
                             }
                             <br/>
-                            <Typography
-                                variant="h6"
-                            >
+                            <Typography variant="h6">
                                 {rental.StartDate}{' - '}{rental.EndDate}
                             </Typography>
                             <br/>
                             
                             {rental.Status === 'upcoming' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Upcoming
                                 </Typography>
                             }
                             {rental.Status === 'completed' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Completed
                                 </Typography>
                             }
                             {rental.Status === 'cancelledByRenter' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Cancelled by Renter
                                 </Typography>
                             }
                             {rental.Status === 'cancelledByOwner' && 
-                                <Typography
-                                    variant="h6"
-                                >
+                                <Typography variant="h6">
                                     Status: Cancelled by Owner
                                 </Typography>
                             }
                             <br/>
-                            <Typography
-                                variant="h6"
-                            >
+                            <Typography variant="h6">
                                 Daily rental price: ${rental.DailyRentalPrice}
                             </Typography>
                         </div>
