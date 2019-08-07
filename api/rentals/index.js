@@ -222,6 +222,9 @@ router.put('/updatestatus', async (req, res) => {
 router.post('/autoupdatestatusbydate', async (req, res) => {
     // take uid from req.body:
     const { uid } = req.body;
+    // get current date:
+    const currentDate = new Date();
+    console.log('currentDate: ', currentDate);
     // take current date from req.body
     
     // Move upcoming rentals to active:
@@ -235,7 +238,10 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
         const renterRentalsUpcoming = await rentalsDb.getRenterRentalIDs(uid, ['upcoming']);
         const ownerRentalsUpcoming = await rentalsDb.getOwnerRentalIDs(uid, ['upcoming']);
         const upcomingRentals = renterRentalsUpcoming.concat(ownerRentalsUpcoming);
-        
+
+        // for (let rental of upcomingRentals) {
+
+        // }
         res.status(200).json(upcomingRentals);
     }
     catch(error) {
