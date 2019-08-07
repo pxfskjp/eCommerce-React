@@ -224,25 +224,41 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
     const { uid } = req.body;
     // get current date:
     const currentDate = new Date();
-    console.log('currentDate: ', currentDate);
-    // take current date from req.body
+    // console.log('currentDate: ', currentDate);
     
-    // Move upcoming rentals to active:
-        // get RentalID for every rental where (Status === 'upcoming') && (CurrentDate >= StartDate) && (CurentDate <= EndDate)
-        // for each Rental, update Status to 'active'
-
-    // Move upcoming and active rentals to completed:
-        // get RentalID for every rental where (Status === 'active' || Status === 'upcoming') && (CurrentDate >= EndDate)
-        // for each Rental, update Status to 'completed'
+    let updates = [];
+    let update = null;
     try {
+        // Moving upcoming rentals to active or completed:
         const renterRentalsUpcoming = await rentalsDb.getRenterRentalIDs(uid, ['upcoming']);
         const ownerRentalsUpcoming = await rentalsDb.getOwnerRentalIDs(uid, ['upcoming']);
         const upcomingRentals = renterRentalsUpcoming.concat(ownerRentalsUpcoming);
 
-        // for (let rental of upcomingRentals) {
+        for (let rental of upcomingRentals) {
+            if (currentDate >= rental.StartDate && currentDate <= rental.EndDate) {
+                // update rental status to active
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'active');
+                updates.push(update);
+            }
+            if (currentDate > rental.EndDate) {
+                // update rental status to completed
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
+                updates.push(update);
+            }
+        }
+        // Move active rentals to completed:
+        const renterRentalsActive = await rentalsDb.getRenterRentalIDs(uid, ['active']);
+        const ownerRentalsActive = await rentalsDb.getOwnerRentalIDs(uid, ['active']);
+        const activeRentals = renterRentalsActive.concat(ownerRentalsActive);
 
-        // }
-        res.status(200).json(upcomingRentals);
+        for (let rental of activeRentals) {
+            if (currentDate > rental.EndDate) {
+                // update rental status to completed
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
+                updates.push(update);
+            }
+        }
+        res.status(200).json(updates);
     }
     catch(error) {
         console.log(error.message);

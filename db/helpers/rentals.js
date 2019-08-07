@@ -135,6 +135,36 @@ function updateRentalStatus(rentalId, status) {
 
 // *** Functions for auto updating rental statuses:
 
+function getRenterRentalIDs(uid, statuses) {
+    return db
+        .select([
+            'Rentals.RentalID',
+            'Rentals.Status',
+            'Rentals.RenterUID',
+            'reserved_dates.start_date as StartDate',
+            'reserved_dates.end_date as EndDate'
+        ])
+        .from('Rentals')
+        .where('Rentals.RenterUID', uid)
+        .whereIn('Rentals.Status', statuses)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id');
+}
+
+function getOwnerRentalIDs(uid, statuses) {
+    return db
+        .select([
+            'Rentals.RentalID',
+            'Rentals.Status',
+            'Rentals.OwnerUID',
+            'reserved_dates.start_date as StartDate',
+            'reserved_dates.end_date as EndDate'
+        ])
+        .from('Rentals')
+        .where('Rentals.OwnerUID', uid)
+        .whereIn('Rentals.Status', statuses)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id');
+}
+
 // getRentalIDsUpcomingToActive(uid, statuses)
 
 // function getAllRentalIDsForUser(uid) {
@@ -173,34 +203,3 @@ function updateRentalStatus(rentalId, status) {
 //     return applyStatusFilter(query);
 
 // }
-
-function getRenterRentalIDs(uid, statuses) {
-    return db
-        .select([
-            'Rentals.RentalID',
-            'Rentals.Status',
-            'Rentals.RenterUID',
-            'reserved_dates.start_date as StartDate',
-            'reserved_dates.end_date as EndDate'
-        ])
-        .from('Rentals')
-        .where('Rentals.RenterUID', uid)
-        .whereIn('Rentals.Status', statuses)
-        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id');
-}
-
-function getOwnerRentalIDs(uid, statuses) {
-    return db
-        .select([
-            'Rentals.RentalID',
-            'Rentals.Status',
-            'Rentals.OwnerUID',
-            'reserved_dates.start_date as StartDate',
-            'reserved_dates.end_date as EndDate'
-        ])
-        .from('Rentals')
-        .where('Rentals.OwnerUID', uid)
-        .whereIn('Rentals.Status', statuses)
-        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id');
-}
-
