@@ -218,4 +218,30 @@ router.put('/updatestatus', async (req, res) => {
     }
 })
 
+// endpoint to update all of a user's rentals to 'active' or 'complete' Status based on current date:
+router.post('/autoupdatestatusbydate', async (req, res) => {
+    // take uid from req.body:
+    const { uid } = req.body;
+    // take current date from req.body
+    
+    // Move upcoming rentals to active:
+        // get RentalID for every rental where (Status === 'upcoming') && (CurrentDate >= StartDate) && (CurentDate <= EndDate)
+        // for each Rental, update Status to 'active'
+
+    // Move upcoming and active rentals to completed:
+        // get RentalID for every rental where (Status === 'active' || Status === 'upcoming') && (CurrentDate >= EndDate)
+        // for each Rental, update Status to 'completed'
+    try {
+        const renterRentalsUpcoming = await rentalsDb.getRenterRentalIDs(uid, ['upcoming']);
+        const ownerRentalsUpcoming = await rentalsDb.getOwnerRentalIDs(uid, ['upcoming']);
+        const upcomingRentals = renterRentalsUpcoming.concat(ownerRentalsUpcoming);
+        
+        res.status(200).json(upcomingRentals);
+    }
+    catch(error) {
+        console.log(error.message);
+        res.status(500).json(error.message);
+    }
+})
+
 module.exports = router;
