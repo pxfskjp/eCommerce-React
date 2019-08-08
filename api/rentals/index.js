@@ -204,13 +204,17 @@ router.get('/renter/rental/:rentalId', async (req, res) => {
 // endpoint to update rental status:
 router.put('/updatestatus', async (req, res) => {
     const { rentalId, status } = req.body;
-    // const newStatus = { 'Status' }
+    let currentDate = null;
     console.log('rentalId at /updatestatus: ', rentalId);
     console.log('status at /updatestatus: ', status);
     try {
         const update = await rentalsDb.updateRentalStatus(rentalId, status);
-        // console.log('update response from db:', update);
-        res.status(200).json(status);
+        if (status === 'cancelledByRenter' || status === 'cancelledByOwner') {
+            currentDate = new Date();
+            const cancelDate = await rentalsDb.createCancelDate(rentalId, currentDate);
+            console.log('cancelDate: ', cancelDate);
+        }
+        res.status(200).json(status);   // return status so that front end can update state and display new status
     }
     catch(error) {
         console.log(error.message);
@@ -224,7 +228,6 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
     const { uid } = req.body;
     // get current date:
     const currentDate = new Date();
-    // console.log('currentDate: ', currentDate);
     
     let updates = [];
     let update = null;
