@@ -7,7 +7,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-// import NoSsr from "@material-ui/core/NoSsr";
 // import Typography from "@material-ui/core/Typography";
 
 import { withFirebase } from "../../Firebase";
@@ -50,9 +49,9 @@ const styles = {
     height: '100%'
   },
   tabElement: {
-    width: '30%',
+    width: '100%',
     minWidth: 50,
-    maxWidth: 200
+    // maxWidth: 200
   },
   tab: {
     display: 'flex',
@@ -88,33 +87,6 @@ class ConvoListBase extends React.Component {
       let openConvos = [];
       let closedConvos = [];
       let convos = [];
-      // one-time get of convos (open and closed) where UIDs array contains current user uid:
-      // this.props.firebase.db
-      //   .collection('conversations')
-      //   .where('UIDs', 'array-contains', `${uid}`)
-      //   .get()
-      //   .then(snapshot => {
-      //     if (snapshot.empty) {
-      //       console.log('No matching documents.');
-      //       return;
-      //     }  
-      
-      //     snapshot.forEach(doc => {
-      //       if (doc.data().isOpen === true) {
-      //         openConvos.push(doc.data());
-      //       } else {
-      //         closedConvos.push(doc.data());
-      //       }
-              
-      //       // console.log(doc.id, '=>', doc.data());
-      //     });
-      //     console.log('openConvos: ', openConvos);
-      //     console.log('closedConvos: ', closedConvos);
-      //     this.setState({ openConvos, closedConvos });
-      //   })
-      //   .catch(err => {
-      //     console.log('Error getting documents', err);
-      //   });
 
       // initialize listener to Firestore db and get existing messages
       // listen with onSnapshot()
@@ -190,7 +162,7 @@ class ConvoListBase extends React.Component {
                       </div>
                     }
                   /> */}
-                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Open</h1>} />
+                  <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Conversations</h1>} />
                   {/* <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} /> */}
               </Tabs>
             </Paper>

@@ -19,21 +19,17 @@ const Logout = () => (
 );
 
 class LogoutButtonBase extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     logOut = event => {
         this.props.firebase.logOut();
-        
     }
 
     render() {
         return (
-            <Link to="/">
-                <div className="log-out-button" type="button" onClick={this.logOut}>
+            <Link to="/" className="log-out-link">
+                {/* <div className="log-out-button" type="button" onClick={this.logOut}> */}
                     Sign Out
-                </div>
+                {/* </div> */}
             </Link>
         );
     }

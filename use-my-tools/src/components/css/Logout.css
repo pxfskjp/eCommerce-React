@@ -1,3 +1,8 @@
-/* .log-out-button {
-    font-decoration: none;
-} */
+.log-out-link {
+    text-decoration: none;
+    color: black;
+}
+
+.log-out-link:hover {
+    color: white;
+}

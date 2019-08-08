@@ -7,6 +7,7 @@ module.exports = {
     getOwnerRental,
     getRenterRental,
     updateRentalStatus,
+    createCancelDate,
     getRenterRentalIDs,
     getOwnerRentalIDs
 }
@@ -131,6 +132,12 @@ function updateRentalStatus(rentalId, status) {
     return db('Rentals')
         .where('RentalID', rentalId)
         .update({ 'Status': status });
+}
+
+function createCancelDate(rentalId, date) {
+    return db('Rentals')
+        .where('RentalID', rentalId)
+        .update({ 'CancelDate': date });
 }
 
 // *** Functions for auto updating rental statuses:
