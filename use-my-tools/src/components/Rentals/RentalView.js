@@ -230,8 +230,10 @@ class RentalView extends Component {
                             {/* Rental rating */}
 
                             {/* Rental review */}
+                            {(rental.Status === 'upcoming' || rental.Status === 'active') &&
+                                <CancelDialog confirmCancelRental={this.cancelRental}/>
+                            }
 
-                            <CancelDialog confirmCancelRental={this.cancelRental}/>
                         </div>
                            
                         

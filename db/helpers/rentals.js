@@ -9,7 +9,8 @@ module.exports = {
     updateRentalStatus,
     createCancelDate,
     getRenterRentalIDs,
-    getOwnerRentalIDs
+    getOwnerRentalIDs,
+    updateRentalRating
 }
 
 // function to create a new rental in the Rentals table:
@@ -132,6 +133,14 @@ function updateRentalStatus(rentalId, status) {
     return db('Rentals')
         .where('RentalID', rentalId)
         .update({ 'Status': status });
+}
+
+// function to update numerical rating for a rental
+// rating arg should be a object, ie, { ratingByRenter: 4 } or { ratingByOwner: 4 }
+function updateRentalRating(rentalId, rating) {
+    return db('Rentals')
+        .where('RentalID', rentalId)
+        .update(rating);
 }
 
 function createCancelDate(rentalId, date) {

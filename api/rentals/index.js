@@ -201,7 +201,9 @@ router.get('/renter/rental/:rentalId', async (req, res) => {
     //     })
 })
 
-// endpoint to update rental status:
+// Endpoint to update rental status:
+// If Rental is being cancelled, 
+// logic within the endpoint determines whether to use 'cancelledByRenter' or 'cancelledByOwner:
 router.put('/updatestatus', async (req, res) => {
     const { rentalId, status } = req.body;
     let currentDate = null;
@@ -265,6 +267,26 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
     }
     catch(error) {
         console.log(error.message);
+        res.status(500).json(error.message);
+    }
+})
+
+// endpoint to update a Rental Rating from a Renter:
+router.put('/renter/rental/updaterating/:rentalId', async (req, res) => {
+    const { rentalId } = req.params;
+    const { rating } = req.body;
+    const ratingData = { ratingFromRenter: rating };
+    // console.log('rating: ', rating);
+    // console.log('ratingData: ', ratingData);
+    
+    if (rating < 0 || rating > 5) {
+        res.status(500).json('Rating is not within range 0 - 5');
+    }
+    try {
+        const update = await rentalsDb.updateRentalRating(rentalId, ratingData)
+        console.log('update: ', update);
+    }
+    catch(error) {
         res.status(500).json(error.message);
     }
 })

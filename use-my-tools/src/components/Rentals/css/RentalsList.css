@@ -1,16 +1,17 @@
 .rentals-list-container {
-    height: 100vh;
+    /* height: 100vh; */
+    flex-grow: 1;
     overflow: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #D5D5D3;
+    /* background-color: #D5D5D3; */
 }
 
 .rental-container {
     width: 90%;
     max-width: 800px;
-    height: 150px;
+    height: 160px;
     margin: 10px 0 0 0;
     display: flex;
     justify-content: space-around;
