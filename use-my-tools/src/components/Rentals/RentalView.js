@@ -141,6 +141,14 @@ class RentalView extends Component {
         const { rental } = this.state;
         const { classes } = this.props;
         const { userType, rentalId } = this.props.match.params;
+        let rating = null;
+        if (userType === 'owner') {
+            rating = 'RatingByOwner';
+        } else if (userType === 'renter') {
+            rating = 'RatingByRenter';
+        }
+        console.log(rating);
+        
         
         return (
             <div className="page-container">
@@ -228,17 +236,28 @@ class RentalView extends Component {
 
                         <div className="rental-management">
                             {/* Rental rating */}
-
+                            {(rental.Status === 'completed' && !rental[rating]) ?
+                                <div className="rating-container">
+                                    <Typography variant="h6">
+                                        Rate this rental experience (1-5 stars):
+                                    </Typography>
+                                    <select name="rating-input">
+                                        
+                                    </select>
+                                </div>
+                            : 
+                                <Typography variant="h6">
+                                    Submit rating once complete
+                                </Typography>
+                            }
                             {/* Rental review */}
+
                             {(rental.Status === 'upcoming' || rental.Status === 'active') &&
                                 <CancelDialog confirmCancelRental={this.cancelRental}/>
                             }
 
                         </div>
                            
-                        
-
-                        
                     </div>
                     {/* end right-container */}
 
