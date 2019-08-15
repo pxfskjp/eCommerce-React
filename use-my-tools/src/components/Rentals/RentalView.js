@@ -87,7 +87,7 @@ class RentalView extends Component {
             })
     };
 
-    formatDate = (dateData, dateFormatOptions) =>{
+    formatDate = (dateData, dateFormatOptions) => {
         const date = new Date(dateData);
         // console.log(date);
         const formattedDate = date.toLocaleDateString("en-US", dateFormatOptions); 
@@ -99,6 +99,20 @@ class RentalView extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    handleSubmitRating = event => {
+        const { userType, rentalId } = this.props.match.params;
+        const data = {
+            rating: this.state.selectedRating
+        }
+        axios.put(`api/rentals/${userType}/rental/updaterating/${rentalId}`, data)
+            .then(response => {
+                console.log('response from /updaterating: ', response);
+            })
+            .catch(error => {
+                console.log(error.message);
+            }) 
     }
 
     cancelRental = () => {
