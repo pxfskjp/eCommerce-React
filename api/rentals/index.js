@@ -285,6 +285,8 @@ router.put('/renter/rental/updaterating/:rentalId', async (req, res) => {
     try {
         const update = await rentalsDb.updateRentalRating(rentalId, ratingData)
         console.log('update: ', update);
+        res.status(200).json(update);
+
     }
     catch(error) {
         res.status(500).json(error.message);
@@ -305,6 +307,7 @@ router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
     try {
         const update = await rentalsDb.updateRentalRating(rentalId, ratingData)
         console.log('update: ', update);
+        res.status(200).json(update);
     }
     catch(error) {
         res.status(500).json(error.message);
