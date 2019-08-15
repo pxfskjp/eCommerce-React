@@ -187,7 +187,7 @@ class RentalView extends Component {
         } else if (rental.Status  === 'completed' && rental[rating] >= 0 ) {
             return (
                 <Typography variant="h6">
-                    You rated this rental {rental[rating]}
+                    You rated this rental {rental[rating]} Stars
                 </Typography>
             )
         }
