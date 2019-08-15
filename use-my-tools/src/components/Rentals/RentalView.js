@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import CancelDialog from './CancelDialog';
 
 import axios from 'axios';
@@ -225,33 +226,27 @@ class RentalView extends Component {
                                     <Typography variant="h6">
                                         Rate this rental experience:
                                     </Typography>
-                                    {/* <form className="rating-form">
-                                        <select name="rating-select" size="5">
-                                            <option value="1">1 Star</option>
-                                            <option value="2">2 Stars</option>
-                                            <option value="3">3 Stars</option>
-                                            <option value="4">4 Stars</option>
-                                            <option value="5">5 Stars</option>
-                                        </select>
-                                        <button type="submit">Submit</button>
-                                    </form> */}
+
                                     <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="rating-select">Rating</InputLabel>
-                                            <Select
-                                                value={this.state.selectedRating}
-                                                onChange={this.handleChange}
-                                                inputProps={{
-                                                    name: 'selectedRating',
-                                                    id: 'rating-select'
-                                                }}
-                                            >
-                                        <MenuItem value={1}>1 Star</MenuItem>
-                                        <MenuItem value={2}>2 Stars</MenuItem>
-                                        <MenuItem value={3}>3 Stars</MenuItem>
-                                        <MenuItem value={4}>4 Stars</MenuItem>
-                                        <MenuItem value={5}>5 Stars</MenuItem>
+                                        <Select
+                                            value={this.state.selectedRating}
+                                            onChange={this.handleChange}
+                                            inputProps={{
+                                                name: 'selectedRating',
+                                                id: 'rating-select'
+                                            }}
+                                        >
+                                            <MenuItem value={1}>1 Star</MenuItem>
+                                            <MenuItem value={2}>2 Stars</MenuItem>
+                                            <MenuItem value={3}>3 Stars</MenuItem>
+                                            <MenuItem value={4}>4 Stars</MenuItem>
+                                            <MenuItem value={5}>5 Stars</MenuItem>
                                         </Select>
                                     </FormControl>
+                                    <Button onClick={this.handleSubmitRating} variant="outlined" color="primary">
+                                        Submit
+                                    </Button>
                                 </div>
                             : 
                                 <Typography variant="h6">
