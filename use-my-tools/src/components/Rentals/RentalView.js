@@ -3,7 +3,10 @@ import { withStyles } from "@material-ui/core/styles";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // import TextField from "@material-ui/core/TextField";
-
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import CancelDialog from './CancelDialog';
 
 import axios from 'axios';
@@ -31,8 +34,11 @@ const styles = theme => ({
     },
     menu: {
         width: 200
-    }
-
+    },
+    formControl: {
+        margin: "0 15px 0 15px",
+        minWidth: 90,
+      },
 })
 
 class RentalView extends Component {
@@ -43,17 +49,12 @@ class RentalView extends Component {
             // userType: null,
             // selectedFile: null,
         };
-    }
+    };
 
     componentDidMount() {
-
         let { rentalId, userType } = this.props.match.params;
-        // console.log('RentalView rentalId:', rentalId);
-        // console.log('RentalView userType:', userType);
-
         this.getRentalInfo(rentalId, userType);
-        // console.log(this.state.tool.images);
-    }
+    };
 
     getRentalInfo = (rentalId, userType) => {
         console.log('getRentalInfo called');
@@ -82,7 +83,7 @@ class RentalView extends Component {
             .catch(error => {
                 console.log(error.message);
             })
-    }
+    };
 
     formatDate = (dateData, dateFormatOptions) =>{
         const date = new Date(dateData);
@@ -90,30 +91,13 @@ class RentalView extends Component {
         const formattedDate = date.toLocaleDateString("en-US", dateFormatOptions); 
         // console.log(formattedDate);
         return formattedDate;
+    };
+
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
-
-    // handleFileChange = event => {
-    //     // this.setState({
-    //     //   selectedFile: event.target.files[0]
-    //     // });
-    //     // let tool_id = this.props.match.params.id;
-    //     const newImageData = new FormData();
-    //     newImageData.append('id', this.props.match.params.id);
-    //     newImageData.append('image_file', event.target.files[0]);
-    //     axios.post('/api/tools/newimage', newImageData)
-    //         .then(response => {
-    //             console.log('/newimage response: ', response);
-    //         })
-    //         .catch(error => {
-    //             console.log(error.messages);
-    //         })
-    // };
-
-    // handleChange = name => event => {
-    //     this.setState({
-    //       [name]: event.target.value
-    //     }, () => console.log(this.state));
-    // };
 
     cancelRental = () => {
         const { userType, rentalId } = this.props.match.params;
@@ -135,12 +119,18 @@ class RentalView extends Component {
         .catch(error => {
             this.setState({ error: error.message });
         })
-      };
+    };
 
     render() {
         const { rental } = this.state;
         const { classes } = this.props;
         const { userType, rentalId } = this.props.match.params;
+        let rating = null;
+        if (userType === 'owner') {
+            rating = 'RatingByOwner';
+        } else if (userType === 'renter') {
+            rating = 'RatingByRenter';
+        }
         
         return (
             <div className="page-container">
@@ -228,23 +218,58 @@ class RentalView extends Component {
 
                         <div className="rental-management">
                             {/* Rental rating */}
+                            {(rental.Status === 'completed' && !rental[rating]) ?
+
+                                <div className="rating-container">
+                                    <Typography variant="h6">
+                                        Rate this rental experience:
+                                    </Typography>
+                                    {/* <form className="rating-form">
+                                        <select name="rating-select" size="5">
+                                            <option value="1">1 Star</option>
+                                            <option value="2">2 Stars</option>
+                                            <option value="3">3 Stars</option>
+                                            <option value="4">4 Stars</option>
+                                            <option value="5">5 Stars</option>
+                                        </select>
+                                        <button type="submit">Submit</button>
+                                    </form> */}
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="rating-select">Rating</InputLabel>
+                                            <Select
+                                                // value={values.age}
+                                                onChange={this.handleChange}
+                                                inputProps={{
+                                                    name: 'rating-select',
+                                                    id: 'rating-select',
+                                                }}
+                                            >
+                                        <MenuItem value={1}>1 Star</MenuItem>
+                                        <MenuItem value={2}>2 Stars</MenuItem>
+                                        <MenuItem value={3}>3 Stars</MenuItem>
+                                        <MenuItem value={4}>4 Stars</MenuItem>
+                                        <MenuItem value={5}>5 Stars</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                            : 
+                                <Typography variant="h6">
+                                    Submit rating once complete
+                                </Typography>
+                            }
 
                             {/* Rental review */}
+
                             {(rental.Status === 'upcoming' || rental.Status === 'active') &&
                                 <CancelDialog confirmCancelRental={this.cancelRental}/>
                             }
 
                         </div>
-                           
-                        
-
-                        
+                        {/* end rental-management */}
                     </div>
                     {/* end right-container */}
-
                 </div> 
                 {/* end main-container */}
-
             </div>
             // end page-container 
         )

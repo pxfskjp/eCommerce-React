@@ -278,6 +278,26 @@ router.put('/renter/rental/updaterating/:rentalId', async (req, res) => {
     const ratingData = { ratingFromRenter: rating };
     // console.log('rating: ', rating);
     // console.log('ratingData: ', ratingData);
+
+    if (rating < 0 || rating > 5) {
+        res.status(500).json('Rating is not within range 0 - 5');
+    }
+    try {
+        const update = await rentalsDb.updateRentalRating(rentalId, ratingData)
+        console.log('update: ', update);
+    }
+    catch(error) {
+        res.status(500).json(error.message);
+    }
+})
+
+// endpoint to update a Rental Rating from an Owner:
+router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
+    const { rentalId } = req.params;
+    const { rating } = req.body;
+    const ratingData = { ratingFromOwner: rating };
+    // console.log('rating: ', rating);
+    // console.log('ratingData: ', ratingData);
     
     if (rating < 0 || rating > 5) {
         res.status(500).json('Rating is not within range 0 - 5');
