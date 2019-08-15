@@ -237,19 +237,28 @@ class RentalView extends Component {
                         <div className="rental-management">
                             {/* Rental rating */}
                             {(rental.Status === 'completed' && !rental[rating]) ?
+
                                 <div className="rating-container">
                                     <Typography variant="h6">
                                         Rate this rental experience (1-5 stars):
                                     </Typography>
-                                    <select name="rating-input">
-                                        
-                                    </select>
+                                    <form className="rating-form">
+                                        <select name="rating-select" size="5">
+                                            <option value="1">1 Star</option>
+                                            <option value="2">2 Stars</option>
+                                            <option value="3">3 Stars</option>
+                                            <option value="4">4 Stars</option>
+                                            <option value="5">5 Stars</option>
+                                        </select>
+                                        <button type="submit">Submit</button>
+                                    </form>
                                 </div>
                             : 
                                 <Typography variant="h6">
                                     Submit rating once complete
                                 </Typography>
                             }
+
                             {/* Rental review */}
 
                             {(rental.Status === 'upcoming' || rental.Status === 'active') &&
@@ -257,13 +266,11 @@ class RentalView extends Component {
                             }
 
                         </div>
-                           
+                        {/* end rental-management */}
                     </div>
                     {/* end right-container */}
-
                 </div> 
                 {/* end main-container */}
-
             </div>
             // end page-container 
         )
