@@ -46,6 +46,7 @@ class RentalView extends Component {
         super(props);
         this.state = {
             rental: {},
+            selectedRating: '',
             // userType: null,
             // selectedFile: null,
         };
@@ -237,11 +238,11 @@ class RentalView extends Component {
                                     <FormControl className={classes.formControl}>
                                         <InputLabel htmlFor="rating-select">Rating</InputLabel>
                                             <Select
-                                                // value={values.age}
+                                                value={this.state.selectedRating}
                                                 onChange={this.handleChange}
                                                 inputProps={{
-                                                    name: 'rating-select',
-                                                    id: 'rating-select',
+                                                    name: 'selectedRating',
+                                                    id: 'rating-select'
                                                 }}
                                             >
                                         <MenuItem value={1}>1 Star</MenuItem>
