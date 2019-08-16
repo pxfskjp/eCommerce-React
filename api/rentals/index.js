@@ -258,7 +258,7 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
 
         for (let rental of activeRentals) {
             if (currentDate > rental.EndDate) {
-                // update rental status to completed
+                // update rental status to completed:
                 update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
                 updates.push(update);
             }
@@ -276,15 +276,12 @@ router.put('/renter/rental/updaterating/:rentalId', async (req, res) => {
     const { rentalId } = req.params;
     const { rating } = req.body;
     const ratingData = { ratingFromRenter: rating };
-    // console.log('rating: ', rating);
-    // console.log('ratingData: ', ratingData);
 
     if (rating < 0 || rating > 5) {
         res.status(500).json('Rating is not within range 0 - 5');
     }
     try {
-        const update = await rentalsDb.updateRentalRating(rentalId, ratingData)
-        console.log('update: ', update);
+        const update = await rentalsDb.updateRentalRating(rentalId, ratingData);
         res.status(200).json(update);
 
     }
@@ -298,15 +295,12 @@ router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
     const { rentalId } = req.params;
     const { rating } = req.body;
     const ratingData = { ratingFromOwner: rating };
-    // console.log('rating: ', rating);
-    // console.log('ratingData: ', ratingData);
     
     if (rating < 0 || rating > 5) {
         res.status(500).json('Rating is not within range 0 - 5');
     }
     try {
         const update = await rentalsDb.updateRentalRating(rentalId, ratingData)
-        console.log('update: ', update);
         res.status(200).json(update);
     }
     catch(error) {
