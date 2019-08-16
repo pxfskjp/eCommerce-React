@@ -12,7 +12,7 @@ cloudinary.config({
     cloud_name:"use-my-tools-csr",
     api_key:"654865738498236",
     api_secret:"l6t5As3rK6IZBecdjCadgjYDizs"
-  });
+});
 
 router.post('/newtool', multipart, (req, res) => {
     // console.log('/newtool endpoint req.body: ', req.body);
