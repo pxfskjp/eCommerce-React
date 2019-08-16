@@ -137,17 +137,67 @@ class RentalView extends Component {
         })
     };
 
-    render() {
+    renderRatingContainer = () => {
         const { rental } = this.state;
-        const { classes } = this.props;
         const { userType, rentalId } = this.props.match.params;
+        const { classes } = this.props;
+
         let rating = null;
         if (userType === 'owner') {
-            rating = 'RatingByOwner';
+            rating = 'ratingFromOwner';
         } else if (userType === 'renter') {
-            rating = 'RatingByRenter';
+            rating = 'ratingFromRenter';
         }
         
+        console.log('renderRatingContainer called');
+        console.log('rental: ', rental);
+        console.log('userType: ', userType);
+        console.log('rating: ', rating);
+        console.log('rental[rating]: ', rental[rating]);
+
+        if (rental.Status  === 'completed' && !rental[rating]) {
+            return (
+                <div className="rating-container">
+                    <Typography variant="h6">
+                        Rate this rental experience:
+                    </Typography>
+
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="rating-select">Rating</InputLabel>
+                        <Select
+                            value={this.state.selectedRating}
+                            onChange={this.handleChange}
+                            inputProps={{
+                                name: 'selectedRating',
+                                id: 'rating-select'
+                            }}
+                        >
+                            <MenuItem value={1}>1 Star</MenuItem>
+                            <MenuItem value={2}>2 Stars</MenuItem>
+                            <MenuItem value={3}>3 Stars</MenuItem>
+                            <MenuItem value={4}>4 Stars</MenuItem>
+                            <MenuItem value={5}>5 Stars</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Button onClick={this.handleSubmitRating} variant="outlined" color="primary">
+                        Submit
+                    </Button>
+                </div>
+            ) 
+        } else if (rental.Status  === 'completed' && rental[rating] >= 0 ) {
+            return (
+                <Typography variant="h6">
+                    You rated this rental {rental[rating]} Stars
+                </Typography>
+            )
+        }
+    }
+
+    render() {
+        const { rental } = this.state;
+        const { userType, rentalId } = this.props.match.params;
+        const { classes } = this.props;
+
         return (
             <div className="page-container">
 
@@ -234,39 +284,7 @@ class RentalView extends Component {
 
                         <div className="rental-management">
                             {/* Rental rating */}
-                            {(rental.Status === 'completed' && !rental[rating]) ?
-
-                                <div className="rating-container">
-                                    <Typography variant="h6">
-                                        Rate this rental experience:
-                                    </Typography>
-
-                                    <FormControl className={classes.formControl}>
-                                        <InputLabel htmlFor="rating-select">Rating</InputLabel>
-                                        <Select
-                                            value={this.state.selectedRating}
-                                            onChange={this.handleChange}
-                                            inputProps={{
-                                                name: 'selectedRating',
-                                                id: 'rating-select'
-                                            }}
-                                        >
-                                            <MenuItem value={1}>1 Star</MenuItem>
-                                            <MenuItem value={2}>2 Stars</MenuItem>
-                                            <MenuItem value={3}>3 Stars</MenuItem>
-                                            <MenuItem value={4}>4 Stars</MenuItem>
-                                            <MenuItem value={5}>5 Stars</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    <Button onClick={this.handleSubmitRating} variant="outlined" color="primary">
-                                        Submit
-                                    </Button>
-                                </div>
-                            : 
-                                <Typography variant="h6">
-                                    Submit rating once complete
-                                </Typography>
-                            }
+                            {this.renderRatingContainer()}
 
                             {/* Rental review */}
 
