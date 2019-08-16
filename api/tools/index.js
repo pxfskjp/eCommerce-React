@@ -8,10 +8,18 @@ const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
 const datesDb = require('../../db/helpers/dates');
 
+// Import .env config vars for dev Environment
+if (process.env.ENVIRONMENT === 'development') { 
+    require('dotenv').config(); 
+}
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').load();
+}
+
 cloudinary.config({ 
-    cloud_name:"use-my-tools-csr",
-    api_key:"654865738498236",
-    api_secret:"l6t5As3rK6IZBecdjCadgjYDizs"
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 router.post('/newtool', multipart, (req, res) => {
