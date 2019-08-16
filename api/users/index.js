@@ -6,6 +6,20 @@ const multipart = require("connect-multiparty")();
 const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
 
+// Import .env config vars for dev Environment
+if (process.env.ENVIRONMENT === 'development') { 
+    require('dotenv').config(); 
+}
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').load();
+}
+
+cloudinary.config({ 
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 // Register a new user:
 router.post('/register', (req, res) => {
     let { firstName, lastName, email, uid, addressDetails } = req.body;
