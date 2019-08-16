@@ -30,10 +30,15 @@ How to run the app in a development environment:
 5) Run database seed files:
     - From the root directory, run the command `knex seed:run`
 
-6) Start the backend server:
+6)  Set up Firebase Authentication:
+    - Create an account with Google Firebase
+    - Follow documentation on configuring Firebase authentication from the Firebase Console. 
+    - Create a .env file in the root directory and copy the configuration values provided by Firebase
+
+7) Start the backend server:
     - From the root directory run command `node index.js`
 
-7) Start the frontend (client) server:
+8) Start the frontend (client) server:
     - cd into the use-my-tools directory by running `cd use-my-tools` from the root directory
     - run the command `npm start`
 
