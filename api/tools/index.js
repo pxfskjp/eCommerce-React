@@ -22,12 +22,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// cloudinary.config({ 
-//     cloud_name:"use-my-tools-csr",
-//     api_key:"654865738498236",
-//     api_secret:"l6t5As3rK6IZBecdjCadgjYDizs"
-// });
-
 router.post('/newtool', multipart, (req, res) => {
     // console.log('/newtool endpoint req.body: ', req.body);
     // console.log('/newtool req.files.image_file.path: ', req.files.image_file.path);
