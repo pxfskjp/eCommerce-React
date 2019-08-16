@@ -1,5 +1,7 @@
 // Database config settings
 
+const dbConnection = process.env.DATABASE_URL || 'development';
+
 module.exports = {
   development: {
     client: 'pg',
