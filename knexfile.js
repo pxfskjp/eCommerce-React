@@ -33,13 +33,23 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: dbConnection,
+    pool: {
+	    min: 2,
+      max: 10
+    },
     migrations: {
-      directory: './db/migrations'
+      tableName: 'knex_migrations',
+      directory: './db/migrations',
     },
-    seeds: {
-      directory: './db/seeds/production'
-    },
-    useNullAsDefault: true
+    seeds: { directory: './db/seeds' }
+    // connection: process.env.DATABASE_URL,
+    // migrations: {
+    //   directory: './db/migrations'
+    // },
+    // seeds: {
+    //   directory: './db/seeds/production'
+    // },
+    // useNullAsDefault: true
   }
 };
