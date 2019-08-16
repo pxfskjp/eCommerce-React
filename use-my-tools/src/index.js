@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Firebase, { FirebaseContext } from './components/Firebase';
 import axios from 'axios';
 
-axios.defaults.baseURL =
+axios.defaults.baseURL = 
   process.env.NODE_ENV === 'production'
     ? 'https://use-my-tools-csr.herokuapp.com/'
     : 'http://localhost:5000';
