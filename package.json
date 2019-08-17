@@ -22,7 +22,6 @@
     "cloudinary": "^1.14.0",
     "connect-multiparty": "^2.2.0",
     "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "firebase": "^5.9.2",
     "firebase-admin": "^7.2.0",
@@ -34,6 +33,7 @@
     "react": "^16.8.5"
   },
   "devDependencies": {
+    "dotenv": "^6.2.0",
     "nodemon": "^1.18.9"
   }
 }
