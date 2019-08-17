@@ -130,7 +130,7 @@ class RegisterFormBase extends Component {
                              <TextField
                                 style = {{width: '65%'}}
                                 hintText="Last Name"
-                                floatingLabelText="Surname"
+                                floatingLabelText="Last Name"
                                 name="lastName"
                                 type="text"
                                 required={true}
