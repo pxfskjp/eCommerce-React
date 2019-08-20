@@ -27,7 +27,7 @@
 
 .location-input {
     margin-left: 9px;
-    width: 97%;
+    width: 200px;
 }
 
 .account-page-container .left-container button {
@@ -55,4 +55,8 @@
     height: auto;
     width: auto;
     max-width: 150px;
+}
+
+@media (max-width: 800px) {
+
 }
