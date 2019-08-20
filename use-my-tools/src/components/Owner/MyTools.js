@@ -7,7 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import ImageCarousel from '../ImageCarousel';
+
+import './css/MyTools.css';
 
 import axios from 'axios';
 
@@ -30,6 +31,9 @@ const styles = theme => ({
     },
     cardTitle: {
         fontWeight: "bold"
+    },
+    gridItem: {
+        width: "24%"
     }
 
 })
@@ -67,7 +71,7 @@ class MyTools extends Component {
 
                         {this.state.tools.map((tool, index) => {
                             return (
-                                <Grid item xs={3} key={index}>
+                                <Grid item key={index} className={classes.gridItem}>
 
                                     <Card className={classes.card}>
                                         {/* <ImageCarousel toolImages={tool.images} /> */}
@@ -89,7 +93,7 @@ class MyTools extends Component {
                                                 size="small"
                                                 color="primary"
                                             >
-                                                View Tool Details
+                                                See Details
                                             </Button>
                                         </CardActions>
                                     </Card>

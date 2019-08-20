@@ -1,8 +1,14 @@
 .owner-dashboard-container {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     height: 100vh;
 }
 
+.vertical-tabs-container {
+    width: max-content;
+}
+
 .selected-view-container {
-    width: 100%;
+    flex-grow: 1;
 }

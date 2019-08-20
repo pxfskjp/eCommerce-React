@@ -81,25 +81,25 @@ class OwnerDashboard extends Component {
         const { activeTabIndex } = this.state
         return (
             <div className="owner-dashboard-container">
-                
-                <div
-                    style={{
-                        width: "max-content",
-                        height: "100vh",
-                        // display: "flex",
-                        borderRight: "5px solid grey",
-                        padding: 5,
-                    }}
-                >
-                    <h2>Owner Dashboard</h2>
-                    <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
-                        {/* <VerticalTab label="rentals" /> */}
-                        <VerticalTab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
-                        <VerticalTab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
-
-                    </VerticalTabs>
+                <div className="vertical-tabs-container">
+                    <div
+                        style={{
+                            width: "max-content",
+                            height: "100vh",
+                            // display: "flex",
+                            borderRight: "3px solid grey",
+                            padding: 5,
+                            margin: 0
+                        }}
+                    >
+                        <h2>Owner Dashboard</h2>
+                        <VerticalTabs value={activeTabIndex} onChange={this.handleTabSelect}>
+                            <VerticalTab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Rentals</h1>} />
+                            <VerticalTab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Tools</h1>} />
+                        </VerticalTabs>
+                    </div>
                 </div>
-                    
+
                 <div className="selected-view-container">
                     {activeTabIndex === 0 && <RentalsView userType={"owner"}/>}
                     {activeTabIndex === 1 && <MyTools />}
