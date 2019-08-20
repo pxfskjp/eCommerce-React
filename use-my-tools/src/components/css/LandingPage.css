@@ -1,13 +1,37 @@
+.landingpage {
+    display: flex;
+    flex-direction: column;
+}
 
-
-.nav-bar {
+.landingpage .nav-bar {
     display: flex;
     justify-content: flex-end;
     height: 70px;
     background-color: #3E6CAA;
 }
 
-.link-container  {
+.title-text {
+    color: white;
+    font-size: 40px;
+}
+
+.subtitle-text {
+    color: white;
+    font-size: 25px;
+}
+
+.landingpage .welcome-section {
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/images/Tools-on-table-brown.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.landingpage .nav-bar .link-container  {
     display: flex;
     flex-direction: space-between;
     align-items: center;

@@ -11,6 +11,7 @@ class LandingPage extends Component {
     render() {
         return (
             <div className="landingpage">
+
                 <div className="nav-bar">
                     <div className="link-container">
                         <Link to="/register" className="nav-link">
@@ -23,11 +24,19 @@ class LandingPage extends Component {
                         </Link>
                     </div>
                 </div>
+
                 <section className="welcome-section">
-                    <h1 className="welcome-title">
-                        Use My Tools - the best way to borrow and rent tools in your area!
-                    </h1>
-                    <br/>
+                    <div className="welcome-text-container">
+                        <h1 className="title-text">
+                            Better than buying expensive tools
+                        </h1>
+                        <h2 className="subtitle-text">
+                            Rent tools from owners near you
+                        </h2>
+                    </div>
+                </section>
+
+                <section >
                     <h3>
                         Browse and search for available tools near you.
                     </h3>
@@ -40,7 +49,6 @@ class LandingPage extends Component {
                         Have extra tools lying around? Post them for others to rent and start making money!
                     </h3>
                     <br/>
-                    
                 </section>
             </div>
         );
