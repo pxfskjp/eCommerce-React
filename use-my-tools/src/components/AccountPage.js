@@ -141,7 +141,7 @@ class AccountPage extends Component {
 
                 <div className="left-container">
                     <form onSubmit={this.updateUserDetails}>
-                        <h2>Account Details</h2>
+                        <h2>Personal Details</h2>
                         <TextField
                             id="outlined-first-name"
                             label="First Name"
@@ -162,15 +162,6 @@ class AccountPage extends Component {
                             variant="outlined"
                         />
 
-                        {/* <TextField
-                            id="outlined-home-street-address"
-                            label="Street Address"
-                            className={classes.textField}
-                            value={this.state.homeStreetAddress}
-                            onChange={this.handleChange("homeStreetAddress")}
-                            margin="normal"
-                            variant="outlined"
-                        /> */}
                         <div className="location-input">
                             {addressReceived ? (
                                 <LocationSearchInput 
@@ -199,22 +190,25 @@ class AccountPage extends Component {
                 {/* end left-container */}
 
                 <div className="right-container">
-                    <h2>Profile Image</h2>
-                    
+                    <div className="profile-image-container">
+                        <h2>Profile Image</h2>
+                        
                         <img
                             src={this.state.imageUrl}
                             alt="avatar"
                         />
-                    <br/>
-                    
-                    <form className="image-upload" onSubmit={this.imageUpload}>
-                        <input
-                            accept="image/*"
-                            id="outlined-button-file"
-                            type="file"
-                            onChange={this.fileChangedHandler}
-                        />
-                    </form>
+
+                        <p>Upload Photo:</p>
+                        <form className="image-upload" onSubmit={this.imageUpload}>
+                            <input
+                                label="Upload Photo"
+                                accept="image/*"
+                                id="outlined-button-file"
+                                type="file"
+                                onChange={this.fileChangedHandler}
+                            />
+                        </form>
+                    </div>
                 </div>
                 {/* end right-container */}
 

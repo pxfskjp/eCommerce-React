@@ -1,12 +1,18 @@
-.nav-container {
+
+
+.nav-bar {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    margin: auto;
     height: 70px;
-    background-color: #61DAFB;
+    background-color: #3E6CAA;
+}
+
+.link-container  {
+    display: flex;
+    flex-direction: space-between;
+    align-items: center;
 }
 
 .nav-link {
-    margin: 0px 30px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }

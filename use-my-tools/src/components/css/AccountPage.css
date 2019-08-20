@@ -3,7 +3,7 @@
     /* height: 100vh; */
     display: flex;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
 }
   
 .account-page-container .left-container {
@@ -39,12 +39,21 @@
 }
 
 .account-page-container .right-container {
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.account-page-container .right-container img {
+.account-page-container .right-container .profile-image-container {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.account-page-container .right-container .profile-image-container img {
     border-radius: 50%;
+    height: auto;
+    width: auto;
     max-width: 150px;
 }
