@@ -44,7 +44,10 @@
     align-items: center;
 }
 
-.account-page-container .right-container img {
+.account-page-container .right-container .profile-image-container {
+    border: 1px solid black;
+}
+.account-page-container .right-container .profile-image-container img {
     border-radius: 50%;
     height: auto;
     width: auto;
