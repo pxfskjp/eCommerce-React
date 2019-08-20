@@ -62,7 +62,8 @@ class MyTools extends Component {
                                 <Grid item xs={3} key={index}>
 
                                     <Card className={classes.card}>
-                                        <ImageCarousel toolImages={tool.images} />
+                                        {/* <ImageCarousel toolImages={tool.images} /> */}
+                                        <img src={tool.images[0].url} alt="tool" />
                                         <CardContent className={classes.cardContent}>
                                             <Typography gutterBottom variant="h5" component="h2">
                                                 {tool.brand}{' '}{tool.name}
