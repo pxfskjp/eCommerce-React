@@ -197,10 +197,11 @@ class AccountPage extends Component {
                             src={this.state.imageUrl}
                             alt="avatar"
                         />
-                        <br/>
-                        
+
+                        <p>Upload Photo:</p>
                         <form className="image-upload" onSubmit={this.imageUpload}>
                             <input
+                                label="Upload Photo"
                                 accept="image/*"
                                 id="outlined-button-file"
                                 type="file"
