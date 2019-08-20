@@ -162,15 +162,6 @@ class AccountPage extends Component {
                             variant="outlined"
                         />
 
-                        {/* <TextField
-                            id="outlined-home-street-address"
-                            label="Street Address"
-                            className={classes.textField}
-                            value={this.state.homeStreetAddress}
-                            onChange={this.handleChange("homeStreetAddress")}
-                            margin="normal"
-                            variant="outlined"
-                        /> */}
                         <div className="location-input">
                             {addressReceived ? (
                                 <LocationSearchInput 
