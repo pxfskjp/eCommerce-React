@@ -1,6 +1,9 @@
 .account-page-container {
     /* background-color: #EAEAEA; */
-    /* height: 100vh; */
+    height: 100%;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -16,6 +19,7 @@
 .account-page-container .left-container form {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     height: 100%;
     width: 100%;
 }
@@ -27,7 +31,7 @@
 
 .location-input {
     margin-left: 9px;
-    width: 97%;
+    width: 175px;
 }
 
 .account-page-container .left-container button {
@@ -55,4 +59,34 @@
     height: auto;
     width: auto;
     max-width: 150px;
+}
+
+@media (max-width: 600px) {
+
+    .account-page-container {
+        flex-direction: column-reverse; 
+    }
+
+    .account-page-container .left-container {
+        width: 100%;
+        
+    }
+
+    .account-page-container .right-container {
+        width: 100%;
+        align-items: flex-start;
+        
+    }
+
+    .account-page-container .right-container .profile-image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .account-page-container .right-container .profile-image-container img {
+        border-radius: 50%;
+        height: auto;
+        width: auto;
+        max-width: 100px;
+    }
 }
