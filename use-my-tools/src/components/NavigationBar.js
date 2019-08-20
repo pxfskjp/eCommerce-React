@@ -17,6 +17,9 @@ class NavigationBar extends Component {
             
             <header className="nav-container">
                 <h1 className="logo">Use My Tools</h1>
+                <button className="nav-menu-btn">
+                    Menu
+                </button>
                 <div className="nav-link-container">
                     
                     <NavLink to="/findtools" className="nav-link" activeStyle={{ color: 'white' }}>
