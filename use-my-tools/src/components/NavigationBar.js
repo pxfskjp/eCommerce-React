@@ -8,8 +8,14 @@ class NavigationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: null
+            user: null,
+            showNavLinks: true
         };
+    }
+
+    toggleShowNavLinks = event => {
+        const style = (this.state.showNavLinks === true) ? false : true;
+        this.setState({ showNavLinks: style });
     }
 
     render() {
@@ -17,9 +23,9 @@ class NavigationBar extends Component {
             
             <header className="nav-container">
                 <h1 className="logo">Use My Tools</h1>
-                <button className="nav-menu-btn">
+                {/* <button className="nav-menu-btn" onClick={this.toggleShowNavLinks}>
                     Menu
-                </button>
+                </button> */}
                 <div className="nav-link-container">
                     
                     <NavLink to="/findtools" className="nav-link" activeStyle={{ color: 'white' }}>
