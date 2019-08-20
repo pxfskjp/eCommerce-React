@@ -141,7 +141,7 @@ class AccountPage extends Component {
 
                 <div className="left-container">
                     <form onSubmit={this.updateUserDetails}>
-                        <h2>Account Details</h2>
+                        <h2>Personal Details</h2>
                         <TextField
                             id="outlined-first-name"
                             label="First Name"

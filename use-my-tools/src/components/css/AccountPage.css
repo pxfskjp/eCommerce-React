@@ -46,7 +46,10 @@
 }
 
 .account-page-container .right-container .profile-image-container {
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .account-page-container .right-container .profile-image-container img {
     border-radius: 50%;
