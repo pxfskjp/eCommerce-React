@@ -7,7 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ImageCarousel from '../ImageCarousel';
+
+import './css/MyTools.css';
 
 import axios from 'axios';
 
@@ -18,11 +19,22 @@ const styles = theme => ({
         flexDirection: "column"
     },
     cardContent: {
-        flexGrow: 1,
+        // flexGrow: 1,
         maxHeight: 100,
-        minHeight: 100,
-        overflow: "hidden"
+        // minHeight: 100,
+        overflow: "hidden",
+        textAlign: "left"
     },
+    cardActions: {
+        flexGrow: 1,
+        alignItems: "flex-end"
+    },
+    cardTitle: {
+        fontWeight: "bold"
+    },
+    gridItem: {
+        width: "24%"
+    }
 
 })
 
@@ -59,27 +71,29 @@ class MyTools extends Component {
 
                         {this.state.tools.map((tool, index) => {
                             return (
-                                <Grid item xs={3} key={index}>
+                                <Grid item key={index} className={classes.gridItem}>
 
                                     <Card className={classes.card}>
-                                        <ImageCarousel toolImages={tool.images} />
+                                        {/* <ImageCarousel toolImages={tool.images} /> */}
+                                        <img src={tool.images[0].url} alt="tool" />
                                         <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
+                                            <Typography gutterBottom className={classes.cardTitle} >
                                                 {tool.brand}{' '}{tool.name}
                                             </Typography>
                                             <Typography>
-                                                {tool.description}
+                                                ${tool.price} / day
                                             </Typography>
                                         </CardContent>
 
-                                        <CardActions>
+                                        <CardActions className={classes.cardActions}>
                                             <Button
+                                                className="details-button"
                                                 component={Link}
                                                 to={`/toolviewowner/${tool.id}`}
                                                 size="small"
                                                 color="primary"
                                             >
-                                                View Tool Details
+                                                See Details
                                             </Button>
                                         </CardActions>
                                     </Card>
