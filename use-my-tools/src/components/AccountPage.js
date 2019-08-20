@@ -190,22 +190,24 @@ class AccountPage extends Component {
                 {/* end left-container */}
 
                 <div className="right-container">
-                    <h2>Profile Image</h2>
-                    
+                    <div className="profile-image-container">
+                        <h2>Profile Image</h2>
+                        
                         <img
                             src={this.state.imageUrl}
                             alt="avatar"
                         />
-                    <br/>
-                    
-                    <form className="image-upload" onSubmit={this.imageUpload}>
-                        <input
-                            accept="image/*"
-                            id="outlined-button-file"
-                            type="file"
-                            onChange={this.fileChangedHandler}
-                        />
-                    </form>
+                        <br/>
+                        
+                        <form className="image-upload" onSubmit={this.imageUpload}>
+                            <input
+                                accept="image/*"
+                                id="outlined-button-file"
+                                type="file"
+                                onChange={this.fileChangedHandler}
+                            />
+                        </form>
+                    </div>
                 </div>
                 {/* end right-container */}
 
