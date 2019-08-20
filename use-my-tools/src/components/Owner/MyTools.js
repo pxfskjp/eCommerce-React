@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ImageCarousel from '../ImageCarousel';
+// import ImageCarousel from '../ImageCarousel';
 
 import axios from 'axios';
 
@@ -18,11 +18,19 @@ const styles = theme => ({
         flexDirection: "column"
     },
     cardContent: {
-        flexGrow: 1,
+        // flexGrow: 1,
         maxHeight: 100,
-        minHeight: 100,
-        overflow: "hidden"
+        // minHeight: 100,
+        overflow: "hidden",
+        textAlign: "left"
     },
+    cardActions: {
+        flexGrow: 1,
+        alignItems: "flex-end"
+    },
+    cardTitle: {
+        fontWeight: "bold"
+    }
 
 })
 
@@ -65,16 +73,17 @@ class MyTools extends Component {
                                         {/* <ImageCarousel toolImages={tool.images} /> */}
                                         <img src={tool.images[0].url} alt="tool" />
                                         <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h2">
+                                            <Typography gutterBottom className={classes.cardTitle} >
                                                 {tool.brand}{' '}{tool.name}
                                             </Typography>
                                             <Typography>
-                                                {tool.description}
+                                                ${tool.price} / day
                                             </Typography>
                                         </CardContent>
 
-                                        <CardActions>
+                                        <CardActions className={classes.cardActions}>
                                             <Button
+                                                className="details-button"
                                                 component={Link}
                                                 to={`/toolviewowner/${tool.id}`}
                                                 size="small"
