@@ -140,7 +140,6 @@ class FindTools extends Component {
                                 return (
                                     <Grid item key={index} className="grid-item">
                                         <Card className={classes.card}>
-                                            {/* <ImageCarousel toolImages={tool.images} /> */}
                                             <img src={tool.images[0].url} alt="tool" />
                                             <CardContent className={classes.cardContent}>
                                                 <Typography gutterBottom className={classes.cardTitle} >
