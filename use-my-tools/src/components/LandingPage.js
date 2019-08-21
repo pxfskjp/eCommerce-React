@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom"
-
-import "./css/LandingPage.css";
+import { Link, withRouter } from 'react-router-dom';
+import ManUsingDrill from '../assets/images/Man-using-drill.jpeg';
+import './css/LandingPage.css';
 
 class LandingPage extends Component {
     // constructor(props) {
@@ -36,10 +36,26 @@ class LandingPage extends Component {
                     </div>
                 </section>
 
-                <section >
-                    <h3>
+                <section className="intro-section" >
+                    <div className="intro-row">
+                        <img
+                            className="intro-image image-left"
+                            src={ManUsingDrill}
+                            alt="man-using-drill"
+                        />
+                        <div className="intro-row-text-container">
+                            <h3>
+                                Need to make some home repairs or start a DIY project but don't have all the tools?
+                            </h3>
+
+                            <h3>
+                                Find trusted owners near you and rent the tools for a fraction of the cost.
+                            </h3>
+                        </div>
+                    </div>
+                    <h2>
                         Browse and search for available tools near you.
-                    </h3>
+                    </h2>
                     <br/>
                     <h3>
                         Rent or borrow tools for a designated period of time.
