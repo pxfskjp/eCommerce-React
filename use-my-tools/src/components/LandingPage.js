@@ -42,7 +42,7 @@ class LandingPage extends Component {
                     <div className="intro-row">
                         <div className="intro-image-container">
                             <img
-                                className="intro-image image-left"
+                                className="intro-image"
                                 src={ManUsingDrill}
                                 alt="man-using-drill"
                             />
@@ -58,7 +58,14 @@ class LandingPage extends Component {
                         </div>
                     </div>
 
-                    <div className="intro-row">
+                    <div className="intro-row  image-right">
+                        <div className="intro-image-container">
+                            <img
+                                className="intro-image image-right"
+                                src={ToolsOnWall}
+                                alt="man-using-drill"
+                            />
+                        </div>
                         <div className="intro-text-container">
                             <h3>
                                 Have extra tools in our workshop that aren't being used?
@@ -68,13 +75,7 @@ class LandingPage extends Component {
                                 List your tools on Use My Tools and start making money by renting them to people near you.
                             </h3>
                         </div>
-                        <div className="intro-image-container">
-                            <img
-                                className="intro-image image-right"
-                                src={ToolsOnWall}
-                                alt="man-using-drill"
-                            />
-                        </div>
+                        
                     </div>
                 </section>
             </div>
