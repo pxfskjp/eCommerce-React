@@ -35,9 +35,9 @@ class LandingPage extends Component {
                         <h2 className="subtitle-text">
                             Rent tools from owners near you
                         </h2>
-                        <Link to="/register" className="signup-button">
-                            <button>
-                                Get Started
+                        <Link to="/register">
+                            <button className="signup-button">
+                                Get started
                             </button>
                         </Link>
                     </div>

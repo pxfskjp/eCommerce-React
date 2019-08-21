@@ -18,6 +18,13 @@
     align-items: center;
 }
 
+.landingpage .signup-button {
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #77BF44;
+}
+
 .nav-link {
     margin: 0px 0px 0px 0px;
 }
