@@ -52,16 +52,20 @@
 .landingpage .intro-section .intro-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.landingpage .intro-section .intro-row .intro-image {
+.landingpage .intro-section .intro-row .intro-image-container {
+    width: 47%;
+}
+
+.landingpage .intro-section .intro-row .intro-image-container .intro-image {
     height: auto;
-    width: auto;
-    max-width: 47%;
+    max-width: 100%;
 }
 
-.landingpage .intro-section .intro-row .intro-row-text-container {
+.landingpage .intro-section .intro-row .intro-text-container {
+    width: 45%;
     margin: 0px 10px 0px 10px;
     text-align: left;
     display: flex;

@@ -40,12 +40,14 @@ class LandingPage extends Component {
 
                 <section className="intro-section" >
                     <div className="intro-row">
-                        <img
-                            className="intro-image image-left"
-                            src={ManUsingDrill}
-                            alt="man-using-drill"
-                        />
-                        <div className="intro-row-text-container">
+                        <div className="intro-image-container">
+                            <img
+                                className="intro-image image-left"
+                                src={ManUsingDrill}
+                                alt="man-using-drill"
+                            />
+                        </div>
+                        <div className="intro-text-container">
                             <h3>
                                 Need to make some home repairs or start a DIY project but don't have all the tools?
                             </h3>
@@ -57,7 +59,7 @@ class LandingPage extends Component {
                     </div>
 
                     <div className="intro-row">
-                        <div className="intro-row-text-container">
+                        <div className="intro-text-container">
                             <h3>
                                 Have extra tools in our workshop that aren't being used?
                             </h3>
@@ -66,11 +68,13 @@ class LandingPage extends Component {
                                 List your tools on Use My Tools and start making money by renting them to people near you.
                             </h3>
                         </div>
-                        <img
-                            className="intro-image image-right"
-                            src={ToolsOnWall}
-                            alt="man-using-drill"
-                        />
+                        <div className="intro-image-container">
+                            <img
+                                className="intro-image image-right"
+                                src={ToolsOnWall}
+                                alt="man-using-drill"
+                            />
+                        </div>
                     </div>
                 </section>
             </div>
