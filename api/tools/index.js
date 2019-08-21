@@ -178,9 +178,10 @@ router.get('/renter/singletool/:id', (req, res) => {
                     }, 0);
                     console.log('sum of ratings: ', sumOfRatings);
                     const avgRating = sumOfRatings / ratings.length;
-                    console.log('average rating: ', avgRating);
+                    const truncatedAvgRating = Math.floor(avgRating * 100) / 100;
+                    console.log('average rating: ', truncatedAvgRating);
                     // append the average rating to the tool object:
-                    tool.rating = avgRating;
+                    tool.rating = truncatedAvgRating;
 
                     imagesDb.getToolImages(id) // get array of image URLs for each tool
                         .then(images => {
