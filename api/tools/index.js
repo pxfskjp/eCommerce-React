@@ -23,9 +23,6 @@ cloudinary.config({
 });
 
 router.post('/newtool', multipart, (req, res) => {
-    // console.log('/newtool endpoint req.body: ', req.body);
-    // console.log('/newtool req.files.image_file.path: ', req.files.image_file.path);
-
     let { brand, name, description, price } = req.body;
     let owner_uid = req.body.uid;
     let available = true;
@@ -52,7 +49,6 @@ router.post('/newtool', multipart, (req, res) => {
                 }
                 else {
                     try {
-                
                         const imageId = await imagesDb.addImage({ url: result.url});  // insert the image url into the images table and get back the id of the new image in the images table
 
                         console.log('id of image added to images table: ', imageId);
@@ -67,9 +63,6 @@ router.post('/newtool', multipart, (req, res) => {
                     }
                 }
             });
-            
-            
-            // res.status(200).json(response);
         })
         .catch(error => {  // catch error from insert new rep request
             console.log(error.message);
@@ -105,7 +98,6 @@ router.get('/mytools', (req, res) => {
 
     toolsDb.getMyTools(uid)
         .then(tools => {                  // db responds with array of all the user's tools
-            // console.log('response from db getMyTools query: ', tools);
 
             const toolsWithImages = tools.map(tool => {
                 const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
@@ -118,8 +110,6 @@ router.get('/mytools', (req, res) => {
                     //     res.status(500).json(error.message);
                     // })
             });
-
-            // console.log('toolsWithImages for /mytools response: ', toolsWithImages);
             
             Promise.all(toolsWithImages)
                 .then(completed => {
@@ -134,37 +124,29 @@ router.get('/mytools', (req, res) => {
 
 router.post('/findtools', async (req, res) => {
     let uid = req.body.uid;
-    // For default search use renter's city:
     let city = req.body.city;
-    // console.log('req.body.city: ', city);
 
     try {
         console.log('req.body.city: ', city);
         if (city === 'renter') {
             // call db function to get renter's city:
             const location = await usersDb.getUserLocation(uid);
-            // console.log('location: ', location);
             city = location.city;
         }
         console.log('city: ', city)
 
         toolsDb.findTools(city)
             .then(tools => {    // db responds with array of all available tools
-                // console.log('response from db getAllTools query: ', tools);
-
                 const toolsWithImages = tools.map(tool => {
                     const imagesQuery = imagesDb.getToolImages(tool.id); // get array of image URLs for each tool
                     return imagesQuery 
                         .then(images => {
-                            //console.log('response from db getToolImages query: ', images);
                             tool.images = images;  // append images array to tool object
                         })
                         // .catch(error => {
                         //     res.status(500).json(error.message);
                         // })
                 });
-
-                // console.log('toolsWithImages for /alltools response: ', toolsWithImages);
                 
                 Promise.all(toolsWithImages)
                     .then(completed => {
@@ -182,39 +164,56 @@ router.post('/findtools', async (req, res) => {
     }
 })
 
+// get data on a single tool for Renter to view:
 router.get('/renter/singletool/:id', (req, res) => {
     const uid = req.body.uid;
     const id = req.params.id;
     toolsDb.getTool(id)
         .then(tool => {
-             imagesDb.getToolImages(id) // get array of image URLs for each tool
-                .then(images => {
-                    // console.log('response from db getToolImages query: ', images);
-                    tool.images = images;  // append images array to tool object
+            toolsDb.getToolRatings(id)
+                .then(ratings => {
+                    console.log('tool ratings from db:', ratings);
+                    const sumOfRatings = ratings.reduce((acc, cur) => {
+                        return acc + cur.ratingFromRenter;
+                    }, 0);
+                    console.log('sum of ratings: ', sumOfRatings);
+                    const avgRating = sumOfRatings / ratings.length;
+                    const truncatedAvgRating = Math.floor(avgRating * 100) / 100;
+                    console.log('average rating: ', truncatedAvgRating);
+                    // append the average rating to the tool object:
+                    tool.rating = truncatedAvgRating;
 
-                    // add uid to response to identify renter on front end:
-                    tool.renterUid = uid;
-                    // console.log('tool with images for /renter/singletool/:id response: ', tool );
-                    res.status(200).json(tool);  // Send back tool with images appended as response
+                    imagesDb.getToolImages(id) // get array of image URLs for each tool
+                        .then(images => {
+                            // append images array to tool object:
+                            tool.images = images;
+                            // add uid to response to identify renter on front end (used for messaging via Firestore):
+                            tool.renterUid = uid;
+                            // Send back tool with images appended as response:
+                            res.status(200).json(tool);
+                        })
+                        .catch(error => {
+                            res.status(500).json(error.message);
+                        });
                 })
                 .catch(error => {
                     res.status(500).json(error.message);
-                });
+                })
+                
         })
         .catch(error => {
             res.status(500).json(error.message);
         });
 })
 
+// get data on a single tool for Owner to view:
 router.get('/owner/singletool/:id', (req, res) => {
     const id = req.params.id;
     toolsDb.getMyTool(id)
         .then(tool => {
              imagesDb.getToolImages(id) // get array of image URLs for each tool
                 .then(images => {
-                    // console.log('response from db getToolImages query: ', images);
                     tool.images = images;  // append images array to tool object
-                    // console.log('tool with images for /owner/singletool/:id response: ', tool );
                     res.status(200).json(tool);  // Send back tool with images appended as response
                 })
                 .catch(error => {
@@ -225,7 +224,6 @@ router.get('/owner/singletool/:id', (req, res) => {
             res.status(500).json(error.message);
         });
 })
-
 
 // Endpoint for an owner to reserve/block dates:
 router.post('/reservedates', (req, res) => {

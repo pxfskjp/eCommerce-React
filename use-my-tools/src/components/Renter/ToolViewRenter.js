@@ -81,6 +81,10 @@ class ToolViewRenter extends React.Component {
                             </Typography>
                             <br/>
                             <Typography>
+                                Rating: {tool.rating} Stars
+                            </Typography>
+                            <br/>
+                            <Typography>
                                 Location: {tool.ownerCity}{', '}{tool.ownerState}
                             </Typography>
                             <br/>
