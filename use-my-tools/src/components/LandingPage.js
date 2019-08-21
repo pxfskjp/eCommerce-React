@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import ManUsingDrill from '../assets/images/Man-using-drill.jpeg';
+import ToolsOnWall from '../assets/images/Wrenches-on-wall.jpeg';
+
 import './css/LandingPage.css';
 
 class LandingPage extends Component {
@@ -49,22 +51,27 @@ class LandingPage extends Component {
                             </h3>
 
                             <h3>
-                                Find trusted owners near you and rent the tools for a fraction of the cost.
+                                Find trusted owners near you and rent their tools for a fraction of the cost.
                             </h3>
                         </div>
                     </div>
-                    <h2>
-                        Browse and search for available tools near you.
-                    </h2>
-                    <br/>
-                    <h3>
-                        Rent or borrow tools for a designated period of time.
-                    </h3>
-                    <br/>
-                    <h3>
-                        Have extra tools lying around? Post them for others to rent and start making money!
-                    </h3>
-                    <br/>
+
+                    <div className="intro-row">
+                        <div className="intro-row-text-container">
+                            <h3>
+                                Have extra tools in our workshop that aren't being used?
+                            </h3>
+
+                            <h3>
+                                List your tools on Use My Tools and start making money by renting them to people near you.
+                            </h3>
+                        </div>
+                        <img
+                            className="intro-image image-right"
+                            src={ToolsOnWall}
+                            alt="man-using-drill"
+                        />
+                    </div>
                 </section>
             </div>
         );

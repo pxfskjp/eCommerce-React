@@ -52,12 +52,13 @@
 .landingpage .intro-section .intro-row {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .landingpage .intro-section .intro-row .intro-image {
     height: auto;
     width: auto;
-    max-width: 50%;
+    max-width: 47%;
 }
 
 .landingpage .intro-section .intro-row .intro-row-text-container {
