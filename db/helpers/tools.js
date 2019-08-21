@@ -11,7 +11,7 @@ module.exports = {
     updateToolDetails,
     findTools,
     getToolDataForRental,
-    getToolRating
+    getToolRatings
 }
 
 function createTool(newTool) {
@@ -129,11 +129,13 @@ function getMyTool(id) {
         .first();
 }
 
-function getToolRating(toolId) {
+// get ratingFromRenter from every rental matching tool id input:
+function getToolRatings(toolId) {
     return db
         .select('Rentals.ratingFromRenter')
         .from('Rentals')
-        .where('Rentals.ToolID', toolId);
+        .where('Rentals.ToolID', toolId)
+        .whereNotNull('Rentals.ratingFromRenter');
 }
 
 
