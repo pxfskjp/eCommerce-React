@@ -78,14 +78,6 @@
     justify-content: center;
 }
 
-/* .landingpage .intro-section .intro-row .image-left {
-    float: left;
-}
-
-.landingpage .intro-section .intro-row .image-right {
-    float: right;
-} */
-
 @media (max-width: 700px) {
     .landingpage .intro-section .intro-row {
         flex-direction: column;
