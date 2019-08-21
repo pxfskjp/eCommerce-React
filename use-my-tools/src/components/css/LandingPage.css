@@ -18,6 +18,14 @@
     align-items: center;
 }
 
+.landingpage .signup-button {
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #77BF44;
+    border: 1px solid grey;
+}
+
 .nav-link {
     margin: 0px 0px 0px 0px;
 }
@@ -77,14 +85,6 @@
     align-items: flex-start;
     justify-content: center;
 }
-
-/* .landingpage .intro-section .intro-row .image-left {
-    float: left;
-}
-
-.landingpage .intro-section .intro-row .image-right {
-    float: right;
-} */
 
 @media (max-width: 700px) {
     .landingpage .intro-section .intro-row {
