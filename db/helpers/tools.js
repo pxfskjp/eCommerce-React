@@ -10,7 +10,8 @@ module.exports = {
     deleteTool,
     updateToolDetails,
     findTools,
-    getToolDataForRental
+    getToolDataForRental,
+    getToolRating
 }
 
 function createTool(newTool) {
@@ -77,6 +78,7 @@ function findTools(city) {
         .where('users.city', city);
 }
 
+// get tool info for a renter to view:
 function getTool(id) {
     return db
         // .select('*')
@@ -104,6 +106,7 @@ function getTool(id) {
         .first();
 }
 
+// get tool info for an owner to view:
 function getMyTool(id) {
     return db 
         .select([
@@ -124,6 +127,13 @@ function getMyTool(id) {
         .leftJoin('users', 'tools.renter_uid', 'users.uid')
         .where('tools.id', id)
         .first();
+}
+
+function getToolRating(toolId) {
+    return db
+        .select('Rentals.ratingFromRenter')
+        .from('Rentals')
+        .where('Rentals.ToolID', toolId);
 }
 
 
@@ -155,5 +165,3 @@ function getToolDataForRental(toolID) {
         .where('tools.id', toolID)
         .first();
 }
-
-
