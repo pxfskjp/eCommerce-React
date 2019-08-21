@@ -28,9 +28,9 @@ const styles = {
   }
 };
 
-class RequestDatesPopUp extends React.Component {
+class RequestDates extends React.Component {
   state = {
-    open: false,
+    open: true,
     startDate: null,
     endDate: null,
     blockedDateRanges: [],
@@ -39,6 +39,33 @@ class RequestDatesPopUp extends React.Component {
     datesSubmitted: false,
     error: null
   };
+
+  componentDidMount() {
+    const toolId = this.props.toolId;
+    console.log(toolId);
+    axios.get(`/api/rentals/tool/reserveddates/${toolId}`)
+      .then(dates => {
+        const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
+        let blockedDays = [];
+        for (let i = 0; i < dateRanges.length; i++) {
+          // blockedDays.push(this.getDatesInRange(dateRanges[i]));
+          let datesArray = this.getDatesInRange(dateRanges[i]);
+          for (let d = 0; d < datesArray.length; d++) {
+            blockedDays.push(datesArray[d]);
+          }
+        }
+        // console.log('blockedDays:', blockedDays);
+        this.setState({ 
+          open: true,
+          blockedDays: blockedDays,
+          blockedDaysUpdated: true 
+        });
+        // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      })
+  }
 
   isDayBlocked = day => {
     // console.log('PopUp state.blockedDays on first isDayBlocked call', this.state.blockedDays);
@@ -151,33 +178,18 @@ class RequestDatesPopUp extends React.Component {
     const userType = this.props.userType;
     return (
         <div>
-          {userType === "renter" ? (
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Rent this tool
-            </Button>
-          ) : (
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Manage Dates
-            </Button>
-          )}
+          <div classes={{ paper: classes.dialogPaper }}>
+            <Typography gutterBottom variant="h6" component="h2">Select Dates</Typography>
 
-          <Dialog
-            classes={{ paper: classes.dialogPaper }}
-            open={this.state.open}
-            onClose={this.handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
-
-            <DialogContent className={classes.dialogContent}>
+            <div className={classes.dialogContent}>
               {userType === "renter" ? (
-                <DialogContentText>
+                <Typography>
                   Select dates to reserve this tool:
-                </DialogContentText>
+                </Typography>
               ) : (
-                <DialogContentText>
+                <Typography>
                   Select dates to block from rental reservations:
-                </DialogContentText>
+                </Typography>
               )}
               
               
@@ -187,22 +199,71 @@ class RequestDatesPopUp extends React.Component {
                 ''
               )}
 
-            </DialogContent>
+            </div>
 
-            <DialogActions>
+            {/* <DialogActions>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
               <Button onClick={this.onSubmit} color="primary">
                 Submit
               </Button>
-            </DialogActions>
+            </DialogActions> */}
             
-          </Dialog>
+          </div>
           {this.state.error && <p>{this.state.error}</p>}
         </div>
     );
   }
 }
 
-export default withStyles(styles)(RequestDatesPopUp);
+export default withStyles(styles)(RequestDates);
+
+// {userType === "renter" ? (
+//   <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+//     Rent this tool
+//   </Button>
+// ) : (
+//   <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+//     Manage Dates
+//   </Button>
+// )}
+
+// <Dialog
+//   classes={{ paper: classes.dialogPaper }}
+//   open={this.state.open}
+//   onClose={this.handleClose}
+//   aria-labelledby="form-dialog-title"
+// >
+//   <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
+
+//   <DialogContent className={classes.dialogContent}>
+//     {userType === "renter" ? (
+//       <DialogContentText>
+//         Select dates to reserve this tool:
+//       </DialogContentText>
+//     ) : (
+//       <DialogContentText>
+//         Select dates to block from rental reservations:
+//       </DialogContentText>
+//     )}
+    
+    
+//     {blockedDaysUpdated ? (
+//       <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
+//     ) : (
+//       ''
+//     )}
+
+//   </DialogContent>
+
+//   <DialogActions>
+//     <Button onClick={this.handleClose} color="primary">
+//       Cancel
+//     </Button>
+//     <Button onClick={this.onSubmit} color="primary">
+//       Submit
+//     </Button>
+//   </DialogActions>
+   
+// </Dialog>

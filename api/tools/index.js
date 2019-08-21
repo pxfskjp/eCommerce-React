@@ -172,14 +172,14 @@ router.get('/renter/singletool/:id', (req, res) => {
         .then(tool => {
             toolsDb.getToolRatings(id)
                 .then(ratings => {
-                    console.log('tool ratings from db:', ratings);
+                    // console.log('tool ratings from db:', ratings);
                     const sumOfRatings = ratings.reduce((acc, cur) => {
                         return acc + cur.ratingFromRenter;
                     }, 0);
-                    console.log('sum of ratings: ', sumOfRatings);
+                    // console.log('sum of ratings: ', sumOfRatings);
                     const avgRating = sumOfRatings / ratings.length;
                     const truncatedAvgRating = Math.floor(avgRating * 100) / 100;
-                    console.log('average rating: ', truncatedAvgRating);
+                    // console.log('average rating: ', truncatedAvgRating);
                     // append the average rating to the tool object:
                     tool.rating = truncatedAvgRating;
 
