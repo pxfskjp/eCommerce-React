@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
@@ -16,14 +16,27 @@ import moment from "moment";
 import axios from 'axios';
 
 const styles = {
-  dialogPaper: {
-      minHeight: '520px',
-      maxHeight: '100vh',
-  },
-  dialogContent: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'space-around'
+    mainContainer: {
+        height: 470,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        border: "1px solid grey",
+        borderRadius: 5,
+        padding: 5
+    },
+    // datesHeader: {
+    //     minHeight: '520px',
+    //     maxHeight: '100vh',
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     alignItems: 'flex-start'
+    // },
+    dialogContent: {
+        // display: 'flex',
+        // flexDirection: 'column',
+        // alignItems: 'space-around'
 
   }
 };
@@ -178,37 +191,39 @@ class RequestDates extends React.Component {
     const userType = this.props.userType;
     return (
         <div>
-          <div classes={{ paper: classes.dialogPaper }}>
-            <Typography gutterBottom variant="h6" component="h2">Select Dates</Typography>
+          <div className={classes.mainContainer}>
+            <div>
+                <Typography gutterBottom variant="h6" component="h2">Availability</Typography>
 
-            <div className={classes.dialogContent}>
-              {userType === "renter" ? (
-                <Typography>
-                  Select dates to reserve this tool:
-                </Typography>
-              ) : (
-                <Typography>
-                  Select dates to block from rental reservations:
-                </Typography>
-              )}
-              
-              
-              {blockedDaysUpdated ? (
-                <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
-              ) : (
-                ''
-              )}
+                <div className={classes.dialogContent}>
+                {userType === "renter" ? (
+                    <Typography>
+                    Select dates to reserve this tool:
+                    </Typography>
+                ) : (
+                    <Typography>
+                    Select dates to block from rental reservations:
+                    </Typography>
+                )}
+                
+                
+                {blockedDaysUpdated ? (
+                    <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
+                ) : (
+                    ''
+                )}
 
+                </div>
             </div>
-
-            {/* <DialogActions>
+              
+            <div>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
               <Button onClick={this.onSubmit} color="primary">
                 Submit
               </Button>
-            </DialogActions> */}
+            </div>
             
           </div>
           {this.state.error && <p>{this.state.error}</p>}
