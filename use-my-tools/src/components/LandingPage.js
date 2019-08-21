@@ -73,7 +73,7 @@ class LandingPage extends Component {
                         </div>
                         <div className="intro-text-container">
                             <h3>
-                                Have extra tools in our workshop that aren't being used?
+                                Have extra tools in your workshop that aren't being used?
                             </h3>
 
                             <h3>
