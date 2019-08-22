@@ -22,7 +22,9 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
-        padding: 5
+        padding: 5,
+        borderTop: '1px solid grey',
+        borderBottom: '1px solid grey'
     },
     textContainer: {
         display: 'flex',

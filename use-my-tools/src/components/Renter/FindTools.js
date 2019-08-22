@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import FilterMenu from './FilterMenu';
-
+import ToolCard from '../ToolCard';
 import './css/FindTools.css';
 
 import axios from 'axios';
@@ -97,7 +97,6 @@ class FindTools extends Component {
         }
     }
 
-
     clearAllKeywords = event => {
         this.setState({ keywords: [], searchString: ''});
     }
@@ -139,28 +138,7 @@ class FindTools extends Component {
                             {filteredTools.map((tool, index) =>  {
                                 return (
                                     <Grid item key={index} className="grid-item">
-                                        <Card className={classes.card}>
-                                            <img src={tool.images[0].url} alt="tool" />
-                                            <CardContent className={classes.cardContent}>
-                                                <Typography gutterBottom className={classes.cardTitle} >
-                                                    {tool.brand}{' '}{tool.name}
-                                                </Typography>
-                                                <Typography>
-                                                    ${tool.price} / day
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions className={classes.cardActions}>
-                                                <Button
-                                                    className="details-button"
-                                                    component={Link}
-                                                    to={`/toolviewrenter/${tool.id}`}
-                                                    size="small"
-                                                    color="primary"
-                                                >
-                                                    See Details
-                                                </Button>
-                                            </CardActions>
-                                        </Card>
+                                        <ToolCard tool={tool} userType={'renter'} />
                                     </Grid>
                                 );
                             })}

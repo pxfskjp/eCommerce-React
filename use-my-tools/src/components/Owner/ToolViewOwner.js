@@ -163,7 +163,7 @@ class ToolViewOwner extends Component {
             <div className="page-container">
                 <div className="title">
                     <Typography gutterBottom variant="h5" component="h2">
-                        {tool.brand}{' '}{tool.name}
+                        Your Tool: {tool.brand}{' '}{tool.name}
                     </Typography>
                     
                 </div>
@@ -197,6 +197,26 @@ class ToolViewOwner extends Component {
                         <div className="tool-info">
                             
                             <form onSubmit={this.updateToolDetails}>
+
+                                <TextField
+                                    id="outlined-brand"
+                                    label="Brand"
+                                    className={classes.textField}
+                                    value={this.state.brand}
+                                    onChange={this.handleChange("brand")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+
+                                <TextField
+                                    id="outlined-name"
+                                    label="Name"
+                                    className={classes.textField}
+                                    value={this.state.name}
+                                    onChange={this.handleChange("name")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
 
                                 <TextField
                                     id="outlined-description"
