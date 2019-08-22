@@ -50,7 +50,7 @@ const ToolCard = props => {
                     <Button
                         className="details-button"
                         component={Link}
-                        to={`/toolviewrenter/${tool.id}`}
+                        to={`/toolview${userType}/${tool.id}`}
                         size="small"
                         color="primary"
                     >
