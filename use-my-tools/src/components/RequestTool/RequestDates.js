@@ -70,7 +70,7 @@ class RequestDates extends React.Component {
           open: true,
           blockedDays: blockedDays,
           blockedDaysUpdated: true 
-        });
+        }, () => console.log('RequestDates state.blockedDays: ', blockedDays));
         // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
       })
       .catch(error => {
@@ -85,12 +85,13 @@ class RequestDates extends React.Component {
     // return this.state.blockedDays.includes(moment(day));
     // console.log('PopUp isDayBlocked called.');
     const blockedDays = this.state.blockedDays;
+    
     const day1 = moment(day).format('YYYY-MM-DD');
-
-   if (blockedDays.includes(day1)) {
-     return true;
-   }
-   return false;
+    console.log('isDayBlocked day: ', day1);
+    if (blockedDays.includes(day1)) {
+      return true;
+    }
+    return false;
   }
 
   getDatesInRange = ({ startDate, endDate }) => {
@@ -112,32 +113,32 @@ class RequestDates extends React.Component {
     return datesArray;
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-    const toolId = this.props.toolId;
-    axios.get(`/api/rentals/tool/reserveddates/${toolId}`)
-      .then(dates => {
-        const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
-        let blockedDays = [];
-        for (let i = 0; i < dateRanges.length; i++) {
-          // blockedDays.push(this.getDatesInRange(dateRanges[i]));
-          let datesArray = this.getDatesInRange(dateRanges[i]);
-          for (let d = 0; d < datesArray.length; d++) {
-            blockedDays.push(datesArray[d]);
-          }
-        }
-        // console.log('blockedDays:', blockedDays);
-        this.setState({ 
-          open: true,
-          blockedDays: blockedDays,
-          blockedDaysUpdated: true 
-        });
-        // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
-      })
-      .catch(error => {
-        this.setState({ error: error.message });
-      })
-  };
+  // handleClickOpen = () => {
+  //   this.setState({ open: true });
+  //   const toolId = this.props.toolId;
+  //   axios.get(`/api/rentals/tool/reserveddates/${toolId}`)
+  //     .then(dates => {
+  //       const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
+  //       let blockedDays = [];
+  //       for (let i = 0; i < dateRanges.length; i++) {
+  //         // blockedDays.push(this.getDatesInRange(dateRanges[i]));
+  //         let datesArray = this.getDatesInRange(dateRanges[i]);
+  //         for (let d = 0; d < datesArray.length; d++) {
+  //           blockedDays.push(datesArray[d]);
+  //         }
+  //       }
+  //       // console.log('blockedDays:', blockedDays);
+  //       this.setState({ 
+  //         open: true,
+  //         blockedDays: blockedDays,
+  //         blockedDaysUpdated: true 
+  //       });
+  //       // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
+  //     })
+  //     .catch(error => {
+  //       this.setState({ error: error.message });
+  //     })
+  // };
 
   onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
