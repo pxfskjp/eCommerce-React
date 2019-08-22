@@ -62,30 +62,30 @@ const defaultProps = {
   ],
 
   // input related props
-  startDateId: "startDate",
-  startDatePlaceholderText: "Start Date",
-  endDateId: "endDate",
-  endDatePlaceholderText: "End Date",
+  // startDateId: "startDate",
+  // startDatePlaceholderText: "Start Date",
+  // endDateId: "endDate",
+  // endDatePlaceholderText: "End Date",
   disabled: false,
-  required: false,
-  screenReaderInputMessage: "",
-  showClearDates: true,
-  showDefaultInputIcon: false,
-  customInputIcon: null,
-  customArrowIcon: null,
-  customCloseIcon: null,
+  // required: false,
+  // screenReaderInputMessage: "",
+  // showClearDates: true,
+  // showDefaultInputIcon: false,
+  // customInputIcon: null,
+  // customArrowIcon: null,
+  // customCloseIcon: null,
 
   // calendar presentation and interaction related props
   renderMonthText: null,
   orientation: "horizontal",
-  anchorDirection: "left",
-  horizontalMargin: 0,
+  // anchorDirection: "left",
+  // horizontalMargin: 0,
   withPortal: false,
-  withFullScreenPortal: false,
+  // withFullScreenPortal: false,
   initialVisibleMonth: null,
   numberOfMonths: 1,
   keepOpenOnDateSelect: true,
-  reopenPickerOnClearDates: true,
+  // reopenPickerOnClearDates: true,
   isRTL: false,
 
   // navigation related props
@@ -105,7 +105,7 @@ const defaultProps = {
   isDayHighlighted: () => false,
 
   // internationalization
-  displayFormat: () => moment.localeData().longDateFormat("L"),
+  // displayFormat: () => moment.localeData().longDateFormat("L"),
   monthFormat: "MMMM YYYY"
 };
 
@@ -188,7 +188,6 @@ class DateRangePickerWrapper extends Component {
           focusedInput={focusedInput}
           onFocusChange={this.onFocusChange}
           isDayBlocked={this.props.isDayBlocked}
-          onOutsideClick={this.onOutsideClick}
         />
       </React.Fragment>
     );
