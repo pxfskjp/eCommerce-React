@@ -6,7 +6,7 @@ import momentPropTypes from "react-moment-proptypes";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import omit from "lodash/omit";
-import { DateRangePicker } from "react-dates";
+import { DateRangePicker, DayPickerRangeController } from "react-dates";
 import { withStyles, withStylesPropTypes, css } from "react-with-styles";
 // import axios from 'axios';
 
@@ -164,6 +164,10 @@ class DateRangePickerWrapper extends Component {
     );
   };
 
+  // onOutsideClick = () => {
+  //   this.setState({ focusedInput: 'startDate' });
+  // }
+
   render() {
     const { focusedInput, startDate, endDate } = this.state;
     const props = omit(this.props, [
@@ -171,11 +175,11 @@ class DateRangePickerWrapper extends Component {
       "autoFocusEndDate",
       "initialStartDate",
       "initialEndDate",
-      "presets"
+      "presets",
     ]);
     return (
       <React.Fragment>
-        <DateRangePicker
+        <DayPickerRangeController
           {...props}
           // renderCalendarInfo={this.renderDatePresets}
           startDate={startDate}
@@ -184,6 +188,7 @@ class DateRangePickerWrapper extends Component {
           focusedInput={focusedInput}
           onFocusChange={this.onFocusChange}
           isDayBlocked={this.props.isDayBlocked}
+          onOutsideClick={this.onOutsideClick}
         />
       </React.Fragment>
     );
