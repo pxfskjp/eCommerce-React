@@ -139,29 +139,7 @@ class FindTools extends Component {
                             {filteredTools.map((tool, index) =>  {
                                 return (
                                     <Grid item key={index} className="grid-item">
-                                        <ToolCard tool={tool} />
-                                        {/* <Card className={classes.card}>
-                                            <img src={tool.images[0].url} alt="tool" />
-                                            <CardContent className={classes.cardContent}>
-                                                <Typography gutterBottom className={classes.cardTitle} >
-                                                    {tool.brand}{' '}{tool.name}
-                                                </Typography>
-                                                <Typography>
-                                                    ${tool.price} / day
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions className={classes.cardActions}>
-                                                <Button
-                                                    className="details-button"
-                                                    component={Link}
-                                                    to={`/toolviewrenter/${tool.id}`}
-                                                    size="small"
-                                                    color="primary"
-                                                >
-                                                    See Details
-                                                </Button>
-                                            </CardActions>
-                                        </Card> */}
+                                        <ToolCard tool={tool} userType={'renter'} />
                                     </Grid>
                                 );
                             })}

@@ -9,9 +9,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
-    gridContainer: {
-
-    },
     card: {
         height: "100%",
         width: "100%",
@@ -36,7 +33,7 @@ const styles = theme => ({
 });
 
 const ToolCard = props => {
-    const { classes, tool } = props;
+    const { classes, tool, userType } = props;
     return (
 
             <Card className={classes.card}>
