@@ -4,6 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ImageCarousel from '../ImageCarousel';
 import RequestDatesPopUp from '../RequestTool/RequestDatesPopUp';
+import RequestDates from '../RequestTool/RequestDates';
+
 import ContactOwner from './ContactOwner.js';
 
 import axios from 'axios';
@@ -51,6 +53,7 @@ class ToolViewRenter extends React.Component {
 
     render() {
         const { tool } = this.state;
+        const toolId = this.props.match.params.id;
         // const { classes } = this.props;
 
         return (
@@ -94,7 +97,7 @@ class ToolViewRenter extends React.Component {
                         </div>
                     
                         <br/>
-                        <RequestDatesPopUp toolId={tool.id} userType="renter"/>
+                        {tool.id && <RequestDates toolId={toolId} userType="renter"/>}
                         <br/>
                         <ContactOwner renterUID={this.state.tool.renterUid} ownerUID={this.state.tool.ownerUid}/>
 

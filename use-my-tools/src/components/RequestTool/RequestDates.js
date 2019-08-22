@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
@@ -16,21 +16,30 @@ import moment from "moment";
 import axios from 'axios';
 
 const styles = {
-  dialogPaper: {
-      minHeight: '520px',
-      maxHeight: '100vh',
-  },
-  dialogContent: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'space-around'
+    mainContainer: {
+        height: 410,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        padding: 5
+    },
+    textContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+    },
+    dialogContent: {
+        // display: 'flex',
+        // flexDirection: 'column',
+        // alignItems: 'space-around'
 
   }
 };
 
-class RequestDatesPopUp extends React.Component {
+class RequestDates extends React.Component {
   state = {
-    open: false,
+    open: true,
     startDate: null,
     endDate: null,
     blockedDateRanges: [],
@@ -39,6 +48,33 @@ class RequestDatesPopUp extends React.Component {
     datesSubmitted: false,
     error: null
   };
+
+  componentDidMount() {
+    const toolId = this.props.toolId;
+    console.log(toolId);
+    axios.get(`/api/rentals/tool/reserveddates/${toolId}`)
+      .then(dates => {
+        const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
+        let blockedDays = [];
+        for (let i = 0; i < dateRanges.length; i++) {
+          // blockedDays.push(this.getDatesInRange(dateRanges[i]));
+          let datesArray = this.getDatesInRange(dateRanges[i]);
+          for (let d = 0; d < datesArray.length; d++) {
+            blockedDays.push(datesArray[d]);
+          }
+        }
+        // console.log('blockedDays:', blockedDays);
+        this.setState({ 
+          open: true,
+          blockedDays: blockedDays,
+          blockedDaysUpdated: true 
+        });
+        // this.setState({ blockedDateRanges: dates.data }, () => console.log('PopUp state.blockedDateRanges:', this.state.blockedDateRanges));
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      })
+  }
 
   isDayBlocked = day => {
     // console.log('PopUp state.blockedDays on first isDayBlocked call', this.state.blockedDays);
@@ -151,58 +187,94 @@ class RequestDatesPopUp extends React.Component {
     const userType = this.props.userType;
     return (
         <div>
-          {userType === "renter" ? (
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Rent this tool
-            </Button>
-          ) : (
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Manage Dates
-            </Button>
-          )}
+          <div className={classes.mainContainer}>
+            <div>
+                <div className={classes.textContainer}>
+                    <Typography gutterBottom variant="h6" component="h2">Availability</Typography>
+                    <div className={classes.dialogContent}>
+                    {userType === "renter" ? (
+                        <Typography>
+                        Select dates to reserve this tool:
+                        </Typography>
+                    ) : (
+                        <Typography>
+                        Select dates to block from rental reservations:
+                        </Typography>
+                    )}
+                </div>
+                
+                {blockedDaysUpdated ? (
+                    <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
+                ) : (
+                    ''
+                )}
 
-          <Dialog
-            classes={{ paper: classes.dialogPaper }}
-            open={this.state.open}
-            onClose={this.handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
-
-            <DialogContent className={classes.dialogContent}>
-              {userType === "renter" ? (
-                <DialogContentText>
-                  Select dates to reserve this tool:
-                </DialogContentText>
-              ) : (
-                <DialogContentText>
-                  Select dates to block from rental reservations:
-                </DialogContentText>
-              )}
+                </div>
+            </div>
               
-              
-              {blockedDaysUpdated ? (
-                <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
-              ) : (
-                ''
-              )}
-
-            </DialogContent>
-
-            <DialogActions>
+            <div>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
               <Button onClick={this.onSubmit} color="primary">
                 Submit
               </Button>
-            </DialogActions>
+            </div>
             
-          </Dialog>
+          </div>
           {this.state.error && <p>{this.state.error}</p>}
         </div>
     );
   }
 }
 
-export default withStyles(styles)(RequestDatesPopUp);
+export default withStyles(styles)(RequestDates);
+
+// {userType === "renter" ? (
+//   <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+//     Rent this tool
+//   </Button>
+// ) : (
+//   <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+//     Manage Dates
+//   </Button>
+// )}
+
+// <Dialog
+//   classes={{ paper: classes.dialogPaper }}
+//   open={this.state.open}
+//   onClose={this.handleClose}
+//   aria-labelledby="form-dialog-title"
+// >
+//   <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
+
+//   <DialogContent className={classes.dialogContent}>
+//     {userType === "renter" ? (
+//       <DialogContentText>
+//         Select dates to reserve this tool:
+//       </DialogContentText>
+//     ) : (
+//       <DialogContentText>
+//         Select dates to block from rental reservations:
+//       </DialogContentText>
+//     )}
+    
+    
+//     {blockedDaysUpdated ? (
+//       <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
+//     ) : (
+//       ''
+//     )}
+
+//   </DialogContent>
+
+//   <DialogActions>
+//     <Button onClick={this.handleClose} color="primary">
+//       Cancel
+//     </Button>
+//     <Button onClick={this.onSubmit} color="primary">
+//       Submit
+//     </Button>
+//   </DialogActions>
+   
+// </Dialog>
