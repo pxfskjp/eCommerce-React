@@ -57,6 +57,7 @@ class RequestDates extends React.Component {
     axios.get(`/api/rentals/tool/reserveddates/${toolId}`)
       .then(dates => {
         const dateRanges = dates.data;  // reserved dates come back as ranges with start and end dates
+        console.log('RequestDates CDM dateRanges from reserved dates table: ', dateRanges);
         let blockedDays = [];
         for (let i = 0; i < dateRanges.length; i++) {
           // blockedDays.push(this.getDatesInRange(dateRanges[i]));
@@ -64,6 +65,7 @@ class RequestDates extends React.Component {
           for (let d = 0; d < datesArray.length; d++) {
             blockedDays.push(datesArray[d]);
           }
+          console.log('RequestDates CDM blockedDays: ', blockedDays);
         }
         // console.log('blockedDays:', blockedDays);
         this.setState({ 
