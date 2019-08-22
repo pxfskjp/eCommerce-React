@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
 import FilterMenu from './FilterMenu';
 import ToolCard from '../ToolCard';
 import './css/FindTools.css';
