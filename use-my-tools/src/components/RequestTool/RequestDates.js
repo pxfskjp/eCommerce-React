@@ -17,22 +17,18 @@ import axios from 'axios';
 
 const styles = {
     mainContainer: {
-        height: 470,
+        height: 410,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
-        border: "1px solid grey",
-        borderRadius: 5,
         padding: 5
     },
-    // datesHeader: {
-    //     minHeight: '520px',
-    //     maxHeight: '100vh',
-    //     display: 'flex',
-    //     flexDirection: 'column',
-    //     alignItems: 'flex-start'
-    // },
+    textContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+    },
     dialogContent: {
         // display: 'flex',
         // flexDirection: 'column',
@@ -193,19 +189,19 @@ class RequestDates extends React.Component {
         <div>
           <div className={classes.mainContainer}>
             <div>
-                <Typography gutterBottom variant="h6" component="h2">Availability</Typography>
-
-                <div className={classes.dialogContent}>
-                {userType === "renter" ? (
-                    <Typography>
-                    Select dates to reserve this tool:
-                    </Typography>
-                ) : (
-                    <Typography>
-                    Select dates to block from rental reservations:
-                    </Typography>
-                )}
-                
+                <div className={classes.textContainer}>
+                    <Typography gutterBottom variant="h6" component="h2">Availability</Typography>
+                    <div className={classes.dialogContent}>
+                    {userType === "renter" ? (
+                        <Typography>
+                        Select dates to reserve this tool:
+                        </Typography>
+                    ) : (
+                        <Typography>
+                        Select dates to block from rental reservations:
+                        </Typography>
+                    )}
+                </div>
                 
                 {blockedDaysUpdated ? (
                     <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
