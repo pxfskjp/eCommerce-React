@@ -66,12 +66,12 @@ form {
     height: 100px;
     width: 100%;
     padding-top: 15px;
-    margin: 30px 10px 10px 10px ;
+    margin: 10px 10px 10px 10px ;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    border-top: 2px solid grey;
+    border-top: 1px solid grey;
 }
 
 @media (max-width: 600px) {

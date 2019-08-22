@@ -163,7 +163,7 @@ class ToolViewOwner extends Component {
             <div className="page-container">
                 <div className="title">
                     <Typography gutterBottom variant="h5" component="h2">
-                        {tool.brand}{' '}{tool.name}
+                        Your Tool: {tool.brand}{' '}{tool.name}
                     </Typography>
                     
                 </div>
