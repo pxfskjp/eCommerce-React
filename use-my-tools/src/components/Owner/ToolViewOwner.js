@@ -199,6 +199,26 @@ class ToolViewOwner extends Component {
                             <form onSubmit={this.updateToolDetails}>
 
                                 <TextField
+                                    id="outlined-brand"
+                                    label="Brand"
+                                    className={classes.textField}
+                                    value={this.state.brand}
+                                    onChange={this.handleChange("brand")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+
+                                <TextField
+                                    id="outlined-name"
+                                    label="Name"
+                                    className={classes.textField}
+                                    value={this.state.name}
+                                    onChange={this.handleChange("name")}
+                                    margin="normal"
+                                    variant="outlined"
+                                />
+
+                                <TextField
                                     id="outlined-description"
                                     label="Description"
                                     className={classes.textField}
