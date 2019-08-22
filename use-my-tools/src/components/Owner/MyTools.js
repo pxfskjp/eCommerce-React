@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import ToolCard from '../ToolCard';
 
 import './css/MyTools.css';
 
@@ -72,31 +73,7 @@ class MyTools extends Component {
                         {this.state.tools.map((tool, index) => {
                             return (
                                 <Grid item key={index} className={classes.gridItem}>
-
-                                    <Card className={classes.card}>
-                                        {/* <ImageCarousel toolImages={tool.images} /> */}
-                                        <img src={tool.images[0].url} alt="tool" />
-                                        <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom className={classes.cardTitle} >
-                                                {tool.brand}{' '}{tool.name}
-                                            </Typography>
-                                            <Typography>
-                                                ${tool.price} / day
-                                            </Typography>
-                                        </CardContent>
-
-                                        <CardActions className={classes.cardActions}>
-                                            <Button
-                                                className="details-button"
-                                                component={Link}
-                                                to={`/toolviewowner/${tool.id}`}
-                                                size="small"
-                                                color="primary"
-                                            >
-                                                See Details
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
+                                    <ToolCard tool={tool} userType={'renter'} />
                                 </Grid>
                             );
                         })}

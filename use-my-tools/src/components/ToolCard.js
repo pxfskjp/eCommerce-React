@@ -28,6 +28,11 @@ const styles = theme => ({
     },
     cardTitle: {
         fontWeight: "bold"
+    },
+    toolImage: {
+        width: "100%",
+        border: "2px solid grey",
+        borderradius: "2px"
     }
 
 });
@@ -37,7 +42,7 @@ const ToolCard = props => {
     return (
 
             <Card className={classes.card}>
-                <img src={tool.images[0].url} alt="tool" />
+                <img className={classes.toolImage} src={tool.images[0].url} alt="tool" />
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom className={classes.cardTitle} >
                         {tool.brand}{' '}{tool.name}

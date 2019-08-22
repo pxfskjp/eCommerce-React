@@ -97,7 +97,6 @@ class FindTools extends Component {
         }
     }
 
-
     clearAllKeywords = event => {
         this.setState({ keywords: [], searchString: ''});
     }
