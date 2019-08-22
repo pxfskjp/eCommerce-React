@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import FilterMenu from './FilterMenu';
-
+import ToolCard from '../ToolCard';
 import './css/FindTools.css';
 
 import axios from 'axios';
@@ -139,7 +139,8 @@ class FindTools extends Component {
                             {filteredTools.map((tool, index) =>  {
                                 return (
                                     <Grid item key={index} className="grid-item">
-                                        <Card className={classes.card}>
+                                        <ToolCard tool={tool} />
+                                        {/* <Card className={classes.card}>
                                             <img src={tool.images[0].url} alt="tool" />
                                             <CardContent className={classes.cardContent}>
                                                 <Typography gutterBottom className={classes.cardTitle} >
@@ -160,7 +161,7 @@ class FindTools extends Component {
                                                     See Details
                                                 </Button>
                                             </CardActions>
-                                        </Card>
+                                        </Card> */}
                                     </Grid>
                                 );
                             })}
