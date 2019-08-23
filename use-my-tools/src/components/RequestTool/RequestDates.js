@@ -100,23 +100,21 @@ class RequestDates extends React.Component {
   getDatesInRange = ({ startDate, endDate }) => {
     let datesArray = [];
     
-    console.log('RequestDates getDatesInRange startDate: ', startDate);
-    console.log('RequestDates getDatesInRange endDate: ', endDate);
+    // console.log('RequestDates getDatesInRange startDate: ', startDate);
+    // console.log('RequestDates getDatesInRange endDate: ', endDate);
 
     let currentDate = moment.utc(startDate);
-    // let currentDate = startDate;
-    console.log('RequestDates getDatesInRange currentDate: ', currentDate);
+    // console.log('RequestDates getDatesInRange currentDate: ', currentDate);
 
     let stopDate = moment.utc(endDate);
-    // let stopDate = endDate;
-    console.log('RequestDates getDatesInRange stopDate: ', stopDate);
+    // console.log('RequestDates getDatesInRange stopDate: ', stopDate);
     
     while (currentDate <= stopDate) {
       datesArray.push(moment(currentDate).format('YYYY-MM-DD'));
       // datesArray.push(moment(currentDate));
       currentDate = moment(currentDate).add(1, 'days');
     }
-    console.log('RequestDates getDatesInRange datesArray: ', datesArray);
+    // console.log('RequestDates getDatesInRange datesArray: ', datesArray);
     return datesArray;
   }
 
@@ -174,11 +172,12 @@ class RequestDates extends React.Component {
     }
     this.setState({ blockedDays });
     
-    // store the selected date range in db:
+    // create new Rental; API creates reserved dates then Rental:
     axios.post('/api/rentals/newrental', reservationData)
         .then(response => {
             console.log('Rental created with response: ', response);
-            this.handleClose();
+            
+            // this.handleClose();
             // this.setState({ datesSubmitted: true });
         })
         .catch(error => {
@@ -187,9 +186,9 @@ class RequestDates extends React.Component {
         })
   };
 
-  handleClose = event => {
-    this.setState({ open: false });
-  }
+  // handleClose = event => {
+  //   this.setState({ open: false });
+  // }
 
   render() {
     const { classes } = this.props;

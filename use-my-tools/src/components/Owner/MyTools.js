@@ -68,7 +68,7 @@ class MyTools extends Component {
                         {this.state.tools.map((tool, index) => {
                             return (
                                 <Grid item key={index} className={classes.gridItem}>
-                                    <ToolCard tool={tool} userType={'renter'} />
+                                    <ToolCard tool={tool} userType={'owner'} />
                                 </Grid>
                             );
                         })}
