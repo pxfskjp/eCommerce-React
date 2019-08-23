@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 // import Dialog from '@material-ui/core/Dialog';
@@ -6,7 +7,7 @@ import Button from '@material-ui/core/Button';
 // import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
 // import DialogTitle from '@material-ui/core/DialogTitle';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
@@ -176,9 +177,9 @@ class RequestDates extends React.Component {
     axios.post('/api/rentals/newrental', reservationData)
         .then(response => {
             console.log('Rental created with response: ', response);
-            
-            // this.handleClose();
-            // this.setState({ datesSubmitted: true });
+            this.props.history.push({
+              pathname: `/rentalview/${response.data}/renter`
+            });
         })
         .catch(error => {
             console.log(error.message);
@@ -186,9 +187,6 @@ class RequestDates extends React.Component {
         })
   };
 
-  // handleClose = event => {
-  //   this.setState({ open: false });
-  // }
 
   render() {
     const { classes } = this.props;
@@ -237,53 +235,4 @@ class RequestDates extends React.Component {
   }
 }
 
-export default withStyles(styles)(RequestDates);
-
-// {userType === "renter" ? (
-//   <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-//     Rent this tool
-//   </Button>
-// ) : (
-//   <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-//     Manage Dates
-//   </Button>
-// )}
-
-// <Dialog
-//   classes={{ paper: classes.dialogPaper }}
-//   open={this.state.open}
-//   onClose={this.handleClose}
-//   aria-labelledby="form-dialog-title"
-// >
-//   <DialogTitle id="form-dialog-title">Select Dates</DialogTitle>
-
-//   <DialogContent className={classes.dialogContent}>
-//     {userType === "renter" ? (
-//       <DialogContentText>
-//         Select dates to reserve this tool:
-//       </DialogContentText>
-//     ) : (
-//       <DialogContentText>
-//         Select dates to block from rental reservations:
-//       </DialogContentText>
-//     )}
-    
-    
-//     {blockedDaysUpdated ? (
-//       <DateRangePickerWrapper isDayBlocked={this.isDayBlocked} onDatesChange={this.onDatesChange} />
-//     ) : (
-//       ''
-//     )}
-
-//   </DialogContent>
-
-//   <DialogActions>
-//     <Button onClick={this.handleClose} color="primary">
-//       Cancel
-//     </Button>
-//     <Button onClick={this.onSubmit} color="primary">
-//       Submit
-//     </Button>
-//   </DialogActions>
-   
-// </Dialog>
+export default withRouter(withStyles(styles)(RequestDates));
