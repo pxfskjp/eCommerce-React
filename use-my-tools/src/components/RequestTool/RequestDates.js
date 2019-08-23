@@ -99,13 +99,18 @@ class RequestDates extends React.Component {
   getDatesInRange = ({ startDate, endDate }) => {
     let datesArray = [];
     
-    console.log('RDPU getDatesInRange startDate: ', startDate);
+    console.log('RequestDates getDatesInRange startDate: ', startDate);
+    console.log('RequestDates getDatesInRange endDate: ', endDate);
 
     let currentDate = moment(startDate);
+    console.log('RequestDates getDatesInRange currentDate: ', currentDate);
+
     let stopDate = moment(endDate);
+    console.log('RequestDates getDatesInRange stopDate: ', stopDate);
+
     // console.log('startDate: ', startDate);
     // console.log('moment(startDate): ', currentDate);
-    console.log('Date(startDate): ', Date(startDate));
+    
     while (currentDate <= stopDate) {
       datesArray.push(moment(currentDate).format('YYYY-MM-DD'));
       // datesArray.push(moment(currentDate));
