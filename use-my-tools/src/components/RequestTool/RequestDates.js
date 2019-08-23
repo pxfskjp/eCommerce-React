@@ -62,6 +62,7 @@ class RequestDates extends React.Component {
         for (let i = 0; i < dateRanges.length; i++) {
           // blockedDays.push(this.getDatesInRange(dateRanges[i]));
           let datesArray = this.getDatesInRange(dateRanges[i]);
+          console.log('RequestDates CDM datesArray: ', datesArray);
           for (let d = 0; d < datesArray.length; d++) {
             blockedDays.push(datesArray[d]);
           }
@@ -107,16 +108,13 @@ class RequestDates extends React.Component {
 
     let stopDate = moment(endDate);
     console.log('RequestDates getDatesInRange stopDate: ', stopDate);
-
-    // console.log('startDate: ', startDate);
-    // console.log('moment(startDate): ', currentDate);
     
     while (currentDate <= stopDate) {
       datesArray.push(moment(currentDate).format('YYYY-MM-DD'));
       // datesArray.push(moment(currentDate));
       currentDate = moment(currentDate).add(1, 'days');
     }
-    // console.log('datesArray: ', datesArray);
+    console.log('RequestDates getDatesInRange datesArray: ', datesArray);
     return datesArray;
   }
 
