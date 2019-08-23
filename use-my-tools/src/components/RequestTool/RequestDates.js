@@ -90,7 +90,7 @@ class RequestDates extends React.Component {
     const blockedDays = this.state.blockedDays;
     
     const day1 = moment(day).format('YYYY-MM-DD');
-    console.log('isDayBlocked day: ', day1);
+    // console.log('isDayBlocked day: ', day1);
     if (blockedDays.includes(day1)) {
       return true;
     }
@@ -103,10 +103,12 @@ class RequestDates extends React.Component {
     console.log('RequestDates getDatesInRange startDate: ', startDate);
     console.log('RequestDates getDatesInRange endDate: ', endDate);
 
-    let currentDate = moment(startDate);
+    let currentDate = moment.utc(startDate);
+    // let currentDate = startDate;
     console.log('RequestDates getDatesInRange currentDate: ', currentDate);
 
-    let stopDate = moment(endDate);
+    let stopDate = moment.utc(endDate);
+    // let stopDate = endDate;
     console.log('RequestDates getDatesInRange stopDate: ', stopDate);
     
     while (currentDate <= stopDate) {
