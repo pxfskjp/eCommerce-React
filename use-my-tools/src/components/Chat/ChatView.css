@@ -1,5 +1,5 @@
 .message-container {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 10px;
     width: max-content;
     max-width: 80%;
@@ -9,9 +9,10 @@
 
 .align-left {
     float: left;
+    background-color: #E7E5EB;
 }
 
 .align-right {
     float: right;
-    background-color: #06D14E;
+    background-color: #4CD863;
 }

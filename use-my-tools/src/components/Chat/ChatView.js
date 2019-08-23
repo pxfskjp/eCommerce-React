@@ -86,7 +86,7 @@ const styles = theme => ({
     // marginTop: 20,
     paddingLeft: 20,
     paddingRight: 25,
-    paddingBottom: 30,
+    paddingBottom: 0,
     textAlign: 'justify'
   },
   inputArea: {
@@ -241,27 +241,14 @@ class ChatViewBase extends Component {
                         return (
                           // <MuiThemeProvider>
                           <div className={alignClass} key={index}>
-                            <div className="message-header">
-                              {/* <Avatar alt="Avatar" className={classes.avatar}>
-                                {message.author_name[0]}
-                              </Avatar> */}
-                              {/* <Typography
-                                  variant="h6"
-                                  className={classes.messageAuthor}
-                                >
-                                  {message.authorUID}
-                              </Typography> */}
-                            </div>
 
                             <div className="message-body">
-                              
                                 <Typography
                                   variant="h6"
                                   className={classes.messageBody}
                                 >
                                 {message.content}
                                 </Typography>
-
                             </div>
 
                           </div>
