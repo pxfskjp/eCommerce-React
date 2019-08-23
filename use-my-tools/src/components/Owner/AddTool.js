@@ -50,7 +50,7 @@ class AddTool extends Component {
                 //     selectedFile: null
                 // });
                 this.props.history.push({        
-                    pathname: "/yourtools"
+                    pathname: `/toolviewowner/${response.data}`
                 });
 
             })
