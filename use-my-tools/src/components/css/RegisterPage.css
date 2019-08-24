@@ -62,7 +62,7 @@
 .register form p {
     color: gray;
     font-size: .8em;
-    padding: 5% 25% 3% 25%;
+    /* padding: 5% 25% 3% 25%; */
 }
 
 .register form p:last-child {
@@ -71,13 +71,27 @@
     padding: 5% 25% 3% 25%;
 }
 
-.register form a {
-    color: #4C7AF1;
-    padding-bottom: 5%;
-}
-
 .location-input {
     width: 65%;
+}
+
+.register form .sign-in-container {
+    width: 85%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.register form .sign-in-container .sign-in-link {
+    color: #4C7AF1;
+    text-decoration: none;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.register form .sign-in-container .sign-in-link:hover {
+    background-color: #4C7AF1;
+    color: white;
 }
 
 @media (max-width: 800px) {

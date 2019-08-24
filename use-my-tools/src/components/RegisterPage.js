@@ -199,12 +199,18 @@ class RegisterFormBase extends Component {
                                 type="submit"
                                 disabled={invalidCondition}
                             />
-
+                            <div className="sign-in-container">
+                                <p>Already have an account?</p>
+                                <Link to="/login" className="sign-in-link">
+                                    Sign In
+                                </Link>
+                            </div>
                             <p>By signing up, you agree to the Terms and Conditions and Privacy Policy.</p>
 
                             {error && <p>{error.message}</p>}
 
                         </form>
+                        
                     </div>
                 </MuiThemeProvider>
             </div>
