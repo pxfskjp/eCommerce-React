@@ -14,9 +14,9 @@ const styles = theme => ({
       display: "flex"
     },
     textField: {
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-      width: "175px"
+      marginLeft: 10,
+      marginRight: 10,
+      width: "200px"
     },
     dense: {
       marginTop: 16
@@ -180,12 +180,16 @@ class AccountPage extends Component {
                         </Button>
 
                     </form>
-                        
-                    <Link to="/updatepassword" className="update-password-link">
-                        <Button variant="outlined" color="primary" className="update-password-button" >
+                    <div className="account-links-container">
+                        <Button component={Link} to="/Billing" variant="outlined" color="primary" className="account-link-button" >
+                            Update billing info
+                        </Button>
+
+                        <Button component={Link} to="/updatepassword" variant="outlined" color="primary" className="account-link-button" >
                             Update Password
                         </Button>
-                    </Link>
+                    </div>
+
                     
                 </div> 
                 {/* end left-container */}
