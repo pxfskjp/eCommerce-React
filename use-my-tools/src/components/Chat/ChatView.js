@@ -221,7 +221,7 @@ class ChatViewBase extends Component {
 
     render() {
         const isClosed = this.state.isClosed;
-        const compoundUID = this.props.currentCompoundUID;
+        // const compoundUID = this.props.currentCompoundUID;
         const { classes } = this.props;
         return (
 
@@ -303,7 +303,6 @@ class ChatViewBase extends Component {
                   </form>
                 </div>
               )}
-              
           </div>
     );
   }
