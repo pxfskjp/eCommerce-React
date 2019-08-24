@@ -14,7 +14,7 @@ import LoginPage from './components/LoginPage';
 import NavigationBar from './components/NavigationBar';
 
 import AccountPage from './components/AccountPage';
-
+import Billing from './components/Billing/Billing';
 import OwnerDashboard from './components/Owner/OwnerDashboard';
 import RenterDashboard from './components/Renter/RenterDashboard';
 import RentalView from './components/Rentals/RentalView';
@@ -87,6 +87,8 @@ class AppComponentBase extends Component {
               <Route path="/login" component={AccountPage} />
 
               <Route path={"/accountpage"} component={AccountPage} />
+              <Route path={"/billing"} component={Billing} />
+
 
               <Route path={"/ownerdashboard"} component={OwnerDashboard} />
               <Route path={"/renterdashboard"} component={RenterDashboard} />
