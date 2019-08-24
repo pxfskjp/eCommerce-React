@@ -22,24 +22,34 @@
     align-items: flex-start;
     height: 100%;
     width: 100%;
-}
-
-.update-password-link {
-    text-decoration: none;
-    margin: 50px 10px 10px 10px;
-}
-
-.location-input {
-    margin-left: 9px;
-    width: 175px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 20px;
 }
 
 .account-page-container .left-container button {
-    margin-top: 5%;
-    margin-left: 5%;
+    margin-top: 10px;
+    margin-left: 10px;
     width: max-content;
-    height: 8%;
+    /* height: 8%; */
     align-self: flex-start;
+}
+
+.account-page-container .left-container .account-links-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.account-page-container .left-container .account-links-container .account-link-button {
+    margin: 10px;
+}
+
+
+
+.location-input {
+    margin-left: 10px;
+    width: 175px;
 }
 
 .account-page-container .right-container {
