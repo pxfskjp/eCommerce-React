@@ -63,12 +63,26 @@
 .login form p {
     color: gray;
     font-size: .8em;
-    padding: 5% 25% 5% 25%;
+    /* padding: 5% 25% 5% 25%; */
 }
-.login form a {
+
+.login form .sign-up-container {
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login form .sign-up-container .sign-up-link {
     color: #4C7AF1;
-    font-size: .9em;
-    padding-bottom: 5%;
+    text-decoration: none;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.login form .sign-up-container .sign-up-link:hover {
+    background-color: #4C7AF1;
+    color: white;
 }
 
 @media (max-width: 800px) {

@@ -76,7 +76,7 @@
 }
 
 .register form .sign-in-container {
-    width: 85%;
+    width: 60%;
     display: flex;
     justify-content: space-around;
     align-items: center;

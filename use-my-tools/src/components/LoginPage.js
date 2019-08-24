@@ -123,8 +123,14 @@ class LoginFormBase extends Component {
                                 disabled={invalidCondition}
                             />
 
-                            {error && <p>{error.message}</p>}
+                            <div className="sign-up-container">
+                                <p>Don't have an account?</p>
+                                <Link to="/register" className="sign-up-link">
+                                    Sign Up
+                                </Link>
+                            </div>
 
+                            {error && <p>{error.message}</p>}
                         </form>
                     </div>
                 </MuiThemeProvider>
