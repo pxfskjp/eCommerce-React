@@ -1,13 +1,7 @@
 import React from 'react';
-import { Link, withRouter } from "react-router-dom"
+import { withRouter, Route } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
@@ -153,38 +147,41 @@ class RequestDates extends React.Component {
   onSubmit = () => {
     const { startDate, endDate } = this.state;
     const createDate = moment(Date.now());
-    console.log('createDate: ', createDate);
+    const { toolId, resType } = this.props;
 
-    let reservationData = { 
-      toolId: this.props.toolId,
-      resType: this.props.userType,
-      startDate: this.state.startDate, 
-      endDate: this.state.endDate,
+    const reservationData = { 
+      toolId,
+      resType,
+      startDate, 
+      endDate,
       createDate 
     };
 
-    // Add the dates that were just reserved to state.blockedDays array:
-      // This fixes bug where after submitting dates, on the next time you click 'manage dates',
-      // the recently reserved dates are not blocked until you reload page
-    let blockedDays = this.state.blockedDays;
-    let datesArray = this.getDatesInRange({ startDate, endDate });
-    for (let d = 0; d < datesArray.length; d++) {
-      blockedDays.push(datesArray[d]);
-    }
-    this.setState({ blockedDays });
+    // this.props.confirmRental(reservationData);
+
+    this.props.history.push({
+      pathname: '/confirmrental',
+      // state: {
+      //   toolId: this.props.toolId,
+      //   resType: this.props.userType,
+      //   startDate: this.state.startDate, 
+      //   endDate: this.state.endDate,
+      //   createDate
+      // } 
+    });
     
-    // create new Rental; API creates reserved dates then Rental:
-    axios.post('/api/rentals/newrental', reservationData)
-        .then(response => {
-            console.log('Rental created with response: ', response);
-            this.props.history.push({
-              pathname: `/rentalview/${response.data}/renter`
-            });
-        })
-        .catch(error => {
-            console.log(error.message);
-            this.setState({ error: error.message });
-        })
+    // // create new Rental; API creates reserved dates then Rental:
+    // axios.post('/api/rentals/newrental', reservationData)
+    //     .then(response => {
+    //         console.log('Rental created with response: ', response);
+    //         this.props.history.push({
+    //           pathname: `/rentalview/${response.data}/renter`
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message);
+    //         this.setState({ error: error.message });
+    //     })
   };
 
 
