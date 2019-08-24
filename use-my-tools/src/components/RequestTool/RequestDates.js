@@ -221,7 +221,12 @@ class RequestDates extends React.Component {
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <ConfirmRentalDialog />
+              <ConfirmRentalDialog 
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                toolId={this.props.toolId}
+                resType={this.props.resType}
+              />
               {/* <Button onClick={this.onSubmit} color="primary">
                 Submit
               </Button> */}
