@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
 
-class DeleteDialog extends React.Component {
+class ConfirmRentalDialog extends React.Component {
   state = {
     open: false,
     error: null
@@ -22,24 +22,24 @@ class DeleteDialog extends React.Component {
     this.setState({ open: false });
   };
 
-  handleConfirm = () => {
-    const id = this.props.toolId;
-    axios.delete(`/api/tools/tool/delete/${id}`)
-    .then(response => {
-        this.handleClose();
-        this.props.handleToolDelete();
-    })
-    .catch(error => {
-        this.setState({ error: error.message });
-    })
-  };
+//   handleConfirm = () => {
+//     const id = this.props.toolId;
+//     axios.delete(`/api/tools/tool/delete/${id}`)
+//     .then(response => {
+//         this.handleClose();
+//         this.props.handleToolDelete();
+//     })
+//     .catch(error => {
+//         this.setState({ error: error.message });
+//     })
+//   };
 
   render() {
     
     return (
         <div>
           <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                Delete Tool
+                Confirm
           </Button>
           
           <Dialog
@@ -47,13 +47,12 @@ class DeleteDialog extends React.Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            
               <div>
-                <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
+                <DialogTitle id="form-dialog-title">Confirm Rental</DialogTitle>
 
                 <DialogContent>
                   <DialogContentText>
-                    Are you sure you want to delete this tool?
+                    Enter your payment details to confirm this rental
                   </DialogContentText>
                 </DialogContent>
 
@@ -62,7 +61,7 @@ class DeleteDialog extends React.Component {
                     Cancel
                   </Button>
                   <Button onClick={this.handleConfirm} color="primary">
-                    Delete
+                    Confirm
                   </Button>
                 </DialogActions>
               </div>
@@ -74,4 +73,4 @@ class DeleteDialog extends React.Component {
   }
 }
 
-export default DeleteDialog;
+export default ConfirmRentalDialog;

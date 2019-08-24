@@ -1,12 +1,13 @@
 import React from 'react';
-import { withRouter, Route } from "react-router-dom";
+import { withRouter, Route, BrowserRouter as Router } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
 import ImageCarousel from '../ImageCarousel';
 import RequestDates from '../RequestTool/RequestDates';
 import ContactOwner from './ContactOwner.js';
-import ConfirmRental from './ConfirmRental';
+// import ConfirmRental from './ConfirmRental';
+
 
 import axios from 'axios';
 
@@ -108,7 +109,9 @@ class ToolViewRenter extends React.Component {
                         </div>
                     
                         <br/>
+
                         {tool.id && <RequestDates toolId={toolId} userType="renter" confirmRental={this.goToConfirmRental} />}
+
                         <br/>
                         <ContactOwner renterUID={this.state.tool.renterUid} ownerUID={this.state.tool.ownerUid}/>
 

@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
 import moment from "moment";
+import ConfirmRentalDialog from '../Renter/ConfirmRentalDialog';
+
 // import isSameDay from 'react-dates/lib/utils/isSameDay';
 
 import axios from 'axios';
@@ -30,7 +32,10 @@ const styles = {
         // display: 'flex',
         // flexDirection: 'column',
         // alignItems: 'space-around'
-
+  },
+  bottomButtons: {
+    display: 'flex',
+    justifyContent: 'flex-start'
   }
 };
 
@@ -159,16 +164,12 @@ class RequestDates extends React.Component {
 
     // this.props.confirmRental(reservationData);
 
-    this.props.history.push({
-      pathname: '/confirmrental',
-      // state: {
-      //   toolId: this.props.toolId,
-      //   resType: this.props.userType,
-      //   startDate: this.state.startDate, 
-      //   endDate: this.state.endDate,
-      //   createDate
-      // } 
-    });
+    // this.props.history.push({
+    //   pathname: '/confirmrental',
+    //   state: {
+    //     reservationData
+    //   } 
+    // });
     
     // // create new Rental; API creates reserved dates then Rental:
     // axios.post('/api/rentals/newrental', reservationData)
@@ -216,13 +217,14 @@ class RequestDates extends React.Component {
                 </div>
             </div>
               
-            <div>
+            <div className={classes.bottomButtons}>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={this.onSubmit} color="primary">
+              <ConfirmRentalDialog />
+              {/* <Button onClick={this.onSubmit} color="primary">
                 Submit
-              </Button>
+              </Button> */}
             </div>
             
           </div>
