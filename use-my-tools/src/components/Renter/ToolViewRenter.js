@@ -110,7 +110,9 @@ class ToolViewRenter extends React.Component {
                     
                         <br/>
 
-                        {tool.id && <RequestDates toolId={toolId} userType="renter" confirmRental={this.goToConfirmRental} />}
+                        {tool.id && 
+                            <RequestDates toolId={toolId} toolPrice={tool.price} userType="renter" confirmRental={this.goToConfirmRental} />
+                        }
 
                         <br/>
                         <ContactOwner renterUID={this.state.tool.renterUid} ownerUID={this.state.tool.ownerUid}/>

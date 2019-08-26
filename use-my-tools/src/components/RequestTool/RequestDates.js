@@ -146,7 +146,7 @@ class RequestDates extends React.Component {
   // };
 
   onDatesChange = ({ startDate, endDate }) => {
-    this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
+    this.setState({ startDate, endDate }, () => console.log('RequestDates state: ', this.state));
   };
 
   onSubmit = () => {
@@ -225,6 +225,7 @@ class RequestDates extends React.Component {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 toolId={this.props.toolId}
+                toolPrice={this.props.toolPrice}
                 resType={this.props.resType}
               />
               {/* <Button onClick={this.onSubmit} color="primary">
