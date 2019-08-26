@@ -146,6 +146,11 @@ class RequestDates extends React.Component {
   // };
 
   onDatesChange = ({ startDate, endDate }) => {
+    const { dailyRentalPrice } = this.props;
+    const datesInRange = this.getDatesInRange({ startDate, endDate });
+    const numberOfDays = datesInRange.length;
+    const rentalPrice = dailyRentalPrice * numberOfDays;
+    console.log(rentalPrice);
     this.setState({ startDate, endDate }, () => console.log('RequestDates state: ', this.state));
   };
 

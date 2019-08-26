@@ -111,7 +111,7 @@ class ToolViewRenter extends React.Component {
                         <br/>
 
                         {tool.id && 
-                            <RequestDates toolId={toolId} toolPrice={tool.price} userType="renter" confirmRental={this.goToConfirmRental} />
+                            <RequestDates toolId={toolId} dailyRentalPrice={tool.price} userType="renter" confirmRental={this.goToConfirmRental} />
                         }
 
                         <br/>
