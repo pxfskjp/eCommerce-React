@@ -48,6 +48,7 @@ class RequestDates extends React.Component {
     blockedDays: [],
     blockedDaysUpdated: false,
     datesSubmitted: false,
+    rentalPrice: 0,
     error: null
   };
 
@@ -151,7 +152,7 @@ class RequestDates extends React.Component {
     const numberOfDays = datesInRange.length;
     const rentalPrice = dailyRentalPrice * numberOfDays;
     console.log(rentalPrice);
-    this.setState({ startDate, endDate }, () => console.log('RequestDates state: ', this.state));
+    this.setState({ startDate, endDate, rentalPrice }, () => console.log('RequestDates state: ', this.state));
   };
 
   onSubmit = () => {
