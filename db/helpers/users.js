@@ -5,7 +5,8 @@ module.exports = {
     getUserInfo,
     updateUserDetails,
     getUserLocation,
-    getUserName
+    getUserName,
+    getUserEmail,
 }
 
 function createUser(newUser) {
@@ -75,4 +76,16 @@ function updateUserDetails(uid, user) {
     return db('users')
             .where('uid', uid)
             .update(user);
+}
+
+function getUserEmail(uid) {
+    return db 
+        .select([
+            'users.email',
+        ])
+        .from('users')
+        .where('users.uid', uid)
+        .then(users => {
+            return users[0];
+        });
 }

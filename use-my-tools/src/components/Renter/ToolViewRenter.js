@@ -1,12 +1,13 @@
 import React from 'react';
-
+import { withRouter, Route, BrowserRouter as Router } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import ImageCarousel from '../ImageCarousel';
-import RequestDatesPopUp from '../RequestTool/RequestDatesPopUp';
-import RequestDates from '../RequestTool/RequestDates';
 
+import ImageCarousel from '../ImageCarousel';
+import RequestDates from '../RequestTool/RequestDates';
 import ContactOwner from './ContactOwner.js';
+// import ConfirmRental from './ConfirmRental';
+
 
 import axios from 'axios';
 
@@ -51,6 +52,15 @@ class ToolViewRenter extends React.Component {
             })
     }
 
+    goToConfirmRental = reservationData => {
+        this.props.history.push({
+            pathname: '/confirmrental',
+            state: {
+              reservationData
+            } 
+        });
+    }
+
     render() {
         const { tool } = this.state;
         const toolId = this.props.match.params.id;
@@ -58,6 +68,8 @@ class ToolViewRenter extends React.Component {
 
         return (
             <div className="pageContainer">
+                {/* <Route path="/confirmrental" component={ConfirmRental} /> */}
+
                 <div className="title">
                     <Typography gutterBottom variant="h5" component="h2">
                         {tool.brand}{' '}{tool.name}
@@ -97,7 +109,11 @@ class ToolViewRenter extends React.Component {
                         </div>
                     
                         <br/>
-                        {tool.id && <RequestDates toolId={toolId} userType="renter"/>}
+
+                        {tool.id && 
+                            <RequestDates toolId={toolId} dailyRentalPrice={tool.price} userType="renter" confirmRental={this.goToConfirmRental} />
+                        }
+
                         <br/>
                         <ContactOwner renterUID={this.state.tool.renterUid} ownerUID={this.state.tool.ownerUid}/>
 
@@ -109,4 +125,4 @@ class ToolViewRenter extends React.Component {
     }
 }
 
-export default withStyles(styles)(ToolViewRenter);
+export default withRouter(withStyles(styles)(ToolViewRenter));

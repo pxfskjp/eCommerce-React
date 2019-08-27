@@ -1,17 +1,13 @@
 import React from 'react';
-import { Link, withRouter } from "react-router-dom"
+import { withRouter, Route } from "react-router-dom"
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 
 import DateRangePickerWrapper from '../ReactDates/DateRangePicker';
 import moment from "moment";
+import ConfirmRentalDialog from '../Renter/ConfirmRentalDialog';
+
 // import isSameDay from 'react-dates/lib/utils/isSameDay';
 
 import axios from 'axios';
@@ -36,7 +32,10 @@ const styles = {
         // display: 'flex',
         // flexDirection: 'column',
         // alignItems: 'space-around'
-
+  },
+  bottomButtons: {
+    display: 'flex',
+    justifyContent: 'flex-start'
   }
 };
 
@@ -49,6 +48,7 @@ class RequestDates extends React.Component {
     blockedDays: [],
     blockedDaysUpdated: false,
     datesSubmitted: false,
+    rentalPrice: 0,
     error: null
   };
 
@@ -147,44 +147,48 @@ class RequestDates extends React.Component {
   // };
 
   onDatesChange = ({ startDate, endDate }) => {
-    this.setState({ startDate, endDate }, () => console.log('PopUp state: ', this.state));
+    const { dailyRentalPrice } = this.props;
+    const datesInRange = this.getDatesInRange({ startDate, endDate });
+    const numberOfDays = datesInRange.length;
+    const rentalPrice = dailyRentalPrice * numberOfDays;
+    console.log(rentalPrice);
+    this.setState({ startDate, endDate, rentalPrice }, () => console.log('RequestDates state: ', this.state));
   };
 
   onSubmit = () => {
     const { startDate, endDate } = this.state;
     const createDate = moment(Date.now());
-    console.log('createDate: ', createDate);
+    const { toolId, resType } = this.props;
 
-    let reservationData = { 
-      toolId: this.props.toolId,
-      resType: this.props.userType,
-      startDate: this.state.startDate, 
-      endDate: this.state.endDate,
+    const reservationData = { 
+      toolId,
+      resType,
+      startDate, 
+      endDate,
       createDate 
     };
 
-    // Add the dates that were just reserved to state.blockedDays array:
-      // This fixes bug where after submitting dates, on the next time you click 'manage dates',
-      // the recently reserved dates are not blocked until you reload page
-    let blockedDays = this.state.blockedDays;
-    let datesArray = this.getDatesInRange({ startDate, endDate });
-    for (let d = 0; d < datesArray.length; d++) {
-      blockedDays.push(datesArray[d]);
-    }
-    this.setState({ blockedDays });
+    // this.props.confirmRental(reservationData);
+
+    // this.props.history.push({
+    //   pathname: '/confirmrental',
+    //   state: {
+    //     reservationData
+    //   } 
+    // });
     
-    // create new Rental; API creates reserved dates then Rental:
-    axios.post('/api/rentals/newrental', reservationData)
-        .then(response => {
-            console.log('Rental created with response: ', response);
-            this.props.history.push({
-              pathname: `/rentalview/${response.data}/renter`
-            });
-        })
-        .catch(error => {
-            console.log(error.message);
-            this.setState({ error: error.message });
-        })
+    // // create new Rental; API creates reserved dates then Rental:
+    // axios.post('/api/rentals/newrental', reservationData)
+    //     .then(response => {
+    //         console.log('Rental created with response: ', response);
+    //         this.props.history.push({
+    //           pathname: `/rentalview/${response.data}/renter`
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error.message);
+    //         this.setState({ error: error.message });
+    //     })
   };
 
 
@@ -219,13 +223,20 @@ class RequestDates extends React.Component {
                 </div>
             </div>
               
-            <div>
+            <div className={classes.bottomButtons}>
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={this.onSubmit} color="primary">
+              <ConfirmRentalDialog 
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                toolId={this.props.toolId}
+                rentalPrice={this.state.rentalPrice}
+                resType={this.props.resType}
+              />
+              {/* <Button onClick={this.onSubmit} color="primary">
                 Submit
-              </Button>
+              </Button> */}
             </div>
             
           </div>

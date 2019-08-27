@@ -22,10 +22,6 @@ class DeleteDialog extends React.Component {
     this.setState({ open: false });
   };
 
-//   onChange = event => {
-//     this.setState({ [event.target.name]: event.target.value });
-//   };
-
   handleConfirm = () => {
     const id = this.props.toolId;
     axios.delete(`/api/tools/tool/delete/${id}`)

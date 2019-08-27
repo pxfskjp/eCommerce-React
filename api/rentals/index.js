@@ -3,7 +3,10 @@ const router = express.Router();
 const toolsDb = require('../../db/helpers/tools');
 const datesDb = require('../../db/helpers/dates');
 const rentalsDb = require('../../db/helpers/rentals');
+const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 
 // Create a new Rental (first create reserved dates, then add ReservedDatesID to Rental):
@@ -51,7 +54,7 @@ router.post('/newrental', async (req, res) => {
         console.log('error at end of newrental endpoint');
         res.status(500).json(error.message);
     }
-})
+});
 
 // Get reserved dates for a single tool, 
 // including reserved dates from non-cancelled rentals and reserved dates from owner:
@@ -77,7 +80,7 @@ router.get('/tool/reserveddates/:id', (req, res) => {
         .catch(error => {
             res.status(500).json(error.message);
         })
-})
+});
 
 // Get all rentals associated with an Owner
 // use POST in order to send req.body with data indicating the Rental Status being requested
@@ -118,7 +121,7 @@ router.post('/owner/getrentals/', (req, res) => {
             console.log(error.message);
             res.status(500).json(error.message);
         })
-})
+});
 
 // Get all rentals associated with a Renter
 // use POST in order to send req.body with data indicating the Rental Status being requested
@@ -159,7 +162,7 @@ router.post('/renter/getrentals/', (req, res) => {
             console.log(error.message);
             res.status(500).json(error.message);
         })
-})
+});
 
 // endpoint to get rental data for a single rental for the tool Owner
 // for use on RentalView component:
@@ -175,7 +178,7 @@ router.get('/owner/rental/:rentalId', async (req, res) => {
     catch(error){
         res.status(500).json(error.message);
     }
-})
+});
 
 // endpoint to get rental data for a single rental for the tool Renter
 // for use on RentalView component:
@@ -199,7 +202,7 @@ router.get('/renter/rental/:rentalId', async (req, res) => {
     //     .catch(error => {
     //         res.status(500).json(error.message);
     //     })
-})
+});
 
 // Endpoint to update rental status:
 // If Rental is being cancelled, 
@@ -222,7 +225,7 @@ router.put('/updatestatus', async (req, res) => {
         console.log(error.message);
         res.status(500).json(error.message);
     }
-})
+});
 
 // endpoint to update all of a user's rentals to 'active' or 'complete' Status based on current date:
 router.post('/autoupdatestatusbydate', async (req, res) => {
@@ -269,7 +272,7 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
         console.log(error.message);
         res.status(500).json(error.message);
     }
-})
+});
 
 // endpoint to update a Rental Rating from a Renter:
 router.put('/renter/rental/updaterating/:rentalId', async (req, res) => {
@@ -288,7 +291,7 @@ router.put('/renter/rental/updaterating/:rentalId', async (req, res) => {
     catch(error) {
         res.status(500).json(error.message);
     }
-})
+});
 
 // endpoint to update a Rental Rating from an Owner:
 router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
@@ -306,6 +309,33 @@ router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
     catch(error) {
         res.status(500).json(error.message);
     }
+});
+
+router.post('/rentalpayment', async (req, res) => {
+    console.log('/rentalpayment req.body: ', req.body);
+    const { uid, source, name, description, amount, currency } = req.body;
+    try {
+        const userEmail = await usersDb.getUserEmail(uid);
+        // console.log(userEmail.email);
+        let customer = await stripe.customers.create({
+          email: userEmail.email,         // ** attach to body
+          source: source                  // ** attach to body-- source comes from StripeCheckout
+        })
+
+        let charge = await stripe.charges.create({
+          customer: customer.id,    // comes from creatCustomer call above
+          amount: amount, 
+          currency: currency    
+        })
+        // console.log('charge response from Stripe: ', charge);
+
+        // let inserted = await db.insert(subInfo)
+
+        // res.status(201).json({ message: `subscription created`, inserted })
+      } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ error: err.message });
+      }
 })
 
 module.exports = router;
