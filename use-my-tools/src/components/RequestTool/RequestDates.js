@@ -231,7 +231,7 @@ class RequestDates extends React.Component {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 toolId={this.props.toolId}
-                toolPrice={this.props.toolPrice}
+                rentalPrice={this.state.rentalPrice}
                 resType={this.props.resType}
               />
               {/* <Button onClick={this.onSubmit} color="primary">

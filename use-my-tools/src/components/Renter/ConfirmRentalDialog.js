@@ -73,7 +73,7 @@ class ConfirmRentalDialog extends React.Component {
                         <Checkout 
                             name={'Rental Checkout'}
                             description={'Rental Checkout'}
-                            amount={this.props.toolPrice}
+                            amount={this.props.toolPrice * 100}
                         />
                     </DialogContent>
 

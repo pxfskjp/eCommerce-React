@@ -17,15 +17,15 @@ const errorPayment = data => {
 };
 
 const onToken = (amount, description) => token => {
-//   axios.post(PAYMENT_SERVER_URL,
-//     {
-//       description,
-//       source: token.id,
-//       currency: CURRENCY,
-//       amount: amount
-//     })
-//     .then(successPayment)
-//     .catch(errorPayment);
+  axios.post('/api/rentals/rentalpayment',
+    {
+      description,
+      source: token.id,
+      currency: CURRENCY,
+      amount: amount
+    })
+    .then(successPayment)
+    .catch(errorPayment);
 };
 
 const Checkout = ({ name, description, amount }) => (
