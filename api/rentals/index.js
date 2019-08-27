@@ -313,19 +313,20 @@ router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
 
 router.post('/rentalpayment', async (req, res) => {
     console.log('/rentalpayment req.body: ', req.body);
-    const { uid } = req.body;
+    const { uid, source, name, description, amount, currency } = req.body;
     try {
         const userEmail = await usersDb.getUserEmail(uid);
-        console.log(userEmail.email);
+        // console.log(userEmail.email);
         let customer = await stripe.customers.create({
           email: userEmail.email,         // ** attach to body
-          source: req.body.id,            // ** attach to body-- source comes from StripeCheckout
+          source: source                  // ** attach to body-- source comes from StripeCheckout
         })
 
-        // let charge = await stripe.charges.create({
-        //   customer: customer.id,    // comes from creatCustomer call above
-        //   items: [{ plan }],        
-        // })
+        let charge = await stripe.charges.create({
+          customer: customer.id,    // comes from creatCustomer call above
+          amount: amount, 
+          currency: currency    
+        })
         // console.log('charge response from Stripe: ', charge);
 
         // let inserted = await db.insert(subInfo)
