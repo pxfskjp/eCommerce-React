@@ -9,16 +9,18 @@ The root directory contains backend (server and database) code as well as the us
 
 ## Backend Server:
 
-The backend server is built with express and node.js. The code for API endpoints is contained in the 'api' folder, organized into folders for rentals, tools, and users.
+The backend server is built with express and Node.js. In the root directory, 'server.js' contains the code that configures the backend express server and defines the base URLs for the various API categories. 'server.js' also imports Firebase config variables and uses Firebase Authentication to authenticate requests before allowing them to access the API. 'index.js' imports 'server.js' and initializes the server listener on the designated port. 
+
+The code for API endpoints is contained in the 'api' folder, organized into folders for rentals, tools, and users.
 
 ## Database:
 
 The app uses a Postgres SQL database with migrations and database queries built using the knex.js library. The file named 'knexfile.js' located in the root directory holds the knex configruation information. The folder named 'db' contains code for the database, with the following sub-folders:
 
-- 'db/helpers/' contains helper functions used to perform operations and queries on the database.
-- 'db/migrations' contains the knex migration files used to construct the database table schemas.
-- 'db/seeds' contains database seed files. 
-- The file 'db.js' located at filepath '/db/db.js' imports the knex config file used by the database. 
+- The folder 'helpers' contains helper functions used to perform operations and queries on the database.
+- The folder 'migrations' contains the knex migration files used to construct the database table schemas.
+- The folder 'seeds' contains database seed files. 
+- The file 'db.js' located at filepath 'db/db.js' imports the knex config file used by the database. 
 
 ## Front End (Client) app:
 
