@@ -331,7 +331,7 @@ router.post('/rentalpayment', async (req, res) => {
 
         // let inserted = await db.insert(subInfo)
 
-        // res.status(201).json({ message: `subscription created`, inserted })
+        res.status(201).json({ message: `Charge completed`, charge })
       } catch (err) {
         console.log(err.message);
         res.status(500).json({ error: err.message });
