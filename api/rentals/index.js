@@ -35,7 +35,7 @@ router.post('/newrental', async (req, res) => {
             ToolID: toolId,
             OwnerUID: toolData.owner_uid,
             ReservedDatesID,
-            Status: 'upcoming',
+            Status: 'pendingPayment',
             DailyRentalPrice: toolData.price,
             CreateDate: createDate
         }
