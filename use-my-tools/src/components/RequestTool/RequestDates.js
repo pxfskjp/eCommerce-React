@@ -167,15 +167,13 @@ class RequestDates extends React.Component {
       endDate,
       createDate 
     };
-
-    // this.props.confirmRental(reservationData);
     
     // create new Rental; API creates reserved dates then Rental:
     axios.post('/api/rentals/newrental', reservationData)
         .then(response => {
             console.log('Rental created with response: ', response);
             this.props.history.push({
-              pathname: `/rentalview/${response.data}/renter`
+              pathname: `/confirmrental/${response.data}`
             });
         })
         .catch(error => {
