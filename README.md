@@ -20,7 +20,7 @@ The app uses a Postgres SQL database with migrations and database queries built 
 
 ## Front End (Client) app:
 
-
+The code for the front end app is in the use-my-tools directory. The React App starts at the index.js file, which renders App from App.js. In practical terms, App.js is the parent component of the subcomponents with which users interact, and it renders routes to most subcomponents based on the auth state of the user.
 
 ## How to run the app in a development environment:
 1) Fork and/or clone the repository.
