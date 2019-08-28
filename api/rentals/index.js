@@ -325,7 +325,8 @@ router.post('/rentalpayment', async (req, res) => {
         let charge = await stripe.charges.create({
           customer: customer.id,    // comes from creatCustomer call above
           amount: amount, 
-          currency: currency    
+          currency: currency,
+          description: description    
         })
         // console.log('charge response from Stripe: ', charge);
 
