@@ -1,6 +1,8 @@
 # Use-My-Tools-CSR
 Use My Tools is a rental marketplace web app where individuals can find and rent tools owned by people nearby. It's a great way to save money when you need a tool for one project and it's not worth buying one.
 
+![Search for Tools](/assets/images/find-tools.png)
+
 The deployed app is hosted at https://usemytoolssf.netlify.com.
 
 The root directory contains backend (server and database) code as well as the use-my-tools React App, which contains the front end (client app) code.
@@ -28,7 +30,7 @@ The code for the front end app is in the use-my-tools directory. The React App s
 2) Install dependencies:
     - from the root directory run the command `npm install`
 
-3) Create a local Postgres database, making sure that the username under which you create the db, the password, and the name of the db match the corresponding values in the knex.js found in the root directory.
+3) Create a local Postgres database, making sure that the username under which you create the db, the password, and the name of the db match the corresponding values in the file 'knex.js' found in the root directory.
 
 4) Run database migrations to create the tables in the postgres db:
     - From the root directory, run the command `knex migrate:latest`
