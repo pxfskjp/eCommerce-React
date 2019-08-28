@@ -1,22 +1,26 @@
 # Use-My-Tools-CSR
 Use My Tools is a rental marketplace web app where individuals can find and rent tools owned by people nearby. It's a great way to save money when you need a tool for one project and it's not worth buying one.
 
+![Search for Tools](/assets/images/find-tools.png)
+
 The deployed app is hosted at https://usemytoolssf.netlify.com.
 
 The root directory contains backend (server and database) code as well as the use-my-tools React App, which contains the front end (client app) code.
 
 ## Backend Server:
 
-The backend server is built with express and node.js. The code for API endpoints is contained in the 'api' folder, organized into folders for rentals, tools, and users.
+The backend server is built with express and Node.js. In the root directory, 'server.js' contains the code that configures the backend express server and defines the base URLs for the various API categories. 'server.js' also imports Firebase config variables and uses Firebase Authentication to authenticate requests before allowing them to access the API. 'index.js' imports 'server.js' and initializes the server listener on the designated port. 
+
+The code for API endpoints is contained in the 'api' folder, organized into folders for rentals, tools, and users.
 
 ## Database:
 
 The app uses a Postgres SQL database with migrations and database queries built using the knex.js library. The file named 'knexfile.js' located in the root directory holds the knex configruation information. The folder named 'db' contains code for the database, with the following sub-folders:
 
-- 'db/helpers/' contains helper functions used to perform operations and queries on the database.
-- 'db/migrations' contains the knex migration files used to construct the database table schemas.
-- 'db/seeds' contains database seed files. 
-- The file 'db.js' located at filepath '/db/db.js' imports the knex config file used by the database. 
+- The folder 'helpers' contains helper functions used to perform operations and queries on the database.
+- The folder 'migrations' contains the knex migration files used to construct the database table schemas.
+- The folder 'seeds' contains database seed files. 
+- The file 'db.js' located at filepath 'db/db.js' imports the knex config file used by the database. 
 
 ## Front End (Client) app:
 
@@ -28,7 +32,7 @@ The code for the front end app is in the use-my-tools directory. The React App s
 2) Install dependencies:
     - from the root directory run the command `npm install`
 
-3) Create a local Postgres database, making sure that the username under which you create the db, the password, and the name of the db match the corresponding values in the knex.js found in the root directory.
+3) Create a local Postgres database, making sure that the username under which you create the db, the password, and the name of the db match the corresponding values in the file 'knex.js' found in the root directory.
 
 4) Run database migrations to create the tables in the postgres db:
     - From the root directory, run the command `knex migrate:latest`
