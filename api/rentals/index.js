@@ -14,16 +14,16 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 router.post('/newrental', async (req, res) => {
     const uid = req.body.uid;
 
-    let { startDate, endDate, createDate, toolId, resType } = req.body;
-    console.log('Rental startDate: ', startDate);
+    let { startDate, endDate, createDate, toolId, userType } = req.body;
+    // console.log('Rental startDate: ', startDate);
     let datesData = {
         tool_id: toolId,
-        res_type: resType,
+        res_type: userType,
         renter_uid: uid,
         start_date: startDate,
         end_date: endDate,
     }
-
+    console.log('datesData: ', datesData);
     try {
         const toolData = await toolsDb.getToolDataForRental(toolId);    // get tool's owner uid and price
         console.log('toolData: ', toolData);
