@@ -16,7 +16,7 @@ const errorPayment = data => {
   console.log(data);
 };
 
-const onToken = (amount, description, rentalId) => token => {
+const onToken = (amount, description, rentalId, goToRentalView) => token => {
   axios.post('/api/rentals/rentalpayment',
     {
       description,
@@ -25,16 +25,18 @@ const onToken = (amount, description, rentalId) => token => {
       amount: amount,
       rentalId: rentalId
     })
-    .then(successPayment)
+    .then(response => {
+      goToRentalView();
+    })
     .catch(errorPayment);
 };
 
-const Checkout = ({ name, description, amount, rentalId }) => (
+const Checkout = ({ name, description, amount, rentalId, goToRentalView}) => (
   <StripeCheckout
     name={name}
     description={description}
     amount={amount}
-    token={onToken(amount, description, rentalId)}
+    token={onToken(amount, description, rentalId, goToRentalView)}
     currency={CURRENCY}
     stripeKey={STRIPE_PUBLISHABLE_KEY}
   />

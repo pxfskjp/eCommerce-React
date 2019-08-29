@@ -57,6 +57,13 @@ class ConfirmRental extends Component {
         return formattedDate;
     };
 
+    goToRentalView = () => {
+        const { rentalId } = this.props.match.params;
+        this.props.history.push({
+            pathname: `/rentalview/${rentalId}/renter`
+        });
+    };
+
     render() {
         const { rental } = this.state;
         return (
@@ -67,6 +74,7 @@ class ConfirmRental extends Component {
                     description={'Rental Checkout'}
                     amount={rental.DailyRentalPrice * 100}
                     rentalId={rental.RentalID}
+                    goToRentalView={this.goToRentalView}
                 />
             </div>
         );
