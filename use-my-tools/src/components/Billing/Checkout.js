@@ -5,14 +5,13 @@ import StripeCheckout from 'react-stripe-checkout';
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_DOERzwvaYYRIUJAJbesVuSJ300Edj6qqZ0'
 const CURRENCY = 'USD';
 
-
-const successPayment = data => {
-  alert('Payment Successful');
-  console.log(data);
-};
+// const successPayment = data => {
+//   alert('Payment Successful');
+//   console.log(data);
+// };
 
 const errorPayment = data => {
-  alert('Payment Error');
+  alert('Payment Error. Please enter valid payment information.');
   console.log(data);
 };
 
