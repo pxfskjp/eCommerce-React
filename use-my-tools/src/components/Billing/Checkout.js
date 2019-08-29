@@ -22,7 +22,8 @@ const onToken = (amount, description) => token => {
       description,
       source: token.id,
       currency: CURRENCY,
-      amount: amount
+      amount: amount,
+      rentalId: this.props.rentalId
     })
     .then(successPayment)
     .catch(errorPayment);

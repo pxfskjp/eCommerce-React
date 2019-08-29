@@ -66,6 +66,7 @@ class ConfirmRental extends Component {
                     name={'Rental Checkout'}
                     description={'Rental Checkout'}
                     amount={rental.DailyRentalPrice * 100}
+                    rentalId={rental.RentalID}
                 />
             </div>
         );

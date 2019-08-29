@@ -332,6 +332,8 @@ router.post('/rentalpayment', async (req, res) => {
 
         await usersDb.updateUserDetails(uid, { stripe_customer_id: customer.id });
 
+        // await rentalsDb.updateRentalStatus()
+
         res.status(201).json({ message: `Charge completed`, charge })
       } catch (err) {
         console.log(err.message);
