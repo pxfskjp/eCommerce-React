@@ -56,20 +56,6 @@ class ConfirmRental extends Component {
         // console.log(formattedDate);
         return formattedDate;
     };
-    // onConfirm = () => {
-    //     // create new Rental; API creates reserved dates then Rental:
-    //     axios.post('/api/rentals/newrental', reservationData)
-    //     .then(response => {
-    //         console.log('Rental created with response: ', response);
-    //         this.props.history.push({
-    //         pathname: `/rentalview/${response.data}/renter`
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message);
-    //         this.setState({ error: error.message });
-    //     });
-    // };
 
     render() {
         const { rental } = this.state;
