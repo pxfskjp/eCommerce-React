@@ -91,7 +91,7 @@ class AppComponentBase extends Component {
 
               <Route path={"/accountpage"} component={AccountPage} />
 
-              <Route path={"/confirmrental"} component={ConfirmRental} />
+              <Route path={"/confirmrental/:rentalId"} component={ConfirmRental} />
 
               <Route path={"/ownerdashboard"} component={OwnerDashboard} />
               <Route path={"/renterdashboard"} component={RenterDashboard} />
