@@ -65,7 +65,7 @@ class ConfirmRental extends Component {
                 <Checkout 
                     name={'Rental Checkout'}
                     description={'Rental Checkout'}
-                    amount={rental.dailyRentalPrice * 100}
+                    amount={rental.DailyRentalPrice * 100}
                 />
             </div>
         );

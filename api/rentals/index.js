@@ -313,7 +313,7 @@ router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
 
 router.post('/rentalpayment', async (req, res) => {
     console.log('/rentalpayment req.body: ', req.body);
-    const { uid, source, name, description, amount, currency } = req.body;
+    const { uid, source, description, amount, currency } = req.body;
     try {
         const userEmail = await usersDb.getUserEmail(uid);
         // console.log(userEmail.email);
@@ -323,14 +323,14 @@ router.post('/rentalpayment', async (req, res) => {
         })
 
         let charge = await stripe.charges.create({
-          customer: customer.id,    // comes from creatCustomer call above
+          customer: customer.id,          // comes from creatCustomer call above
           amount: amount, 
           currency: currency,
           description: description    
         })
         // console.log('charge response from Stripe: ', charge);
 
-        // let inserted = await db.insert(subInfo)
+        await usersDb.updateUserDetails(uid, { stripe_customer_id: customer.id });
 
         res.status(201).json({ message: `Charge completed`, charge })
       } catch (err) {
