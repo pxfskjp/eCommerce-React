@@ -72,14 +72,15 @@ class ConfirmRental extends Component {
     // };
 
     render() {
+        const { rental } = this.state;
         return (
             <div>
                 ConfirmRental page
-                {/* <Checkout 
+                <Checkout 
                     name={'Rental Checkout'}
                     description={'Rental Checkout'}
-                    amount={this.props.rentalPrice * 100}
-                /> */}
+                    amount={rental.dailyRentalPrice * 100}
+                />
             </div>
         );
     };
