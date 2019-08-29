@@ -14,16 +14,16 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 router.post('/newrental', async (req, res) => {
     const uid = req.body.uid;
 
-    let { startDate, endDate, createDate, toolId, resType } = req.body;
-    console.log('Rental startDate: ', startDate);
+    let { startDate, endDate, createDate, toolId, userType } = req.body;
+    // console.log('Rental startDate: ', startDate);
     let datesData = {
         tool_id: toolId,
-        res_type: resType,
+        res_type: userType,
         renter_uid: uid,
         start_date: startDate,
         end_date: endDate,
     }
-
+    console.log('datesData: ', datesData);
     try {
         const toolData = await toolsDb.getToolDataForRental(toolId);    // get tool's owner uid and price
         console.log('toolData: ', toolData);
@@ -35,7 +35,7 @@ router.post('/newrental', async (req, res) => {
             ToolID: toolId,
             OwnerUID: toolData.owner_uid,
             ReservedDatesID,
-            Status: 'upcoming',
+            Status: 'pendingPayment',
             DailyRentalPrice: toolData.price,
             CreateDate: createDate
         }
@@ -313,7 +313,7 @@ router.put('/owner/rental/updaterating/:rentalId', async (req, res) => {
 
 router.post('/rentalpayment', async (req, res) => {
     console.log('/rentalpayment req.body: ', req.body);
-    const { uid, source, name, description, amount, currency } = req.body;
+    const { uid, source, description, amount, currency, rentalId } = req.body;
     try {
         const userEmail = await usersDb.getUserEmail(uid);
         // console.log(userEmail.email);
@@ -323,14 +323,16 @@ router.post('/rentalpayment', async (req, res) => {
         })
 
         let charge = await stripe.charges.create({
-          customer: customer.id,    // comes from creatCustomer call above
+          customer: customer.id,          // comes from creatCustomer call above
           amount: amount, 
           currency: currency,
           description: description    
         })
         // console.log('charge response from Stripe: ', charge);
 
-        // let inserted = await db.insert(subInfo)
+        await usersDb.updateUserDetails(uid, { stripe_customer_id: customer.id });
+
+        await rentalsDb.updateRentalStatus(rentalId, 'upcoming');
 
         res.status(201).json({ message: `Charge completed`, charge })
       } catch (err) {

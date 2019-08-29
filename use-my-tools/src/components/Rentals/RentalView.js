@@ -54,7 +54,7 @@ class RentalView extends Component {
     };
 
     componentDidMount() {
-        let { rentalId, userType } = this.props.match.params;
+        const { rentalId, userType } = this.props.match.params;
         this.getRentalInfo(rentalId, userType);
     };
 
@@ -66,8 +66,8 @@ class RentalView extends Component {
                 // convert dates into correct format for display:
                 const formattedStartDate = this.formatDate(rental.data.StartDate, dateFormatOptions);
                 const formattedEndDate = this.formatDate(rental.data.EndDate, dateFormatOptions);
-                rental.data.StartDate = formattedStartDate;
-                rental.data.EndDate = formattedEndDate;
+                rental.data.formattedStartDate = formattedStartDate;
+                rental.data.formattedEndDate = formattedEndDate;
                 this.setState({
                     rental: rental.data,
                     // renterUid: tool.data.renter_uid,
@@ -252,7 +252,7 @@ class RentalView extends Component {
                             }
                             <br/>
                             <Typography variant="h6">
-                                {rental.StartDate}{' - '}{rental.EndDate}
+                                {rental.formattedStartDate}{' - '}{rental.formattedEndDate}
                             </Typography>
                             <br/>
                             

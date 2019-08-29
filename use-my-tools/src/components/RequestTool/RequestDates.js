@@ -158,37 +158,28 @@ class RequestDates extends React.Component {
   onSubmit = () => {
     const { startDate, endDate } = this.state;
     const createDate = moment(Date.now());
-    const { toolId, resType } = this.props;
+    const { toolId, userType } = this.props;
 
     const reservationData = { 
       toolId,
-      resType,
+      userType,
       startDate, 
       endDate,
       createDate 
     };
-
-    // this.props.confirmRental(reservationData);
-
-    // this.props.history.push({
-    //   pathname: '/confirmrental',
-    //   state: {
-    //     reservationData
-    //   } 
-    // });
     
-    // // create new Rental; API creates reserved dates then Rental:
-    // axios.post('/api/rentals/newrental', reservationData)
-    //     .then(response => {
-    //         console.log('Rental created with response: ', response);
-    //         this.props.history.push({
-    //           pathname: `/rentalview/${response.data}/renter`
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message);
-    //         this.setState({ error: error.message });
-    //     })
+    // create new Rental; API creates reserved dates then Rental:
+    axios.post('/api/rentals/newrental', reservationData)
+        .then(response => {
+            console.log('Rental created with response: ', response);
+            this.props.history.push({
+              pathname: `/confirmrental/${response.data}`
+            });
+        })
+        .catch(error => {
+            console.log(error.message);
+            this.setState({ error: error.message });
+        })
   };
 
 
@@ -227,16 +218,16 @@ class RequestDates extends React.Component {
               <Button onClick={this.handleClose} color="primary">
                 Cancel
               </Button>
-              <ConfirmRentalDialog 
+              {/* <ConfirmRentalDialog 
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 toolId={this.props.toolId}
                 rentalPrice={this.state.rentalPrice}
                 resType={this.props.resType}
-              />
-              {/* <Button onClick={this.onSubmit} color="primary">
+              /> */}
+              <Button onClick={this.onSubmit} color="primary">
                 Submit
-              </Button> */}
+              </Button>
             </div>
             
           </div>

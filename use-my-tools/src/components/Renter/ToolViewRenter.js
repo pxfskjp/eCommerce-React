@@ -52,15 +52,6 @@ class ToolViewRenter extends React.Component {
             })
     }
 
-    goToConfirmRental = reservationData => {
-        this.props.history.push({
-            pathname: '/confirmrental',
-            state: {
-              reservationData
-            } 
-        });
-    }
-
     render() {
         const { tool } = this.state;
         const toolId = this.props.match.params.id;

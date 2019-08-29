@@ -5,35 +5,37 @@ import StripeCheckout from 'react-stripe-checkout';
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_DOERzwvaYYRIUJAJbesVuSJ300Edj6qqZ0'
 const CURRENCY = 'USD';
 
-
-const successPayment = data => {
-  alert('Payment Successful');
-  console.log(data);
-};
+// const successPayment = data => {
+//   alert('Payment Successful');
+//   console.log(data);
+// };
 
 const errorPayment = data => {
-  alert('Payment Error');
+  alert('Payment Error. Please enter valid payment information.');
   console.log(data);
 };
 
-const onToken = (amount, description) => token => {
+const onToken = (amount, description, rentalId, goToRentalView) => token => {
   axios.post('/api/rentals/rentalpayment',
     {
       description,
       source: token.id,
       currency: CURRENCY,
-      amount: amount
+      amount: amount,
+      rentalId: rentalId
     })
-    .then(successPayment)
+    .then(response => {
+      goToRentalView();
+    })
     .catch(errorPayment);
 };
 
-const Checkout = ({ name, description, amount }) => (
+const Checkout = ({ name, description, amount, rentalId, goToRentalView}) => (
   <StripeCheckout
     name={name}
     description={description}
     amount={amount}
-    token={onToken(amount, description)}
+    token={onToken(amount, description, rentalId, goToRentalView)}
     currency={CURRENCY}
     stripeKey={STRIPE_PUBLISHABLE_KEY}
   />
