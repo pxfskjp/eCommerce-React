@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+
 import Checkout from '../Billing/Checkout';
+import {
+    Grid,
+    Card,
+    CardContent,
+    CardHeader,
+    Typography,
+  } from '@material-ui/core';
 
 // import { withStyles } from "@material-ui/core/styles";
 
 import axios from 'axios';
+
+const styles = theme => ({
+    cardPricing: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginBottom: theme.spacing.unit * 2,
+    },
+    cardActions: {
+      [theme.breakpoints.up('sm')]: {
+        paddingBottom: theme.spacing.unit * 2,
+      },
+    },
+  })
 
 class ConfirmRental extends Component {
     constructor(props) {
@@ -67,18 +89,27 @@ class ConfirmRental extends Component {
     render() {
         const { rental } = this.state;
         return (
-            <div>
-                ConfirmRental page
-                <Checkout 
-                    name={'Rental Checkout'}
-                    description={'Rental Checkout'}
-                    amount={rental.DailyRentalPrice * 100}
-                    rentalId={rental.RentalID}
-                    goToRentalView={this.goToRentalView}
-                />
+            <div className="confirm-rental-page">
+                <Card className="card" align="center">
+                    <CardHeader
+                        title='Enter credit card details'
+                        // subheader={tier.subheader} no subheaders defined
+                        titleTypographyProps={{ align: 'center', variant: 'h3' }}
+                        subheaderTypographyProps={{ align: 'center' }}
+                    />
+                    <CardContent>
+                        <Checkout 
+                            name={'Rental Checkout'}
+                            description={'Rental Checkout'}
+                            amount={rental.DailyRentalPrice * 100}
+                            rentalId={rental.RentalID}
+                            goToRentalView={this.goToRentalView}
+                        /> 
+                    </CardContent>
+                </Card>
             </div>
         );
     };
 };
 
-export default withRouter(ConfirmRental);
+export default withRouter(withStyles(styles)(ConfirmRental));
