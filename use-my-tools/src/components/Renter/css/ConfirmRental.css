@@ -1,0 +1,18 @@
+.confirm-rental-panel {
+    width: 400px;
+    margin: auto;
+}
+
+.confirm-rental-panel .rental-info-container {
+    width: 100%;
+}
+
+.confirm-rental-panel .rental-info-container .image-container {
+    width: 80%;
+}
+
+.confirm-rental-panel .rental-info-container .image-container img {
+    width: auto;
+    height: auto;
+    max-height: 200px;
+}

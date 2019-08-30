@@ -11,7 +11,7 @@ import {
     Typography,
   } from '@material-ui/core';
 
-// import { withStyles } from "@material-ui/core/styles";
+import './css/ConfirmRental.css';
 
 import axios from 'axios';
 
@@ -90,23 +90,51 @@ class ConfirmRental extends Component {
         const { rental } = this.state;
         return (
             <div className="confirm-rental-page">
-                <Card className="card" align="center">
-                    <CardHeader
-                        title='Enter credit card details'
-                        // subheader={tier.subheader} no subheaders defined
-                        titleTypographyProps={{ align: 'center', variant: 'h3' }}
-                        subheaderTypographyProps={{ align: 'center' }}
-                    />
-                    <CardContent>
-                        <Checkout 
-                            name={'Rental Checkout'}
-                            description={'Rental Checkout'}
-                            amount={rental.DailyRentalPrice * 100}
-                            rentalId={rental.RentalID}
-                            goToRentalView={this.goToRentalView}
-                        /> 
-                    </CardContent>
-                </Card>
+
+                <div className="confirm-rental-panel">
+
+                    <Card className="card" align="center">
+                        <CardHeader
+                            title='Review details for this rental and provide payment information to confirm.'
+                            // subheader={tier.subheader} no subheaders defined
+                            titleTypographyProps={{ align: 'center', variant: 'h5' }}
+                            subheaderTypographyProps={{ align: 'center' }}
+                        />
+                        <CardContent>
+                        <div className="rental-info-container">
+                        <div className="image-container">
+                            {rental.ToolImageURL ? (
+                                <img src={rental.ToolImageURL} alt="tool"/>
+                            ) : (
+                                ''
+                            )}
+                        </div>
+
+                        <div className="tool-info">
+                            <Typography variant="h6">
+                                {rental.ToolBrand}{' '}{rental.ToolName}
+                            </Typography>
+                            
+                            <Typography variant="h6">
+                                {rental.formattedStartDate}{' - '}{rental.formattedEndDate}
+                            </Typography>
+                            
+                            <Typography variant="h6">
+                                Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
+                            </Typography>
+                            
+                        </div>
+                    </div>
+                            <Checkout 
+                                name={'Rental Checkout'}
+                                description={'Rental Checkout'}
+                                amount={rental.DailyRentalPrice * 100}
+                                rentalId={rental.RentalID}
+                                goToRentalView={this.goToRentalView}
+                            /> 
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         );
     };
