@@ -1,6 +1,6 @@
 .confirm-rental-panel {
     width: 400px;
-    margin: auto;
+    margin: 30px auto 30px auto;
 }
 
 .confirm-rental-panel .rental-info-container {
@@ -14,5 +14,5 @@
 .confirm-rental-panel .rental-info-container .image-container img {
     width: auto;
     height: auto;
-    max-height: 200px;
+    max-height: 250px;
 }

@@ -93,11 +93,11 @@ class ConfirmRental extends Component {
 
                 <div className="confirm-rental-panel">
 
-                    <Card className="card" align="center">
+                    <Card className="card" align="left">
                         <CardHeader
                             title='Review details for this rental and provide payment information to confirm.'
                             // subheader={tier.subheader} no subheaders defined
-                            titleTypographyProps={{ align: 'center', variant: 'h5' }}
+                            titleTypographyProps={{ align: 'left', variant: 'h5' }}
                             subheaderTypographyProps={{ align: 'center' }}
                         />
                         <CardContent>
