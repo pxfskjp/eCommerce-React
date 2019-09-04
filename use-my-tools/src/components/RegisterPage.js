@@ -106,11 +106,11 @@ class RegisterFormBase extends Component {
             <div className="register">
                 <MuiThemeProvider>
                     <div>
-                        <div className="register-top-bar">
+                        {/* <div className="register-top-bar">
                             <Link to="/" className="nav-link">
                                 Home
                             </Link>
-                        </div>
+                        </div> */}
                         
                         <p className="header">Sign Up</p>
 

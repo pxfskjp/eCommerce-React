@@ -59,7 +59,6 @@ class AppComponentBase extends Component {
       if (authUser) {
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
-            // console.log('idToken in App.js Firebase auth listener: ', idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
               authUser
@@ -86,7 +85,12 @@ class AppComponentBase extends Component {
       <AuthUserContext.Provider value={authUser}>
         <Router>
           <div className="App">
-            <NavigationBar authUser={authUser} />
+            <NavigationBar />
+            <Switch>
+              <Route exact path={"/"} component={LandingPage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/login" component={LoginPage} />
+            </Switch>
           </div>
         </Router>
       </AuthUserContext.Provider>
