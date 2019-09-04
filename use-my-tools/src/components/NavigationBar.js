@@ -44,11 +44,13 @@ const NavigationAuth = () => (
 
 const NavigationNonAuth = () => (
     <div className="nav-container">
-        <div className="nav-link-container">
+        <div className="nav-link-container-non-auth">
+            <NavLink to="/" className="nav-link">
+                Home
+            </NavLink>
             <NavLink to="/register" className="nav-link">
                 Sign Up
             </NavLink>
-
             <NavLink to="/login" className="nav-link">
                 Sign In
             </NavLink>
