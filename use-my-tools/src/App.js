@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
+import PrivateRoute from './components/Routes/PrivateRoute';
 // import { Provider, Consumer } from './AppContext';
 import axios from 'axios';
 
@@ -45,6 +46,8 @@ class AppComponentBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authUserChecked: false,
+      authUser: null,
       idToken: null
     }
   }
@@ -57,6 +60,8 @@ class AppComponentBase extends Component {
             // console.log('idToken in App.js Firebase auth listener: ', idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
+              authUserChecked: true,
+              authUser,
               idToken
             })
           })
@@ -65,35 +70,34 @@ class AppComponentBase extends Component {
           })
       } else {
         this.setState({
+          authUserChecked: true,
+          authUser: null,
           idToken: null
         })
-        // .then(() => {
-        //   this.props.history.push({         
-        //     pathname: "/accountpage"
-        //   });
-        // })
       }
     });
   }
 
   render() {
-    const idToken = this.state.idToken;
+    const { authUserChecked, idToken } = this.state;
     return (
       <Router>
-      <div className="App">
-        <div>
-          {idToken ? (
+        <div className="App">
+        {authUserChecked === true && 
+          <div>
             <div>
-              <NavigationBar />
-              <Route exact path={"/"} component={AccountPage} />
-              <Route path="/register" component={AccountPage} />
-              <Route path="/login" component={AccountPage} />
+              {idToken && <NavigationBar />}
+              <Switch>
+              <Route exact path={"/"} component={LandingPage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/login" component={LoginPage} />
 
-              <Route path={"/accountpage"} component={AccountPage} />
+              {/* <Route path={"/accountpage"} component={AccountPage} /> */}
+              <PrivateRoute path={"/accountpage"} component={AccountPage} authUser={this.state.authUser}/>
 
-              <Route path={"/confirmrental/:rentalId"} component={ConfirmRental} />
+              <PrivateRoute path={"/confirmrental/:rentalId"} component={ConfirmRental} authUser={this.state.authUser}/>
 
-              <Route path={"/ownerdashboard"} component={OwnerDashboard} />
+              <PrivateRoute path={"/ownerdashboard"} component={OwnerDashboard} authUser={this.state.authUser}/>
               <Route path={"/renterdashboard"} component={RenterDashboard} />
 
               <Route path={"/rentalview/:rentalId/:userType"} component={RentalView} />
@@ -105,27 +109,12 @@ class AppComponentBase extends Component {
               <Route path={"/toolviewowner/:id"} component={ToolViewOwner} />
               <Route path={"/dates"} component={DateRangePickerWrapper} />
               <Route path={"/chat"} component={ChatDashboard} />
+              </Switch>
             </div>
-          ) : (
-            <div>
-              <Route exact path={"/"} component={LandingPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
-
-              <Route path={"/accountpage"} component={LandingPage} />
-              <Route path={"/yourtools"} component={LandingPage} />
-              <Route path={"/addtool"} component={LandingPage} />
-              <Route path={"/updatepassword"} component={LandingPage} />
-              <Route path={"/findtools"} component={LandingPage} />
-              <Route path={"/toolviewrenter/:id"} component={LandingPage} />
-              <Route path={"/toolviewowner/:id"} component={LandingPage} />
-              <Route path={"/dates"} component={LandingPage} />
-            </div>
-          )}
+          </div>
+        }
         </div>
-      </div>
       </Router>
-
     );
   }
 }
@@ -135,3 +124,47 @@ const AppComponent = withFirebase(AppComponentBase);
 export default App;
 
 export {AppComponent};
+
+// {idToken ? (
+//   <div>
+//     <NavigationBar />
+//     <Switch>
+//     <Route exact path={"/"} component={AccountPage} />
+//     <Route path="/register" component={AccountPage} />
+//     <Route path="/login" component={AccountPage} />
+
+//     {/* <Route path={"/accountpage"} component={AccountPage} /> */}
+//     <PrivateRoute path={"/accountpage"} component={AccountPage} authUser={this.state.authUser}/>
+
+//     <Route path={"/confirmrental/:rentalId"} component={ConfirmRental} />
+
+//     <Route path={"/ownerdashboard"} component={OwnerDashboard} />
+//     <Route path={"/renterdashboard"} component={RenterDashboard} />
+
+//     <Route path={"/rentalview/:rentalId/:userType"} component={RentalView} />
+
+//     <Route path={"/addtool"} component={AddTool} />
+//     <Route path={"/updatepassword"} component={UpdatePassword} />
+//     <Route path={"/findtools"} component={FindTools} />
+//     <Route path={"/toolviewrenter/:id"} component={ToolViewRenter} />
+//     <Route path={"/toolviewowner/:id"} component={ToolViewOwner} />
+//     <Route path={"/dates"} component={DateRangePickerWrapper} />
+//     <Route path={"/chat"} component={ChatDashboard} />
+//     </Switch>
+//   </div>
+// ) : (
+//   <div>
+//     <Route exact path={"/"} component={LandingPage} />
+//     <Route path="/register" component={RegisterPage} />
+//     <Route path="/login" component={LoginPage} />
+
+//     <Route path={"/accountpage"} component={LandingPage} />
+//     <Route path={"/yourtools"} component={LandingPage} />
+//     <Route path={"/addtool"} component={LandingPage} />
+//     <Route path={"/updatepassword"} component={LandingPage} />
+//     <Route path={"/findtools"} component={LandingPage} />
+//     <Route path={"/toolviewrenter/:id"} component={LandingPage} />
+//     <Route path={"/toolviewowner/:id"} component={LandingPage} />
+//     <Route path={"/dates"} component={LandingPage} />
+//   </div>
+// )}

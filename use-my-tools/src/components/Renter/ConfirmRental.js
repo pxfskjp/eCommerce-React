@@ -101,30 +101,29 @@ class ConfirmRental extends Component {
                             subheaderTypographyProps={{ align: 'center' }}
                         />
                         <CardContent>
-                        <div className="rental-info-container">
-                        <div className="image-container">
-                            {rental.ToolImageURL ? (
-                                <img src={rental.ToolImageURL} alt="tool"/>
-                            ) : (
-                                ''
-                            )}
-                        </div>
+                            <div className="rental-info-container">
+                                <div className="image-container">
+                                    {rental.ToolImageURL ? (
+                                        <img src={rental.ToolImageURL} alt="tool"/>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
 
-                        <div className="tool-info">
-                            <Typography variant="h6">
-                                {rental.ToolBrand}{' '}{rental.ToolName}
-                            </Typography>
-                            
-                            <Typography variant="h6">
-                                {rental.formattedStartDate}{' - '}{rental.formattedEndDate}
-                            </Typography>
-                            
-                            <Typography variant="h6">
-                                Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
-                            </Typography>
-                            
-                        </div>
-                    </div>
+                                <div className="tool-info">
+                                    <Typography variant="h6">
+                                        {rental.ToolBrand}{' '}{rental.ToolName}
+                                    </Typography>
+                                    
+                                    <Typography variant="h6">
+                                        {rental.formattedStartDate}{' - '}{rental.formattedEndDate}
+                                    </Typography>
+                                    
+                                    <Typography variant="h6">
+                                        Owner: {rental.OwnerFirstName}{' '}{rental.OwnerLastName}
+                                    </Typography>
+                                </div>
+                            </div>
                             <Checkout 
                                 name={'Rental Checkout'}
                                 description={'Rental Checkout'}
