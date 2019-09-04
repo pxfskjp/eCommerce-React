@@ -53,16 +53,14 @@ class AppComponentBase extends Component {
   }
   
   componentDidMount() {
-    this.props.firebase.auth.onAuthStateChanged(authUser => {
+    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       if (authUser) {
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             // console.log('idToken in App.js Firebase auth listener: ', idToken);
             axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
-              authUserChecked: true,
-              authUser,
-              idToken
+              authUser
             })
           })
           .catch(error => {
@@ -70,49 +68,22 @@ class AppComponentBase extends Component {
           })
       } else {
         this.setState({
-          authUserChecked: true,
-          authUser: null,
-          idToken: null
+          authUser: null
         })
       }
     });
   }
 
+  componentWillUnmount() {
+    this.listener();
+  }
+
   render() {
-    const { authUserChecked, idToken } = this.state;
+    const { authUser, idToken } = this.state;
     return (
       <Router>
         <div className="App">
-        {authUserChecked === true && 
-          <div>
-            <div>
-              {idToken && <NavigationBar />}
-              <Switch>
-              <Route exact path={"/"} component={LandingPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
-
-              {/* <Route path={"/accountpage"} component={AccountPage} /> */}
-              <PrivateRoute path={"/accountpage"} component={AccountPage} authUser={this.state.authUser}/>
-
-              <PrivateRoute path={"/confirmrental/:rentalId"} component={ConfirmRental} authUser={this.state.authUser}/>
-
-              <PrivateRoute path={"/ownerdashboard"} component={OwnerDashboard} authUser={this.state.authUser}/>
-              <Route path={"/renterdashboard"} component={RenterDashboard} />
-
-              <Route path={"/rentalview/:rentalId/:userType"} component={RentalView} />
-
-              <Route path={"/addtool"} component={AddTool} />
-              <Route path={"/updatepassword"} component={UpdatePassword} />
-              <Route path={"/findtools"} component={FindTools} />
-              <Route path={"/toolviewrenter/:id"} component={ToolViewRenter} />
-              <Route path={"/toolviewowner/:id"} component={ToolViewOwner} />
-              <Route path={"/dates"} component={DateRangePickerWrapper} />
-              <Route path={"/chat"} component={ChatDashboard} />
-              </Switch>
-            </div>
-          </div>
-        }
+          <NavigationBar authUser={authUser} />
         </div>
       </Router>
     );
