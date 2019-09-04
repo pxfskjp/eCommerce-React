@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
+import { AuthUserContext } from './components/Session';
+
 import PrivateRoute from './components/Routes/PrivateRoute';
 // import { Provider, Consumer } from './AppContext';
 import axios from 'axios';
@@ -81,11 +83,13 @@ class AppComponentBase extends Component {
   render() {
     const { authUser, idToken } = this.state;
     return (
-      <Router>
-        <div className="App">
-          <NavigationBar authUser={authUser} />
-        </div>
-      </Router>
+      <AuthUserContext.Provider value={authUser}>
+        <Router>
+          <div className="App">
+            <NavigationBar authUser={authUser} />
+          </div>
+        </Router>
+      </AuthUserContext.Provider>
     );
   }
 }
