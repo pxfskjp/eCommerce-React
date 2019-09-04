@@ -1,84 +1,84 @@
 .page-container {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .title {
-    padding: 10px;
-    text-align: left;
+	padding: 10px;
+	text-align: left;
 }
 
 .main-container {
-    margin: 10px;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
+	margin: 10px;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
 }
 
 .left-container {
-    /* border: 1px solid black; */
-    width: 40%;
-    min-width: 270px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+	/* border: 1px solid black; */
+	width: 40%;
+	min-width: 270px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
 .left-container .image-container {
-    border: 1px solid black;
-    padding: 20px;
+	border: 1px solid black;
+	padding: 20px;
 }
 
 .left-container img {
-    border: none;
-    height: auto;
-    width: auto;
-    max-height: 225px;
-    /* margin: auto; */
+	border: none;
+	height: auto;
+	width: auto;
+	max-width: 275px;
+	/* margin: auto; */
 }
 
 .tool-info {
-    width: 100%;
-    margin: 20px 10px 10px 0px;
-    padding-top: 15px;
-    /* border-top: 2px solid grey; */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
+	width: 100%;
+	margin: 20px 10px 10px 0px;
+	padding-top: 15px;
+	/* border-top: 2px solid grey; */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
 }
 
 .right-container {
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* height: max-content; */
-    width: 50%;
+	/* border: 1px solid black; */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	/* height: max-content; */
+	width: 50%;
 }
 
 .rental-management {
-    height: 100px;
-    width: 100%;
-    padding-top: 15px;
-    margin: 30px 10px 10px 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-top: 1px solid grey;
+	height: 100px;
+	width: 100%;
+	padding-top: 15px;
+	margin: 30px 10px 10px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+	border-top: 1px solid grey;
 }
 
 .rating-container {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
 }
 
 @media (max-width: 600px) {
-    .main-container {
-        flex-direction: column;
-        align-items: space-around;
-    }
+	.main-container {
+		flex-direction: column;
+		align-items: space-around;
+	}
 }
