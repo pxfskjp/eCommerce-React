@@ -20,7 +20,6 @@ import LoginPage from '../LoginPage';
 export default function PrivateRoute({
   component: Component,
   authenticated,
-  loading,
   ...rest
 }) {
   // console.log('PrivateRoute authenticated: ' + authenticated);

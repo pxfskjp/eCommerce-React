@@ -101,18 +101,18 @@ class AppComponentBase extends Component {
             <Switch>
               <Route exact path="/register" component={RegisterPage} />
               <Route exact path="/login" component={LoginPage} />
-              <PrivateRoute exact path={"/accountpage"} component={AccountPage} authenticated={authenticated} loading={loading}/>
-              <PrivateRoute path={"/confirmrental/:rentalId"} component={ConfirmRental} authUser={authUser} />
-              <PrivateRoute path={"/ownerdashboard"} component={OwnerDashboard} authUser={authUser} />
-              <PrivateRoute path={"/renterdashboard"} component={RenterDashboard} authUser={authUser} />
-              <PrivateRoute path={"/findtools"} component={FindTools} authUser={authUser}/>
-              <PrivateRoute path={"/addtool"} component={AddTool} authUser={authUser} />
-              <PrivateRoute path={"/toolviewrenter/:id"} component={ToolViewRenter} authUser={authUser} />
-              <PrivateRoute path={"/toolviewowner/:id"} component={ToolViewOwner} authUser={authUser} />
-              <PrivateRoute path={"/dates"} component={DateRangePickerWrapper} authUser={authUser} />
-              <PrivateRoute path={"/chat"} component={ChatDashboard} authUser={authUser} />
-              <PrivateRoute path={"/rentalview/:rentalId/:userType"} component={RentalView} authUser={authUser} />
-              <PrivateRoute path={"/updatepassword"} component={UpdatePassword} authUser={authUser} />
+              <PrivateRoute exact path={"/accountpage"} component={AccountPage} authenticated={authenticated} />
+              <PrivateRoute path={"/confirmrental/:rentalId"} component={ConfirmRental} authenticated={authenticated} />
+              <PrivateRoute path={"/ownerdashboard"} component={OwnerDashboard} authenticated={authenticated} />
+              <PrivateRoute path={"/renterdashboard"} component={RenterDashboard} authenticated={authenticated} />
+              <PrivateRoute path={"/findtools"} component={FindTools} authenticated={authenticated}/>
+              <PrivateRoute path={"/addtool"} component={AddTool} authenticated={authenticated} />
+              <PrivateRoute path={"/toolviewrenter/:id"} component={ToolViewRenter} authenticated={authenticated} />
+              <PrivateRoute path={"/toolviewowner/:id"} component={ToolViewOwner} authenticated={authenticated} />
+              <PrivateRoute path={"/dates"} component={DateRangePickerWrapper} authenticated={authenticated} />
+              <PrivateRoute path={"/chat"} component={ChatDashboard} authenticated={authenticated} />
+              <PrivateRoute path={"/rentalview/:rentalId/:userType"} component={RentalView} authenticated={authenticated} />
+              <PrivateRoute path={"/updatepassword"} component={UpdatePassword} authenticated={authenticated} />
               <Route exact path={"/"} component={LandingPage} />
             </Switch>
             ) : <p>Loading</p>
