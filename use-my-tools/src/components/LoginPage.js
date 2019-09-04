@@ -29,6 +29,7 @@ class LoginFormBase extends Component {
     }
 
     onSubmit = event => {
+        event.preventDefault();
         const {email, password } = this.state;
         console.log('LoginPage state on submit: ', this.state);
     
@@ -42,12 +43,7 @@ class LoginFormBase extends Component {
 
                         axios.defaults.headers.common['Authorization'] = idToken;   
 
-                        this.props.history.push({        
-                            pathname: "/accountpage",
-                            state: {
-                              uid: authUser.user.uid,        // authUser returned from Firebase
-                            }
-                        });
+                        this.props.history.push('accountpage');
                     })  
                     .catch(error => {                 // if Firebase getIdToken throws an error
                         this.setState({ 
@@ -64,8 +60,6 @@ class LoginFormBase extends Component {
                     error:error 
                 });
             });
-    
-        event.preventDefault();
     }
 
     onChange = event => {
@@ -81,11 +75,11 @@ class LoginFormBase extends Component {
             <div className="login">
                 <MuiThemeProvider>
                     <div>
-                        <div className="login-top-bar">
+                        {/* <div className="login-top-bar">
                             <Link to="/" className="nav-link">
                                 Home
                             </Link>
-                        </div>
+                        </div> */}
                         
                         <p className="header">Sign In</p>
 

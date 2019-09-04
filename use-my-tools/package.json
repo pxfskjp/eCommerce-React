@@ -16,7 +16,7 @@
     "react-dom": "^16.8.6",
     "react-moment-proptypes": "^1.6.0",
     "react-places-autocomplete": "^7.2.1",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "2.1.8",
     "react-stripe-checkout": "^2.6.3",
     "react-with-direction": "^1.3.0",
