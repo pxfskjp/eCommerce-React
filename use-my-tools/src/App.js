@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { withFirebase } from "./components/Firebase";
 import { FirebaseContext } from './components/Firebase';
-import { AuthUserContext } from './components/Session';
 
 import PrivateRoute from './components/Routes/PrivateRoute';
 // import { Provider, Consumer } from './AppContext';
@@ -80,9 +79,9 @@ class AppComponentBase extends Component {
     });
   }
 
-  // componentWillUnmount() {
-  //   this.listener();
-  // }
+  componentWillUnmount() {
+    this.listener();
+  }
 
   render() {
     const { authUser } = this.state;
@@ -115,7 +114,7 @@ class AppComponentBase extends Component {
               <PrivateRoute path={"/updatepassword"} component={UpdatePassword} authenticated={authenticated} />
               <Route exact path={"/"} component={LandingPage} />
             </Switch>
-            ) : <p>Loading</p>
+            ) : <p>Loading...</p>
             }
           </div>
         </Router>

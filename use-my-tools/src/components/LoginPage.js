@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Typography from "@material-ui/core/Typography";
 
 import axios from 'axios';
 
@@ -81,7 +82,9 @@ class LoginFormBase extends Component {
                             </Link>
                         </div> */}
                         
-                        <p className="header">Sign In</p>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Sign In
+                        </Typography>
 
                         <form onSubmit={this.onSubmit}>
 
