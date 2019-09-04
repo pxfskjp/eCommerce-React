@@ -1,21 +1,6 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import LoginPage from '../LoginPage';
-
-// const PrivateRoute = ({ component: Component, authUser, path, ...rest }) => (
-//     <Route
-//       {...rest}
-//       render={props =>
-//         authUser ? (
-//           <Component {...props} {...rest} />
-//         ) : (
-//           <Redirect to="/login" />
-//         )
-//       }
-//     />
-// );
-
-// export default PrivateRoute;
 
 export default function PrivateRoute({
   component: Component,
