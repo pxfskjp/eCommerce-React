@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from "react-router-dom"
-import { AuthUserContext } from './Session';
+// import { AuthUserContext } from './Session';
 import LogoutButton from './LogoutButton';
 
 import "./css/NavigationBar.css";
 
-const NavigationBar = () => (
-    <AuthUserContext.Consumer>
-        {authUser =>
-            <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
-        }
-    </AuthUserContext.Consumer>
+const NavigationBar = props => (
+
+    <div>{props.authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
+
 );
 
 const NavigationAuth = () => (

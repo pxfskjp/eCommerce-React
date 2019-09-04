@@ -30,9 +30,7 @@ import FindTools from './components/Renter/FindTools';
 import ToolViewRenter from './components/Renter/ToolViewRenter';
 import ToolViewOwner from './components/Owner/ToolViewOwner';
 import ChatDashboard from './components/Chat/ChatDashboard';
-
 import DateRangePickerWrapper from './components/ReactDates/DateRangePicker';
-
 import UpdatePassword from './components/UpdatePassword';
 
 
@@ -48,53 +46,81 @@ class AppComponentBase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authUserChecked: false,
+      authenticated: false,
       authUser: null,
-      idToken: null
+      idToken: null,
+      loading: true
     }
   }
   
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+      // console.log('App CDM onAuthStateChange triggered');
       if (authUser) {
+        // console.log('onAuthStateChange authUser:' + authUser);
         this.props.firebase.auth.currentUser.getIdToken()
           .then(idToken => {
             axios.defaults.headers.common['Authorization'] = idToken;
             this.setState({
-              authUser
-            })
+              authenticated: true,
+              authUser,
+              loading: false
+            });
           })
           .catch(error => {
-            console.log(error.message);
+            console.log(error.message);;
           })
       } else {
         this.setState({
-          authUser: null
-        })
+          authenticated: false,
+          authUser: null,
+          loading: false
+        });
       }
     });
   }
 
-  componentWillUnmount() {
-    this.listener();
-  }
+  // componentWillUnmount() {
+  //   this.listener();
+  // }
 
   render() {
     const { authUser } = this.state;
+    const { authenticated, loading } = this.state;
+
+    if (loading) {
+      return <p>Loading....</p>;
+    }
+
     return (
-      <AuthUserContext.Provider value={authUser}>
+      // <AuthUserContext.Provider value={authUser}> 
         <Router>
           <div className="App">
-            <NavigationBar />
+            <NavigationBar authUser={authUser} />
+            {!loading ? (
             <Switch>
+              <Route exact path="/register" component={RegisterPage} />
+              <Route exact path="/login" component={LoginPage} />
+              <PrivateRoute exact path={"/accountpage"} component={AccountPage} authenticated={authenticated} loading={loading}/>
+              <PrivateRoute path={"/confirmrental/:rentalId"} component={ConfirmRental} authUser={authUser} />
+              <PrivateRoute path={"/ownerdashboard"} component={OwnerDashboard} authUser={authUser} />
+              <PrivateRoute path={"/renterdashboard"} component={RenterDashboard} authUser={authUser} />
+              <PrivateRoute path={"/findtools"} component={FindTools} authUser={authUser}/>
+              <PrivateRoute path={"/addtool"} component={AddTool} authUser={authUser} />
+              <PrivateRoute path={"/toolviewrenter/:id"} component={ToolViewRenter} authUser={authUser} />
+              <PrivateRoute path={"/toolviewowner/:id"} component={ToolViewOwner} authUser={authUser} />
+              <PrivateRoute path={"/dates"} component={DateRangePickerWrapper} authUser={authUser} />
+              <PrivateRoute path={"/chat"} component={ChatDashboard} authUser={authUser} />
+              <PrivateRoute path={"/rentalview/:rentalId/:userType"} component={RentalView} authUser={authUser} />
+              <PrivateRoute path={"/updatepassword"} component={UpdatePassword} authUser={authUser} />
               <Route exact path={"/"} component={LandingPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
-              <PrivateRoute path={"/accountpage"} component={AccountPage} />
             </Switch>
+            ) : <p>Loading</p>
+            }
           </div>
         </Router>
-      </AuthUserContext.Provider>
+      
+      // </AuthUserContext.Provider>
     );
   }
 }
