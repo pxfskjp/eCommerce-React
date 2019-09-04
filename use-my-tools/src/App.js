@@ -80,7 +80,7 @@ class AppComponentBase extends Component {
   }
 
   render() {
-    const { authUser, idToken } = this.state;
+    const { authUser } = this.state;
     return (
       <AuthUserContext.Provider value={authUser}>
         <Router>
@@ -90,6 +90,7 @@ class AppComponentBase extends Component {
               <Route exact path={"/"} component={LandingPage} />
               <Route path="/register" component={RegisterPage} />
               <Route path="/login" component={LoginPage} />
+              <PrivateRoute path={"/accountpage"} component={AccountPage} />
             </Switch>
           </div>
         </Router>
