@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LocationSearchInput from './LocationSearchInput';
+import Typography from "@material-ui/core/Typography";
 
 import axios from 'axios';
 
@@ -112,7 +113,9 @@ class RegisterFormBase extends Component {
                             </Link>
                         </div> */}
                         
-                        <p className="header">Sign Up</p>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Sign Up
+                        </Typography>
 
                         <form onSubmit={this.onSubmit}>
                             <TextField
