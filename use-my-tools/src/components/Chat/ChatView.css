@@ -1,18 +1,38 @@
+.chatview-container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.chatview-container .input-area {
+	border: 1px solid red;
+	padding: 0;
+}
+
+.chatview-container .input-area form {
+	border: 1px solid blue;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	max-height: 40px;
+}
+
 .message-container {
-    /* border: 1px solid black; */
-    border-radius: 10px;
-    width: max-content;
-    max-width: 80%;
-    clear: both;
-    margin-bottom: 10px;
+	/* border: 1px solid black; */
+	border-radius: 10px;
+	width: max-content;
+	max-width: 80%;
+	clear: both;
+	margin-bottom: 10px;
 }
 
 .align-left {
-    float: left;
-    background-color: #E7E5EB;
+	float: left;
+	background-color: #e7e5eb;
 }
 
 .align-right {
-    float: right;
-    background-color: #4CD863;
+	float: right;
+	background-color: #4cd863;
 }

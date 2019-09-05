@@ -90,10 +90,12 @@ const styles = theme => ({
     textAlign: 'justify'
   },
   inputArea: {
+    border: '5px solid red',
     height: '40px',
     marginBottom: '2%'
   },
   inputForm: {
+    border: '5px solid blue',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -118,7 +120,6 @@ class ChatViewBase extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-
     console.log('ChatView new props: ', newProps);
 
     const compoundUID = newProps.currentConvo.compoundUID || ' ';
@@ -218,19 +219,19 @@ class ChatViewBase extends Component {
     //     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     // }
 
-
     render() {
         const isClosed = this.state.isClosed;
         // const compoundUID = this.props.currentCompoundUID;
         const { classes } = this.props;
-        return (
 
-          <div className={classes.root}>
+        return (
+          // <div className={classes.root}>
+          <div className="chatview-container">
               <div className={classes.chatViewHead}>
                 <p className={classes.chatViewHeadName}>{this.state.recipientName}</p>
               </div>
 
-               <div className={classes.messageList}>
+              <div className={classes.messageList}>
                     {this.state.messages.map((message, index) => {
                         let alignClass = null;
                         if (message.authorUID === this.state.uid) {
@@ -256,17 +257,19 @@ class ChatViewBase extends Component {
                         );
                     })}
               </div>
+              {/* end messagelist */}
+
               {isClosed ? (
                 <h1>This conversation is closed.</h1>
               ) : (
-                <div className={classes.inputArea}>
+                <div className="input-area">
                   {/* Scroll div */}
                   {/* <div
                     style={{ float:"left", clear: "both" }}
                     ref={(el) => { this.messagesEnd = el; }
                   }>
                   </div>       */}
-                  <form className={classes.inputForm} onSubmit={this.onSubmit}>
+                  <form onSubmit={this.onSubmit}>
                     <input
                       // hintText="message"
                       name="message"
@@ -302,6 +305,7 @@ class ChatViewBase extends Component {
                     </div>
                   </form>
                 </div>
+                // end input area
               )}
           </div>
     );
