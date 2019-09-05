@@ -41,9 +41,10 @@ function getUserName(uid) {
         ])
         .from('users')
         .where('users.uid', uid)
-        .then(users => {
-            return users[0];
-        });
+        .first();
+        // .then(users => {
+        //     return users[0];
+        // });
 }
 
 function getUserLocation(uid) {
