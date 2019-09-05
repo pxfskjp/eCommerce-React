@@ -76,10 +76,12 @@ router.post('/register', (req, res) => {
 
 // Get user details on a logged-in user:
 router.get('/userinfo', (req, res) => {
-    let uid = req.body.uid;
+    console.log('GET /userinfo endpoint hit');
+    const { uid } = req.body;
 
     usersDb.getUserInfo(uid)
         .then(response => {
+            console.log('Response returned from db getUserInfo()');
             res.status(200).json(response);
         })
         .catch(error => {
