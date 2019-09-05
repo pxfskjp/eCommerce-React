@@ -1,32 +1,32 @@
 .chat-dashboard-container {
-    display: flex;
-    /* display: fixed; */
-    justify-content: center;
+	display: flex;
+	/* display: fixed; */
+	justify-content: center;
 
-    height: 100vh;
-    overflow-y: hidden;
-    overflow-x: hidden;
+	height: 100vh;
+	overflow-y: hidden;
+	overflow-x: hidden;
 }
 
 .chat-dash-left-container {
-    width: 35%;
-    height: 100%;
+	width: 35%;
+	height: 100%;
 }
 
 .chat-dash-right-container {
-    border: 1px solid lightgray;
-    width: 65%;
-    overflow-x: hidden;
+	border: 1px solid lightgray;
+	width: 65%;
+	/* overflow-x: hidden; */
 }
 
 .chat-dash-right-container p {
-  font-size: 22px;
-  margin-top: 5%;
+	font-size: 22px;
+	margin-top: 5%;
 }
 
 @media (max-width: 800px) {
-  .chat-dashboard-container {
-    margin: auto;
-    position: relative;
-  }
+	.chat-dashboard-container {
+		margin: auto;
+		position: relative;
+	}
 }

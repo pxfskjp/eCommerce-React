@@ -17,7 +17,7 @@ function createUser(newUser) {
 }
 
 function getUserInfo(uid) {
-    const query = db
+    return db
         .select([
             'users.uid',
             'users.first_name',
@@ -29,12 +29,8 @@ function getUserInfo(uid) {
         ])
         .from('users')
         .innerJoin('images', 'users.image_id', 'images.id')
-        .where('users.uid', uid);
-
-        return query
-            .then(users => {
-                return users[0];
-            });
+        .where('users.uid', uid)
+        .first();
 }
 
 function getUserName(uid) {
@@ -45,9 +41,10 @@ function getUserName(uid) {
         ])
         .from('users')
         .where('users.uid', uid)
-        .then(users => {
-            return users[0];
-        });
+        .first();
+        // .then(users => {
+        //     return users[0];
+        // });
 }
 
 function getUserLocation(uid) {
@@ -67,9 +64,10 @@ function getUserLocation(uid) {
         ])
         .from('users')
         .where('users.uid', uid)
-        .then(locations => {
-            return locations[0];
-        });
+        .first();
+        // .then(locations => {
+        //     return locations[0];
+        // });
 }
 
 function updateUserDetails(uid, user) {
@@ -85,7 +83,8 @@ function getUserEmail(uid) {
         ])
         .from('users')
         .where('users.uid', uid)
-        .then(users => {
-            return users[0];
-        });
+        .first();
+        // .then(users => {
+        //     return users[0];
+        // });
 }

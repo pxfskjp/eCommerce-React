@@ -1,6 +1,9 @@
 .register {
-	background-color: #eaeaea;
-	/* height: 100vh; */
+	/* background-color: #eaeaea; */
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .register form {
@@ -8,7 +11,7 @@
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	border: 1px lightgray solid;
+	border: 1px solid lightgray;
 	width: 380px;
 	margin: auto;
 	background-color: white;

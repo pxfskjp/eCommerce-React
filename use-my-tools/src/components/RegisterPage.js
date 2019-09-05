@@ -85,7 +85,6 @@ class RegisterFormBase extends Component {
                     error:error 
                 });
             });
-    
         event.preventDefault();
     }
 
@@ -94,7 +93,6 @@ class RegisterFormBase extends Component {
     };
 
     handleSelectLocation = addressDetails => {
-        // console.log('RegisterPage handleSelectLocation addressDetails: ', addressDetails);
         this.setState({ addressDetails }, () => console.log('RegisterPage state.addressDetails:', this.state.addressDetails));
     };
 
@@ -104,119 +102,110 @@ class RegisterFormBase extends Component {
         const invalidCondition = firstName === '' || lastName === '' || password !== password1 || password1 === '' || email === '';
 
         return (
-            <div className="register">
-                <MuiThemeProvider>
-                    <div>
-                        {/* <div className="register-top-bar">
-                            <Link to="/" className="nav-link">
-                                Home
+            
+            <MuiThemeProvider>
+                <div className="register">
+                    <Typography gutterBottom variant="h5" component="h2">
+                        Sign Up
+                    </Typography>
+
+                    <form onSubmit={this.onSubmit}>
+                        <TextField
+                            style = {{width: '65%'}}
+                            hintText="First Name"
+                            floatingLabelText="First name"
+                            name="firstName"
+                            type="text"
+                            required={true}
+                            value={this.state.firstName}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+
+                            <TextField
+                            style = {{width: '65%'}}
+                            hintText="Last Name"
+                            floatingLabelText="Last Name"
+                            name="lastName"
+                            type="text"
+                            required={true}
+                            value={this.state.lastName}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+
+                        <TextField
+                            style = {{width: '65%'}}
+                            hintText="Enter your Email"
+                            floatingLabelText="Email"
+                            name="email"
+                            type="text"
+                            required={true}
+                            value={this.state.email}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+
+                        <TextField
+                            style = {{width: '65%'}}
+                            hintText="Enter your password"
+                            floatingLabelText="Password"
+                            required={true}
+                            name="password"
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+
+                        <TextField
+                            style = {{width: '65%'}}
+                            hintText="Re-enter your password"
+                            floatingLabelText="Re-enter password"
+                            name="password1"
+                            type="password"
+                            required={true}
+                            value={this.state.password1}
+                            onChange={this.onChange}
+                        />
+                        <br/>
+
+                        {/* <TextField
+                            style = {{width: '65%'}}
+                            hintText="Enter your home address so other users can find your tools"
+                            floatingLabelText="Home Address"
+                            name="homeAddress"
+                            type="text"
+                            required={true}
+                            value={this.state.homeAddress}
+                            onChange={this.onChange}
+                        /> */}
+                        <div className="location-input">
+                            <LocationSearchInput 
+                                handleSelectLocation={this.handleSelectLocation} 
+                            />
+                        </div>
+                        <br/>
+
+                        <RaisedButton
+                            className="register-button"
+                            label="Sign Up"
+                            primary={true}
+                            type="submit"
+                            disabled={invalidCondition}
+                        />
+                        <div className="sign-in-container">
+                            <p>Already have an account?</p>
+                            <Link to="/login" className="sign-in-link">
+                                Sign In
                             </Link>
-                        </div> */}
-                        
-                        <Typography gutterBottom variant="h5" component="h2">
-                            Sign Up
-                        </Typography>
+                        </div>
+                        <p>By signing up, you agree to the Terms and Conditions and Privacy Policy.</p>
 
-                        <form onSubmit={this.onSubmit}>
-                            <TextField
-                                style = {{width: '65%'}}
-                                hintText="First Name"
-                                floatingLabelText="First name"
-                                name="firstName"
-                                type="text"
-                                required={true}
-                                value={this.state.firstName}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                             <TextField
-                                style = {{width: '65%'}}
-                                hintText="Last Name"
-                                floatingLabelText="Last Name"
-                                name="lastName"
-                                type="text"
-                                required={true}
-                                value={this.state.lastName}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                            <TextField
-                                style = {{width: '65%'}}
-                                hintText="Enter your Email"
-                                floatingLabelText="Email"
-                                name="email"
-                                type="text"
-                                required={true}
-                                value={this.state.email}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                            <TextField
-                                style = {{width: '65%'}}
-                                hintText="Enter your password"
-                                floatingLabelText="Password"
-                                required={true}
-                                name="password"
-                                type="password"
-                                value={this.state.password}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                            <TextField
-                                style = {{width: '65%'}}
-                                hintText="Re-enter your password"
-                                floatingLabelText="Re-enter password"
-                                name="password1"
-                                type="password"
-                                required={true}
-                                value={this.state.password1}
-                                onChange={this.onChange}
-                            />
-                            <br/>
-
-                            {/* <TextField
-                                style = {{width: '65%'}}
-                                hintText="Enter your home address so other users can find your tools"
-                                floatingLabelText="Home Address"
-                                name="homeAddress"
-                                type="text"
-                                required={true}
-                                value={this.state.homeAddress}
-                                onChange={this.onChange}
-                            /> */}
-                            <div className="location-input">
-                                <LocationSearchInput 
-                                    handleSelectLocation={this.handleSelectLocation} 
-                                />
-                            </div>
-                            <br/>
-
-                            <RaisedButton
-                                className="register-button"
-                                label="Sign Up"
-                                primary={true}
-                                type="submit"
-                                disabled={invalidCondition}
-                            />
-                            <div className="sign-in-container">
-                                <p>Already have an account?</p>
-                                <Link to="/login" className="sign-in-link">
-                                    Sign In
-                                </Link>
-                            </div>
-                            <p>By signing up, you agree to the Terms and Conditions and Privacy Policy.</p>
-
-                            {error && <p>{error.message}</p>}
-
-                        </form>
-                        
-                    </div>
-                </MuiThemeProvider>
-            </div>
+                        {error && <p>{error.message}</p>}
+                    </form>  
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
