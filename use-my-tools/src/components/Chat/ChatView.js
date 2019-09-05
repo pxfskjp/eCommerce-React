@@ -46,7 +46,6 @@ const styles = (theme) => ({
 		fontSize: '24px',
 		fontWeight: '300',
 		padding: '0',
-		marginBottom: '-2%'
 	},
 	chatViewHeadSummary: {
 		fontSize: '18px',
@@ -222,7 +221,7 @@ class ChatViewBase extends Component {
 			// <div className={classes.root}>
 			<div className="chatview-container">
 
-				<div className={classes.chatViewHead}>
+				<div className="convo-header">
 					<p className={classes.chatViewHeadName}>{this.state.recipientName}</p>
 				</div>
 
