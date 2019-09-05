@@ -221,6 +221,7 @@ class ChatViewBase extends Component {
 		return (
 			// <div className={classes.root}>
 			<div className="chatview-container">
+
 				<div className={classes.chatViewHead}>
 					<p className={classes.chatViewHeadName}>{this.state.recipientName}</p>
 				</div>
@@ -266,23 +267,10 @@ class ChatViewBase extends Component {
 								type="text"
 								value={this.state.message}
 								onChange={this.onChange}
-								// style={{
-								// 	border: '1.5px solid lightgrey',
-								// 	borderRadius: '3px',
-								// 	height: '35px',
-								// 	padding: '0',
-								// 	width: '90vw',
-								// 	maxWidth: '490px'
-								// }}
-
 							/>
-							<div>
-								<MuiThemeProvider>
-									<div>
-										<RaisedButton label="Send" primary={true} type="submit" />
-										<RaisedButton label="End Convo" onClick={this.handleCloseConvo} />
-									</div>
-								</MuiThemeProvider>
+							<div className="buttons-container">
+                <button className="send-btn" type="submit">Send</button>
+                <button className="end-btn"onClick={this.handleCloseConvo}>End Convo</button>
 							</div>
 						</form>
 					</div>
