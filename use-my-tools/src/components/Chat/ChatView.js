@@ -226,7 +226,7 @@ class ChatViewBase extends Component {
 					<p className={classes.chatViewHeadName}>{this.state.recipientName}</p>
 				</div>
 
-				<div className={classes.messageList}>
+				<div className="messages-container">
 					{this.state.messages.map((message, index) => {
 						let alignClass = null;
 						if (message.authorUID === this.state.uid) {

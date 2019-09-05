@@ -4,6 +4,16 @@
 	flex-direction: column;
 }
 
+.chatview-container .messages-container {
+	padding-bottom: 10px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	/* max-height: 700px; */
+	flex-grow: 1;
+	width: 100%;
+	background-color: white;
+}
+
 .chatview-container button {
 	width: max-content;
 	height: 30px;
