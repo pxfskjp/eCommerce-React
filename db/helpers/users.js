@@ -17,7 +17,7 @@ function createUser(newUser) {
 }
 
 function getUserInfo(uid) {
-    const query = db
+    return db
         .select([
             'users.uid',
             'users.first_name',
@@ -29,12 +29,8 @@ function getUserInfo(uid) {
         ])
         .from('users')
         .innerJoin('images', 'users.image_id', 'images.id')
-        .where('users.uid', uid);
-
-        return query
-            .then(users => {
-                return users[0];
-            });
+        .where('users.uid', uid)
+        .first();
 }
 
 function getUserName(uid) {
