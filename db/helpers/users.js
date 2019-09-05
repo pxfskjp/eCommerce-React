@@ -64,9 +64,10 @@ function getUserLocation(uid) {
         ])
         .from('users')
         .where('users.uid', uid)
-        .then(locations => {
-            return locations[0];
-        });
+        .first();
+        // .then(locations => {
+        //     return locations[0];
+        // });
 }
 
 function updateUserDetails(uid, user) {
