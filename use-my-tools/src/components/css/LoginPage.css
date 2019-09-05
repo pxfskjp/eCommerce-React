@@ -1,6 +1,6 @@
 .login {
-	background-color: #eaeaea;
-	height: auto;
+	/* background-color: #eaeaea; */
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

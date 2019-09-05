@@ -85,7 +85,6 @@ class RegisterFormBase extends Component {
                     error:error 
                 });
             });
-    
         event.preventDefault();
     }
 
@@ -94,7 +93,6 @@ class RegisterFormBase extends Component {
     };
 
     handleSelectLocation = addressDetails => {
-        // console.log('RegisterPage handleSelectLocation addressDetails: ', addressDetails);
         this.setState({ addressDetails }, () => console.log('RegisterPage state.addressDetails:', this.state.addressDetails));
     };
 
