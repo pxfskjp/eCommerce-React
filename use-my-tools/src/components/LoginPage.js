@@ -41,9 +41,7 @@ class LoginFormBase extends Component {
                 this.props.firebase.auth.currentUser.getIdToken()
                     .then(idToken => {
                         console.log("idToken from firebase logIn: ", idToken);
-
                         axios.defaults.headers.common['Authorization'] = idToken;   
-
                         this.props.history.push('accountpage');
                     })  
                     .catch(error => {                 // if Firebase getIdToken throws an error
@@ -69,19 +67,13 @@ class LoginFormBase extends Component {
 
     render() {
         const { email, password, error } = this.state;
-
         const invalidCondition = password === '' || email === '';
 
         return (
-            <div className="login">
-                <MuiThemeProvider>
-                    <div>
-                        {/* <div className="login-top-bar">
-                            <Link to="/" className="nav-link">
-                                Home
-                            </Link>
-                        </div> */}
-                        
+
+            <MuiThemeProvider>
+                <div className="login">
+                    
                         <Typography gutterBottom variant="h5" component="h2">
                             Sign In
                         </Typography>
@@ -129,9 +121,9 @@ class LoginFormBase extends Component {
 
                             {error && <p>{error.message}</p>}
                         </form>
-                    </div>
-                </MuiThemeProvider>
-            </div>
+                    
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
