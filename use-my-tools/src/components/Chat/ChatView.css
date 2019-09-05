@@ -18,6 +18,15 @@
 	max-height: 40px;
 }
 
+.chatview-container .input-area form .message-input {
+	width: 50%;
+	border: 1.5px solid lightgrey;
+	border-radius: 3px;
+	height: 35px;
+	padding: 0;
+	max-width: 490px;
+}
+
 .message-container {
 	/* border: 1px solid black; */
 	border-radius: 10px;
