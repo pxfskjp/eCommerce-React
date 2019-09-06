@@ -24,8 +24,8 @@
 .chatview-container button {
 	width: max-content;
 	height: 30px;
-	border-radius: 5px;
-	border: 1px solid lightgrey;
+	border-radius: 10px;
+	border: 1px solid grey;
 }
 
 .chatview-container .send-btn {
