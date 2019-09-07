@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { NavLink, withRouter } from "react-router-dom"
+import { NavLink, withRouter } from "react-router-dom";
 // import { AuthUserContext } from './Session';
-import LogoutButton from './LogoutButton';
-
+import LogoutButton from '../LogoutButton';
+import MobileNavMenu from './MobileNavMenu';
 import "./css/NavigationBar.css";
 
 const NavigationBar = props => (
-
     <div>{props.authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
-
 );
 
 const NavigationAuth = () => (
@@ -57,8 +55,6 @@ const NavigationNonAuth = () => (
         </div>
     </div>
 );
-
-
 
 export default withRouter(NavigationBar);
 
