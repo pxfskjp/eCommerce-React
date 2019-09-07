@@ -56,7 +56,9 @@ const NavigationNonAuth = () => (
             </NavLink>
         </div>
     </div>
-)
+);
+
+
 
 export default withRouter(NavigationBar);
 
