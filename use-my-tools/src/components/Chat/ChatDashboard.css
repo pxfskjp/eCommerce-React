@@ -1,9 +1,10 @@
 .chat-dashboard-container {
+	position: fixed;
+	bottom: 0%;
+	width: 100%;
+	height: calc(100vh - 80px);
 	display: flex;
-	/* display: fixed; */
 	justify-content: center;
-
-	height: 100vh;
 	overflow-y: hidden;
 	overflow-x: hidden;
 }
@@ -16,6 +17,7 @@
 .chat-dash-right-container {
 	border: 1px solid lightgray;
 	width: 65%;
+	height: 100%;
 	/* overflow-x: hidden; */
 }
 
@@ -27,6 +29,13 @@
 @media (max-width: 800px) {
 	.chat-dashboard-container {
 		margin: auto;
-		position: relative;
+		height: calc(100vh - 120px);
+	}
+}
+
+@media (max-width: 600px) {
+	.chat-dashboard-container {
+		margin: auto;
+		height: calc(100vh - 234px);
 	}
 }

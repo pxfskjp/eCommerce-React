@@ -46,7 +46,6 @@ const styles = (theme) => ({
 		fontSize: '24px',
 		fontWeight: '300',
 		padding: '0',
-		marginBottom: '-2%'
 	},
 	chatViewHeadSummary: {
 		fontSize: '18px',
@@ -113,7 +112,9 @@ class ChatViewBase extends Component {
 			message: '',
 			messages: [],
 			isOpen: true
-		};
+    };
+    
+    this.messagesRef = React.createRef();
 	}
 
 	componentWillReceiveProps(newProps) {
@@ -153,12 +154,14 @@ class ChatViewBase extends Component {
 					compoundUID,
 					recipientUID,
 					recipientName
-				});
+				}, () => this.scrollDownMessages());
 			});
-
-		// Scroll to latest message whenever component mounts
-		// this.scrollToBottom();
-	}
+  }
+  
+  scrollDownMessages = () => {
+    this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
+    // element.scrollTop = element.scrollHeight;
+  }
 
 	onSubmit = (event) => {
 		// To Do:
@@ -194,7 +197,7 @@ class ChatViewBase extends Component {
 	//     this.setState({ messages: newMessages });
 	// }
 
-	// method to update state.message based on user input
+	// method to update state based on user input
 	onChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
@@ -207,7 +210,7 @@ class ChatViewBase extends Component {
 
 		this.setState({ isClosed: true });
 		event.preventDefault();
-	};
+  };
 
 	// scrollToBottom = () => {
 	//     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -222,11 +225,11 @@ class ChatViewBase extends Component {
 			// <div className={classes.root}>
 			<div className="chatview-container">
 
-				<div className={classes.chatViewHead}>
-					<p className={classes.chatViewHeadName}>{this.state.recipientName}</p>
+				<div className="convo-header">
+					<p className={classes.chatViewHeadName}>Chat with {this.state.recipientName}</p>
 				</div>
 
-				<div className={classes.messageList}>
+				<div className="messages-container" ref={this.messagesRef}>
 					{this.state.messages.map((message, index) => {
 						let alignClass = null;
 						if (message.authorUID === this.state.uid) {
