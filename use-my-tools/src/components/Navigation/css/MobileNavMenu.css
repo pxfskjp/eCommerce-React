@@ -1,0 +1,10 @@
+.mobile-nav-dialog .menu-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+
+.mobile-nav-menu .menu-container .mobile-nav-link {
+	width: 100%;
+}

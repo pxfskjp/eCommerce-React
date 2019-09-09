@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
-// import { AuthUserContext } from './Session';
 import LogoutButton from '../LogoutButton';
 import MobileNavMenu from './MobileNavMenu';
 import "./css/NavigationBar.css";
@@ -36,6 +35,7 @@ const NavigationAuth = () => (
                 Account
             </NavLink>
             <LogoutButton className="nav-link" />
+            <MobileNavMenu />
         </div>
     </header>
 );

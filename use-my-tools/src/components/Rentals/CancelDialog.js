@@ -16,7 +16,6 @@ class CancelDialog extends React.Component {
 
   handleClickOpen = () => {
     this.setState({ open: true });
-    console.log(this.props);
   };
 
   handleClose = () => {
