@@ -10,7 +10,6 @@
 
 .nav-container-auth .nav-link-container {
 	width: 70%;
-	min-width: 400px;
 	display: flex;
 	justify-content: space-around;
 	margin: 0px 30px 0px 30px;

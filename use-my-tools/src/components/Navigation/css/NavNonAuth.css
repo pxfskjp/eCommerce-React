@@ -31,7 +31,6 @@
 @media (max-width: 800px) {
 	.nav-non-auth-container .nav-link-container {
 		width: 60%;
-		min-width: 300px;
 		margin: 0px 25px 20px 15px;
 	}
 
