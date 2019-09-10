@@ -7,7 +7,7 @@
 	background-color: #3e6caa;
 }
 
-.nav-link-container {
+.nav-container .nav-link-container {
 	width: 70%;
 	min-width: 400px;
 	display: flex;
@@ -23,18 +23,18 @@
 	margin: 0px 30px 0px 30px;
 }
 
-.nav-link {
+.nav-container .nav-link {
 	margin: 0px 20px 0px 0px;
 	font-size: 14px;
 	text-decoration: none;
 	color: black;
 }
 
-.nav-link:hover {
+.nav-container .nav-link:hover {
 	color: white;
 }
 
-.logo {
+.nav-container .logo {
 	padding: 10px;
 	margin: 0;
 }

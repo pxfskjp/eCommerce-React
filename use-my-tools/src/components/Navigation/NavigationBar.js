@@ -35,8 +35,8 @@ const NavigationAuth = () => (
                 Account
             </NavLink>
             <LogoutButton className="nav-link" />
-            <MobileNavMenu />
         </div>
+        <MobileNavMenu />
     </header>
 );
 
