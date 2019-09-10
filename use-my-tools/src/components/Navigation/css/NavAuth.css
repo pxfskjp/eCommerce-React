@@ -59,7 +59,7 @@
 
 @media (max-width: 600px) {
 	.nav-container-auth {
-		height: auto;
+		height: 60px;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
