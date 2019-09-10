@@ -80,13 +80,13 @@ class MobileNavMenu extends Component {
                     open={this.state.open}
                     TransitionComponent={this.Transition}
                     onClose={this.handleClose}
-                    aria-labelledby="form-dialog-title"
+                    /*aria-labelledby="form-dialog-title"*/
                     className="mobile-nav-dialog"
                 >
+                    <button onClick={this.handleClose}>
+                        <LogoutButton className="mobile-nav-link" />
+                    </button>
                     <div className="menu-container">
-                        <button onClick={this.handleClose}>
-                            Close
-                        </button>
                         <NavLink to="/findtools" className="mobile-nav-link" activeStyle={{ color: 'blue' }} onClick={this.handleClose}>
                             Find Tools
                         </NavLink>
@@ -110,8 +110,10 @@ class MobileNavMenu extends Component {
                         <NavLink to="/accountpage" className="mobile-nav-link" activeStyle={{ color: 'blue' }} onClick={this.handleClose}>
                             Account
                         </NavLink>
-                        <LogoutButton className="mobile-nav-link" />
                     </div>
+                    <button onClick={this.handleClose}>
+                        Close Menu
+                    </button>
                 </Dialog>
             </div>
         )
