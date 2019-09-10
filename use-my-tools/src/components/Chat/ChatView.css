@@ -24,7 +24,7 @@
 .chatview-container button {
 	width: max-content;
 	height: 30px;
-	border-radius: 10px;
+	border-radius: 8px;
 	border: 1px solid grey;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .chatview-container .input-area form .buttons-container {
-	width: 35%;
+	width: 39%;
 	padding: 0;
 	display: flex;
 	justify-content: space-between;
