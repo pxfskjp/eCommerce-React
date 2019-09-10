@@ -13,7 +13,7 @@ import LandingPage from './components/LandingPage';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
 
-import NavigationBar from './components/NavigationBar';
+import NavigationBar from './components/Navigation/NavigationBar';
 
 import AccountPage from './components/AccountPage';
 

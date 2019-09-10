@@ -1,0 +1,44 @@
+@media (min-width: 600px) {
+	.mobile-nav-container {
+		display: none;
+	}
+}
+
+.mobile-nav-dialog {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.mobile-nav-dialog .menu-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 10px 0 10px 0;
+	border-bottom: 1px solid black;
+}
+
+.mobile-nav-dialog .menu-container .mobile-nav-link {
+	width: 100%;
+	text-align: center;
+	padding: 10px 10px 10px 10px;
+	border-top: 1px solid black;
+	text-decoration: none;
+	color: black;
+}
+
+.mobile-nav-dialog .button-container {
+	display: flex;
+	justify-content: space-between;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.mobile-nav-dialog button {
+	width: 80px;
+	height: 40px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
