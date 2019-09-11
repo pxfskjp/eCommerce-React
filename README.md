@@ -31,7 +31,7 @@ Most of the UI styling is done in plain CSS. The organizational pattern for css 
 - A component that uses CSS styling has a single CSS file that styles its elements
 - A component's corresponding CSS file is located in a directory called `css` located in the same parent directory as the component
 
-A few components, such as some Material UI components, use MUI class styling, wich classes defined in a styles function that returns an object containing the relevant classes. This styles function will be located in the same file as the parent component where the MUI component is rendered.
+A few components, such as some Material UI components, use MUI class styling, with classes defined in a `styles` function that returns an object containing the relevant classes. This `styles` function will be located in the same file as the parent component where the MUI component is rendered.
 
 ### Dynamic UI Styling
 Dynamic styling that adapts to screen size is employed throughout the app. However, this is not a "mobile-first" app, i.e., dynamic styling is not optimized for mobile devices. Therefore, some mobile device browsers will present a UI with obvious bugs and unreachable content. 
