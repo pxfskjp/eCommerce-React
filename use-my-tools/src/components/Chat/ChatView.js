@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
-// import io from 'socket.io-client';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { withRouter } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-// import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-// import Paper from '@material-ui/core/Paper';
-// import Avatar from '@material-ui/core/Avatar';
-// import ButtonBase from '@material-ui/core/ButtonBase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-import './ChatView.css';
-// import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row, IconButton, SendIcon, CloseIcon, TextComposer, AddIcon, TextInput, SendButton, EmojiIcon } from '@livechat/ui-kit';
-// import { Grid } from '@material-ui/core';
-
 import { withFirebase } from '../Firebase';
-
-import axios from 'axios';
+import './ChatView.css';
 
 const styles = (theme) => ({
 	root: {
@@ -32,11 +19,10 @@ const styles = (theme) => ({
 		padding: '0',
 	},
 	messageBody: {
-		// marginTop: 20,
 		paddingLeft: 20,
 		paddingRight: 25,
 		paddingBottom: 0,
-		textAlign: 'justify'
+		textAlign: 'left'
 	},
 });
 
@@ -45,32 +31,28 @@ class ChatViewBase extends Component {
 		super(props);
 		this.state = {
 			uid: null,
-			ricipientUID: null,
+			recipientUID: null,
 			recipientName: '',
 			compoundUID: null,
 			message: '',
 			messages: [],
 			isOpen: true
-    };
-    
-    this.messagesRef = React.createRef();
+    	};
+    	this.messagesRef = React.createRef();
 	}
 
 	componentWillReceiveProps(newProps) {
-		console.log('ChatView new props: ', newProps);
-
+		// console.log('ChatView new props: ', newProps);
 		const compoundUID = newProps.currentConvo.compoundUID || ' ';
 		const uid = newProps.uid;
 
 		let recipientUID = null;
-		// let recipientName = null;
 		if (newProps.currentConvo.UIDs[0] === uid) {
 			recipientUID = newProps.currentConvo.UIDs[1];
 		} else {
 			recipientUID = newProps.currentConvo.UIDs[0];
 		}
 		const recipientName = newProps.currentConvo[recipientUID];
-		console.log('recipientName: ', recipientName);
 
 		// initialize listener to Firestore db and get existing messages
 		// listen with onSnapshot()
@@ -95,16 +77,14 @@ class ChatViewBase extends Component {
 					recipientName
 				}, () => this.scrollDownMessages());
 			});
-  }
+  	}
   
-  scrollDownMessages = () => {
-    this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
-    // element.scrollTop = element.scrollHeight;
-  }
+	scrollDownMessages = () => {
+		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
+	}
 
 	onSubmit = (event) => {
-		// To Do:
-		// configure relevant message data and send to Firestore
+		// configure message data and send to Firestore
 		const timeStamp = Date.now();
 		const { compoundUID } = this.state;
 		const data = {
@@ -113,7 +93,6 @@ class ChatViewBase extends Component {
 			recipientUID: this.state.recipientUID,
 			timeSent: timeStamp
 		};
-		console.log('message data:', data);
 
 		this.props.firebase.db
 			.collection('conversations')
@@ -143,17 +122,12 @@ class ChatViewBase extends Component {
 
 	// method to mark the convo as closed
 	handleCloseConvo = (event) => {
-		// this.props.closeConvo();
 		const { compoundUID } = this.state;
 		this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
-
-		this.setState({ isClosed: true });
+		// this.setState({ isClosed: true });
+		this.props.closeCurrentConvo();
 		event.preventDefault();
-  };
-
-	// scrollToBottom = () => {
-	//     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-	// }
+  	};
 
 	render() {
 		const isClosed = this.state.isClosed;
@@ -161,7 +135,6 @@ class ChatViewBase extends Component {
 		const { classes } = this.props;
 
 		return (
-			// <div className={classes.root}>
 			<div className="chatview-container">
 
 				<div className="convo-header">
@@ -177,7 +150,6 @@ class ChatViewBase extends Component {
 							alignClass = 'message-container align-left';
 						}
 						return (
-							// <MuiThemeProvider>
 							<div className={alignClass} key={index}>
 								<div className="message-body">
 									<Typography variant="h6" className={classes.messageBody}>
@@ -185,7 +157,6 @@ class ChatViewBase extends Component {
 									</Typography>
 								</div>
 							</div>
-							// </MuiThemeProvider>
 						);
 					})}
 				</div>
@@ -195,24 +166,17 @@ class ChatViewBase extends Component {
 					<h1>This conversation is closed.</h1>
 				) : (
 					<div className="input-area">
-						{/* Scroll div */}
-						{/* <div
-                    style={{ float:"left", clear: "both" }}
-                    ref={(el) => { this.messagesEnd = el; }
-                  }>
-                  </div>       */}
 						<form onSubmit={this.onSubmit}>
 							<input
-                // hintText="message"
-                className="message-input"
+                				className="message-input"
 								name="message"
 								type="text"
 								value={this.state.message}
 								onChange={this.onChange}
 							/>
 							<div className="buttons-container">
-                <button className="send-btn" type="submit">Send</button>
-                <button className="end-btn"onClick={this.handleCloseConvo}>End Convo</button>
+								<button className="send-btn" type="submit">Send</button>
+								<button className="end-btn"onClick={this.handleCloseConvo}>End Convo</button>
 							</div>
 						</form>
 					</div>

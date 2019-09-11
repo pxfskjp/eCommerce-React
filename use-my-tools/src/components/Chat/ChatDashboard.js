@@ -18,25 +18,22 @@ class ChatDashboard extends React.Component {
             currentConvo: {},
             convoSelected: true,
             currentConvoClosed: false
-        }
-        
+        } 
     }
 
     componentDidMount() {
         axios.get("/api/users/userinfo")
             .then(user => {
                 this.setState({
-                uid: user.data.uid,
-                imageUrl: user.data.image_url,
-                firstName: user.data.first_name,
-                lastName: user.data.last_name,
-            }, () => {
-                console.log('ChatDash state after CDM get user info: ', this.state);
-            });
+                    uid: user.data.uid,
+                    imageUrl: user.data.image_url,
+                    firstName: user.data.first_name,
+                    lastName: user.data.last_name,
+                }, () => console.log('ChatDash state after CDM get user info: ', this.state));
             })
             .catch(error => {
-            console.log(error.message);
-            //this.setState({error:error});
+                console.log(error.message);
+                //this.setState({error:error});
             });
     }
 
@@ -56,31 +53,9 @@ class ChatDashboard extends React.Component {
         });
     }
 
-    handleClosedConvoSelect(compoundUID) {
-        
-        this.setState({
-            convoSelected: true,
-            currentConvoClosed: true,
-            currentCompoundUID: compoundUID,
-        }, () => {
-            console.log("\nConvo Selected. ChatDashboard state: ", this.state);
-        });
+    closeCurrentConvo = () => {
+        this.setState({ convoSelected: false });
     }
-
-    // closeConvo() {
-    //     const data = { id: this.state.currentConvoId };
-    //     console.log("close convo data: ", data);
-    //     axios.put('/api/chat/close', data)
-    //     .then(response => {
-    //         console.log("Conversation closed.")
-    //         this.setState({ 
-    //             currentConvoClosed: true 
-    //         });
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message);
-    //     })
-    // }
 
     render() {
         const convoSelected = this.state.convoSelected;
@@ -106,7 +81,7 @@ class ChatDashboard extends React.Component {
                                     <ChatView
                                         uid={this.state.uid}
                                         currentConvo={this.state.currentConvo}
-                                        closeConvo={this.closeConvo}
+                                        closeCurrentConvo={this.closeCurrentConvo}
                                         currentConvoClosed={this.state.currentConvoClosed}
                                     />
                                 )
