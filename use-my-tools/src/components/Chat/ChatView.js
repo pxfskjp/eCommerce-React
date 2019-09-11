@@ -26,58 +26,10 @@ const styles = (theme) => ({
 		display: 'flex',
 		flexDirection: 'column'
 	},
-	paper: {
-		padding: theme.spacing.unit * 2,
-		margin: 'auto',
-		maxWidth: 650,
-		height: 130
-	},
-	chatViewHead: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'start',
-		justifyContent: 'spaceEvenly',
-		padding: '0',
-		paddingLeft: '5%',
-		height: '100px',
-		borderBottom: '.5px lightgray solid'
-	},
 	chatViewHeadName: {
 		fontSize: '24px',
 		fontWeight: '300',
 		padding: '0',
-	},
-	chatViewHeadSummary: {
-		fontSize: '18px',
-		fontWeight: '200',
-		padding: '0'
-	},
-	messageList: {
-		marginBottom: 10,
-		marginTop: 20,
-		overflowY: 'scroll',
-		overflowX: 'hidden',
-		// maxHeight: '700px',
-		flexGrow: 1,
-		padding: 12,
-		width: '100%',
-		backgroundColor: 'white'
-	},
-	message: {
-		marginBottom: 30
-	},
-	avatar: {
-		marginLeft: 15,
-		marginTop: 15,
-		marginBottom: 15,
-		width: 55,
-		height: 55
-	},
-	messageAuthor: {
-		textAlign: 'justify',
-		padding: 10,
-		paddingLeft: 20
-		// fontWeight: 'bold'
 	},
 	messageBody: {
 		// marginTop: 20,
@@ -86,19 +38,6 @@ const styles = (theme) => ({
 		paddingBottom: 0,
 		textAlign: 'justify'
 	},
-	inputArea: {
-		border: '5px solid red',
-		height: '40px',
-		marginBottom: '2%'
-	},
-	inputForm: {
-		border: '5px solid blue',
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		maxHeight: 40
-	}
 });
 
 class ChatViewBase extends Component {
