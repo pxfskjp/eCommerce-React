@@ -36,7 +36,6 @@ class ChatViewBase extends Component {
 			compoundUID: null,
 			message: '',
 			messages: [],
-			isOpen: true
     	};
     	this.messagesRef = React.createRef();
 	}
@@ -45,7 +44,6 @@ class ChatViewBase extends Component {
 		// console.log('ChatView new props: ', newProps);
 		const compoundUID = newProps.currentConvo.compoundUID || ' ';
 		const uid = newProps.uid;
-
 		let recipientUID = null;
 		if (newProps.currentConvo.UIDs[0] === uid) {
 			recipientUID = newProps.currentConvo.UIDs[1];
@@ -124,23 +122,17 @@ class ChatViewBase extends Component {
 	handleCloseConvo = (event) => {
 		const { compoundUID } = this.state;
 		this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
-		// this.setState({ isClosed: true });
 		this.props.closeCurrentConvo();
 		event.preventDefault();
   	};
 
 	render() {
-		const isClosed = this.state.isClosed;
-		// const compoundUID = this.props.currentCompoundUID;
 		const { classes } = this.props;
-
 		return (
 			<div className="chatview-container">
-
 				<div className="convo-header">
 					<p className={classes.chatViewHeadName}>Chat with {this.state.recipientName}</p>
 				</div>
-
 				<div className="messages-container" ref={this.messagesRef}>
 					{this.state.messages.map((message, index) => {
 						let alignClass = null;
@@ -161,27 +153,23 @@ class ChatViewBase extends Component {
 					})}
 				</div>
 				{/* end messagelist */}
-
-				{isClosed ? (
-					<h1>This conversation is closed.</h1>
-				) : (
-					<div className="input-area">
-						<form onSubmit={this.onSubmit}>
-							<input
-                				className="message-input"
-								name="message"
-								type="text"
-								value={this.state.message}
-								onChange={this.onChange}
-							/>
-							<div className="buttons-container">
-								<button className="send-btn" type="submit">Send</button>
-								<button className="end-btn"onClick={this.handleCloseConvo}>End Convo</button>
-							</div>
-						</form>
-					</div>
-					// end input area
-				)}
+				<h1>This conversation is closed.</h1>
+				<div className="input-area">
+					<form onSubmit={this.onSubmit}>
+						<input
+							className="message-input"
+							name="message"
+							type="text"
+							value={this.state.message}
+							onChange={this.onChange}
+						/>
+						<div className="buttons-container">
+							<button className="send-btn" type="submit">Send</button>
+							<button className="end-btn"onClick={this.handleCloseConvo}>End Convo</button>
+						</div>
+					</form>
+				</div>
+				{/* end input area */}
 			</div>
 		);
 	}
