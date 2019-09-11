@@ -7,13 +7,6 @@ The deployed app is hosted at https://usemytoolssf.netlify.com.
 
 The root directory contains backend (server and database) code as well as the use-my-tools React App, which contains the front end (client app) code.
 
-## Styling
-Most of the UI styling is done in plain CSS. The organizational pattern for css files is as follows:
-- A component that uses CSS styling has a single CSS file that styles its elements
-- A component's corresponding CSS file is located in a directory called `css` located in the same parent directory as the component
-
-A few components, such as some Material UI components, use MUI class styling, wich classes defined in a styles function that returns an object containing the relevant classes. This styles function will be located in the same file as the parent component where the MUI component is rendered.
-
 ## Backend Server:
 
 The backend server is built with express and Node.js. In the root directory, 'server.js' contains the code that configures the backend express server and defines the base URLs for the various API categories. 'server.js' also imports Firebase config variables and uses Firebase Authentication to authenticate requests before allowing them to access the API. 'index.js' imports 'server.js' and initializes the server listener on the designated port. 
@@ -32,6 +25,16 @@ The app uses a Postgres SQL database with migrations and database queries built 
 ## Front End (Client) app:
 
 The code for the front end app is in the use-my-tools directory. The React App starts at the index.js file, which renders App from App.js. In practical terms, App.js is the parent component of the subcomponents with which users interact, and it renders routes to most subcomponents based on the auth state of the user.
+
+### Styling
+Most of the UI styling is done in plain CSS. The organizational pattern for css files is as follows:
+- A component that uses CSS styling has a single CSS file that styles its elements
+- A component's corresponding CSS file is located in a directory called `css` located in the same parent directory as the component
+
+A few components, such as some Material UI components, use MUI class styling, wich classes defined in a styles function that returns an object containing the relevant classes. This styles function will be located in the same file as the parent component where the MUI component is rendered.
+
+### Dynamic UI Styling
+Dynamic styling that adapts to screen size is employed throughout the app. However, this is not a "mobile-first" app, i.e., dynamic styling is not optimized for mobile devices. Therefore, some mobile device browsers will present a UI with obvious bugs and unreachable content. 
 
 <!-- ## How to run the app in a development environment:
 1) Fork and/or clone the repository.
