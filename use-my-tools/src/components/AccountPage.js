@@ -181,10 +181,6 @@ class AccountPage extends Component {
 
                     </form>
                     <div className="account-links-container">
-                        <Button component={Link} to="/Billing" variant="outlined" color="primary" className="account-link-button" >
-                            Update billing info
-                        </Button>
-
                         <Button component={Link} to="/updatepassword" variant="outlined" color="primary" className="account-link-button" >
                             Update Password
                         </Button>
