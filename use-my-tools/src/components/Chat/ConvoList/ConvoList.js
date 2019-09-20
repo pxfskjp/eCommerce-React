@@ -120,12 +120,8 @@ class ConvoListBase extends React.Component {
               }
             }
           })
-          console.log('openConvos: ', openConvos);
-          console.log('closedConvos: ', closedConvos);
           this.setState({ openConvos, closedConvos });
         });
-
-
     }
 
     handleTabSelect= (event, value) => {
@@ -134,10 +130,7 @@ class ConvoListBase extends React.Component {
 
     render() {
       const { classes } = this.props;
-      // const { value } = this.state;
-      // const newConvosCount = this.state.newConvosCount;
       return (
-
         <div className={classes.root}>
           <div className={classes.queueMenu}>
             <Paper className={classes.paper}>
@@ -149,21 +142,7 @@ class ConvoListBase extends React.Component {
                 textColor="primary"
                 centered
                 >
-                  {/* <Tab
-                    className={classes.tabElement}
-                    label={
-                      <div className={classes.tab}>
-                        <h1 className={classes.tabLabel}>NEW</h1>
-                        
-                          {newConvosCount > 0 ? ( <span className={classes.convoCount}>{newConvosCount}</span>
-                            ) : ('')
-                          }
-                        
-                      </div>
-                    }
-                  /> */}
                   <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Conversations</h1>} />
-                  {/* <Tab className={classes.tabElement} label={<h1 className={classes.tabLabel}>Closed</h1>} /> */}
               </Tabs>
             </Paper>
           </div>
@@ -173,21 +152,10 @@ class ConvoListBase extends React.Component {
                   <Convos  
                     convos={this.state.openConvos}
                     uid={this.props.uid}
-                    // isOpen={true} 
                     currentConvoId={this.props.currentConvoId} 
                     handleConvoSelect={this.props.handleOpenConvoSelect} 
                   />
                 }
-                {/* {this.state.value === 1 && 
-                  <Convos 
-                    convos={this.state.closedConvos}
-                    uid={this.props.uid}
-                    // isOpen={false} 
-                    currentConvoId={this.props.currentConvoId} 
-                    currentConvoClosed={this.props.currentConvoClosed} 
-                    handleConvoSelect={this.props.handleClosedConvoSelect} 
-                  />
-                } */}
           </div>
 
         </div>
@@ -199,7 +167,6 @@ ConvoListBase.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
- 
 const ConvoList = withStyles(styles)(withFirebase(ConvoListBase));
 
 export default ConvoList;

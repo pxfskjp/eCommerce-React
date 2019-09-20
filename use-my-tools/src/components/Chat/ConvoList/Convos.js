@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-// import { withRouter} from "react-router-dom"
-// import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom'
-// import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
-// import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 // import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import { ThemeProvider, MessageList, MessageGroup, MessageText, MessageTitle, Message, AgentBar, Row } from '@livechat/ui-kit';
 
 import { withFirebase } from "../../Firebase";
-
 
 const styles = theme => ({
   root: {
@@ -31,16 +26,8 @@ const styles = theme => ({
     borderRadius: '0px',
     border: '0.2px solid grey',
     borderTop: 'none',
-    // width: '85%',
-    // marrgin: 10,
-    // maxWidth: 400,
-    // margin: `${theme.spacing.unit}px auto`,
-
   },
   queueItem: {
-    // padding: theme.spacing.unit * 2,
-    // height: 250,
-    // width: '100%',
     '&:hover': {
       cursor: 'pointer'
     }
@@ -63,9 +50,7 @@ const styles = theme => ({
 });
 
 const ConvosBase = props => {
-    
   const { classes } = props;
-  
   return (
     <div className={classes.root}>
       <Typography

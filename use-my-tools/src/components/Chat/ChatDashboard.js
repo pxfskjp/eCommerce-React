@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
-
 import ConvoList from './ConvoList/ConvoList';
 import ChatView from './ChatView';
 import './ChatDashboard.css';
@@ -16,8 +15,7 @@ class ChatDashboard extends React.Component {
             lastName: '',
             imageURL: '',
             currentConvo: {},
-            convoSelected: true,
-            currentConvoClosed: false
+            convoSelected: false,
         } 
     }
 
@@ -38,13 +36,6 @@ class ChatDashboard extends React.Component {
     }
 
     handleOpenConvoSelect = (convo) => {
-        // const uid = this.state.uid;
-        // let recipientUID = null;
-        // if (convo.UIDOne !== uid) {
-        //     recipientUID =  convo.UIDOne;
-        // } else {
-        //     recipientUID =  convo.UIDTwo;
-        // }
         this.setState({
             convoSelected: true,
             currentConvo: convo,
@@ -64,7 +55,6 @@ class ChatDashboard extends React.Component {
                 {this.state.uid ? (
                     <div className="chat-dashboard-container">
                         <div className="chat-dash-left-container">
-                            
                             <ConvoList
                                 uid={this.state.uid}
                                 currentConvoId={this.state.currentConvoId}
@@ -82,7 +72,6 @@ class ChatDashboard extends React.Component {
                                         uid={this.state.uid}
                                         currentConvo={this.state.currentConvo}
                                         closeCurrentConvo={this.closeCurrentConvo}
-                                        currentConvoClosed={this.state.currentConvoClosed}
                                     />
                                 )
                             }

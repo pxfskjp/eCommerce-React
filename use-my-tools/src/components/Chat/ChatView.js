@@ -7,12 +7,6 @@ import { withFirebase } from '../Firebase';
 import './ChatView.css';
 
 const styles = (theme) => ({
-	root: {
-		// overflowY: 'scroll',
-		height: '100%',
-		display: 'flex',
-		flexDirection: 'column'
-	},
 	chatViewHeadName: {
 		fontSize: '24px',
 		fontWeight: '300',
@@ -38,7 +32,7 @@ class ChatViewBase extends Component {
 			messages: [],
     	};
     	this.messagesRef = React.createRef();
-	}
+	};
 
 	componentWillReceiveProps(newProps) {
 		// console.log('ChatView new props: ', newProps);
@@ -75,7 +69,7 @@ class ChatViewBase extends Component {
 					recipientName
 				}, () => this.scrollDownMessages());
 			});
-  	}
+  	};
   
 	scrollDownMessages = () => {
 		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
@@ -91,7 +85,6 @@ class ChatViewBase extends Component {
 			recipientUID: this.state.recipientUID,
 			timeSent: timeStamp
 		};
-
 		this.props.firebase.db
 			.collection('conversations')
 			.doc(compoundUID)
@@ -101,17 +94,6 @@ class ChatViewBase extends Component {
 		this.setState({ message: '' });
 		event.preventDefault();
 	};
-
-	// method to update state.messages with new message from Firestore
-	// addNewMessage = (newMessage) => {
-	//     console.log("newMessage in ChatView addNewMessage: ", newMessage);
-	//     const newMessages = [];
-	//     this.state.messages.forEach(message => {
-	//         newMessages.push({...message});
-	//     });
-	//     newMessages.push(newMessage);
-	//     this.setState({ messages: newMessages });
-	// }
 
 	// method to update state based on user input
 	onChange = (event) => {
@@ -153,7 +135,7 @@ class ChatViewBase extends Component {
 					})}
 				</div>
 				{/* end messagelist */}
-				<h1>This conversation is closed.</h1>
+				
 				<div className="input-area">
 					<form onSubmit={this.onSubmit}>
 						<input
@@ -183,3 +165,89 @@ ChatViewBase.propTypes = {
 const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
 
 export default ChatView;
+
+// static getDerivedStateFromProps(nextProps, prevState) {
+// 	console.log('ChatView getDerivedState nextProps: ', nextProps);
+// 	const compoundUID = nextProps.currentConvo.compoundUID || ' ';
+// 	const uid = nextProps.uid;
+// 	let recipientUID;
+
+// 	if (nextProps.currentConvo.UIDs[0] === uid) {
+// 		recipientUID = nextProps.currentConvo.UIDs[1];
+// 		return {
+// 			uid: uid,
+// 			recipientUID: recipientUID,
+// 			recipientName: nextProps.currentConvo[recipientUID],
+// 			compoundUID: compoundUID
+// 		};
+// 	} else {
+// 		recipientUID = nextProps.currentConvo.UIDs[0];
+// 		return {
+// 			recipientUID: recipientUID
+// 		};
+// 	}
+// }
+
+// componentDidMount() {
+// 	console.log('ChatView CDU called');
+// 	// if compoundUID prop has changed,
+// 	// initialize listener to Firestore, which also gets existing messages
+// 	// The first query snapshot labels all existing documents 
+// 	// that match the query as 'added' events
+// 	const { uid, compoundUID } = this.props;
+// 	console.log('CDU uid, compoundUID: ', uid, compoundUID)
+// 	const {recipientUID, recipientName } = this.state;
+
+// 	let messages = [];
+// 	this.props.firebase.db
+// 		.collection('conversations')
+// 		.doc(this.props.currentConvo.compoundUID)
+// 		.collection('messages')
+// 		.onSnapshot((querySnapshot) => {
+// 			querySnapshot.docChanges().forEach((change) => {
+// 				if (change.type === 'added') {
+// 					messages.push(change.doc.data());
+// 				}
+// 			});
+// 			this.setState({
+// 				messages,
+// 				uid,
+// 				compoundUID,
+// 				recipientUID,
+// 				recipientName
+// 			}, () => this.scrollDownMessages());
+// 		});
+
+// }
+  
+// componentDidUpdate(prevProps, prevState) {
+// 	console.log('ChatView CDU called');
+// 	// if compoundUID prop has changed,
+// 	// initialize listener to Firestore, which also gets existing messages
+// 	// The first query snapshot labels all existing documents 
+// 	// that match the query as 'added' events
+// 	const { uid, compoundUID } = this.props;
+// 	console.log('CDU uid, compoundUID: ', uid, compoundUID)
+// 	const {recipientUID, recipientName } = this.state;
+// 	if (this.props.currentConvo.compoundUID !== prevProps.currentConvo.compoundUID) {
+// 		let messages = [];
+// 		this.props.firebase.db
+// 			.collection('conversations')
+// 			.doc(this.props.currentConvo.compoundUID)
+// 			.collection('messages')
+// 			.onSnapshot((querySnapshot) => {
+// 				querySnapshot.docChanges().forEach((change) => {
+// 					if (change.type === 'added') {
+// 						messages.push(change.doc.data());
+// 					}
+// 				});
+// 				this.setState({
+// 					messages,
+// 					uid,
+// 					compoundUID,
+// 					recipientUID,
+// 					recipientName
+// 				}, () => this.scrollDownMessages());
+// 			});
+// 	}
+// }
