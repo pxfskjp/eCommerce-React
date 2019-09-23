@@ -321,6 +321,7 @@ router.post('/rentalpayment', async (req, res) => {
           email: userEmail.email,         // ** attach to body
           source: source                  // ** attach to body-- source comes from StripeCheckout
         })
+        console.log('Stripe customer response:', customer);
 
         let charge = await stripe.charges.create({
           customer: customer.id,          // comes from creatCustomer call above
@@ -328,7 +329,7 @@ router.post('/rentalpayment', async (req, res) => {
           currency: currency,
           description: description    
         })
-        // console.log('charge response from Stripe: ', charge);
+        console.log('Stripe charge response: ', charge);
 
         await usersDb.updateUserDetails(uid, { stripe_customer_id: customer.id });
 

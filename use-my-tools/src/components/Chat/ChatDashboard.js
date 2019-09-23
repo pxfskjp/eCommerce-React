@@ -1,12 +1,13 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { withFirebase } from '../Firebase';
 import axios from 'axios';
 import ConvoList from './ConvoList/ConvoList';
 import ChatView from './ChatView';
 import './ChatDashboard.css';
 import './ConvoList/ConvoList.css';
 
-class ChatDashboard extends React.Component {
+class ChatDashboardBase extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -16,6 +17,8 @@ class ChatDashboard extends React.Component {
             imageURL: '',
             currentConvo: {},
             convoSelected: false,
+            newMessage: '',
+			messages: [],
         } 
     }
 
@@ -36,6 +39,40 @@ class ChatDashboard extends React.Component {
     }
 
     handleOpenConvoSelect = (convo) => {
+        // const compoundUID = convo.compoundUID || ' ';
+		// const uid = this.state .uid;
+		// let recipientUID = null;
+		// if (convo.UIDs[0] === uid) {
+		// 	recipientUID = convo.UIDs[1];
+		// } else {
+		// 	recipientUID = convo.UIDs[0];
+		// }
+		// const recipientName = convo[recipientUID];
+
+		// // initialize listener to Firestore db and get existing messages
+		// // listen with onSnapshot()
+		// // The first query snapshot contains 'added' events
+		// // for all existing documents that match the query
+		// let messages = [];
+		// this.props.firebase.db
+		// 	.collection('conversations')
+		// 	.doc(compoundUID)
+		// 	.collection('messages')
+		// 	.onSnapshot((querySnapshot) => {
+		// 		querySnapshot.docChanges().forEach((change) => {
+		// 			if (change.type === 'added') {
+		// 				messages.push(change.doc.data());
+		// 			}
+		// 		});
+		// 		this.setState({
+		// 			messages,
+		// 			uid,
+		// 			compoundUID,
+		// 			recipientUID,
+		// 			recipientName
+		// 		}, () => this.scrollDownMessages());
+        //     });
+            
         this.setState({
             convoSelected: true,
             currentConvo: convo,
@@ -87,4 +124,5 @@ class ChatDashboard extends React.Component {
 
 }
 
-export default withRouter(ChatDashboard);
+const ChatDashboard = withRouter(withFirebase(ChatDashboardBase));
+export default ChatDashboard;
