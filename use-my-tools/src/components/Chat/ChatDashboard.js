@@ -77,7 +77,7 @@ class ChatDashboardBase extends React.Component {
 					compoundUID,
 					recipientUID,
 					recipientName
-                }, () => console.log("\nConvo Selected. ChatDashboard state: ", this.state)/*() => this.scrollDownMessages()*/);
+                }, () => console.log("\nConvo Selected. ChatDashboard state: ", this.state));
             });
     }
 

@@ -44,7 +44,8 @@ class ChatViewBase extends Component {
 	scrollDownMessages = () => {
 		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
 	}
-
+	
+	// method to send a message when user submits:
 	onSubmit = (event) => {
 		const messageContent = this.state.message;
 		this.props.sendMessage(messageContent);
@@ -52,15 +53,13 @@ class ChatViewBase extends Component {
 		event.preventDefault();
 	};
 
-	// method to update state based on user input
+	// method to update state based on user input:
 	onChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	// method to mark the convo as closed
 	handleCloseConvo = (event) => {
-		// const { compoundUID } = this.state;
-		// this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
 		this.props.closeCurrentConvo();
 		event.preventDefault();
   	};
@@ -122,126 +121,3 @@ ChatViewBase.propTypes = {
 const ChatView = withStyles(styles)(withRouter(withFirebase(ChatViewBase)));
 
 export default ChatView;
-
-// componentWillReceiveProps(newProps) {
-// 	// console.log('ChatView new props: ', newProps);
-// 	const compoundUID = newProps.currentConvo.compoundUID || ' ';
-// 	const uid = newProps.uid;
-// 	let recipientUID = null;
-// 	if (newProps.currentConvo.UIDs[0] === uid) {
-// 		recipientUID = newProps.currentConvo.UIDs[1];
-// 	} else {
-// 		recipientUID = newProps.currentConvo.UIDs[0];
-// 	}
-// 	const recipientName = newProps.currentConvo[recipientUID];
-
-// 	// initialize listener to Firestore db and get existing messages
-// 	// listen with onSnapshot()
-// 	// The first query snapshot contains 'added' events
-// 	// for all existing documents that match the query
-// 	let messages = [];
-// 	this.props.firebase.db
-// 		.collection('conversations')
-// 		.doc(compoundUID)
-// 		.collection('messages')
-// 		.onSnapshot((querySnapshot) => {
-// 			querySnapshot.docChanges().forEach((change) => {
-// 				if (change.type === 'added') {
-// 					messages.push(change.doc.data());
-// 				}
-// 			});
-// 			this.setState({
-// 				messages,
-// 				uid,
-// 				compoundUID,
-// 				recipientUID,
-// 				recipientName
-// 			}, () => this.scrollDownMessages());
-// 		});
-// };
-
-// static getDerivedStateFromProps(nextProps, prevState) {
-// 	console.log('ChatView getDerivedState nextProps: ', nextProps);
-// 	const compoundUID = nextProps.currentConvo.compoundUID || ' ';
-// 	const uid = nextProps.uid;
-// 	let recipientUID;
-
-// 	if (nextProps.currentConvo.UIDs[0] === uid) {
-// 		recipientUID = nextProps.currentConvo.UIDs[1];
-// 		return {
-// 			uid: uid,
-// 			recipientUID: recipientUID,
-// 			recipientName: nextProps.currentConvo[recipientUID],
-// 			compoundUID: compoundUID
-// 		};
-// 	} else {
-// 		recipientUID = nextProps.currentConvo.UIDs[0];
-// 		return {
-// 			recipientUID: recipientUID
-// 		};
-// 	}
-// }
-
-// componentDidMount() {
-// 	console.log('ChatView CDU called');
-// 	// if compoundUID prop has changed,
-// 	// initialize listener to Firestore, which also gets existing messages
-// 	// The first query snapshot labels all existing documents 
-// 	// that match the query as 'added' events
-// 	const { uid, compoundUID } = this.props;
-// 	console.log('CDU uid, compoundUID: ', uid, compoundUID)
-// 	const {recipientUID, recipientName } = this.state;
-
-// 	let messages = [];
-// 	this.props.firebase.db
-// 		.collection('conversations')
-// 		.doc(this.props.currentConvo.compoundUID)
-// 		.collection('messages')
-// 		.onSnapshot((querySnapshot) => {
-// 			querySnapshot.docChanges().forEach((change) => {
-// 				if (change.type === 'added') {
-// 					messages.push(change.doc.data());
-// 				}
-// 			});
-// 			this.setState({
-// 				messages,
-// 				uid,
-// 				compoundUID,
-// 				recipientUID,
-// 				recipientName
-// 			}, () => this.scrollDownMessages());
-// 		});
-
-// }
-  
-// componentDidUpdate(prevProps, prevState) {
-// 	console.log('ChatView CDU called');
-// 	// if compoundUID prop has changed,
-// 	// initialize listener to Firestore, which also gets existing messages
-// 	// The first query snapshot labels all existing documents 
-// 	// that match the query as 'added' events
-// 	const { uid, compoundUID } = this.props;
-// 	console.log('CDU uid, compoundUID: ', uid, compoundUID)
-// 	const {recipientUID, recipientName } = this.state;
-// 	if (this.props.currentConvo.compoundUID !== prevProps.currentConvo.compoundUID) {
-// 		let messages = [];
-// 		this.props.firebase.db
-// 			.collection('conversations')
-// 			.doc(this.props.currentConvo.compoundUID)
-// 			.collection('messages')
-// 			.onSnapshot((querySnapshot) => {
-// 				querySnapshot.docChanges().forEach((change) => {
-// 					if (change.type === 'added') {
-// 						messages.push(change.doc.data());
-// 					}
-// 				});
-// 				this.setState({
-// 					messages,
-// 					uid,
-// 					compoundUID,
-// 					recipientUID,
-// 					recipientName
-// 				}, () => this.scrollDownMessages());
-// 			});
-// 	}
-// }
