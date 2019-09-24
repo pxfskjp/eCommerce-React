@@ -81,6 +81,19 @@ class ChatDashboardBase extends React.Component {
             });
     }
 
+    sendMessage = (messageData) => {
+        console.log('sendMessage messageData:', messageData)
+        const { compoundUID } = this.state;
+        const timeStamp = Date.now();
+        this.props.firebase.db
+			.collection('conversations')
+			.doc(compoundUID)
+			.collection('messages')
+			.doc(`${timeStamp}`)
+			.set(messageData);
+		this.setState({ message: '' });
+    }
+
     closeCurrentConvo = () => {
         this.setState({ convoSelected: false });
     }
@@ -110,6 +123,7 @@ class ChatDashboardBase extends React.Component {
                                         currentConvo={this.state.currentConvo}
                                         closeCurrentConvo={this.closeCurrentConvo}
                                         messages={this.state.messages}
+                                        sendMessage={this.sendMessage}
                                     />
                                 )
                             }

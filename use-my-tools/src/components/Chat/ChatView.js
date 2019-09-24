@@ -79,19 +79,22 @@ class ChatViewBase extends Component {
 		// configure message data and send to Firestore
 		const timeStamp = Date.now();
 		const { compoundUID } = this.state;
-		const data = {
+
+		const messageData = {
 			content: this.state.message,
 			authorUID: this.state.uid,
 			recipientUID: this.state.recipientUID,
 			timeSent: timeStamp
 		};
-		this.props.firebase.db
-			.collection('conversations')
-			.doc(compoundUID)
-			.collection('messages')
-			.doc(`${timeStamp}`)
-			.set(data);
-		this.setState({ message: '' });
+		
+		// this.props.firebase.db
+		// 	.collection('conversations')
+		// 	.doc(compoundUID)
+		// 	.collection('messages')
+		// 	.doc(`${timeStamp}`)
+		// 	.set(data);
+		// this.setState({ message: '' });
+		this.props.sendMessage(messageData);
 		event.preventDefault();
 	};
 
