@@ -39,39 +39,39 @@ class ChatDashboardBase extends React.Component {
     }
 
     handleOpenConvoSelect = (convo) => {
-        // const compoundUID = convo.compoundUID || ' ';
-		// const uid = this.state .uid;
-		// let recipientUID = null;
-		// if (convo.UIDs[0] === uid) {
-		// 	recipientUID = convo.UIDs[1];
-		// } else {
-		// 	recipientUID = convo.UIDs[0];
-		// }
-		// const recipientName = convo[recipientUID];
+        const compoundUID = convo.compoundUID || ' ';
+        const uid = this.state.uid;
+		let recipientUID = null;
+		if (convo.UIDs[0] === uid) {
+			recipientUID = convo.UIDs[1];
+		} else {
+			recipientUID = convo.UIDs[0];
+		}
+		const recipientName = convo[recipientUID];
 
-		// // initialize listener to Firestore db and get existing messages
-		// // listen with onSnapshot()
-		// // The first query snapshot contains 'added' events
-		// // for all existing documents that match the query
-		// let messages = [];
-		// this.props.firebase.db
-		// 	.collection('conversations')
-		// 	.doc(compoundUID)
-		// 	.collection('messages')
-		// 	.onSnapshot((querySnapshot) => {
-		// 		querySnapshot.docChanges().forEach((change) => {
-		// 			if (change.type === 'added') {
-		// 				messages.push(change.doc.data());
-		// 			}
-		// 		});
-		// 		this.setState({
-		// 			messages,
-		// 			uid,
-		// 			compoundUID,
-		// 			recipientUID,
-		// 			recipientName
-		// 		}, () => this.scrollDownMessages());
-        //     });
+		// initialize onSnapshot()listener to Firestore db and get existing messages
+		// The first query snapshot returned contains 'added' events
+		// for all existing documents that match the query
+		let messages = [];
+		this.props.firebase.db
+			.collection('conversations')
+			.doc(compoundUID)
+			.collection('messages')
+			.onSnapshot((querySnapshot) => {
+				querySnapshot.docChanges().forEach((change) => {
+					if (change.type === 'added') {
+						messages.push(change.doc.data());
+					}
+                });
+                console.log(messages);
+				// this.setState({
+				// 	messages,
+				// 	uid,
+				// 	compoundUID,
+				// 	recipientUID,
+				// 	recipientName
+				// }, () => this.scrollDownMessages());
+            });
             
         this.setState({
             convoSelected: true,
