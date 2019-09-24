@@ -34,42 +34,42 @@ class ChatViewBase extends Component {
     	this.messagesRef = React.createRef();
 	};
 
-	componentWillReceiveProps(newProps) {
-		// console.log('ChatView new props: ', newProps);
-		const compoundUID = newProps.currentConvo.compoundUID || ' ';
-		const uid = newProps.uid;
-		let recipientUID = null;
-		if (newProps.currentConvo.UIDs[0] === uid) {
-			recipientUID = newProps.currentConvo.UIDs[1];
-		} else {
-			recipientUID = newProps.currentConvo.UIDs[0];
-		}
-		const recipientName = newProps.currentConvo[recipientUID];
+	// componentWillReceiveProps(newProps) {
+	// 	// console.log('ChatView new props: ', newProps);
+	// 	const compoundUID = newProps.currentConvo.compoundUID || ' ';
+	// 	const uid = newProps.uid;
+	// 	let recipientUID = null;
+	// 	if (newProps.currentConvo.UIDs[0] === uid) {
+	// 		recipientUID = newProps.currentConvo.UIDs[1];
+	// 	} else {
+	// 		recipientUID = newProps.currentConvo.UIDs[0];
+	// 	}
+	// 	const recipientName = newProps.currentConvo[recipientUID];
 
-		// initialize listener to Firestore db and get existing messages
-		// listen with onSnapshot()
-		// The first query snapshot contains 'added' events
-		// for all existing documents that match the query
-		let messages = [];
-		this.props.firebase.db
-			.collection('conversations')
-			.doc(compoundUID)
-			.collection('messages')
-			.onSnapshot((querySnapshot) => {
-				querySnapshot.docChanges().forEach((change) => {
-					if (change.type === 'added') {
-						messages.push(change.doc.data());
-					}
-				});
-				this.setState({
-					messages,
-					uid,
-					compoundUID,
-					recipientUID,
-					recipientName
-				}, () => this.scrollDownMessages());
-			});
-  	};
+	// 	// initialize listener to Firestore db and get existing messages
+	// 	// listen with onSnapshot()
+	// 	// The first query snapshot contains 'added' events
+	// 	// for all existing documents that match the query
+	// 	let messages = [];
+	// 	this.props.firebase.db
+	// 		.collection('conversations')
+	// 		.doc(compoundUID)
+	// 		.collection('messages')
+	// 		.onSnapshot((querySnapshot) => {
+	// 			querySnapshot.docChanges().forEach((change) => {
+	// 				if (change.type === 'added') {
+	// 					messages.push(change.doc.data());
+	// 				}
+	// 			});
+	// 			this.setState({
+	// 				messages,
+	// 				uid,
+	// 				compoundUID,
+	// 				recipientUID,
+	// 				recipientName
+	// 			}, () => this.scrollDownMessages());
+	// 		});
+  	// };
   
 	scrollDownMessages = () => {
 		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
@@ -116,7 +116,7 @@ class ChatViewBase extends Component {
 					<p className={classes.chatViewHeadName}>Chat with {this.state.recipientName}</p>
 				</div>
 				<div className="messages-container" ref={this.messagesRef}>
-					{this.state.messages.map((message, index) => {
+					{this.props.messages.map((message, index) => {
 						let alignClass = null;
 						if (message.authorUID === this.state.uid) {
 							alignClass = 'message-container align-right';

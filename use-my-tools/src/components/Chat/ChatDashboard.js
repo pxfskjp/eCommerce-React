@@ -79,14 +79,6 @@ class ChatDashboardBase extends React.Component {
 					recipientName
                 }, () => console.log("\nConvo Selected. ChatDashboard state: ", this.state)/*() => this.scrollDownMessages()*/);
             });
-            
-        
-        // this.setState({
-        //     convoSelected: true,
-        //     currentConvo: convo,
-        // }, () => {
-        //     console.log("\nConvo Selected. ChatDashboard state: ", this.state);
-        // });
     }
 
     closeCurrentConvo = () => {
@@ -117,6 +109,7 @@ class ChatDashboardBase extends React.Component {
                                         uid={this.state.uid}
                                         currentConvo={this.state.currentConvo}
                                         closeCurrentConvo={this.closeCurrentConvo}
+                                        messages={this.state.messages}
                                     />
                                 )
                             }
