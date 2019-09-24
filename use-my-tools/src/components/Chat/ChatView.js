@@ -7,12 +7,6 @@ import { withFirebase } from '../Firebase';
 import './ChatView.css';
 
 const styles = (theme) => ({
-	root: {
-		// overflowY: 'scroll',
-		height: '100%',
-		display: 'flex',
-		flexDirection: 'column'
-	},
 	chatViewHeadName: {
 		fontSize: '24px',
 		fontWeight: '300',
@@ -38,90 +32,34 @@ class ChatViewBase extends Component {
 			messages: [],
     	};
     	this.messagesRef = React.createRef();
+	};
+
+	componentDidMount() {
+		this.scrollDownMessages();
 	}
-
-	componentWillReceiveProps(newProps) {
-		// console.log('ChatView new props: ', newProps);
-		const compoundUID = newProps.currentConvo.compoundUID || ' ';
-		const uid = newProps.uid;
-		let recipientUID = null;
-		if (newProps.currentConvo.UIDs[0] === uid) {
-			recipientUID = newProps.currentConvo.UIDs[1];
-		} else {
-			recipientUID = newProps.currentConvo.UIDs[0];
-		}
-		const recipientName = newProps.currentConvo[recipientUID];
-
-		// initialize listener to Firestore db and get existing messages
-		// listen with onSnapshot()
-		// The first query snapshot contains 'added' events
-		// for all existing documents that match the query
-		let messages = [];
-		this.props.firebase.db
-			.collection('conversations')
-			.doc(compoundUID)
-			.collection('messages')
-			.onSnapshot((querySnapshot) => {
-				querySnapshot.docChanges().forEach((change) => {
-					if (change.type === 'added') {
-						messages.push(change.doc.data());
-					}
-				});
-				this.setState({
-					messages,
-					uid,
-					compoundUID,
-					recipientUID,
-					recipientName
-				}, () => this.scrollDownMessages());
-			});
-  	}
+	componentDidUpdate(prevProps, prevState) {
+		this.scrollDownMessages();
+	}
   
 	scrollDownMessages = () => {
 		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
 	}
-
+	
+	// method to send a message when user submits:
 	onSubmit = (event) => {
-		// configure message data and send to Firestore
-		const timeStamp = Date.now();
-		const { compoundUID } = this.state;
-		const data = {
-			content: this.state.message,
-			authorUID: this.state.uid,
-			recipientUID: this.state.recipientUID,
-			timeSent: timeStamp
-		};
-
-		this.props.firebase.db
-			.collection('conversations')
-			.doc(compoundUID)
-			.collection('messages')
-			.doc(`${timeStamp}`)
-			.set(data);
+		const messageContent = this.state.message;
+		this.props.sendMessage(messageContent);
 		this.setState({ message: '' });
 		event.preventDefault();
 	};
 
-	// method to update state.messages with new message from Firestore
-	// addNewMessage = (newMessage) => {
-	//     console.log("newMessage in ChatView addNewMessage: ", newMessage);
-	//     const newMessages = [];
-	//     this.state.messages.forEach(message => {
-	//         newMessages.push({...message});
-	//     });
-	//     newMessages.push(newMessage);
-	//     this.setState({ messages: newMessages });
-	// }
-
-	// method to update state based on user input
+	// method to update state based on user input:
 	onChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	// method to mark the convo as closed
 	handleCloseConvo = (event) => {
-		const { compoundUID } = this.state;
-		this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
 		this.props.closeCurrentConvo();
 		event.preventDefault();
   	};
@@ -134,9 +72,9 @@ class ChatViewBase extends Component {
 					<p className={classes.chatViewHeadName}>Chat with {this.state.recipientName}</p>
 				</div>
 				<div className="messages-container" ref={this.messagesRef}>
-					{this.state.messages.map((message, index) => {
+					{this.props.messages.map((message, index) => {
 						let alignClass = null;
-						if (message.authorUID === this.state.uid) {
+						if (message.authorUID === this.props.uid) {
 							alignClass = 'message-container align-right';
 						} else {
 							alignClass = 'message-container align-left';
@@ -153,7 +91,7 @@ class ChatViewBase extends Component {
 					})}
 				</div>
 				{/* end messagelist */}
-				<h1>This conversation is closed.</h1>
+				
 				<div className="input-area">
 					<form onSubmit={this.onSubmit}>
 						<input
