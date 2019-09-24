@@ -77,24 +77,17 @@ class ChatViewBase extends Component {
 
 	onSubmit = (event) => {
 		// configure message data and send to Firestore
-		const timeStamp = Date.now();
-		const { compoundUID } = this.state;
+		// const timeStamp = Date.now();
 
-		const messageData = {
-			content: this.state.message,
-			authorUID: this.state.uid,
-			recipientUID: this.state.recipientUID,
-			timeSent: timeStamp
-		};
+		// const messageData = {
+		// 	content: this.state.message,
+		// 	authorUID: this.state.uid,
+		// 	recipientUID: this.state.recipientUID,
+		// 	timeSent: timeStamp
+		// };
+		const messageContent = this.state.message;
 		
-		// this.props.firebase.db
-		// 	.collection('conversations')
-		// 	.doc(compoundUID)
-		// 	.collection('messages')
-		// 	.doc(`${timeStamp}`)
-		// 	.set(data);
-		// this.setState({ message: '' });
-		this.props.sendMessage(messageData);
+		this.props.sendMessage(messageContent);
 		event.preventDefault();
 	};
 
@@ -121,7 +114,7 @@ class ChatViewBase extends Component {
 				<div className="messages-container" ref={this.messagesRef}>
 					{this.props.messages.map((message, index) => {
 						let alignClass = null;
-						if (message.authorUID === this.state.uid) {
+						if (message.authorUID === this.props.uid) {
 							alignClass = 'message-container align-right';
 						} else {
 							alignClass = 'message-container align-left';

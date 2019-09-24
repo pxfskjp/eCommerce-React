@@ -81,10 +81,17 @@ class ChatDashboardBase extends React.Component {
             });
     }
 
-    sendMessage = (messageData) => {
-        console.log('sendMessage messageData:', messageData)
+    sendMessage = (messageContent) => {
+        // console.log('sendMessage messageContent:', messageContent);
         const { compoundUID } = this.state;
         const timeStamp = Date.now();
+        const messageData = {
+            content: messageContent,
+            authorUID: this.state.uid,
+			recipientUID: this.state.recipientUID,
+			timeSent: timeStamp
+        };
+        // console.log('sendMessage messageData:', messageData);
         this.props.firebase.db
 			.collection('conversations')
 			.doc(compoundUID)
@@ -119,11 +126,12 @@ class ChatDashboardBase extends React.Component {
                                 <p>No conversation selected.</p>
                                 ) : (
                                     <ChatView
-                                        uid={this.state.uid}
                                         currentConvo={this.state.currentConvo}
-                                        closeCurrentConvo={this.closeCurrentConvo}
+                                        uid={this.state.uid}
+                                        recipientUID={this.state.recipientUID}
                                         messages={this.state.messages}
                                         sendMessage={this.sendMessage}
+                                        closeCurrentConvo={this.closeCurrentConvo}
                                     />
                                 )
                             }
