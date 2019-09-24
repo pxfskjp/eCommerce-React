@@ -24,22 +24,18 @@ class ChatViewBase extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			uid: null,
-			recipientUID: null,
-			recipientName: '',
-			compoundUID: null,
-			message: '',
-			messages: [],
+			message: ''
     	};
     	this.messagesRef = React.createRef();
 	};
 
 	componentDidMount() {
 		this.scrollDownMessages();
-	}
+	};
+
 	componentDidUpdate(prevProps, prevState) {
 		this.scrollDownMessages();
-	}
+	};
   
 	scrollDownMessages = () => {
 		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
