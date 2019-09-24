@@ -15,10 +15,13 @@ class ChatDashboardBase extends React.Component {
             firstName: '',
             lastName: '',
             imageURL: '',
-            currentConvo: {},
             convoSelected: false,
-            newMessage: '',
-			messages: [],
+            currentConvo: {},
+            compoundUID: null,
+            recipientUID: null,
+            recipientName: null,
+            messages: [],
+            newMessage: '',  
         } 
     }
 
@@ -39,8 +42,10 @@ class ChatDashboardBase extends React.Component {
     }
 
     handleOpenConvoSelect = (convo) => {
+        console.log('handleOpenConvoSelect convo: ', convo);
         const compoundUID = convo.compoundUID || ' ';
         const uid = this.state.uid;
+        console.log('handleOpenConvoSelect uid: ', uid);
 		let recipientUID = null;
 		if (convo.UIDs[0] === uid) {
 			recipientUID = convo.UIDs[1];
@@ -63,22 +68,25 @@ class ChatDashboardBase extends React.Component {
 						messages.push(change.doc.data());
 					}
                 });
-                console.log(messages);
-				// this.setState({
-				// 	messages,
-				// 	uid,
-				// 	compoundUID,
-				// 	recipientUID,
-				// 	recipientName
-				// }, () => this.scrollDownMessages());
+                console.log('messages: ', messages);
+				this.setState({
+                    convoSelected: true,
+                    currentConvo: convo,
+					messages,
+					uid,
+					compoundUID,
+					recipientUID,
+					recipientName
+                }, () => console.log("\nConvo Selected. ChatDashboard state: ", this.state)/*() => this.scrollDownMessages()*/);
             });
             
-        this.setState({
-            convoSelected: true,
-            currentConvo: convo,
-        }, () => {
-            console.log("\nConvo Selected. ChatDashboard state: ", this.state);
-        });
+        
+        // this.setState({
+        //     convoSelected: true,
+        //     currentConvo: convo,
+        // }, () => {
+        //     console.log("\nConvo Selected. ChatDashboard state: ", this.state);
+        // });
     }
 
     closeCurrentConvo = () => {
