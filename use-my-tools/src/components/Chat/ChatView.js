@@ -76,17 +76,7 @@ class ChatViewBase extends Component {
 	}
 
 	onSubmit = (event) => {
-		// configure message data and send to Firestore
-		// const timeStamp = Date.now();
-
-		// const messageData = {
-		// 	content: this.state.message,
-		// 	authorUID: this.state.uid,
-		// 	recipientUID: this.state.recipientUID,
-		// 	timeSent: timeStamp
-		// };
 		const messageContent = this.state.message;
-		
 		this.props.sendMessage(messageContent);
 		event.preventDefault();
 	};
@@ -98,8 +88,8 @@ class ChatViewBase extends Component {
 
 	// method to mark the convo as closed
 	handleCloseConvo = (event) => {
-		const { compoundUID } = this.state;
-		this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
+		// const { compoundUID } = this.state;
+		// this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
 		this.props.closeCurrentConvo();
 		event.preventDefault();
   	};

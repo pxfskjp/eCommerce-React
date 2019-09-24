@@ -102,6 +102,8 @@ class ChatDashboardBase extends React.Component {
     }
 
     closeCurrentConvo = () => {
+        const { compoundUID } = this.state;
+		this.props.firebase.db.collection('conversations').doc(compoundUID).update({ isOpen: false });
         this.setState({ convoSelected: false });
     }
 
