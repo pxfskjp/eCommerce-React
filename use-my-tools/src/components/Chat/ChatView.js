@@ -39,7 +39,7 @@ class ChatViewBase extends Component {
   
 	scrollDownMessages = () => {
 		this.messagesRef.current.scrollTop = this.messagesRef.current.scrollHeight;
-	}
+	};
 	
 	// method to send a message when user submits:
 	onSubmit = (event) => {
