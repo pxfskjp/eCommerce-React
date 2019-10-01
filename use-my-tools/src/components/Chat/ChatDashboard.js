@@ -54,7 +54,7 @@ class ChatDashboardBase extends React.Component {
 		}
 		const recipientName = convo[recipientUID];
 
-		// initialize onSnapshot()listener to Firestore db and get existing messages
+		// initialize onSnapshot() listener to Firestore db and get existing messages
 		// The first query snapshot returned contains 'added' events
 		// for all existing documents that match the query
 		let messages = [];
@@ -68,7 +68,7 @@ class ChatDashboardBase extends React.Component {
 						messages.push(change.doc.data());
 					}
                 });
-                console.log('messages: ', messages);
+
 				this.setState({
                     convoSelected: true,
                     currentConvo: convo,
@@ -77,12 +77,11 @@ class ChatDashboardBase extends React.Component {
 					compoundUID,
 					recipientUID,
 					recipientName
-                }, () => console.log("\nConvo Selected. ChatDashboard state: ", this.state));
+                });
             });
     }
 
     sendMessage = (messageContent) => {
-        // console.log('sendMessage messageContent:', messageContent);
         const { compoundUID } = this.state;
         const timeStamp = Date.now();
         const messageData = {
@@ -91,7 +90,7 @@ class ChatDashboardBase extends React.Component {
 			recipientUID: this.state.recipientUID,
 			timeSent: timeStamp
         };
-        // console.log('sendMessage messageData:', messageData);
+
         this.props.firebase.db
 			.collection('conversations')
 			.doc(compoundUID)

@@ -13,25 +13,20 @@ import ConfirmRentalDialog from '../Renter/ConfirmRentalDialog';
 import axios from 'axios';
 
 const styles = {
-    mainContainer: {
-        height: 410,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        padding: 5,
-        borderTop: '1px solid grey',
-        borderBottom: '1px solid grey'
-    },
-    textContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start'
-    },
-    dialogContent: {
-        // display: 'flex',
-        // flexDirection: 'column',
-        // alignItems: 'space-around'
+  mainContainer: {
+      height: 410,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      padding: 5,
+      borderTop: '1px solid grey',
+      borderBottom: '1px solid grey'
+  },
+  textContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start'
   },
   bottomButtons: {
     display: 'flex',
