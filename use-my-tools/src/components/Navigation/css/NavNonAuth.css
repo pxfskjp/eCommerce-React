@@ -14,7 +14,8 @@
 }
 
 .nav-non-auth-container .nav-link-container {
-	width: 60%;
+	width: 40%;
+	margin-right: 25px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -30,7 +31,7 @@
 
 @media (max-width: 800px) {
 	.nav-non-auth-container .nav-link-container {
-		width: 60%;
+		width: 50%;
 		margin: 0px 25px 20px 15px;
 	}
 

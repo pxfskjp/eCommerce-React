@@ -6,7 +6,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LocationSearchInput from './LocationSearchInput';
 import Typography from "@material-ui/core/Typography";
-
 import axios from 'axios';
 
 import "./css/RegisterPage.css";

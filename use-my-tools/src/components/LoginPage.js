@@ -5,12 +5,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from "@material-ui/core/Typography";
-
 import axios from 'axios';
 
 import "./css/LoginPage.css";
-
-
 
 class LoginBase extends Component {
     constructor(props) {
