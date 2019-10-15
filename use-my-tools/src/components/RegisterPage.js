@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
 import { withFirebase } from "./Firebase";
-import { FirebaseContext } from './Firebase';
 import { Link, withRouter } from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LocationSearchInput from './LocationSearchInput';
 import Typography from "@material-ui/core/Typography";
-
 import axios from 'axios';
 
 import "./css/RegisterPage.css";
 
-const RegisterPage = () => (
-    <div>
-      <FirebaseContext.Consumer>
-        {firebase => <RegisterForm firebase={firebase} />}
-      </FirebaseContext.Consumer>
-    </div>
-  );
-
-class RegisterFormBase extends Component {
+class RegisterBase extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -170,16 +160,6 @@ class RegisterFormBase extends Component {
                         />
                         <br/>
 
-                        {/* <TextField
-                            style = {{width: '65%'}}
-                            hintText="Enter your home address so other users can find your tools"
-                            floatingLabelText="Home Address"
-                            name="homeAddress"
-                            type="text"
-                            required={true}
-                            value={this.state.homeAddress}
-                            onChange={this.onChange}
-                        /> */}
                         <div className="location-input">
                             <LocationSearchInput 
                                 handleSelectLocation={this.handleSelectLocation} 
@@ -210,8 +190,6 @@ class RegisterFormBase extends Component {
     }
 }
 
-const RegisterForm = withRouter(withFirebase(RegisterFormBase));
+const RegisterPage = withRouter(withFirebase(RegisterBase));
 
 export default RegisterPage;
-
-export {RegisterForm};

@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
 import { withFirebase } from "./Firebase";
-import { FirebaseContext } from './Firebase';
 import { Link, withRouter } from "react-router-dom"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Typography from "@material-ui/core/Typography";
-
 import axios from 'axios';
 
 import "./css/LoginPage.css";
 
-const LoginPage = () => (
-    <div>
-      <FirebaseContext.Consumer>
-        {firebase => <LoginForm firebase={firebase} />}
-      </FirebaseContext.Consumer>
-    </div>
-  );
-
-class LoginFormBase extends Component {
+class LoginBase extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,7 +32,7 @@ class LoginFormBase extends Component {
                     .then(idToken => {
                         console.log("idToken from firebase logIn: ", idToken);
                         axios.defaults.headers.common['Authorization'] = idToken;   
-                        this.props.history.push('accountpage');
+                        this.props.history.push('/accountpage');
                     })  
                     .catch(error => {                 // if Firebase getIdToken throws an error
                         this.setState({ 
@@ -128,8 +118,7 @@ class LoginFormBase extends Component {
     }
 }
 
-const LoginForm = withRouter(withFirebase(LoginFormBase));
+const LoginPage = withRouter(withFirebase(LoginBase));
 
 export default LoginPage;
 
-export {LoginForm};

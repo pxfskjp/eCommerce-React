@@ -12,6 +12,9 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').load();
 }
 
+// import auto jobs that run automatically on an interval:
+require('./auto-jobs/updateRentalStatuses');
+
 // Firebsae imports:
 const firebase = require("firebase/app");
 require("firebase/auth");
