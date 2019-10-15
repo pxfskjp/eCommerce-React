@@ -75,6 +75,7 @@ function findTools(city) {
         ])
         .from('tools')
         .leftJoin('users', 'tools.owner_uid', 'users.uid')
+        .where('tools.available', 'true')
         .where('users.city', city);
 }
 

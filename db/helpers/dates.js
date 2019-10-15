@@ -3,7 +3,8 @@ const db = require('../db.js');
 module.exports = {
     reserveDates,
     getRentalDates,
-    getOwnerReservedDates
+    getOwnerReservedDates,
+    deleteReservedDates
 }
 
 function reserveDates(dateRange) {
@@ -11,6 +12,12 @@ function reserveDates(dateRange) {
         .insert(dateRange)
         .returning('id')
         .then(ids => ids[0]);
+}
+
+function deleteReservedDates(toolId) {
+    return db('reserved_dates')
+        .where('tool_id', toolId)
+        .del();
 }
 
 function getRentalDates(toolId) {
