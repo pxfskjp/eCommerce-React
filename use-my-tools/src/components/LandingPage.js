@@ -13,19 +13,6 @@ class LandingPage extends Component {
     render() {
         return (
             <div className="landingpage">
-
-                {/* <div className="nav-bar">
-                    <div className="link-container">
-                        <Link to="/register" className="nav-link">
-                            Sign Up
-                        </Link>
-
-                        <Link to="/login" className="nav-link">
-                            Sign In
-                        </Link>
-                    </div>
-                </div> */}
-
                 <section className="welcome-section">
                     <div className="welcome-text-container">
                         <h1 className="title-text">
