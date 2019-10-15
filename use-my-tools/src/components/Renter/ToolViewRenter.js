@@ -27,24 +27,15 @@ class ToolViewRenter extends React.Component {
 
     componentDidMount() {
         let tool_id = this.props.match.params.id;
-        // console.log(tool_id);
         this.getToolInfo(tool_id);
-        // console.log(this.state.tool.images);
         console.log(this.state.tool);
     }
 
     getToolInfo = tool_id => {
-        console.log('getToolInfo called');
         axios.get(`/api/tools/renter/singletool/${tool_id}`)
             .then(tool => {
-                // console.log('getToolInfo tool:', tool);
-                console.log('getToolInfo tool.data:', tool.data);
-
                 this.setState({
                     tool: tool.data
-                }, () => { 
-                    console.log("ToolView state.tool after getToolInfo:", this.state.tool);
-                    // console.log(this.state.tool.images);
                 });
             })
             .catch(error => {
@@ -55,21 +46,18 @@ class ToolViewRenter extends React.Component {
     render() {
         const { tool } = this.state;
         const toolId = this.props.match.params.id;
-        // const { classes } = this.props;
 
         return (
             <div className="pageContainer">
-                {/* <Route path="/confirmrental" component={ConfirmRental} /> */}
-
-                <div className="title">
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {tool.brand}{' '}{tool.name}
-                    </Typography>
-                    
-                </div>
+                
 
                 <div className="mainContainer">
                     <div className="leftContainer">
+                        <div className="tool-title-container">
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {tool.brand}{' '}{tool.name}
+                            </Typography>
+                        </div>
                         {tool.images ? (
                             <ImageCarousel toolImages={tool.images} />
                         ) : (

@@ -12,11 +12,14 @@
 }
 
 .chatview-container .messages-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
 	padding: 0 10px 10px 10px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	/* max-height: 700px; */
-	/* flex-grow: 1; */
+	flex-grow: 1;
 	width: 100%;
 	background-color: white;
 }
@@ -73,11 +76,13 @@
 }
 
 .align-left {
-	float: left;
+	/* float: left; */
+	margin-right: auto;
 	background-color: #e7e5eb;
 }
 
 .align-right {
-	float: right;
+	/* float: right; */
+	margin-left: auto;
 	background-color: #4cd863;
 }
