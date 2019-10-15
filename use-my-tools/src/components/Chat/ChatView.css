@@ -76,13 +76,11 @@
 }
 
 .align-left {
-	/* float: left; */
 	margin-right: auto;
 	background-color: #e7e5eb;
 }
 
 .align-right {
-	/* float: right; */
 	margin-left: auto;
 	background-color: #4cd863;
 }
