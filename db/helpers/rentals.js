@@ -10,7 +10,8 @@ module.exports = {
     createCancelDate,
     getRenterRentalIDs,
     getOwnerRentalIDs,
-    updateRentalRating
+    updateRentalRating,
+    getAllRentalsByStatus
 }
 
 // function to create a new rental in the Rentals table:
@@ -152,6 +153,20 @@ function createCancelDate(rentalId, date) {
 }
 
 // *** Functions for auto updating rental statuses:
+
+function getAllRentalsByStatus(statuses) {
+    return db
+        .select([
+            'Rentals.RentalID',
+            'Rentals.Status',
+            'Rentals.RenterUID',
+            'reserved_dates.start_date as StartDate',
+            'reserved_dates.end_date as EndDate'
+        ])
+        .from('Rentals')
+        .whereIn('Rentals.Status', statuses)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id');
+}
 
 function getRenterRentalIDs(uid, statuses) {
     return db

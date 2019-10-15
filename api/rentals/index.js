@@ -194,14 +194,6 @@ router.get('/renter/rental/:rentalId', async (req, res) => {
     catch(error){
         res.status(500).json(error.message);
     }
-    // rentalsDb.getRenterRental(rentalId)
-    //     .then(rental => {
-    //         // console.log('Rental data from db received at API layer: ', rental);
-    //         res.status(200).json(rental);
-    //     })
-    //     .catch(error => {
-    //         res.status(500).json(error.message);
-    //     })
 });
 
 // Endpoint to update rental status:
@@ -228,7 +220,7 @@ router.put('/updatestatus', async (req, res) => {
 });
 
 // endpoint to update all of a user's rentals to 'active' or 'complete' Status based on current date:
-router.post('/autoupdatestatusbydate', async (req, res) => {
+router.post('/user/updatestatusbydate', async (req, res) => {
     // take uid from req.body:
     const { uid } = req.body;
     // get current date:
@@ -237,7 +229,7 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
     let updates = [];
     let update = null;
     try {
-        // Moving upcoming rentals to active or completed:
+        // Move upcoming rentals to active or completed:
         const renterRentalsUpcoming = await rentalsDb.getRenterRentalIDs(uid, ['upcoming']);
         const ownerRentalsUpcoming = await rentalsDb.getOwnerRentalIDs(uid, ['upcoming']);
         const upcomingRentals = renterRentalsUpcoming.concat(ownerRentalsUpcoming);
@@ -258,6 +250,47 @@ router.post('/autoupdatestatusbydate', async (req, res) => {
         const renterRentalsActive = await rentalsDb.getRenterRentalIDs(uid, ['active']);
         const ownerRentalsActive = await rentalsDb.getOwnerRentalIDs(uid, ['active']);
         const activeRentals = renterRentalsActive.concat(ownerRentalsActive);
+
+        for (let rental of activeRentals) {
+            if (currentDate > rental.EndDate) {
+                // update rental status to completed:
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
+                updates.push(update);
+            }
+        }
+        res.status(200).json(updates);
+    }
+    catch(error) {
+        console.log(error.message);
+        res.status(500).json(error.message);
+    }
+});
+
+router.post('/all/updatestatusbydate', async (req, res) => {
+    // get current date:
+    const currentDate = new Date();
+    
+    let updates = [];
+    let update = null;
+    try {
+        // Move upcoming rentals to active or completed:
+        const upcomingRentals = await rentalsDb.getAllRentalsByStatus(['upcoming']);
+
+        for (let rental of upcomingRentals) {
+            if (currentDate >= rental.StartDate && currentDate <= rental.EndDate) {
+                // update rental status to active
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'active');
+                updates.push(update);
+            }
+            if (currentDate > rental.EndDate) {
+                // update rental status to completed
+                update = await rentalsDb.updateRentalStatus(rental.RentalID, 'completed');
+                updates.push(update);
+            }
+        }
+
+        // Move active rentals to completed:
+        const activeRentals = await rentalsDb.getAllRentalsByStatus(['active']);
 
         for (let rental of activeRentals) {
             if (currentDate > rental.EndDate) {
