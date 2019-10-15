@@ -3,7 +3,6 @@ const rentalsDb = require('../db/helpers/rentals');
 module.exports = setInterval(updateRentalStatuses, 1000 * 60 * 1);
 
 async function updateRentalStatuses() {
-    console.log('updateRentalStatuses auto job called');
     // get current date:
     const currentDate = new Date();
     
@@ -36,10 +35,9 @@ async function updateRentalStatuses() {
                 updates.push(update);
             }
         }
-        res.status(200).json(updates);
+        console.log('Rental statuses updated');
     }
     catch(error) {
-        console.log(error.message);
-        res.status(500).json(error.message);
+        console.log('Error while updating Rental statuses:', error.message);
     }
 }
