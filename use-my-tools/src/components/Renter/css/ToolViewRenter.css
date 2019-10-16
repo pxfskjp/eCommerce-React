@@ -1,7 +1,8 @@
-.pageContainer {
+/* .pageContainer {
 	display: flex;
 	flex-direction: column;
-}
+	max-width: 950px;
+} */
 
 .tool-title-container {
 	padding: 10px;

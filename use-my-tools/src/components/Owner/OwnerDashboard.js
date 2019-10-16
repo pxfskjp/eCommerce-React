@@ -106,7 +106,6 @@ class OwnerDashboard extends Component {
                 </div>
                 
             </div>
-
         );
     }
 }

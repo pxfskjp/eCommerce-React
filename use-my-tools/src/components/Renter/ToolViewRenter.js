@@ -49,8 +49,6 @@ class ToolViewRenter extends React.Component {
 
         return (
             <div className="pageContainer">
-                
-
                 <div className="mainContainer">
                     <div className="leftContainer">
                         <div className="tool-title-container">
