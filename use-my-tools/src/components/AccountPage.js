@@ -199,8 +199,8 @@ class AccountPage extends Component {
                             alt="avatar"
                         />
 
-                        <p>Upload Photo:</p>
                         <form className="image-upload" onSubmit={this.imageUpload}>
+                            <p>Edit:</p>
                             <input
                                 label="Upload Photo"
                                 accept="image/*"
