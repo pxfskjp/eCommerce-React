@@ -46,25 +46,24 @@ class DeleteDialog extends React.Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            
-              <div>
-                <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
+            <div>
+              <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
 
-                <DialogContent>
-                  <DialogContentText>
-                    Are you sure you want to delete this tool?
-                  </DialogContentText>
-                </DialogContent>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete this tool?
+                </DialogContentText>
+              </DialogContent>
 
-                <DialogActions>
-                  <Button onClick={this.handleClose} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={this.handleConfirm} color="primary">
-                    Delete
-                  </Button>
-                </DialogActions>
-              </div>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={this.handleConfirm} color="primary">
+                  Delete
+                </Button>
+              </DialogActions>
+            </div>
             
           </Dialog>
           {this.state.error && <p>{this.state.error}</p>}
