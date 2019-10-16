@@ -9,7 +9,7 @@ The root directory contains backend (server and database) code as well as the us
 
 ## Backend Server
 
-The backend server is built with express and Node.js. In the root directory, 'server.js' contains the code that configures the backend express server and defines the base URLs for the various API categories. 'server.js' also imports Firebase config variables and uses Firebase Authentication to authenticate requests before allowing them to access the API. 'index.js' imports 'server.js' and initializes the server listener on the designated port. 
+The backend server is built with Node.js and express. In the root directory, 'server.js' contains the code that configures the backend express server and defines the base URLs for the various API routes. 'server.js' also imports Firebase config variables and uses Firebase Authentication to authenticate requests before allowing them to access the API. 'index.js' imports 'server.js' and initializes the server listener on the designated port. 
 
 The code for API endpoints is contained in the 'api' folder, organized into folders for rentals, tools, and users.
 
@@ -34,32 +34,4 @@ Most of the UI styling is done in plain CSS. The organizational pattern for css 
 A few components, such as some Material UI components, use MUI class styling, with classes defined in a `styles` function that returns an object containing the relevant classes. This `styles` function will be located in the same file as the parent component where the MUI component is rendered.
 
 ### Dynamic UI Styling
-Dynamic styling that adapts to screen size is employed throughout the app. However, this is not a "mobile-first" app, i.e., dynamic styling is not optimized for mobile devices. Therefore, some mobile device browsers will present a UI with obvious bugs and unreachable content. 
-
-<!-- ## How to run the app in a development environment:
-1) Fork and/or clone the repository.
-
-2) Install dependencies:
-    - from the root directory run the command `npm install`
-
-3) Create a local Postgres database, making sure that the username under which you create the db, the password, and the name of the db match the corresponding values in the file 'knex.js' found in the root directory.
-
-4) Run database migrations to create the tables in the postgres db:
-    - From the root directory, run the command `knex migrate:latest`
-
-5) Run database seed files:
-    - From the root directory, run the command `knex seed:run`
-
-6)  Set up Firebase Authentication:
-    - Create an account with Google Firebase
-    - Follow documentation on configuring Firebase authentication from the Firebase Console. 
-    - Create a .env file in the root directory and copy the configuration values provided by Firebase
-
-7) Start the backend server:
-    - From the root directory run command `node index.js`
-
-8) Start the frontend (client) server:
-    - cd into the use-my-tools directory by running `cd use-my-tools` from the root directory
-    - run the command `npm start` -->
-
-
+Dynamic styling that adapts to screen size is employed throughout the app. However, this is not a "mobile-first" app, i.e., dynamic styling is optimized for desktops rather than mobile devices. Therefore, some mobile device browsers will present a UI with obvious bugs and unreachable content. For the best experience use a desktop browser.

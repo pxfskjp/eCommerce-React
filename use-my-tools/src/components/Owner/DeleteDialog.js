@@ -7,7 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
-
 class DeleteDialog extends React.Component {
   state = {
     open: false,
@@ -38,7 +37,7 @@ class DeleteDialog extends React.Component {
     
     return (
         <div>
-          <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+          <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>
                 Delete Tool
           </Button>
           
@@ -47,25 +46,24 @@ class DeleteDialog extends React.Component {
             onClose={this.handleClose}
             aria-labelledby="form-dialog-title"
           >
-            
-              <div>
-                <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
+            <div>
+              <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
 
-                <DialogContent>
-                  <DialogContentText>
-                    Are you sure you want to delete this tool?
-                  </DialogContentText>
-                </DialogContent>
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete this tool?
+                </DialogContentText>
+              </DialogContent>
 
-                <DialogActions>
-                  <Button onClick={this.handleClose} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={this.handleConfirm} color="primary">
-                    Delete
-                  </Button>
-                </DialogActions>
-              </div>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={this.handleConfirm} color="primary">
+                  Delete
+                </Button>
+              </DialogActions>
+            </div>
             
           </Dialog>
           {this.state.error && <p>{this.state.error}</p>}

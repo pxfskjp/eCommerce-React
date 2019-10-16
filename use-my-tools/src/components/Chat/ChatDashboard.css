@@ -1,3 +1,9 @@
+/* .pageContainer {
+	max-width: 950px;
+	margin-left: auto;
+	margin-right: auto;
+} */
+
 .chat-dashboard-container {
 	position: fixed;
 	bottom: 0%;

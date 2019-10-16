@@ -138,8 +138,8 @@ class AccountPage extends Component {
         const  addressReceived = this.state.fullAddress;
 
         return (
+            <div className="pageContainer">
             <div className="account-page-container">
-
                 <div className="left-container">
                     <form onSubmit={this.updateUserDetails}>
                         <h2>Personal Details</h2>
@@ -199,8 +199,8 @@ class AccountPage extends Component {
                             alt="avatar"
                         />
 
-                        <p>Upload Photo:</p>
                         <form className="image-upload" onSubmit={this.imageUpload}>
+                            <p>Edit:</p>
                             <input
                                 label="Upload Photo"
                                 accept="image/*"
@@ -213,6 +213,7 @@ class AccountPage extends Component {
                 </div>
                 {/* end right-container */}
 
+            </div>
             </div>
         );
     }

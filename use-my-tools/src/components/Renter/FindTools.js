@@ -112,7 +112,7 @@ class FindTools extends Component {
         );
 
         return (
-            <div className="page-container">
+            <div className="pageContainer">
                 <h1>Showing Tools in Your City:</h1>
 
                 <div className="main-container">

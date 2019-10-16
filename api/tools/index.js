@@ -255,16 +255,25 @@ router.delete('/tool/delete/:id', (req, res) => {
 
     toolsDb.deleteToolImages(id)
         .then(toolImagesResponse => {
-            toolsDb.deleteTool(id)
-            .then(toolResponse => {
-                console.log(toolResponse);
-                res.status(200).json(toolResponse);
-            })
-            .catch(error => {
-                res.status(500).json(error.message);
-            });
+            datesDb.deleteReservedDates(id)
+                .then(datesResponse => {
+                    toolsDb.deleteTool(id)
+                    .then(toolResponse => {
+                        console.log(toolResponse);
+                        res.status(200).json(toolResponse);
+                    })
+                    .catch(error => {
+                        console.log('error deleting tool:', error);
+                        res.status(500).json(error.message);
+                    });
+                })
+                .catch(error => {
+                    console.log('error deleting dates:', error);
+                    res.status(500).json(error.message);
+                })
         })
         .catch(error => {
+            console.log('error deleting tool images:', error);
             res.status(500).json(error.message);
         });
 })

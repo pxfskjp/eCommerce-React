@@ -1,43 +1,43 @@
 .main-container {
-    display: flex;
-    flex-direction: space-between;
+	display: flex;
+	flex-direction: space-between;
 }
 
 .filter-menu-container {
-    border-right: 2px solid grey;
-    width: 15%;
-    min-width: 150px;
+	border-right: 2px solid grey;
+	width: 15%;
+	min-width: 150px;
 }
 
 .tools-list-container {
-    /* margin-left: 20px; */
-    width: 80%;
-    margin: 20px 10px 20px 10px;
+	/* margin-left: 20px; */
+	width: 80%;
+	margin: 20px 10px 20px 10px;
 }
 
 .grid-item {
-    width: 25%;
+	width: 25%;
 }
 
 @media (max-width: 700px) {
-    .main-container {
-        display: flex;
-        flex-direction: column;
-    }
+	.main-container {
+		display: flex;
+		flex-direction: column;
+	}
 
-    .filter-menu-container {
-        border-right: none;
-        border-bottom: 2px solid grey;
-        width: 100%;
-        min-width: 150px;
-    }
+	.filter-menu-container {
+		border-right: none;
+		border-bottom: 2px solid grey;
+		width: 100%;
+		min-width: 150px;
+	}
 
-    .tools-grid {
-        margin: auto;
-        width: 100%;
-    }
+	.tools-grid {
+		margin: auto;
+		width: 100%;
+	}
 
-    .grid-item {
-        width: 45%;
-    }
+	.grid-item {
+		width: 45%;
+	}
 }
