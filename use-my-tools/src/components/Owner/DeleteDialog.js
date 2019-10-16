@@ -7,7 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
-
 class DeleteDialog extends React.Component {
   state = {
     open: false,
@@ -38,7 +37,7 @@ class DeleteDialog extends React.Component {
     
     return (
         <div>
-          <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+          <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>
                 Delete Tool
           </Button>
           
