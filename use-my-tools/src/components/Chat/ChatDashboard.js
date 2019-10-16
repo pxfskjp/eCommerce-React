@@ -130,6 +130,7 @@ class ChatDashboardBase extends React.Component {
                                         currentConvo={this.state.currentConvo}
                                         uid={this.state.uid}
                                         recipientUID={this.state.recipientUID}
+                                        recipientName={this.state.recipientName}
                                         messages={this.state.messages}
                                         sendMessage={this.sendMessage}
                                         closeCurrentConvo={this.closeCurrentConvo}

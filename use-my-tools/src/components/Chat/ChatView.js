@@ -65,7 +65,7 @@ class ChatViewBase extends Component {
 		return (
 			<div className="chatview-container">
 				<div className="convo-header">
-					<p className={classes.chatViewHeadName}>Chat with {this.state.recipientName}</p>
+					<p className={classes.chatViewHeadName}>Chat with <b>{this.props.recipientName}</b></p>
 				</div>
 				<div className="messages-container" ref={this.messagesRef}>
 					{this.props.messages.map((message, index) => {
