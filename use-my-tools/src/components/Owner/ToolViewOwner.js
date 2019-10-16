@@ -29,7 +29,8 @@ const styles = theme => ({
     },
     textField: {
         marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit
+        marginRight: theme.spacing.unit,
+        "width": "90%"
     },
     dense: {
         marginTop: 16
@@ -169,15 +170,12 @@ class ToolViewOwner extends Component {
                 </div>
 
                 <div className="main-container">
-
                     <div className="left-container">
-
                         {tool.images ? (
                             <ImageCarousel toolImages={tool.images} />
                         ) : (
                             ''
                         )}
-
                         <div className ="add-image">
                             <p>Add image:   </p>
                             <input
@@ -190,7 +188,6 @@ class ToolViewOwner extends Component {
                                 onChange={this.handleFileChange}
                             />
                         </div>
-
                     </div>
 
                     <div className="right-container">
