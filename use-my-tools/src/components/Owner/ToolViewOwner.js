@@ -160,7 +160,7 @@ class ToolViewOwner extends Component {
         const { classes } = this.props;
 
         return (
-            <div className="page-container">
+            <div className="pageContainer">
                 <div className="title">
                     <Typography gutterBottom variant="h5" component="h2">
                         Your Tool: {tool.brand}{' '}{tool.name}
