@@ -51,7 +51,7 @@ function getToolRentals(toolId) {
 
 function deleteToolRentals(toolId) {
     return db('Rentals')
-        .where('toolID', toolId)
+        .where('ToolID', toolId)
         .del();
 }
 

@@ -254,14 +254,14 @@ router.delete('/tool/delete/:id', async (req, res) => {
     console.log('delete tool toolId', toolId);
 
     try {
-        await datesDb.deleteReservedDates(toolId);
         await rentalsDb.deleteToolRentals(toolId);
+        await datesDb.deleteReservedDates(toolId);
         await toolsDb.deleteToolImages(toolId);
         await toolsDb.deleteTool(toolId);
         res.status(200).json('Tool deleted');
     }
     catch(error) {
-        res.status(500).json(error.message);
+        res.status(500).json(error);
     }
     
 
