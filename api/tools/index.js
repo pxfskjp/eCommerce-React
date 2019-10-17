@@ -212,12 +212,18 @@ router.get('/owner/singletool/:id', async (req, res) => {
     const toolId = req.params.id;
 
     try {
-        const tool = await toolsDb.getMyTool(toolId);           // get tool from db
-        const images = await imagesDb.getToolImages(toolId);    // get images tied to the tool
-        tool.images = images;                                   // add images to the tool object
+        const tool = await toolsDb.getMyTool(toolId);
+
+        const images = await imagesDb.getToolImages(toolId);
+        tool.images = images;
+
         const rentals = await rentalsDb.getToolRentals(toolId);
-        console.log('tool rentals:', rentals);
         tool.rentals = rentals.length ? rentals : [];
+
+        const incompleteRentals = rentals.filter(rental => {
+            return (rental.Status === 'upcoming') || (rental.Status === 'active');
+        });
+        tool.hasIncompleteRentals = incompleteRentals.length > 0;
         res.status(200).json(tool); 
     }
     catch(error) {
@@ -263,31 +269,6 @@ router.delete('/tool/delete/:id', async (req, res) => {
     catch(error) {
         res.status(500).json(error);
     }
-    
-
-    // toolsDb.deleteToolImages(id)
-    //     .then(toolImagesResponse => {
-    //         datesDb.deleteReservedDates(id)
-    //             .then(datesResponse => {
-    //                 toolsDb.deleteTool(id)
-    //                 .then(toolResponse => {
-    //                     console.log(toolResponse);
-    //                     res.status(200).json(toolResponse);
-    //                 })
-    //                 .catch(error => {
-    //                     console.log('error deleting tool:', error);
-    //                     res.status(500).json(error.message);
-    //                 });
-    //             })
-    //             .catch(error => {
-    //                 console.log('error deleting dates:', error);
-    //                 res.status(500).json(error.message);
-    //             })
-    //     })
-    //     .catch(error => {
-    //         console.log('error deleting tool images:', error);
-    //         res.status(500).json(error.message);
-    //     });
 })
 
 router.put('/updatetooldetails/:id', (req, res) => {
@@ -312,50 +293,3 @@ router.put('/updatetooldetails/:id', (req, res) => {
 
 
 module.exports = router;
-
-// router.post('/newtool', (req, res) => {
-//     // from user input:
-
-//         // brand
-//         // name, not Null
-//         // description, not Null
-//         // price, not Null, defaults to 0
-
-//     // from db:
-//         // owner_uid, not Null
-//         // home_street_address
-//         // current_street_address
-//         // home_lat
-//         // home_lon
-//         // current_lat
-//         // current_lon
-//         // available, defaults to false
-//         // rating
-//         // owner_rating
-
-//     let { brand, name, description, price, image_file } = req.body;
-//     let owner_uid = req.body.uid;
-//     let available = true;
-    
-//     let newTool = {
-//         brand: brand,
-//         name: name,
-//         description: description,
-//         price: price,
-//         owner_uid: owner_uid,
-//         available: available
-//     };
-
-//     toolsDb.createTool(newTool)
-//         .then(response => {
-//             console.log('response from db insert newTool: ', response);
-            
-            
-            
-//             res.status(200).json(response);
-//         })
-//         .catch(error => {  // catch error from insert new rep request
-//             console.log(error.message);
-//             res.status(500).json({message: error.message});
-//         })
-// })

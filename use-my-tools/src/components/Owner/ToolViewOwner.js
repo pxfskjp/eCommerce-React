@@ -134,7 +134,7 @@ class ToolViewOwner extends Component {
         this.props.history.push({        
             pathname: "/yourtools"
         });
-    }
+    };
 
     handleChange = name => event => {
         this.setState({
@@ -146,12 +146,11 @@ class ToolViewOwner extends Component {
         this.setState({
             available: event.target.checked
         }, () => console.log('state.available:', this.state.available));
-    }
+    };
 
     render() {
         const { tool } = this.state;
         const { classes } = this.props;
-
         return (
             <div className="pageContainer">
                 <div className="title">
