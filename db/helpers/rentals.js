@@ -27,6 +27,26 @@ function createRental(rental) {
         })
 }
 
+function getToolRentals(toolId) {
+    return db
+        .select([
+            'Rentals.RentalID',
+            'Rentals.RenterUID',
+            'Rentals.OwnerUID',
+            'Rentals.ToolID',
+            'Rentals.ReservedDatesID',
+            'Rentals.Status',
+            'Rentals.DailyRentalPrice',
+            'reserved_dates.start_date as StartDate',
+            'reserved_dates.end_date as EndDate',
+            'users.first_name as RenterFirstName',
+            'users.last_name as RenterLastName'
+        ])
+        .where('Rentals.toolID', toolId)
+        .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
+        .innerJoin('users', 'Rentals.RenterUID', 'users.uid');
+}
+
 function deleteToolRentals(toolId) {
     return db('Rentals')
         .where('toolID', toolId)
