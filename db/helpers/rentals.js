@@ -2,6 +2,7 @@ const db = require('../db.js');
 
 module.exports = {
     createRental,
+    deleteToolRentals,
     getOwnerRentals,
     getRenterRentals,
     getOwnerRental,
@@ -24,6 +25,12 @@ function createRental(rental) {
             console.log(error.message);
             res.status(500).json(error.message);
         })
+}
+
+function deleteToolRentals(toolId) {
+    return db('Rentals')
+        .where('toolID', toolId)
+        .del();
 }
 
 // function to get all Rentals for a tool owner:

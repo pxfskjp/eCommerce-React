@@ -7,6 +7,7 @@ const toolsDb = require('../../db/helpers/tools');
 const usersDb = require('../../db/helpers/users');
 const imagesDb = require('../../db/helpers/images');
 const datesDb = require('../../db/helpers/dates');
+const rentalsDb = require('../../db/helpers/rentals');
 
 // Import .env config vars for dev Environment
 if (process.env.ENVIRONMENT === 'development') { 
@@ -249,33 +250,45 @@ router.post('/reservedates', (req, res) => {
 
 })
 
-router.delete('/tool/delete/:id', (req, res) => {
-    const id = req.params.id;
-    console.log(id);
+router.delete('/tool/delete/:id', async (req, res) => {
+    const toolId = req.params.id;
+    console.log('delete tool toolId', toolId);
 
-    toolsDb.deleteToolImages(id)
-        .then(toolImagesResponse => {
-            datesDb.deleteReservedDates(id)
-                .then(datesResponse => {
-                    toolsDb.deleteTool(id)
-                    .then(toolResponse => {
-                        console.log(toolResponse);
-                        res.status(200).json(toolResponse);
-                    })
-                    .catch(error => {
-                        console.log('error deleting tool:', error);
-                        res.status(500).json(error.message);
-                    });
-                })
-                .catch(error => {
-                    console.log('error deleting dates:', error);
-                    res.status(500).json(error.message);
-                })
-        })
-        .catch(error => {
-            console.log('error deleting tool images:', error);
-            res.status(500).json(error.message);
-        });
+    try {
+        await datesDb.deleteReservedDates(toolId);
+        await rentalsDb.deleteToolRentals(toolId);
+        await toolsDb.deleteToolImages(toolId);
+        await toolsDb.deleteTool(toolId);
+        res.status(200).json('Tool deleted');
+    }
+    catch(error) {
+        res.status(500).json(error.message);
+    }
+    
+
+    // toolsDb.deleteToolImages(id)
+    //     .then(toolImagesResponse => {
+    //         datesDb.deleteReservedDates(id)
+    //             .then(datesResponse => {
+    //                 toolsDb.deleteTool(id)
+    //                 .then(toolResponse => {
+    //                     console.log(toolResponse);
+    //                     res.status(200).json(toolResponse);
+    //                 })
+    //                 .catch(error => {
+    //                     console.log('error deleting tool:', error);
+    //                     res.status(500).json(error.message);
+    //                 });
+    //             })
+    //             .catch(error => {
+    //                 console.log('error deleting dates:', error);
+    //                 res.status(500).json(error.message);
+    //             })
+    //     })
+    //     .catch(error => {
+    //         console.log('error deleting tool images:', error);
+    //         res.status(500).json(error.message);
+    //     });
 })
 
 router.put('/updatetooldetails/:id', (req, res) => {
