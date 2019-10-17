@@ -60,18 +60,12 @@ class ToolViewOwner extends Component {
 
     componentDidMount() {
         let tool_id = this.props.match.params.id;
-        console.log(tool_id);
         this.getToolInfo(tool_id);
-        console.log(this.state.tool.images);
     }
 
     getToolInfo = tool_id => {
-        console.log('getToolInfo called');
         axios.get(`/api/tools/owner/singletool/${tool_id}`)
             .then(tool => {
-                // console.log('getToolInfo tool:', tool);
-                // console.log('getToolInfo tool.data:', tool.data);
-
                 this.setState({
                     tool: tool.data,
                     renterUid: tool.data.renter_uid,
@@ -84,8 +78,6 @@ class ToolViewOwner extends Component {
                     rating: tool.data.rating,
                 }, () => { 
                     console.log("ToolView state.tool after getToolInfo:", this.state.tool);
-                    // console.log(this.state.tool.images);
-
                 });
             })
             .catch(error => {
@@ -142,7 +134,7 @@ class ToolViewOwner extends Component {
         this.props.history.push({        
             pathname: "/yourtools"
         });
-    }
+    };
 
     handleChange = name => event => {
         this.setState({
@@ -154,12 +146,11 @@ class ToolViewOwner extends Component {
         this.setState({
             available: event.target.checked
         }, () => console.log('state.available:', this.state.available));
-    }
+    };
 
     render() {
         const { tool } = this.state;
         const { classes } = this.props;
-
         return (
             <div className="pageContainer">
                 <div className="title">
@@ -263,6 +254,7 @@ class ToolViewOwner extends Component {
                             <DeleteDialog 
                                 toolId={this.props.match.params.id} 
                                 handleToolDelete={this.handleToolDelete} 
+                                hasIncompleteRentals={tool.hasIncompleteRentals}
                             />
                         </div>
                     </div>
