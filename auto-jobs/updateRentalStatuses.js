@@ -35,7 +35,6 @@ async function updateRentalStatuses() {
                 updates.push(update);
             }
         }
-        console.log('Rental statuses updated');
     }
     catch(error) {
         console.log('Error while updating Rental statuses:', error.message);
