@@ -215,26 +215,14 @@ router.get('/owner/singletool/:id', async (req, res) => {
         const tool = await toolsDb.getMyTool(toolId);           // get tool from db
         const images = await imagesDb.getToolImages(toolId);    // get images tied to the tool
         tool.images = images;                                   // add images to the tool object
+        const rentals = await rentalsDb.getToolRentals(toolId);
+        console.log('tool rentals:', rentals);
+        tool.rentals = rentals.length ? rentals : [];
         res.status(200).json(tool); 
     }
     catch(error) {
         res.status(500).json(error.message);
     }
-
-    // toolsDb.getMyTool(id)
-    //     .then(tool => {
-    //          imagesDb.getToolImages(id) // get array of image URLs for each tool
-    //             .then(images => {
-    //                 tool.images = images;  // append images array to tool object
-    //                 res.status(200).json(tool);  // Send back tool with images appended as response
-    //             })
-    //             .catch(error => {
-    //                 res.status(500).json(error.message);
-    //             });
-    //     })
-    //     .catch(error => {
-    //         res.status(500).json(error.message);
-    //     });
 })
 
 // Endpoint for an owner to reserve/block dates:

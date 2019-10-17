@@ -12,7 +12,8 @@ module.exports = {
     getRenterRentalIDs,
     getOwnerRentalIDs,
     updateRentalRating,
-    getAllRentalsByStatus
+    getAllRentalsByStatus,
+    getToolRentals
 }
 
 // function to create a new rental in the Rentals table:
@@ -42,7 +43,8 @@ function getToolRentals(toolId) {
             'users.first_name as RenterFirstName',
             'users.last_name as RenterLastName'
         ])
-        .where('Rentals.toolID', toolId)
+        .from('Rentals')
+        .where('Rentals.ToolID', toolId)
         .innerJoin('reserved_dates', 'Rentals.ReservedDatesID', 'reserved_dates.id')
         .innerJoin('users', 'Rentals.RenterUID', 'users.uid');
 }
