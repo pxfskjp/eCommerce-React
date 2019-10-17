@@ -254,6 +254,7 @@ class ToolViewOwner extends Component {
                             <DeleteDialog 
                                 toolId={this.props.match.params.id} 
                                 handleToolDelete={this.handleToolDelete} 
+                                hasIncompleteRentals={tool.hasIncompleteRentals}
                             />
                         </div>
                     </div>

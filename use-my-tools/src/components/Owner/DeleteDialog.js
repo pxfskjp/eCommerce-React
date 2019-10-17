@@ -48,21 +48,38 @@ class DeleteDialog extends React.Component {
           >
             <div>
               <DialogTitle id="form-dialog-title">Delete Tool</DialogTitle>
+              {!this.props.hasIncompleteRentals ? (
+                <div>
+                <DialogContent>
+                  <DialogContentText>
+                    Are you sure you want to delete this tool?
+                  </DialogContentText>
+                </DialogContent>
 
-              <DialogContent>
-                <DialogContentText>
-                  Are you sure you want to delete this tool?
-                </DialogContentText>
-              </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={this.handleConfirm} color="primary">
+                    Delete
+                  </Button>
+                </DialogActions>
+                </div>
+              ) : (
+                <div>
+                <DialogContent>
+                  <DialogContentText>
+                    This tool cannot be deleted because it has rentals booked that have not been completed.
+                  </DialogContentText>
+                </DialogContent>
 
-              <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                  Cancel
-                </Button>
-                <Button onClick={this.handleConfirm} color="primary">
-                  Delete
-                </Button>
-              </DialogActions>
+                <DialogActions>
+                  <Button onClick={this.handleClose} color="primary">
+                    Cancel
+                  </Button>
+                </DialogActions>
+                </div>
+              )}
             </div>
             
           </Dialog>
